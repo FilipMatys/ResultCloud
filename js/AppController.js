@@ -9,7 +9,8 @@ application.config(function ($stateProvider, $urlRouterProvider)   {
     $stateProvider
     .state('home', {
         url: '/home',
-        templateUrl: './home.html'
+        templateUrl: './home.html',
+        controller: 'HomeController'
     })
     .state('home.profileSettings', {
         url: '/profile/settings',
@@ -17,10 +18,12 @@ application.config(function ($stateProvider, $urlRouterProvider)   {
     })
     .state('login', {
         url: '/login',
-        templateUrl: './login.html'
+        templateUrl: './login.html',
+        controller: 'LoginController'
     });
 })
-application.controller('ApplicationController', ['$scope', '$http', function ($scope, $http) {
+
+application.controller('LoginController', ['$scope', '$http', function ($scope, $http) {
     $scope.Login = function () {
     };
 
