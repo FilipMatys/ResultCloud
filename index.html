@@ -6,10 +6,11 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/angular-ui-router.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/AppController.js"></script>
 </head>
-<body ng-controller="AppCtrl">
-    <ng-include src="page"></ng-include>
+<body>
+    <div ui-view style="height: 100%;"></div>
 </body>
 </html>

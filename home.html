@@ -1,4 +1,4 @@
-<div id="page" class="table" ng-controller="HomeCtrl">
+<div id="page" class="table">
     <div id="left_menu" class="table-cell"></div>
     <div id="content" class="table-cell">
         <div id="horizontal_menu" class="table-row shadow">
@@ -6,11 +6,11 @@
                 <div id="user_menu" class="btn-group">
                     <a href class="dropdown-toggle" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-user"></span>
-                        {{user.name}}
+                        Filip Matys
                             <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href ng-click="navigateTo('profile/settings')">Settings</a></li>
+                        <li><a href="#/home/profile/settings">Settings</a></li>
                     </ul>
                 </div>
 
@@ -19,8 +19,7 @@
                 </a>
             </div>
         </div>
-        <div id="view" class="block">
-            <ng-include src="view"></ng-include>
+        <div id="view" class="block" ui-view>
         </div>
     </div>
 </div>
