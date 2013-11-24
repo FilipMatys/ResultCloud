@@ -20,7 +20,7 @@ angular.module('IBP', [])
           });
           
           $scope.user = {};
-    }
+    };
 
     $scope.Logout = function () {
         $http({
@@ -34,8 +34,28 @@ angular.module('IBP', [])
          })
          .error(function (data, status, headers, config) {
          });
-    }
+    };
 }])
-.controller('HomeCtrl', ['$scope', '$http', function ($scope, $http) {
-
+.controller('HomeCtrl', ['$scope', '$http', function ($scope, $http) {    
+    
+    $scope.user = {};
+    
+    // Function definitions //
+    
+    // Get name of currently logged in user    
+    $scope.GetUsersName = function () {
+        $http({
+            method: 'GET',
+            url: './api/LoginController.php?method=usersname'
+        })
+         .success(function (data, status, headers, config) {
+             if (data)  {
+                 $scope.user.name = data.result.FirstName + ' ' + data.result.LastName;
+             }
+         })
+         .error(function (data, status, headers, config) {
+         });
+    };
+    
+    $scope.GetUsersName();
 }]);

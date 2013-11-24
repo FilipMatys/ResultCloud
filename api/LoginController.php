@@ -7,6 +7,7 @@ session_start();
  */
 include_once "$_SERVER[DOCUMENT_ROOT]/IBPGit/utilities/QueryParameter.php";
 include_once "$_SERVER[DOCUMENT_ROOT]/IBPGit/daoImplementation/security/UserDao.php";
+include_once "$_SERVER[DOCUMENT_ROOT]/IBPGit/daoImplementation/security/NameDao.php";
 /**
  * Description of LoginController
  *
@@ -16,11 +17,14 @@ class LoginController {
     //put your code here
     const AUTHORIZE = "authorize";
     const DEAUTHORIZE = "deauthorize";
+    const USERSNAME = "usersname";
     private $UserDao;
+    private $NameDao;
     private $QueryParameter;
     
     function __construct() {
         $this->UserDao = new UserDao();
+        $this->NameDao = new NameDao();
         $this->QueryParameter = new QueryParameter();
     }
     
@@ -36,11 +40,18 @@ class LoginController {
             return false;
         }
         
+        // Check given password
         if ($dbUsers[0]->Password == $user->Password)   {
             $_SESSION['id'] = $dbUsers[0]->Id;
             return true;
         }
         return false;
+    }
+    
+    function GetUsersName() {
+        $user = $this->UserDao->GetFilteredList($this->QueryParameter->Where("Id", $_SESSION['id']));
+        $name = $this->NameDao->GetFilteredList($this->QueryParameter->Where("Id", $user[0]->Name));
+        return $name[0];
     }
     
     /**
@@ -71,6 +82,10 @@ if (isset($_GET["method"]))    {
             $result->result = $LoginController->Deathorize();
             break;
         
+        case LoginController::USERSNAME:
+            $result->result = $LoginController->GetUsersName();
+            break;
+            
         default:
             $result->result = false;
             break;
