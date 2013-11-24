@@ -121,7 +121,8 @@ body, html    {
 }
 
 #user_menu .dropdown-menu {
-    left: 0px;
+    left: auto;
+    right: 0px;
     top: 75%;
     border-radius: 0px;
 }

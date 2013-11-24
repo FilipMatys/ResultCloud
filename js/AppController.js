@@ -57,5 +57,9 @@ angular.module('IBP', [])
          });
     };
     
+    $scope.navigateTo = function(page) {
+        $scope.view = './views/' + page + '.html';
+    };
+    
     $scope.GetUsersName();
 }]);
