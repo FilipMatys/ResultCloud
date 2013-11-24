@@ -1,0 +1,26 @@
+<div id="page" class="table" ng-controller="HomeCtrl">
+    <div id="left_menu" class="table-cell"></div>
+    <div id="content" class="table-cell">
+        <div id="horizontal_menu" class="table-row shadow">
+            <div id="user_area">
+                <div id="user_menu" class="btn-group">
+                    <a href class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-user"></span>
+                        {{user.name}}
+                            <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href ng-click="navigateTo('profile/settings')">Settings</a></li>
+                    </ul>
+                </div>
+
+                <a href ng-click="Logout()">
+                    <span class="glyphicon glyphicon-off"></span>
+                </a>
+            </div>
+        </div>
+        <div id="view" class="block">
+            <ng-include src="view"></ng-include>
+        </div>
+    </div>
+</div>
