@@ -49,19 +49,19 @@ class ObjectPropertyParser {
         return $marks;
     }
     
-    // Get properties of an object (without ID)
+    // Get values of an object (without ID)
     public function getObjectValues($entity)  {
         foreach ($entity as $key => $value)    {
             if ($key != 'Id')   {
-                $keys[] = $key;
+                $values[] = $value;
             }
         }
-        return $keys;
+        return $values;
     }
     
-    public function getObjectValuesTypes()   {
+    public function getObjectValuesTypes($entity)   {
         $result = '';
-        foreach ($this->class as $key => $value)    {
+        foreach ($entity as $key => $value)    {
             if ($key != 'Id')   {
                 $result .= $this->getValueType($value);
             }

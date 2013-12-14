@@ -14,22 +14,12 @@ application.config(function ($stateProvider, $urlRouterProvider)   {
     })
     .state('home.profileSettings', {
         url: '/profile/settings',
-        templateUrl: './views/profile/settings.html'
+        templateUrl: './views/profile/settings.html',
+        controller: 'ProfileSettingsController'
     })
     .state('login', {
         url: '/login',
         templateUrl: './login.html',
         controller: 'LoginController'
     });
-})
-
-application.controller('LoginController', ['$scope', '$http', function ($scope, $http) {
-    $scope.Login = function () {
-    };
-
-    $scope.Logout = function () {
-    };
-}])
-application.controller('HomeController', ['$scope', '$http', function ($scope, $http) {    
-    
-}]);
+});

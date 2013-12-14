@@ -3,11 +3,12 @@
     <div id="content" class="table-cell">
         <div id="horizontal_menu" class="table-row shadow">
             <div id="user_area">
+                <button ng-click="test()">Test</button>
                 <div id="user_menu" class="btn-group">
                     <a href class="dropdown-toggle" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-user"></span>
-                        Filip Matys
-                            <span class="caret"></span>
+                        <span>Filip Matys</span>
+                        <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="#/home/profile/settings">Settings</a></li>
@@ -20,6 +21,16 @@
             </div>
         </div>
         <div id="view" class="block" ui-view>
+        </div>
+    </div>
+</div>
+<div id="status" class="table">
+    <div class="table-cell space"></div>
+    <div class="table-cell content">
+        <div id="statusWrapper">
+            <span class="icon"></span>
+            <span class="header"></span>
+            <span class="message"></span>
         </div>
     </div>
 </div>

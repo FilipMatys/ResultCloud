@@ -36,10 +36,34 @@ abstract class Database  {
         $this->db->close();
     }
     
-    // Save entity
+    /**
+     * Save or update entity
+     * 
+     * @param type $entity to save
+     * @return inserted id
+     */
     public function Save($entity)   {
-        $statement = $this->db->prepare($this->statements->getInsertStatement());
-        $statement->bind_param($this->ObjectPropertyParser->getObjectValuesTypes(), $this->ObjectPropertyParser->getObjectValues($entity));
+        // Insert entity if, is 
+        if (!isset($entity->Id))    {
+            $statement = $this->db->prepare($this->statements->getInsertStatement());
+            $statement->bind_param($this->ObjectPropertyParser->getObjectValuesTypes($entity), $this->ObjectPropertyParser->getObjectValues($entity));
+        }
+        // Update if has Id assigned
+        else    {
+            $statement = $this->db->prepare($this->statements->getUpdateStatement());
+            // Get parameters, plus add double for id
+            $params = $this->ObjectPropertyParser->getObjectValuesTypes($entity);
+            $params .= 'd';
+            // Get values
+            $values = $this->ObjectPropertyParser->getObjectValues($entity);
+            $values[] = $entity->Id;
+            
+            array_unshift($values, $params);
+            // Now bind parameters
+            call_user_func_array(array($statement, 'bind_param'), $values);
+        }
+        
+        // Execute query
         $statement->execute();
         return $this->db->insert_id;
     }

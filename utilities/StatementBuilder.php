@@ -67,7 +67,7 @@ class StatementBuilder  {
     
     // Build basic update operation
     private function buildUpdateStatement() {
-        $this->UPDATE_STATEMENT = 'UPDATE '.get_class($this->Class).' SET '.$this->ObjectPropertyParser->getObjectPropertiesToUpdate().' WHERE Id=?';
+        $this->UPDATE_STATEMENT = 'UPDATE '.get_class($this->Class).' SET '.implode(',', $this->ObjectPropertyParser->getObjectPropertiesToUpdate()).' WHERE Id=?';
     }
     
     // Build basic delete operation

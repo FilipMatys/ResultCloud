@@ -9,16 +9,18 @@ include_once "$_SERVER[DOCUMENT_ROOT]/IBPGit/utilities/QueryParameter.php";
 include_once "$_SERVER[DOCUMENT_ROOT]/IBPGit/daoImplementation/security/UserDao.php";
 include_once "$_SERVER[DOCUMENT_ROOT]/IBPGit/daoImplementation/security/NameDao.php";
 include_once "$_SERVER[DOCUMENT_ROOT]/IBPGit/service/security/UserService.php";
+
 /**
- * Description of LoginController
+ * Description of ProfileController
  *
  * @author Filip
  */
-class LoginController {
+class ProfileController {
     //put your code here
-    const AUTHORIZE = "authorize";
-    const DEAUTHORIZE = "deauthorize";
-    const USERSNAME = "usersname";
+    //put your code here
+    const GET = "get";
+    const SAVE = "save";
+    
     private $UserService;
     
     function __construct() {
@@ -26,29 +28,21 @@ class LoginController {
     }
     
     /**
-     * Authorize user 
-     * @param User $user
-     * @return boolean
+     * Get user with detailed info
+     * 
+     * @return User
      */
-    function Authorize($user)    {
-        return $this->UserService->AuthorizeUser($user);
+    function Get()  {
+        return $this->UserService->GetUserDetail($_SESSION['id']);
     }
     
     /**
-     * Get name of logged in user
-     * @return null
+     * Save user with detailed info
+     * 
+     * @return Validation result
      */
-    function GetUsersName() {
-        return null;
-    }
-    
-    /**
-     * Deathorize user
-     * @param type $user
-     */
-    function Deathorize()  {
-        session_unset();
-        return true;
+    function Save($user)  {
+        return $this->UserService->Save($user);
     }
 }
 
@@ -59,25 +53,22 @@ $user = json_decode($data);
 
 if (isset($_GET["method"]))    {
     
-    $LoginController = new LoginController();
+    $ProfileController = new ProfileController();
     
     switch ($_GET["method"]) {
-        case LoginController::AUTHORIZE:
-            $result->result = $LoginController->Authorize($user);
+        case ProfileController::GET:
+            $result->result = $ProfileController->Get();
             break;
 
-        case LoginController::DEAUTHORIZE:
-            $result->result = $LoginController->Deathorize();
+        case ProfileController::SAVE:
+            $result->result = $ProfileController->Save($user);
             break;
-        
-        case LoginController::USERSNAME:
-            $result->result = $LoginController->GetUsersName();
-            break;
-            
+
         default:
             $result->result = false;
             break;
     }
     exit(json_encode($result));
 }
+
 ?>

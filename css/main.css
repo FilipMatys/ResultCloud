@@ -201,6 +201,56 @@ body, html    {
     padding: 30px;
 }
 
+#status {
+    position: absolute;
+    bottom: 0px;
+    height: 39px;
+    width: 100%;
+    margin-bottom: 0px;
+}
+
+#status div.space {
+    width: 180px;
+}
+
+#status div.content  {
+    border-top: solid 1px #eeeeee;
+    background: #ffffff;
+    line-height: 36px;
+}
+
+#status span.icon {
+    margin-left: 30px;
+    margin-right: 2px;
+    font-size: 18px;
+    position: relative;
+    top: 4px;
+}
+
+#status #statusWrapper  {
+    display: none;
+}
+
+#status span.header {
+    font-weight: bold;
+}
+
+#status .success    {
+    color: #8eca36;
+}
+
+#status .information    {
+    color: #39b6e6;
+}
+
+#status .error    {
+    color: #ef4123;
+}
+
+#status .warning    {
+    color: #ffc700;
+}
+
 div.card    {
     display: block;
     -moz-box-shadow: 0px 1px 1px 1px #eee;
@@ -236,7 +286,7 @@ div.card-block   {
 .card-block input  {
     width: 200px;
     margin-bottom: 10px;
-    height: 36px;
+    height: 30px;
     padding-left: 5px;
     border: 1px #ccc solid;
 }
