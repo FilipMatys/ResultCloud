@@ -13,14 +13,14 @@ application.controller('ImportController', ['$scope', '$upload', function($scope
                 var $file = $files[i];
                 $scope.File = $file.name;
                 $scope.upload = $upload.upload({
-                    url: './api/ImportController.php', //upload.php script, node.js route, or servlet url
+                    url: './api/ImportController.php?method=upload', //upload.php script, node.js route, or servlet url
                     method: 'POST',
                     file: $file
                 }).progress(function(evt) {
                     $('#import-progress-bar').width(parseInt(100.0 * evt.loaded / evt.total) + '%');
                 }).success(function(data, status, headers, config) {
                     // file is uploaded successfully
-                    console.log(data);
+                    $('#import-progress-bar').attr('class','progress-bar progress-bar-success');
                 });
                 //.error(...)
                 //.then(success, error, progress); 

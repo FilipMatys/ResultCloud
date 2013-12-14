@@ -5,7 +5,11 @@ session_start();
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-echo $_FILES["file"]["name"];
+
+// Get data
+$rawData = file_get_contents('php://input');
+// Decode json data
+$data = json_decode($rawData);
 
 /**
  * Description of ImportController
@@ -13,7 +17,47 @@ echo $_FILES["file"]["name"];
  * @author Filip
  */
 class ImportController {
-    //put your code here
+    // Client requests
+    const UPLOAD = "upload";
+    
+    // Class constants
+    const PATH = "../temp/";
+    
+    /**
+     * Upload file
+     * 
+     * @return boolean
+     */
+    public function Upload()    {
+        
+        // Generate path to save file to
+        $targetPath = ImportController::PATH . basename($_FILES["file"]["name"]);
+        if (move_uploaded_file($_FILES["file"]["tmp_name"], $targetPath))   {    
+            return true;
+        }
+        else    {
+            return false;
+        }
+    }
+}
+
+/**
+ * Client requests
+ */
+if (isset($_GET["method"]))    {
+    
+    $ImportController = new ImportController();
+    
+    switch ($_GET["method"]) {
+        case ImportController::UPLOAD:
+            $result->result = $ImportController->Upload();
+            break;
+
+        default:
+            $result->result = false;
+            break;
+    }
+    exit(json_encode($result));
 }
 
 ?>

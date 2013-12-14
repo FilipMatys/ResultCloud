@@ -15,6 +15,16 @@ body, html    {
     height: 100%;
 }
 
+span    {
+    font-size: 10pt;
+    color: #232323;
+}
+
+button span    {
+    color: white;
+}
+
+
 #page   {
     width: 100%;
     height: 100%;
@@ -262,19 +272,19 @@ body, html    {
     font-weight: bold;
 }
 
-#status .success    {
+#status .success span   {
     color: #8eca36;
 }
 
-#status .information    {
+#status .information span    {
     color: #39b6e6;
 }
 
-#status .error    {
+#status .error span   {
     color: #ef4123;
 }
 
-#status .warning    {
+#status .warning span   {
     color: #ffc700;
 }
 
@@ -370,4 +380,14 @@ div.card-block   {
     margin: 0px;
     position: relative;
     top: 6px;
+}
+
+.progress-table {
+    width: 200px;
+    line-height: 16pt;
+}
+
+.progress-table .glyphicon {
+    font-size: 11pt;
+    float: right;
 }
