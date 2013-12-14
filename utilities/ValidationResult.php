@@ -36,8 +36,8 @@ class ValidationResult {
      * 
      * @param type $property
      */
-    public function CheckNotNull($property)  {
-        if (!isset($this->Data->{$property})) {
+    public function CheckNotNullOrEmpty($property)  {
+        if (!isset($this->Data->{$property}) || $this->Data->{$property} == "") {
             $this->AddInvalid($property." is required");
         }
     }

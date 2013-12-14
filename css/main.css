@@ -20,6 +20,15 @@ body, html    {
     height: 100%;
 }
 
+.clabel {
+    color: #666;
+    font-weight: bold;
+}
+
+.cvalue{
+    margin-right: 20px;
+}
+
 .shadow {
     -moz-box-shadow: 1px 1px 1px 1px #eee;
     -webkit-box-shadow: 1px 1px 1px 1px #eee;
@@ -45,6 +54,24 @@ body, html    {
     width: 180px;
     height: 100%;
     border-right: solid 1px #eee;
+}
+
+#left_menu .menu_wrapper    {
+    position: relative;
+    top: -120px;
+    width: 100%;
+}
+
+#left_menu .menu_wrapper .menu_block   {
+    min-height: 30px;
+}
+
+#left_menu .import_block    {
+    text-align: center;
+}
+
+#left_menu .import_block .glyphicon    {
+    margin-left: 5px;
 }
 
 #content {
@@ -283,12 +310,14 @@ div.card-block   {
     color: #666;
 }
 
-.card-block input  {
-    width: 200px;
+.card-block input[type=text],
+.card-block input[type=password]{
+    width: 200px; 
     margin-bottom: 10px;
     height: 30px;
     padding-left: 5px;
     border: 1px #ccc solid;
+    color: #232323;
 }
 
 .chock  {
@@ -297,10 +326,48 @@ div.card-block   {
 
 #view .btn   {
     background: #39b6e6;
-    color: white;
-    border-radius: 0px;
-    position: relative;
     width: 100px;
+}
+
+.btn    {
+    color: white;
+    border-radius: 0px !important;
+}
+
+.relative   {
+    position: relative;
+}
+
+.fleft  {
+    float: left;
+}
+
+.fright  {
     float: right;
+}
+.btn:hover, .btn:visited, .btn:focus  {
+    color: white !important;
+}
+
+.btn.btn-import    {
+    background: #ef4123;
+    width: 120px;
+}
+
+.btn.btn-header {
     top: -10px;
+}
+
+.file_import .file_import_button    {
+    width: 120px;
+}
+
+.file_import .file_import_filename    {
+    width: 380px;
+}
+
+.file_import .file_import_bar .progress    {
+    margin: 0px;
+    position: relative;
+    top: 6px;
 }

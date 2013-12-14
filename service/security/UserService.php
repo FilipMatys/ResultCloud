@@ -83,8 +83,8 @@ class UserService   {
     public function Save($user)  {
         // Validate object
         $validation = new ValidationResult($user);
-        $validation->CheckNotNull('Email');
-        $validation->CheckNotNull('Username');
+        $validation->CheckNotNullOrEmpty('Email');
+        $validation->CheckNotNullOrEmpty('Username');
         
         // Check validation result
         if (!$validation->IsValid)  {
