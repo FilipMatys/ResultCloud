@@ -5,14 +5,12 @@
  * About: Implements basic query statements
  */
 
-include_once "$_SERVER[DOCUMENT_ROOT]/IBPGit/utilities/ObjectPropertyParser.php";
+include_once dirname(__FILE__).DIRECTORY_SEPARATOR.'ObjectPropertyParser.php';
 
 class StatementBuilder  {
     // Constants which are built on 
     // object contruction
-    private $INSERT_STATEMENT;
     private $SELECT_STATEMENT;
-    private $UPDATE_STATEMENT;
     private $DELETE_STATEMENT;
     
     private $ObjectPropertyParser;
@@ -26,13 +24,13 @@ class StatementBuilder  {
     }
     
     // Get insert statement
-    public function getInsertStatement()    {
-        return $this->INSERT_STATEMENT;
+    public function getInsertStatement($entity)    {
+        return $this->buildInsertStatement($entity);
     }
     
     // Get update statement
-    public function getUpdateStatement()    {
-        return $this->UPDATE_STATEMENT;
+    public function getUpdateStatement($entity)    {
+        return $this->buildUpdateStatement($entity);
     }
     
     // Get select statement
@@ -47,17 +45,17 @@ class StatementBuilder  {
 
     // Build database function statements
     private function buildStatements()  {
-        $this->buildInsertStatement();
-        $this->buildUpdateStatement();
         $this->buildDeleteStatement();
         $this->buildSelectStatement();
     }
     
     // Build basic insert operation
-    private function buildInsertStatement() {
-        $this->INSERT_STATEMENT = 'INSERT INTO '.get_class($this->Class);
-        $this->INSERT_STATEMENT.= ' ('.implode(',', $this->ObjectPropertyParser->getObjectProperties()).')';
-        $this->INSERT_STATEMENT.= ' VALUES ('.implode(',', $this->ObjectPropertyParser->getObjectPropertiesMarks()).')';
+    private function buildInsertStatement($entity) {
+        $statement = 'INSERT INTO '.get_class($this->Class);
+        $statement.= ' ('.implode(',', $this->ObjectPropertyParser->getObjectProperties($entity)).')';
+        $statement.= ' VALUES ('.implode(',', $this->ObjectPropertyParser->getObjectPropertiesMarks($entity)).')';
+        
+        return $statement;
     }
     
     // Build basic select operation
@@ -66,8 +64,8 @@ class StatementBuilder  {
     }
     
     // Build basic update operation
-    private function buildUpdateStatement() {
-        $this->UPDATE_STATEMENT = 'UPDATE '.get_class($this->Class).' SET '.implode(',', $this->ObjectPropertyParser->getObjectPropertiesToUpdate()).' WHERE Id=?';
+    private function buildUpdateStatement($entity) {
+        return 'UPDATE '.get_class($this->Class).' SET '.implode(',', $this->ObjectPropertyParser->getObjectPropertiesToUpdate($entity)).' WHERE Id=?';
     }
     
     // Build basic delete operation

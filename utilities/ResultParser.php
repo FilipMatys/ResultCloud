@@ -1,17 +1,12 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Parse result from mysqli prepared
  * statements.
  *
  * @author Filip Matys
+ * @author Jiri Kratochvil
  */
+
 class ResultParser {
 
     // Get single result
@@ -67,6 +62,8 @@ class ResultParser {
         
         // Bind variables to result
         call_user_func_array(array($statement, 'bind_result'), $variables);
+
+        $entities = array();
 
         // Fetch multiple results
         while ($statement->fetch()) {

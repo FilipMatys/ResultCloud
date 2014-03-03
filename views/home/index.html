@@ -1,0 +1,36 @@
+ <nav class="top-bar" data-topbar>
+    <ul class="title-area">
+        <li class="name">
+            <h1><a ui-sref="home.dashboard">Corly Management Tool</a></h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a>Menu</a></li>
+    </ul>
+
+    <section class="top-bar-section">
+        <!-- Right Nav Section -->
+        <ul class="right">
+            <li><a ui-sref="home.plugin-management">Plugin Management</a></li>
+            <li><a ui-sref="home.settings">Settings</a></li>
+            <li class="has-form">
+                <a ui-sref="home.import" class="button">Import</a>
+            </li>
+            <li class="has-dropdown">
+                <a href="">Petr Muller</a>
+                <ul class="dropdown">
+                    <li><a ui-sref="home.profile">Profile</a></li>
+                    <li><a href="#">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+
+    </section>
+</nav>
+
+<div ui-view></div>
+<footer>
+    <div class="row">
+        <div class="large-12 columns">
+            Corly, 2014.1 | Filip Matys
+        </div>
+    </div>
+</footer>

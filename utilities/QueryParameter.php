@@ -1,20 +1,43 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of QueryParameter
  *
- * @author Filip
+ * @author Filip Matys
+ * @author Jiri Kratochvil
  */
+
 class QueryParameter {
-    //put your code here
+    /**
+     * Condition WHERE column = value
+     * 
+     * @param type $property
+     * @param type $value
+     * @return \Parameter
+     */
     public static function Where($property, $value) {
         return new Parameter('WHERE '.$property."=?",$value);     
+    }
+    
+    /**
+     * Condition WHERE column != value
+     * 
+     * @param type $property
+     * @param type $value
+     * @return \Parameter
+     */
+    public static function WhereNot($property, $value) {
+        return new Parameter('WHERE '.$property."!=?",$value);     
+    }
+
+    /**
+     * Condition WHERE column LIKE %value%
+     * 
+     * @param type $property
+     * @param type $value
+     * @return \Parameter
+     */
+    public static function WhereLike($property, $value) {
+        return new Parameter("WHERE ".$property." LIKE CONCAT('%', ?, '%')", $value);
     }
 }
 

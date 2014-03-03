@@ -1,0 +1,120 @@
+ <nav class="top-bar" data-topbar>
+        <!-- Title -->
+        <ul class="title-area">
+            <li class="name">
+                <h1><a href="#">iJobs</a></h1>
+            </li>
+
+            <!-- Mobile Menu Toggle -->
+            <li class="toggle-topbar menu-icon"><a>Menu</a></li>
+        </ul>
+
+        <!-- Top Bar Section -->
+        <section class="top-bar-section">
+
+            <!-- Top Bar Right Nav Elements -->
+            <ul class="right">
+                <li class="has-form">
+                    <input ng-model="credentials.Username" type="text" placeholder="Uživatelské jméno" />
+                </li>
+                <li class="has-form">
+                    <input ng-model="credentials.Password" type="password" placeholder="Heslo" />
+                </li>
+                <li class="has-form">
+                    <input ng-click="AuthorizeCredentials()" type="submit" class="button" value="Přihlásit" />
+                </li>
+            </ul>
+        </section>
+    </nav>
+
+    <div ng-show="registrationSuccess" class="row">
+        <div class="large-12 columns">
+            <div data-alert class="alert-box success">
+                Registrace proběhla úspěšně. Na Vaši emailovou adresu byl odeslán aktivační email.
+                <a href="#" class="close">&times;</a>
+            </div>
+        </div>
+    </div>
+
+    <div ng-repeat="error in errors" class="row">
+        <div class="large-12 columns">
+            <div data-alert class="alert-box alert">
+                {{error}}
+                <a href="#" class="close">&times;</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 0.9375rem;">
+        <div class="large-12 columns">
+            <h1>Welcome to Foundation</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-6 columns hide-for-small">
+            <form>
+                <fieldset style="height: 485px;">
+                    <h3>Obsah</h3>
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <p>
+                                Třeba jenom plno keců. To se ještě uvidí. Ale hlavně asi nějaké ukázky nabídek, nebo tak něco. Ať to vypadá pěkně.
+                            </p>
+                            <p>
+                                Nejen pěkně, ale ať to má i nějaké sdělení, třeba statistiky nebo tak něco.
+                            </p>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div class="large-6 columns">
+            <form name="registration" novalidate>
+                <fieldset>
+                    <h3>Registrace</h3>
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <label>Jméno a příjmení</label>
+                            <input name="name" type="text" ng-model="user.Person.Name" required/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="large-6 columns">
+                            <label>Heslo</label>
+                            <input id="password" name="password" type="password" ng-model="user.Password" required/>
+                        </div>
+                        <div class="large-6 columns">
+                            <label>Heslo znovu</label>
+                            <input type="password"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <label>Emailová adresa</label>
+                            <input name="email" type="email" ng-model="user.Username" required/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <label>Emailová adresa znovu</label>
+                            <input type="email" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="large-10 columns">
+                            <label>Souhlasím s <a href="#">obchodními podmínkami</a></label>
+                        </div>
+                        <div class="large-2 columns">
+                            <input type="checkbox" ng-model="contract" required/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <input ng-disabled="registration.$invalid" class="button small" type="submit" value="Registrovat" ng-click="RegisterUser()" />
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
