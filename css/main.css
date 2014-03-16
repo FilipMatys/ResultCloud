@@ -6,6 +6,10 @@
     max-width: none;
 }
 
+.hidden     {
+    display: none;
+}
+
 /**
     FOOTER
 */
@@ -27,5 +31,4 @@ footer  {
  BUTTONS
 */
 .button {
-	width: 100%;
 }

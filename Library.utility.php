@@ -27,7 +27,11 @@ class Library	{
 	// - service
 	const CORLY_SERVICE_OFFER = "corly/service/offer";
 	const CORLY_SERVICE_SECURITY = "corly/service/security";
+    const CORLY_SERVICE_IMPORT = "corly/service/import";
 
+    // Plugins
+    const PLUGINS = "plugins";
+    
 	/**
 	 * Include files of given folder
 	 */

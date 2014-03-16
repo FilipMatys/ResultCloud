@@ -1,5 +1,6 @@
 var application = angular.module('iJobs', [
-		'ui.router'
+		'ui.router',
+        'angularFileUpload'
 	]);
 
 // Load foundation on every new page load

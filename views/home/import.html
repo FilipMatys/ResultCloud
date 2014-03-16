@@ -6,6 +6,43 @@
 
 <div class="row">
     <div class="large-12 columns">
-        Here, you shall import your test cases
+        <p>Here, you shall import your test cases</p>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <label>Plugin</label>
+        <select ng-model="import.Plugin"></select>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <label>Project</label>
+        <select ng-model="import.Project"></select>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <label>File</label>
+    </div>
+    <div class="large-10 columns">
+        <input type="text" ng-model="selectedFile.name" readonly/>
+    </div>
+    <div class="large-2 columns">
+        <button class="button small postfix" onclick="$(this).siblings('input').click()">Choose file</button>
+        <input class="hidden" type="file" ng-file-select="onFileSelect($files)" />
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <label>Upload progress</label>
+        <div class="progress">
+            <span id="upload-progress" class="meter" style="width: 0%;"></span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <button class="button small" ng-click="uploadFile()">Upload</button>
     </div>
 </div>
