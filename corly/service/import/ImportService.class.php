@@ -43,7 +43,15 @@ class ImportService
         }
         
         // Import file by given plugin
-        Importer::Import($validation, $fileParser);
+        $importValidation = Importer::Import($validation, $fileParser);
+        
+        // Check import validation
+        if (!$importValidation->IsValid)    {
+            $validation->Append($importValidation);
+            return $validation;
+        }
+        
+        // Save imported data into database
         
         // Return validation
         return $validation;

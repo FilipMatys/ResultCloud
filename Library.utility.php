@@ -16,18 +16,26 @@ class Library	{
 	const CORLY_DAO_BASE = "corly/dao/base";
 	const CORLY_DAO_SECURITY = "corly/dao/security";
 	const CORLY_DAO_STAT = "corly/dao/stat";
+    const CORLY_DAO_SUITE = "corly/dao/suite";
 	
 	// - dao implementation
 	const CORLY_DAO_IMPLEMENTATION_BASE = "corly/daoImplementation/base";
 	const CORLY_DAO_IMPLEMENTATION_SECURITY = "corly/daoImplementation/security";
+    const CORLY_DAO_IMPLEMENTATION_SUITE = "corly/daoImplementation/suite";
 
     // db create
-    const COLRY_DBCREATE = "corly/dbCreator";
+    const CORLY_DBCREATE = "corly/dbCreator";
+    
+    // installation
+    const CORLY_INSTALLATION = "corly/installation";
     
 	// - service
 	const CORLY_SERVICE_OFFER = "corly/service/offer";
 	const CORLY_SERVICE_SECURITY = "corly/service/security";
     const CORLY_SERVICE_IMPORT = "corly/service/import";
+    const CORLY_SERVICE_SUITE = "corly/service/suite";
+    const CORLY_SERVICE_INSTALLATION = "corly/service/installation";
+    const CORLY_SERVICE_APPLICATION = "corly/service/application";
 
     // Plugins
     const PLUGINS = "plugins";
@@ -42,4 +50,11 @@ class Library	{
         	include_once($filename);
     	}
 	}
+    
+    /**
+     * Get chosen path
+     */
+    public static function path($folder, $file)    {
+        return dirname(__FILE__). DIRECTORY_SEPARATOR . $folder . DIRECTORY_SEPARATOR . $file;
+    }
 }

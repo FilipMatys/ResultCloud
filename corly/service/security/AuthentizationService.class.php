@@ -1,8 +1,8 @@
 <?php
-include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Library.utility.php');
+include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Library.utility.php');
 
 // Get libraries
-Library::using(Library::DAO_IMPLEMENTATION_SECURITY);
+Library::using(Library::CORLY_DAO_IMPLEMENTATION_SECURITY);
 Library::using(Library::UTILITIES);
 
 class AuthentizationService	{

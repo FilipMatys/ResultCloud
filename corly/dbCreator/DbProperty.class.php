@@ -1,5 +1,5 @@
 <?php
-
+    
 /**
  * DbProperty short summary.
  *
@@ -18,6 +18,14 @@ class DbProperty
     private $IsNull;
     // Default value
     private $Default;
+    // Is primary key
+    private $IsPrimaryKey;
+    // Is auto increment
+    private $IsAutoIncrement;
+    
+    const NOT_NULL = " NOT NULL";
+    const AUTO_INCREMENT = " AUTO_INCREMENT";
+    const PRIMARY_KEY = " PRIMARY KEY";
     
     /**
      * DbProperty constructor
@@ -28,6 +36,8 @@ class DbProperty
         $this->Name = $name;
         
         // Another properties initalizaton
+        $this->IsPrimaryKey = false;
+        $this->IsAutoIncrement = false;
         $this->IsNull = true;
         $this->Default = "";
     }
@@ -56,5 +66,48 @@ class DbProperty
     public function NotNull()   {
         // Set null to false
         $this->IsNull = false;
+    }
+    
+    /**
+     * Set property as primary key
+     */
+    public function PrimaryKey()   {
+        // Set property to be primary key
+        $this->IsPrimaryKey = true;
+    }
+    
+    /**
+     * Set property to auto increment
+     */
+     public function AutoIncrement()    {
+        // Set property to auto increment
+        $this->IsAutoIncrement = true;
+     }
+    
+    /**
+     * Get string representation  of property
+     * @return string Property database definition
+     */
+    public function GetPropertyDefinition() {
+        $definition = "";
+        // Set property name
+        $definition .= $this->Name . " ";
+        // Set property type
+        $definition .= $this->TypeDeclaration;
+        
+        // Check if not null is set
+        if (!$this->IsNull) {
+            $definition .= DbProperty::NOT_NULL; 
+        }
+        // Check if auto increment is set
+        if ($this->IsAutoIncrement) {
+            $definition .= DbProperty::AUTO_INCREMENT;
+        }
+        // Check if primary key is set
+        if ($this->IsPrimaryKey)    {
+            $definition .= DbProperty::PRIMARY_KEY;
+        }
+        
+        return $definition;
     }
 }

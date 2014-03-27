@@ -2,6 +2,10 @@
     GENERAL 
 */
 
+html, body  {
+    height: 100%;
+}
+
 .row    {
     max-width: none;
 }
@@ -19,6 +23,18 @@ footer  {
 }
 
 /**
+    STATUS BAR   
+ */
+.status-bar {
+    position: absolute;
+    bottom: 0px;
+    min-height: 2rem;
+    background: white;
+    border-top: solid 1px #dddddd;
+    line-height: 2rem;
+}
+
+/**
  TOP BAR
 */
 .top-bar input {
@@ -30,5 +46,11 @@ footer  {
 /**
  BUTTONS
 */
+
+.button.full-width  {
+    width: 100%;
+}
+
 .button {
+  
 }

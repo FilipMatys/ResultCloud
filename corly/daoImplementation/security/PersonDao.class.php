@@ -1,13 +1,13 @@
 <?php
 /**
- * File: OfferDao.class.php
+ * File: PersonDao.class.php
  * Author: Filip Matys
  */
-include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Library.utility.php');
+include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Library.utility.php');
 
 // Include files
-Library::using(Library::DAO_SECURITY);
-Library::using(Library::DAO_IMPLEMENTATION_BASE);
+Library::using(Library::CORLY_DAO_SECURITY);
+Library::using(Library::CORLY_DAO_IMPLEMENTATION_BASE);
 
 /**
  * Implements database operations for Person

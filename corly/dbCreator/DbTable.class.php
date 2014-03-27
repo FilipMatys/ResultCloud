@@ -33,6 +33,32 @@ class DbTable
      */
     public function AddProperty($property)  {
         // Add property to properties array
-        $this->Properties[] = $propery;
+        $this->Properties[] = $property;
+    }
+    
+    /**
+     * Get table name
+     */
+    public function GetName()   {
+        return $this->Name;
+    }
+    
+    /**
+     * Get table definition into string
+     * @return string - table definition
+     */
+    public function GetTableDefinition()    {
+        $properties = array();
+        
+        // Get all properties definitions
+        foreach ($this->Properties as $property)    {
+            $properties[] = $property->GetPropertyDefinition();    
+        }
+        
+        // Parse properties into string
+        $sProperties = implode(", ", $properties);
+        
+        // Return table definition
+        return "CREATE TABLE " . $this->Name . " ({$sProperties});"; 
     }
 }

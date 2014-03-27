@@ -35,4 +35,19 @@ class DbDatabase
         // Add table to database
         $this->Tables[] = $table;
     }
+    
+    /**
+     * Get database name
+     */
+    public function GetName()   {
+        return $this->Name;
+    }
+    
+    /**
+     * Get database tables
+     */
+    public function GetTables() {
+        return $this->Tables;
+    }
+        
 }

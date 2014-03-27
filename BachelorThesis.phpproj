@@ -16,12 +16,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="api\ImportController.class.php" />
+    <Compile Include="api\InstallationController.class.php" />
+    <Compile Include="corly\daoImplementation\suite\SubmissionDao.class.php" />
+    <Compile Include="corly\dao\suite\Submission.entity.php" />
     <Compile Include="corly\dbCreator\DbDatabase.class.php" />
     <Compile Include="corly\dbCreator\DbProperty.class.php" />
     <Compile Include="corly\dbCreator\DbTable.class.php" />
     <Compile Include="corly\dbCreator\DbType.class.php" />
-    <Compile Include="corly\installation\CorlyInstallation.class.php" />
+    <Compile Include="corly\installation\ApplicationConfiguration.class.php" />
+    <Compile Include="corly\installation\DatabaseInstallation.class.php" />
+    <Compile Include="corly\service\application\ConfigurationService.class.php" />
     <Compile Include="corly\service\import\ImportService.class.php" />
+    <Compile Include="corly\service\installation\InstallationService.class.php" />
+    <Compile Include="corly\service\suite\SubmissionService.class.php" />
     <Compile Include="index.html" />
     <Compile Include="Library.utility.php" />
     <Compile Include="api\AuthentizationController.class.php" />
@@ -73,6 +80,7 @@
     <Compile Include="js\vendor\placeholder.js" />
     <Compile Include="corly\service\security\AuthentizationService.class.php" />
     <Compile Include="corly\service\security\UserService.class.php" />
+    <Compile Include="plugins\test\Importer.class.php" />
     <Compile Include="utilities\ColorHandle.php" />
     <Compile Include="utilities\EmailService.php" />
     <Compile Include="utilities\FileHandle.php" />
@@ -97,6 +105,8 @@
     <Folder Include="corly\dbCreator\" />
     <Folder Include="corly\installation\" />
     <Folder Include="corly\service\import\" />
+    <Folder Include="corly\service\installation\" />
+    <Folder Include="corly\service\application\" />
     <Folder Include="corly\service\plugin\" />
     <Folder Include="corly\service\suite\" />
     <Folder Include="css" />
@@ -107,6 +117,8 @@
     <Folder Include="corly\" />
     <Folder Include="corly\service\" />
     <Folder Include="dataTypes\" />
+    <Folder Include="plugins\" />
+    <Folder Include="plugins\test\" />
     <Folder Include="utilities" />
     <Folder Include="views" />
     <Folder Include="corly\dao\base\" />

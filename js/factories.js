@@ -25,6 +25,19 @@ application.factory('UserService', function($http)	{
 	}
 });
 
+// Installation service
+application.factory('InstallationService', function ($http) {
+    return {
+        install: function (credentials) {
+            return $http({
+                method: 'POST',
+                url: 'api/InstallationController.class.php?method=INSTALL',
+                data: credentials
+            })
+        }
+    }
+});
+
 // Authentization service
 application.factory('AuthentizationService', function($http)	{
 	return	{

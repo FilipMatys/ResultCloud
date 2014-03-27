@@ -1,14 +1,14 @@
 <?php
-/* 
+/**
  * File: Database.php
- * Author: Filip Matys, Jiri Kratochvil
- * About: Implements basic database connection and operations
+ * Author: Filip Matys
  */
+include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Library.utility.php');
 
-include_once dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'dao'.DIRECTORY_SEPARATOR.'base'.DIRECTORY_SEPARATOR.'Config.php';
-include_once dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'utilities'.DIRECTORY_SEPARATOR.'StatementBuilder.php';
-include_once dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'utilities'.DIRECTORY_SEPARATOR.'ResultParser.php';
-include_once dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'utilities'.DIRECTORY_SEPARATOR.'ObjectPropertyParser.php';
+// Include files
+Library::using(Library::UTILITIES);
+Library::using(Library::CORLY_DAO_BASE);
+Library::using(Library::CORLY_SERVICE_APPLICATION);
 
 abstract class Database  {
     private $db;
@@ -18,8 +18,11 @@ abstract class Database  {
     
     // Database constructor
     function __construct($class) {
+    
+        // Load configuration
+        $dbConfig = ConfigurationService::Database();
         // Create new database handler
-        $this->db = new mysqli(Config::HOSTNAME, Config::USERNAME, Config::PASSWORD, Config::DATABASE);
+        $this->db = new mysqli($dbConfig->Data["hostname"], $dbConfig->Data["username"], $dbConfig->Data["password"], $dbConfig->Data["database"]);
         // Init properties
         $this->class = $class;        
         $this->statements = new StatementBuilder($class);

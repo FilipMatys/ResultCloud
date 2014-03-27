@@ -4,23 +4,24 @@ session_start();
 include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Library.utility.php');
 
 // Include files
-Library::using(Library::CORLY_SERVICE_SECURITY);
+Library::using(Library::CORLY_INSTALLATION);
+Library::using(Library::CORLY_SERVICE_INSTALLATION);
 
-class AuthentizationController	{
+class InstallationController	{
 	// Request constants
-	const AUTHORIZE = "AUTHORIZE";
-
+	const INSTALL = "INSTALL";
+    
 	// Service
-	private $AuthentizationService;
+	private $InstallationService;
 
 	// Constructor
 	public function __construct()	{
-		$this->AuthentizationService = new AuthentizationService();
+		$this->InstallationService = new InstallationService();
 	}
 
-	// Authorize credentials
-	public function Authorize($credentials)	{
-		return $this->AuthentizationService->Authorize($credentials);
+	// Install application
+	public function Install($data)	{
+		return $this->InstallationService->Install($data);
 	}
 }
 
@@ -32,13 +33,13 @@ $data = json_decode($rawData);
 if (isset($_GET["method"]))	{
 	// Init result
 	$result = new stdClass();
-	$AuthentizationController = new AuthentizationController();
+	$InstallationController = new InstallationController();
 
 	switch ($_GET["method"]) {
-		case AuthentizationController::AUTHORIZE:
-			$result = $AuthentizationController->Authorize($data);
+		case InstallationController::INSTALL:
+			$result = $InstallationController->Install($data);
 			break;
-		
+
 		default:
 			$result = false;
 			break;
