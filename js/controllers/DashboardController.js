@@ -1,19 +1,14 @@
-application.controller('DashboardController', function($scope, OfferService)	{
+application.controller('DashboardController', function($scope, InstallationService)	{
 	// Variables init
-	$scope.offerList = [];
 
 	// FUNCTIONS
-	/**
-	 * Fetch offers 
-	 */
-	 var FetchOffers = function()	{
-		OfferService.query()
-		.success(function(data, status, headers, config)	{
-				$scope.offerList = data;
-			});
-	 }
+    $scope.Install = function () {
+        var credentials = {
+            Hostname: "localhost",
+            Username: "root",
+            Password: "xampp"
+        };
 
-	 // INIT WORKSPACE
-	 // Fetch offers
-	 FetchOffers();
+        InstallationService.install(credentials);
+    }
 });

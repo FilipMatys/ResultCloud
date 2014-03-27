@@ -2,12 +2,14 @@
     // Init variables
     $scope.selectedFile = {};
     $scope.import = {};
+    $scope.valid = true;
 
     /**
      * Assign file 
      */
     $scope.onFileSelect = function ($file) {
         $scope.selectedFile = $file[0];
+        $('#upload-progress').width(0 + '%');
     };
 
     /**
@@ -22,6 +24,7 @@
             file: $scope.selectedFile,
         }).then(function (success, error, progress) {
             // file is uploaded successfully
+            $scope.valid = success.data.IsValid;
             $('#upload-progress').width(100 + '%');
     
             console.log(success);

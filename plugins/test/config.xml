@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<plugin>
+  <!-- Meta description of plugin for internal purposes -->
+  <meta>
+    <name>Testing plugin</name>
+    <version>1.0</version>
+    <author>Filip Matys</author>
+    <about>Plugin configuration for testing purposes</about>
+  </meta>
+  <!-- List of files used to validate plugin integrity (not required) -->
+  <files>
+    
+  </files>
+</plugin>

@@ -45,13 +45,11 @@ class ValidationResult {
     }
     
     /**
-     * Check if file is of text format
-     * 
-     * @param type $property
+     * Check if validated data are not null
      */
-    public function CheckIsTextFile()  {
-        if (strpos($this->Data['type'], ValidationResult::FORMAT_TEXT) === FALSE)    {
-            $this->AddInvalid($this->Data['type']." is not supported format");
+    public function CheckDataNotNull($error)    {
+        if (!isset($this->Data))    {
+            $this->AddInvalid($error);
         }
     }
     
@@ -64,6 +62,17 @@ class ValidationResult {
     public function Append($validation)    {
         $this->IsValid = $validation->IsValid && $this->IsValid;
         $this->Errors = array_merge($this->Errors, $validation->Errors);
+    }
+    
+    /**
+     * Check if file exists
+     * @param file - path to file
+     * @param message - message in case of error
+     */
+    public function FileExists($file, $message)   {
+        if (!file_exists($file))    {
+            $this->AddInvalid($message);
+        }
     }
     
     /**
