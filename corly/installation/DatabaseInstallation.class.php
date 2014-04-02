@@ -46,6 +46,8 @@ class DatabaseInstallation
         $this->CreateTb_Submission();
         // Category
         $this->CreateTb_Category();
+        // Test case
+        $this->CreateTb_TestCase();
         // Result
         $this->CreateTb_Result();
     }
@@ -314,11 +316,47 @@ class DatabaseInstallation
     }
     
     /**
+     * Create test case table
+     * - Id [double]
+     * - Category [double]
+     * - Name [varchar(255)]
+     */
+    private function CreateTb_TestCase()    {
+        $tTestCase = new DbTable('TestCase');
+        
+        // Set id property
+        $pId = new DbProperty('Id');
+        $pId->SetType(DbType::Double());
+        $pId->NotNull();
+        $pId->PrimaryKey();
+        $pId->AutoIncrement();
+        // Add id to table
+        $tTestCase->AddProperty($pId);
+        
+        // Set category property
+        $pCategory = new DbProperty('Category');
+        $pCategory->SetType(DbType::Double());
+        $pCategory->NotNull();
+        // Add category to table
+        $tTestCase->AddProperty($pCategory);
+        
+        // Set name property
+        $pName = new DbProperty('Name');
+        $pName->SetType(DbType::Varchar(255));
+        $pName->NotNull();
+        // Add name to table
+        $tTestCase->AddProperty($pName);
+        
+        // Add table to database
+        $this->Database->AddTable($tTestCase);
+    }
+    
+    /**
      * Create result table
      * - Id [double]
-     * - Key [varchar(511)]
-     * - Value [varchar(511)]
-     * - Category [double]
+     * - RKey [varchar(511)]
+     * - RValue [varchar(511)]
+     * - TestCase [double]
      */
     private function CreateTb_Result()  {
         $tResult = new DbTable('Result');
@@ -346,12 +384,12 @@ class DatabaseInstallation
         // Add value to table
         $tResult->AddProperty($pValue);
         
-        // Set category property
-        $pCategory = new DbProperty('Category');
-        $pCategory->SetType(DbType::Double());
-        $pCategory->NotNull();
-        // Add category to table
-        $tResult->AddProperty($pCategory);
+        // Set test case property
+        $pTestCase = new DbProperty('TestCase');
+        $pTestCase->SetType(DbType::Double());
+        $pTestCase->NotNull();
+        // Add test case to table
+        $tResult->AddProperty($pTestCase);
         
         // Add table to database
         $this->Database->AddTable($tResult);

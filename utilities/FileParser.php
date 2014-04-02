@@ -34,7 +34,7 @@ class FileParser {
         $this->Type = $file['type'];
         // Get size
         $this->Size = $file['size'];
-        // Get tem path
+        // Get temp path
         $this->Temp = $file['tmp_name'];
     }
     

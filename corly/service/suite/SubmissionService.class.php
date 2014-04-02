@@ -17,6 +17,7 @@ class SubmissionService
 {
     private $SubmissionDao;
     private $CategoryDao;
+    private $TestCaseDao;
     private $ResultDao;
 
     /**
@@ -26,6 +27,7 @@ class SubmissionService
         $SubmissionDao = new SubmissionDao();
         $CategoryDao = new CategoryDao();
         $ResultDao = new ResultDao();
+        $TestCaseDao = new TestCaseDao();
     }
     
 
@@ -55,20 +57,36 @@ class SubmissionService
      */
     private function SaveCategories($categories, $submissionId) {
         foreach ($categories as $category)   {
-            // Prepare results
-            $results = $category->Results;
-            unset($category->Results);
+            // Prepare test cases
+            $testCases = $category->TestCases;
+            unset($category->TestCases);
             
-            // Save category and results
+            // Save category and test cases
             $categoryId = $this->CategoryDao->Save($category);
-            $this->SaveResults($results, $categoryId);
+            $this->SaveTestCases($testCases, $categoryId);
         }
     }
     
     /**
+     * Save test cases into database
+     */
+     private function SaveTestCases($testCases, $categoryId)    {
+        foreach($testCases as $testCase)    {
+            // Prepare results
+            $results = $testCase->Results;
+            unset($testCase->Results);
+            
+            // Save test case and results
+            $testCaseId = $this->TestCaseDao->Save($testCase);
+            $this->SaveResults($results, $testCaseId);
+        }
+     }
+     
+    
+    /**
      * Save results into database
      */
-    private function SaveResults($results, $categoryId) {
+    private function SaveResults($results, $testCaseId) {
         foreach ($results as $result)  {
             // Prepare result
             $result->Category = $categoryId;

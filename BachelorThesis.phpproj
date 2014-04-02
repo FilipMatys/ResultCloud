@@ -81,6 +81,7 @@
     <Compile Include="corly\service\security\AuthentizationService.class.php" />
     <Compile Include="corly\service\security\UserService.class.php" />
     <Compile Include="plugins\test\Importer.class.php" />
+    <Compile Include="plugins\test\Parser.class.php" />
     <Compile Include="utilities\ColorHandle.php" />
     <Compile Include="utilities\EmailService.php" />
     <Compile Include="utilities\FileHandle.php" />

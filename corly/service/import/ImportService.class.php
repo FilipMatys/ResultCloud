@@ -22,8 +22,8 @@ class ImportService
         $validation = new ValidationResult($data);
         
         // Validate data properties
-        $validation->CheckNotNullOrEmpty('Plugin', "Plugin has to be set");
-        $validation->CheckNotNullOrEmpty('Project', "Project has to be set");
+        //$validation->CheckNotNullOrEmpty('Plugin', "Plugin has to be set");
+        //$validation->CheckNotNullOrEmpty('Project', "Project has to be set");
         
         // Check validation result
         if (!$validation->IsValid)  {
@@ -53,6 +53,7 @@ class ImportService
         
         // Save imported data into database
         
+        
         // Return validation
         return $validation;
     }
@@ -63,6 +64,6 @@ class ImportService
     private function GetImportPlugin(ValidationResult $validation)  {
     
         // Todo - test is name of the plugin
-        Library::using(Library::PLUGINS .DIRECTORY_SEPARATOR. 'test');
+        Library::using(Library::PLUGINS .DIRECTORY_SEPARATOR. 'cpalien');
     }
 }

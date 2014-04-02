@@ -16,8 +16,8 @@ class Importer
      * @param FileParser file - uploaded file
      * @return TestSuite - object containing one test suite result
      */
-    public static function Import(ValidationResult $metadata, $file)  {
+    public static function Import($validation, $file)  {
     
-        return null;
+        return Parser::ParseImport($file->getTemp());
     }
 }
