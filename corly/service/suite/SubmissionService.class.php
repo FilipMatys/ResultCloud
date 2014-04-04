@@ -32,66 +32,65 @@ class SubmissionService
     
 
     /**
-     * Save data into database
+     * Save summary as a whole, which means 
+     * save all appended objects as well
+     * @param mixed $submission 
+     * @param mixed $projectId 
+     * @return validation
      */
-    public function Save($submission)    {
+    public function Save($submission, $projectId)    {
         // Init validation
         $validation = $this->ValidateSubmission($submission);
-        
-        // Prepare categories
-        $categories = $submission->Categories;
-        unset($submission->Categories);
-        
+
         // Save submission
-        $submissionId = $this->SubmissionDao->Save($submission);
+        $submissionId = $this->SubmissionDao->Save($submission->GetDbObject($projectId));
         
-        // Save categories with results
-        $this->SaveCategories($categories, $submissionId);
+        // Save categories with test cases
+        $this->SaveCategories($submission->GetCategories(), $submissionId);
         
         // Return validation
         return $validation;
     }
     
     /**
-     * Save categories into database
+     * Save categories of given submission
+     * @param mixed $categories 
+     * @param mixed $submissionId 
      */
     private function SaveCategories($categories, $submissionId) {
         foreach ($categories as $category)   {
-            // Prepare test cases
-            $testCases = $category->TestCases;
-            unset($category->TestCases);
-            
             // Save category and test cases
-            $categoryId = $this->CategoryDao->Save($category);
-            $this->SaveTestCases($testCases, $categoryId);
+            $categoryId = $this->CategoryDao->Save($category->GetDbObject($submissionId));
+            $this->SaveTestCases($category->GetTestCases(), $categoryId);
         }
     }
     
-    /**
-     * Save test cases into database
-     */
+     /**
+      * Save test cases of given category
+      * @param mixed $testCases 
+      * @param mixed $categoryId 
+      */
      private function SaveTestCases($testCases, $categoryId)    {
         foreach($testCases as $testCase)    {
             // Prepare results
-            $results = $testCase->Results;
-            unset($testCase->Results);
+            $results = $testCase->GetResults();
             
             // Save test case and results
-            $testCaseId = $this->TestCaseDao->Save($testCase);
+            $testCaseId = $this->TestCaseDao->Save($testCase->GetDbObject($categoryId));
             $this->SaveResults($results, $testCaseId);
         }
      }
      
     
     /**
-     * Save results into database
+     * Save results of given test case
+     * @param mixed $results 
+     * @param mixed $testCaseId 
      */
     private function SaveResults($results, $testCaseId) {
         foreach ($results as $result)  {
-            // Prepare result
-            $result->Category = $categoryId;
-            // Save
-            $this->ResultDao->Save($result);
+            // Save result
+            $this->ResultDao->Save($result->GetDbObject($testCaseId));
         }
     }
     
