@@ -22,6 +22,23 @@ class Result
     }
     
     /**
+     * Get result as object to save to database
+     * @param mixed $testCaseId 
+     */
+    public function GetDbObject($testCaseId)    {
+        // Init object
+        $result = new stdClass();
+        // Set properties from base object
+        $result->RKey = $this->RKey;
+        $result->RValue = $this->RValue;
+        // Set parent id (test case)
+        $result->TestCase = $testCaseId;
+        
+        // return result
+        return $result;
+    }
+    
+    /**
      * Get result key
      */
     private function GetKey()   {

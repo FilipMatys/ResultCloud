@@ -22,6 +22,22 @@ class Submission
     }
     
     /**
+     * Get submission as object to save to database
+     * @param mixed $projectId 
+     */
+    public function GetDbObject($projectId)   {
+        // Init object
+        $submission = new stdClass();
+        // Assign values of base object
+        $submission->DateTime = $this->DateTime;
+        // Set parent object id (project)
+        $submission->Project = $projectId;
+        
+        // Return object
+        return $submission;
+    }
+    
+    /**
      * Get submission date time
      */
     public function GetDateTime()   {

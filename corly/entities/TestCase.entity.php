@@ -22,6 +22,22 @@ class TestCase
     }
     
     /**
+     * Get test case as object to save to database
+     * @param mixed $categoryId 
+     */
+    public function GetDbObject($categoryId)   {
+        // Init object
+        $testCase = new stdClass();
+        // Assign values from base object
+        $testCase->Name = $this->Name;
+        // Set parent id (category)
+        $testCase->Category = $categoryId;
+        
+        // Return test case
+        return $testCase;
+    }
+    
+    /**
      * Add result to TestCase
      * @param result
      */

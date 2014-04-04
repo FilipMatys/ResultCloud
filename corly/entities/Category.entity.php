@@ -22,6 +22,22 @@ class Category
     }
     
     /**
+     * Get category as object to save to database
+     * @param mixed $submissionId 
+     */
+    public function GetDbObject($submissionId)   {
+        // Init object
+        $category = new stdClass();
+        // Set values from base object
+        $category->Name = $this->Name;
+        // Set parent id
+        $category->Submission = $submissionId;
+        
+        // Return final object
+        return $category;
+    }
+    
+    /**
      * Add test case to category
      * @param test case
      */
