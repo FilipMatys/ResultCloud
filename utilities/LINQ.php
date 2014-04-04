@@ -145,6 +145,21 @@ class LINQ
         // Return result
         return new LINQ($result);
     }
+    
+    /**
+     * Check if given value is in array
+     *
+     * @param value
+     *
+     * @return boolean true, if is in array
+     */
+    public function Contains($value)    {
+        foreach ($this->Array as $item) {
+            if ($value === $item)
+                return true;
+        }
+        return false;
+    }
 
     /**
      * Get slice of array from given index
@@ -235,6 +250,39 @@ class LINQ
 
         // Return element at given index
         return $this->Array[$index];
+    }
+    
+    /**
+     * Create array of object of given property
+     */
+    public function GroupBy($property)  {
+        $result = array();
+        $properties = array();
+        $lArray = new LINQ($this->Array);
+        // Iterate through array
+        foreach ($this->Array as $item) {
+            // get property value
+            $propertyValue = $item->{$property};
+            // Check, if was already processed
+            if (!in_array($propertyValue, $properties)) {
+                $properties[] = $propertyValue;
+                // Get all elements of given property value
+                $result[] = $lArray->Where($property, LINQ::IS_EQUAL, $propertyValue)->ToList();
+            }
+        }
+        
+        // Return result
+        return new LINQ($result);
+    }
+   
+    
+    /**
+     * Add element to array
+     *
+     * @param element to be added
+     */
+    public function Add($element)   {
+        $this->Array[] = $element;
     }
 
     /**

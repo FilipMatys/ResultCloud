@@ -16,11 +16,13 @@ class Library	{
 	const CORLY_DAO_BASE = "corly/dao/base";
 	const CORLY_DAO_SECURITY = "corly/dao/security";
 	const CORLY_DAO_STAT = "corly/dao/stat";
+    const CORLY_DAO_PLUGIN = "corly/dao/plugin";
     const CORLY_DAO_SUITE = "corly/dao/suite";
 	
 	// - dao implementation
 	const CORLY_DAO_IMPLEMENTATION_BASE = "corly/daoImplementation/base";
 	const CORLY_DAO_IMPLEMENTATION_SECURITY = "corly/daoImplementation/security";
+    const CORLY_DAO_IMPLEMENTATION_PLUGIN = "corly/daoImplementation/plugin";
     const CORLY_DAO_IMPLEMENTATION_SUITE = "corly/daoImplementation/suite";
 
     // db create
@@ -37,6 +39,9 @@ class Library	{
     const CORLY_SERVICE_INSTALLATION = "corly/service/installation";
     const CORLY_SERVICE_APPLICATION = "corly/service/application";
 
+    // - entities
+    const CORLY_ENTITIES = "corly/entities";
+    
     // Plugins
     const PLUGINS = "plugins";
     

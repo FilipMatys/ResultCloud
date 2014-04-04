@@ -17,12 +17,24 @@
   <ItemGroup>
     <Compile Include="api\ImportController.class.php" />
     <Compile Include="api\InstallationController.class.php" />
+    <Compile Include="corly\daoImplementation\suite\CategoryDao.class.php" />
+    <Compile Include="corly\daoImplementation\suite\ResultDao.class.php" />
     <Compile Include="corly\daoImplementation\suite\SubmissionDao.class.php" />
+    <Compile Include="corly\daoImplementation\suite\TestCaseDao.class.php" />
+    <Compile Include="corly\dao\plugin\Plugin.entity.php" />
+    <Compile Include="corly\dao\plugin\Project.entity.php" />
+    <Compile Include="corly\dao\suite\Category.entity.php" />
+    <Compile Include="corly\dao\suite\Result.entity.php" />
     <Compile Include="corly\dao\suite\Submission.entity.php" />
+    <Compile Include="corly\dao\suite\TestCase.entity.php" />
     <Compile Include="corly\dbCreator\DbDatabase.class.php" />
     <Compile Include="corly\dbCreator\DbProperty.class.php" />
     <Compile Include="corly\dbCreator\DbTable.class.php" />
     <Compile Include="corly\dbCreator\DbType.class.php" />
+    <Compile Include="corly\entities\Category.entity.php" />
+    <Compile Include="corly\entities\Result.entity.php" />
+    <Compile Include="corly\entities\Submission.entity.php" />
+    <Compile Include="corly\entities\TestCase.entity.php" />
     <Compile Include="corly\installation\ApplicationConfiguration.class.php" />
     <Compile Include="corly\installation\DatabaseInstallation.class.php" />
     <Compile Include="corly\service\application\ConfigurationService.class.php" />
@@ -41,8 +53,6 @@
     <Compile Include="corly\dao\base\IndexedEntity.php" />
     <Compile Include="corly\dao\security\Person.entity.php" />
     <Compile Include="corly\dao\security\User.entity.php" />
-    <Compile Include="corly\dao\stat\OfferRelationState.enum.php" />
-    <Compile Include="corly\dao\stat\OfferState.enum.php" />
     <Compile Include="corly\daoImplementation\base\Database.php" />
     <Compile Include="corly\daoImplementation\security\PersonDao.class.php" />
     <Compile Include="corly\daoImplementation\security\UserDao.class.php" />
@@ -80,8 +90,12 @@
     <Compile Include="js\vendor\placeholder.js" />
     <Compile Include="corly\service\security\AuthentizationService.class.php" />
     <Compile Include="corly\service\security\UserService.class.php" />
-    <Compile Include="plugins\test\Importer.class.php" />
-    <Compile Include="plugins\test\Parser.class.php" />
+    <Compile Include="plugins\cpalien\Importer.class.php" />
+    <Compile Include="plugins\cpalien\Parser.class.php" />
+    <Compile Include="plugins\glibc\Importer.class.php" />
+    <Compile Include="plugins\glibc\Parser.class.php" />
+    <Compile Include="plugins\systemtap\Importer.class.php" />
+    <Compile Include="plugins\systemtap\Parser.class.php" />
     <Compile Include="utilities\ColorHandle.php" />
     <Compile Include="utilities\EmailService.php" />
     <Compile Include="utilities\FileHandle.php" />
@@ -105,6 +119,7 @@
     <Folder Include="corly\dao\suite\" />
     <Folder Include="corly\dbCreator\" />
     <Folder Include="corly\installation\" />
+    <Folder Include="corly\entities\" />
     <Folder Include="corly\service\import\" />
     <Folder Include="corly\service\installation\" />
     <Folder Include="corly\service\application\" />
@@ -119,7 +134,9 @@
     <Folder Include="corly\service\" />
     <Folder Include="dataTypes\" />
     <Folder Include="plugins\" />
-    <Folder Include="plugins\test\" />
+    <Folder Include="plugins\cpalien\" />
+    <Folder Include="plugins\glibc\" />
+    <Folder Include="plugins\systemtap\" />
     <Folder Include="utilities" />
     <Folder Include="views" />
     <Folder Include="corly\dao\base\" />
