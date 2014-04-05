@@ -21,7 +21,7 @@ class SubmissionService
     private $ResultDao;
 
     /**
-     * Constructor to initialize daos
+     * Initialize class daos
      */
     public function __construct()   {
         $SubmissionDao = new SubmissionDao();

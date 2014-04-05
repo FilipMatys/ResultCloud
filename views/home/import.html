@@ -3,52 +3,53 @@
         <h1>Import</h1>
     </div>
 </div>
-
-<div class="row">
-    <div class="large-12 columns">
-        <p>Here, you shall import your test cases</p>
-    </div>
-</div>
-<div class="row">
-    <div class="large-12 columns">
-        <label>Plugin</label>
-        <select ng-model="import.Plugin"></select>
-    </div>
-</div>
-<div class="row">
-    <div class="large-12 columns">
-        <label>Project</label>
-        <select ng-model="import.Project"></select>
-    </div>
-</div>
-<div class="row">
-    <div class="large-12 columns">
-        <label>Date</label>
-        <input type="date" ng-model="import.Date" />
-    </div>
-</div>
-<div class="row">
-    <div class="large-12 columns">
-        <label>File</label>
-    </div>
-    <div class="large-10 columns">
-        <input type="text" ng-model="selectedFile.name" readonly/>
-    </div>
-    <div class="large-2 columns">
-        <button class="button small postfix" onclick="$(this).siblings('input').click()">Choose file</button>
-        <input class="hidden" type="file" ng-file-select="onFileSelect($files)" />
-    </div>
-</div>
-<div class="row">
-    <div class="large-12 columns">
-        <label>Upload progress</label>
-        <div class="progress" ng-class="{ alert: !$scope.valid, success: $scope.valid }">
-            <span id="upload-progress" class="meter" style="width: 0%;"></span>
+<form novalidate name="importForm">
+    <div class="row">
+        <div class="large-12 columns">
+            <p>Here, you shall import your test cases</p>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="large-12 columns">
-        <button class="button small" ng-click="uploadFile()">Upload</button>
+    <div class="row">
+        <div class="large-12 columns">
+            <label>Plugin</label>
+            <select ng-model="import.Plugin" ng-options="plugin.Id as (plugin.Name + ' ' + plugin.Version) for plugin in plugins" ng-change="LoadProjects()" required></select>
+        </div>
     </div>
-</div>
+    <div class="row">
+        <div class="large-12 columns">
+            <label>Project</label>
+            <select ng-disabled="!import.Plugin" ng-model="import.Project" ng-options="project.Id as project.Name for project in projects" required></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-12 columns">
+            <label>Date</label>
+            <input type="date" ng-model="import.Date" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-12 columns">
+            <label>File</label>
+        </div>
+        <div class="large-10 columns">
+            <input type="text" ng-model="selectedFile.name" readonly required/>
+        </div>
+        <div class="large-2 columns">
+            <button class="button small postfix" onclick="$(this).siblings('input').click()">Choose file</button>
+            <input class="hidden" type="file" ng-file-select="onFileSelect($files)"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-12 columns">
+            <label>Upload progress</label>
+            <div class="progress" ng-class="{ alert: !$scope.valid, success: $scope.valid }">
+                <span id="upload-progress" class="meter" style="width: 0%;"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-12 columns">
+            <button ng-disabled="importForm.$invalid" class="button small" ng-click="uploadFile()">Upload</button>
+        </div>
+    </div>
+</form>

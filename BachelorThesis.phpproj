@@ -17,6 +17,8 @@
   <ItemGroup>
     <Compile Include="api\ImportController.class.php" />
     <Compile Include="api\InstallationController.class.php" />
+    <Compile Include="corly\daoImplementation\plugin\PluginDao.class.php" />
+    <Compile Include="corly\daoImplementation\plugin\ProjectDao.class.php" />
     <Compile Include="corly\daoImplementation\suite\CategoryDao.class.php" />
     <Compile Include="corly\daoImplementation\suite\ResultDao.class.php" />
     <Compile Include="corly\daoImplementation\suite\SubmissionDao.class.php" />
@@ -45,7 +47,6 @@
     <Compile Include="Library.utility.php" />
     <Compile Include="api\AuthentizationController.class.php" />
     <Compile Include="api\UserController.class.php" />
-    <Compile Include="css\foundation.css" />
     <Compile Include="css\foundation.min.css" />
     <Compile Include="css\main.css" />
     <Compile Include="css\normalize.css" />

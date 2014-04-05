@@ -10,8 +10,8 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" ng-repeat="plugin in Plugins">
     <div class="large-12 columns">
-        <a class="button small">Scan <i class="fi-magnifying-glass medium"></i></a>
+        <a ui-sref="home.plugin({pluginId: plugin.Id})" class="button full-width tLeft">{{plugin.Name}} {{plugin.Version}} <i class="fi-arrow-right medium"></i></a>
     </div>
 </div>

@@ -60,6 +60,12 @@ application.config(function($stateProvider, $urlRouterProvider){
 	    templateUrl: './views/home/pluginManagement.html',
 	    controller: 'PluginManagementController'
 	})
+    // Plugin detail
+    .state('home.plugin', {
+        url: '/plugin-management/{pluginId}',
+        templateUrl: './views/home/plugin.html',
+        controller: 'PluginController'
+    })
     // Profile
 	.state('home.profile', {
 	    url: '/profile',

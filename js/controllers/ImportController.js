@@ -1,8 +1,28 @@
-﻿application.controller('ImportController', [ '$scope' , '$upload', function ($scope, $upload) {
+﻿application.controller('ImportController', ['$scope', '$upload', 'PluginService', 'ProjectService', function ($scope, $upload, PluginService, ProjectService) {
     // Init variables
     $scope.selectedFile = {};
     $scope.import = {};
     $scope.valid = true;
+    $scope.plugins = [];
+    $scope.projects = [];
+
+    // Load installed plugins
+    PluginService.query()
+        .success(function (data, status, headers, config) {
+            $scope.plugins = data;
+        });
+
+    // Get projects for chosen plugin
+    $scope.LoadProjects = function () {
+        // Reset project selection
+        $scope.import.Project = null;
+
+        // Load projects for given plugin
+        ProjectService.plugin($scope.import.Plugin)
+            .success(function (data, status, headers, config) {
+                $scope.projects = data;
+            });
+    }
 
     /**
      * Assign file 
