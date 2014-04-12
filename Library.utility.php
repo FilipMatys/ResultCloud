@@ -32,7 +32,6 @@ class Library	{
     const CORLY_INSTALLATION = "corly/installation";
     
 	// - service
-	const CORLY_SERVICE_OFFER = "corly/service/offer";
 	const CORLY_SERVICE_SECURITY = "corly/service/security";
     const CORLY_SERVICE_IMPORT = "corly/service/import";
     const CORLY_SERVICE_PLUGIN = "corly/service/plugin";

@@ -8,7 +8,7 @@
  * @version 1.0
  * @author Filip
  */
-class TestCase
+class TestCaseTSE
 {
     private $Name;
     private $Results;

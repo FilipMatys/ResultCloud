@@ -24,10 +24,10 @@ class SubmissionService
      * Initialize class daos
      */
     public function __construct()   {
-        $SubmissionDao = new SubmissionDao();
-        $CategoryDao = new CategoryDao();
-        $ResultDao = new ResultDao();
-        $TestCaseDao = new TestCaseDao();
+        $this->SubmissionDao = new SubmissionDao();
+        $this->CategoryDao = new CategoryDao();
+        $this->ResultDao = new ResultDao();
+        $this->TestCaseDao = new TestCaseDao();
     }
     
 
@@ -102,7 +102,7 @@ class SubmissionService
         $validation = new ValidationResult($data);
         
         // Check if there are any data
-        $validation->CheckDataNotNull();
+        $validation->CheckDataNotNull("Neplatná data");
         
         // Check validation result
         if (!$validation->IsValid)  {

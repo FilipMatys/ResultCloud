@@ -45,7 +45,7 @@ class Parser
         $validation = new ValidationResult(new stdClass());
         
         // Prepare category
-        $Category = new Category("Default");
+        $Category = new CategoryTSE("Default");
         
         // GET ELEMENT INDEX
         // First element should be SYSTEM_INFO, second
@@ -54,7 +54,7 @@ class Parser
         $elementIndex = 0;
         
         // Create submission
-        $Submission = new Submission($xmlContent[Parser::SYSTEM_INFO_DATE]);
+        $Submission = new SubmissionTSE($xmlContent[Parser::SYSTEM_INFO_DATE]);
         
         foreach ($xmlContent as $element)   {
             // Process system info
@@ -105,7 +105,7 @@ class Parser
         // Check if element is of type sourcefile
         if (strcmp($eSourceFile->getName(), Parser::SOURCE_FILE) == 0)  {
             // Get metadata    
-            $TestCase = new TestCase($eSourceFile[Parser::SOURCE_FILE_NAME]);
+            $TestCase = new TestCaseTSE($eSourceFile[Parser::SOURCE_FILE_NAME]);
             
             // Initialize validation
             $validation = new ValidationResult($TestCase);
@@ -120,7 +120,7 @@ class Parser
                 
                 // Check for Status
                 if (isset($column[Parser::TITLE]))  {
-                    $Result = new Result($column[Parser::TITLE], $column[Parser::VALUE]);
+                    $Result = new ResultTSE($column[Parser::TITLE], $column[Parser::VALUE]);
                 }
                                 
                 // Add result to test case

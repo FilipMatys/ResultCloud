@@ -17,6 +17,8 @@
   <ItemGroup>
     <Compile Include="api\ImportController.class.php" />
     <Compile Include="api\InstallationController.class.php" />
+    <Compile Include="api\PluginController.class.php" />
+    <Compile Include="api\ProjectController.class.php" />
     <Compile Include="corly\daoImplementation\plugin\PluginDao.class.php" />
     <Compile Include="corly\daoImplementation\plugin\ProjectDao.class.php" />
     <Compile Include="corly\daoImplementation\suite\CategoryDao.class.php" />
@@ -33,15 +35,17 @@
     <Compile Include="corly\dbCreator\DbProperty.class.php" />
     <Compile Include="corly\dbCreator\DbTable.class.php" />
     <Compile Include="corly\dbCreator\DbType.class.php" />
-    <Compile Include="corly\entities\Category.entity.php" />
-    <Compile Include="corly\entities\Result.entity.php" />
-    <Compile Include="corly\entities\Submission.entity.php" />
-    <Compile Include="corly\entities\TestCase.entity.php" />
+    <Compile Include="corly\entities\CategoryTSE.entity.php" />
+    <Compile Include="corly\entities\ResultTSE.entity.php" />
+    <Compile Include="corly\entities\SubmissionTSE.entity.php" />
+    <Compile Include="corly\entities\TestCaseTSE.entity.php" />
     <Compile Include="corly\installation\ApplicationConfiguration.class.php" />
     <Compile Include="corly\installation\DatabaseInstallation.class.php" />
     <Compile Include="corly\service\application\ConfigurationService.class.php" />
     <Compile Include="corly\service\import\ImportService.class.php" />
     <Compile Include="corly\service\installation\InstallationService.class.php" />
+    <Compile Include="corly\service\plugin\PluginService.class.php" />
+    <Compile Include="corly\service\plugin\ProjectService.class.php" />
     <Compile Include="corly\service\suite\SubmissionService.class.php" />
     <Compile Include="index.html" />
     <Compile Include="Library.utility.php" />
@@ -154,10 +158,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="js\controllers\ImportController.js" />
+    <Content Include="js\controllers\PluginController.js" />
     <Content Include="js\controllers\PluginManagementController.js" />
     <Content Include="js\controllers\ProfileController.js" />
     <Content Include="js\controllers\SettingsController.js" />
     <Content Include="views\home\import.html" />
+    <Content Include="views\home\plugin.html" />
     <Content Include="views\home\pluginManagement.html" />
     <Content Include="views\home\profile.html" />
     <Content Include="views\home\settings.html" />

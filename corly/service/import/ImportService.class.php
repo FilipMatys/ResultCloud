@@ -3,6 +3,8 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 
 // Get libraries
 Library::using(Library::UTILITIES);
+Library::using(Library::CORLY_DAO_IMPLEMENTATION_PLUGIN);
+Library::using(Library::CORLY_SERVICE_SUITE);
 
 /**
  * ImportService short summary.
@@ -14,6 +16,19 @@ Library::using(Library::UTILITIES);
  */
 class ImportService
 {
+    // Services
+    private $SubmissionService;
+    // Daos
+    private $PluginDao; 
+    
+    /**
+     * Import service constructor
+     */
+    public function __construct()   {
+        $this->SubmissionService = new SubmissionService();
+        $this->PluginDao = new PluginDao();
+    }
+    
     /**
      * Import file with given plugin
      */
@@ -22,8 +37,8 @@ class ImportService
         $validation = new ValidationResult($data);
         
         // Validate data properties
-        //$validation->CheckNotNullOrEmpty('Plugin', "Plugin has to be set");
-        //$validation->CheckNotNullOrEmpty('Project', "Project has to be set");
+        $validation->CheckNotNullOrEmpty('Plugin', "Plugin has to be set");
+        $validation->CheckNotNullOrEmpty('Project', "Project has to be set");
         
         // Check validation result
         if (!$validation->IsValid)  {
@@ -51,10 +66,8 @@ class ImportService
             return $validation;
         }
         
-        print_r($importValidation->Data);
-        
         // Save imported data into database
-        // TODO
+        $this->SubmissionService->Save($importValidation->Data, $validation->Data->Project);
         
         // Return validation
         return $validation;
@@ -64,8 +77,14 @@ class ImportService
      * Get given plugin to import data
      */
     private function GetImportPlugin(ValidationResult $validation)  {
-    
-        // Todo - test is name of the plugin
-        Library::using(Library::PLUGINS .DIRECTORY_SEPARATOR. 'cpalien');
+        // Prepare plugin object to load
+        $plugin = new stdClass();
+        $plugin->Id = $validation->Data->Plugin;
+        
+        // Load plugin 
+        $plugin = $this->PluginDao->Load($plugin);
+        
+        // Load plugin structure
+        Library::using(Library::PLUGINS .DIRECTORY_SEPARATOR. $plugin->Root);
     }
 }

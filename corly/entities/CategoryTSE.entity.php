@@ -8,7 +8,7 @@
  * @version 1.0
  * @author Filip
  */
-class Category
+class CategoryTSE
 {
     public $Name;
     private $TestCases;

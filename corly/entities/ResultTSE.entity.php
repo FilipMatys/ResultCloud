@@ -8,7 +8,7 @@
  * @version 1.0
  * @author Filip
  */
-class Result
+class ResultTSE
 {
     private $RKey;
     private $RValue;

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Submission short summary.
  *
@@ -8,7 +7,7 @@
  * @version 1.0
  * @author Filip
  */
-class Submission
+class SubmissionTSE
 {
     private $DateTime;
     private $Categories;

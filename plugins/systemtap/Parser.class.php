@@ -22,13 +22,13 @@ class Parser
         // Load uploaded file as string
         $fileRows = file($data);
         
-        $Category = new Category("Default");
+        $Category = new CategoryTSE("Default");
         // Iterate through array (rows)
         foreach ($fileRows as $row) {
             
             // Check for date and time
             if (!isset($Submission) && preg_match("/Test Run By (.*) on (.*)/", $row, $headerMatch))    {
-                $Submission = new Submission($headerMatch[2]);
+                $Submission = new SubmissionTSE($headerMatch[2]);
             }
         
             // Check for test case header
@@ -41,12 +41,12 @@ class Parser
                 }
                 
                 // Create new test case
-                $TestCase = new TestCase($testCaseMatches[1]);
+                $TestCase = new TestCaseTSE($testCaseMatches[1]);
             }
             // Check for result
             else if (preg_match("/([A-Z]*): (.*)/", $row, $resultMatches))  {
                 // Create result object
-                $Result = new Result($resultMatches[2], $resultMatches[1]);
+                $Result = new ResultTSE($resultMatches[2], $resultMatches[1]);
                 
                 // Add result to test case, if there is any
                 if (isset($TestCase))   {

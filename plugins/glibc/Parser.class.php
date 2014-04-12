@@ -30,7 +30,7 @@ class Parser
         $fileContent = file_get_contents($data);
         
         // Create submission
-        $Submission = new Submission(date("c"));
+        $Submission = new SubmissionTSE(date("c"));
         
         // Get all needed rows
         preg_match_all("/make\[(\d)\]: \*\*\* \[(.*)\] (.*) (\d+)/", $fileContent, $matches);
@@ -41,13 +41,13 @@ class Parser
         // Iterate throught each found record        
         for ($index = 0; $index < count($matches[Parser::WHOLE_STRING]); $index++) {
             // Init category
-            $Category = new Category($matches[Parser::CATEGORY][$index]);
+            $Category = new CategoryTSE($matches[Parser::CATEGORY][$index]);
          
             // Init  test case 
-            $TestCase = new TestCase($matches[Parser::TEST_CASE][$index]);
+            $TestCase = new TestCaseTSE($matches[Parser::TEST_CASE][$index]);
           
             // Create result
-            $Result = new Result($matches[Parser::RESULT_KEY][$index], $matches[Parser::RESULT_VAL][$index]);
+            $Result = new ResultTSE($matches[Parser::RESULT_KEY][$index], $matches[Parser::RESULT_VAL][$index]);
             
             // Add result to test case
             $TestCase->AddResult($Result);
@@ -62,7 +62,7 @@ class Parser
         foreach ($lCategories->GroupBy('Name')->ToList() as $items)    {
         
             // Create category
-            $Category = new Category($items[0]->Name);
+            $Category = new CategoryTSE($items[0]->Name);
             
             // Add each test case to category
             foreach ($items as $category)  {
