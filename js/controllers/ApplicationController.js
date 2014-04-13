@@ -1,6 +1,7 @@
-var application = angular.module('iJobs', [
+var application = angular.module('CorlyWMT', [
 		'ui.router',
-        'angularFileUpload'
+        'angularFileUpload',
+        'googlechart'
 	]);
 
 // Load foundation on every new page load
