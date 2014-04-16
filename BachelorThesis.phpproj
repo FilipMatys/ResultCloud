@@ -7,6 +7,7 @@
     <RootNamespace>BachelorThesis</RootNamespace>
     <OutputType>Library</OutputType>
     <ProjectTypeGuids>{A0786B88-2ADB-4C21-ABE8-AA2D79766269}</ProjectTypeGuids>
+    <IISProjectUrl>http://localhost:29419/</IISProjectUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <IncludeDebugInformation>true</IncludeDebugInformation>
@@ -115,6 +116,12 @@
     <Compile Include="views\home\dashboard.html" />
     <Compile Include="views\home\index.html" />
     <Compile Include="views\login\index.html" />
+    <Compile Include="visualisation\googleCharts\GCAxis.class.php" />
+    <Compile Include="visualisation\googleCharts\GCData.class.php" />
+    <Compile Include="visualisation\googleCharts\GCGridlines.class.php" />
+    <Compile Include="visualisation\googleCharts\GCOptions.class.php" />
+    <Compile Include="visualisation\googleCharts\GCType.class.php" />
+    <Compile Include="visualisation\googleCharts\GoogleChart.class.php" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="api" />
@@ -137,7 +144,7 @@
     <Folder Include="js" />
     <Folder Include="corly\" />
     <Folder Include="corly\service\" />
-    <Folder Include="dataTypes\" />
+    <Folder Include="visualisation\" />
     <Folder Include="plugins\" />
     <Folder Include="plugins\cpalien\" />
     <Folder Include="plugins\glibc\" />
@@ -155,6 +162,7 @@
     <Folder Include="corly\service\security\" />
     <Folder Include="views\home" />
     <Folder Include="views\login" />
+    <Folder Include="visualisation\googleCharts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="js\controllers\ImportController.js" />
