@@ -46,6 +46,10 @@ class GCCol
         $this->Type =  $type;
     }
     
+    /**
+     * Set 
+     * @param mixed $p 
+     */
     public function setCustom($p)   {
         $this->P = $p;
     }

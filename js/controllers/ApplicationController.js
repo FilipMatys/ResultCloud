@@ -61,11 +61,23 @@ application.config(function($stateProvider, $urlRouterProvider){
 	    templateUrl: './views/home/pluginManagement.html',
 	    controller: 'PluginManagementController'
 	})
+    // Data overview
+	.state('home.data-overview', {
+	    url: '/data-overview',
+	    templateUrl: './views/home/dataOverview.html',
+	    controller: 'DataOverviewController'
+	})
     // Plugin detail
     .state('home.plugin', {
         url: '/plugin-management/{pluginId}',
         templateUrl: './views/home/plugin.html',
         controller: 'PluginController'
+    })
+    // Plugin overview detail
+    .state('home.plugin-overview', {
+        url: '/plugin-overview/{pluginId}',
+        templateUrl: './views/home/overview/plugin.html',
+        controller: 'PluginOverviewController'
     })
     // Profile
 	.state('home.profile', {

@@ -28,6 +28,7 @@
     <Compile Include="corly\daoImplementation\suite\TestCaseDao.class.php" />
     <Compile Include="corly\dao\plugin\Plugin.entity.php" />
     <Compile Include="corly\dao\plugin\Project.entity.php" />
+    <Compile Include="corly\dao\stat\ErrorCodes.enum.php" />
     <Compile Include="corly\dao\suite\Category.entity.php" />
     <Compile Include="corly\dao\suite\Result.entity.php" />
     <Compile Include="corly\dao\suite\Submission.entity.php" />
@@ -117,9 +118,12 @@
     <Compile Include="views\home\index.html" />
     <Compile Include="views\login\index.html" />
     <Compile Include="visualisation\googleCharts\GCAxis.class.php" />
+    <Compile Include="visualisation\googleCharts\GCCell.class.php" />
+    <Compile Include="visualisation\googleCharts\GCCol.class.php" />
     <Compile Include="visualisation\googleCharts\GCData.class.php" />
     <Compile Include="visualisation\googleCharts\GCGridlines.class.php" />
     <Compile Include="visualisation\googleCharts\GCOptions.class.php" />
+    <Compile Include="visualisation\googleCharts\GCRow.class.php" />
     <Compile Include="visualisation\googleCharts\GCType.class.php" />
     <Compile Include="visualisation\googleCharts\GoogleChart.class.php" />
   </ItemGroup>
@@ -144,6 +148,7 @@
     <Folder Include="js" />
     <Folder Include="corly\" />
     <Folder Include="corly\service\" />
+    <Folder Include="views\home\overview\" />
     <Folder Include="visualisation\" />
     <Folder Include="plugins\" />
     <Folder Include="plugins\cpalien\" />
@@ -165,12 +170,16 @@
     <Folder Include="visualisation\googleCharts\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="js\controllers\DataOverviewController.js" />
     <Content Include="js\controllers\ImportController.js" />
     <Content Include="js\controllers\PluginController.js" />
     <Content Include="js\controllers\PluginManagementController.js" />
+    <Content Include="js\controllers\PluginOverviewController.js" />
     <Content Include="js\controllers\ProfileController.js" />
     <Content Include="js\controllers\SettingsController.js" />
+    <Content Include="views\home\dataOverview.html" />
     <Content Include="views\home\import.html" />
+    <Content Include="views\home\overview\plugin.html" />
     <Content Include="views\home\plugin.html" />
     <Content Include="views\home\pluginManagement.html" />
     <Content Include="views\home\profile.html" />
