@@ -79,6 +79,12 @@ application.config(function($stateProvider, $urlRouterProvider){
         templateUrl: './views/home/overview/plugin.html',
         controller: 'PluginOverviewController'
     })
+    // Project overview detail
+    .state('home.project-overview', {
+        url: '/project-overview/{projectId}',
+        templateUrl: './views/home/overview/project.html',
+        controller: 'ProjectOverviewController'
+    })
     // Profile
 	.state('home.profile', {
 	    url: '/profile',

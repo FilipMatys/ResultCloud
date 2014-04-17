@@ -17,7 +17,7 @@
 </div>
 <div class="row" ng-repeat="project in plugin.Projects">
     <div class="large-12 columns">
-        <a class="tab">
+        <a ui-sref="home.project-overview({projectId:project.Id})" class="tab">
             <fieldset>
                 {{project.Name}}
             </fieldset>

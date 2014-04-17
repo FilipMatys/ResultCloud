@@ -38,6 +38,7 @@
     <Compile Include="corly\dbCreator\DbTable.class.php" />
     <Compile Include="corly\dbCreator\DbType.class.php" />
     <Compile Include="corly\entities\CategoryTSE.entity.php" />
+    <Compile Include="corly\entities\ProjectTSE.entity.php" />
     <Compile Include="corly\entities\ResultTSE.entity.php" />
     <Compile Include="corly\entities\SubmissionTSE.entity.php" />
     <Compile Include="corly\entities\TestCaseTSE.entity.php" />
@@ -48,7 +49,10 @@
     <Compile Include="corly\service\installation\InstallationService.class.php" />
     <Compile Include="corly\service\plugin\PluginService.class.php" />
     <Compile Include="corly\service\plugin\ProjectService.class.php" />
+    <Compile Include="corly\service\suite\CategoryService.class.php" />
+    <Compile Include="corly\service\suite\ResultService.class.php" />
     <Compile Include="corly\service\suite\SubmissionService.class.php" />
+    <Compile Include="corly\service\suite\TestCaseService.class.php" />
     <Compile Include="index.html" />
     <Compile Include="Library.utility.php" />
     <Compile Include="api\AuthentizationController.class.php" />
@@ -117,15 +121,19 @@
     <Compile Include="views\home\dashboard.html" />
     <Compile Include="views\home\index.html" />
     <Compile Include="views\login\index.html" />
-    <Compile Include="visualisation\googleCharts\GCAxis.class.php" />
-    <Compile Include="visualisation\googleCharts\GCCell.class.php" />
-    <Compile Include="visualisation\googleCharts\GCCol.class.php" />
-    <Compile Include="visualisation\googleCharts\GCData.class.php" />
-    <Compile Include="visualisation\googleCharts\GCGridlines.class.php" />
-    <Compile Include="visualisation\googleCharts\GCOptions.class.php" />
-    <Compile Include="visualisation\googleCharts\GCRow.class.php" />
-    <Compile Include="visualisation\googleCharts\GCType.class.php" />
-    <Compile Include="visualisation\googleCharts\GoogleChart.class.php" />
+    <Compile Include="visualization\components\googleChart\GCAxis.class.php" />
+    <Compile Include="visualization\components\googleChart\GCCell.class.php" />
+    <Compile Include="visualization\components\googleChart\GCCol.class.php" />
+    <Compile Include="visualization\components\googleChart\GCData.class.php" />
+    <Compile Include="visualization\components\googleChart\GCGridlines.class.php" />
+    <Compile Include="visualization\components\googleChart\GCOptions.class.php" />
+    <Compile Include="visualization\components\googleChart\GCRow.class.php" />
+    <Compile Include="visualization\components\googleChart\GCType.class.php" />
+    <Compile Include="visualization\components\googleChart\GoogleChart.class.php" />
+    <Compile Include="visualization\project\ProjectOverviewList.class.php" />
+    <Compile Include="visualization\project\ProjectOverviewListItem.class.php" />
+    <Compile Include="visualization\project\ProjectOverviewVisualization.class.php" />
+    <Compile Include="visualization\submission\SubmissionOverviewVisualization.class.php" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="api" />
@@ -149,7 +157,7 @@
     <Folder Include="corly\" />
     <Folder Include="corly\service\" />
     <Folder Include="views\home\overview\" />
-    <Folder Include="visualisation\" />
+    <Folder Include="visualization\" />
     <Folder Include="plugins\" />
     <Folder Include="plugins\cpalien\" />
     <Folder Include="plugins\glibc\" />
@@ -167,7 +175,10 @@
     <Folder Include="corly\service\security\" />
     <Folder Include="views\home" />
     <Folder Include="views\login" />
-    <Folder Include="visualisation\googleCharts\" />
+    <Folder Include="visualization\components\googleChart\" />
+    <Folder Include="visualization\components\" />
+    <Folder Include="visualization\submission\" />
+    <Folder Include="visualization\project\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="js\controllers\DataOverviewController.js" />
@@ -176,10 +187,12 @@
     <Content Include="js\controllers\PluginManagementController.js" />
     <Content Include="js\controllers\PluginOverviewController.js" />
     <Content Include="js\controllers\ProfileController.js" />
+    <Content Include="js\controllers\ProjectOverviewController.js" />
     <Content Include="js\controllers\SettingsController.js" />
     <Content Include="views\home\dataOverview.html" />
     <Content Include="views\home\import.html" />
     <Content Include="views\home\overview\plugin.html" />
+    <Content Include="views\home\overview\project.html" />
     <Content Include="views\home\plugin.html" />
     <Content Include="views\home\pluginManagement.html" />
     <Content Include="views\home\profile.html" />

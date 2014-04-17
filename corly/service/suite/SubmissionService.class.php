@@ -51,6 +51,34 @@ class SubmissionService
         return $validation;
     }
     
+    public function LoadSubmissions($projectId)   {
+        // Load submissions for given project
+        $dbSubmissions = $this->SubmissionDao->GetFilteredList(QueryParameter::Where('Project', $projectId));
+        
+        // Init submission array
+        $submissions = array();
+        
+        // Map submissions to TSE objects and load categories
+        foreach ($dbSubmissions as $dbSubmission)
+        {
+            $submission = new SubmissionTSE();
+            $submission->MapDbObject($dbSubmission);
+            
+            // Load categories
+            foreach ($this->CategoryService->LoadCategories($dbSubmission->Id) as $category)
+            {
+                // Add category to submission
+                $submission->AddCategory($category);
+            }
+            
+            // Add submission to array
+            $submissions[] = $submission;
+        }
+        
+        // Return submissions
+        return $submissions;
+    }
+    
     /**
      * Validate submission data
      */

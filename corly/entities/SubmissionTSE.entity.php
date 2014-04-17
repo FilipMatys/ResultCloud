@@ -16,7 +16,7 @@ class SubmissionTSE
     /**
      * Submission constructor
      */
-    public function __construct($dateTime)   {
+    public function __construct($dateTime = "")   {
         $this->DateTime = $dateTime;
         $this->Categories = array();
     }

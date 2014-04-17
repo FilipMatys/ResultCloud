@@ -4,6 +4,7 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 // Get libraries
 Library::using(Library::UTILITIES);
 Library::using(Library::CORLY_DAO_IMPLEMENTATION_SUITE);
+Library::using(Library::CORLY_ENTITIES);
 
 /**
  * ResultService short summary.
@@ -34,5 +35,31 @@ class ResultService
             // Save result
             $this->ResultDao->Save($result->GetDbObject($testCaseId));
         }
+    }
+    
+    /**
+     * Load results for given test case
+     * @param mixed $testCaseId 
+     * @return mixed
+     */
+    public function LoadResults($testCaseId)    {
+        // Load results for given 
+        $dbResults = $this->ResultDao->GetFilteredList(QueryParameter::Where('TestCase', $testCaseId));
+        
+        // Initialize results
+        $results = array();
+        
+        // Map db objects into TSE objects
+        foreach ($dbResults as $dbResult) {
+            // Create TSE object
+            $result = new ResultTSE();
+            $result->MapDbObject($dbResult);
+            
+            // Add to results array
+            $results[] = $result;
+        }
+        
+        // return results
+        return $results;
     }
 }

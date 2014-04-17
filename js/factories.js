@@ -93,6 +93,13 @@ application.factory('ProjectService', ['$http', function ($http) {
                 url: 'api/ProjectController.class.php?method=PLUGIN',
                 data: pluginId
             })
-        }
+        },
+        get: function (projectId) {
+            return $http({
+                method: 'POST',
+                url: 'api/ProjectController.class.php?method=GET',
+                data: projectId
+            })
+        },
     }
 }]);

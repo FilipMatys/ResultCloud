@@ -58,6 +58,18 @@ class ProjectController
     public function Query() {
         return $this->ProjectService->GetList();
     }
+    
+    /**
+     * Get project 
+     * @param mixed $projectId 
+     * @return mixed
+     */
+    public function Get($projectId) {
+        $project = new stdClass();
+        $project->Id = $projectId;
+        // Get project detail
+        return $this->ProjectService->GetDetail($project);
+    }
 }
 
 // Extract json data
@@ -83,11 +95,15 @@ if (isset($_GET["method"]))	{
             $result = $ProjectController->Query();
             break;
             
+        case ProjectController::GET:
+            $result = $ProjectController->Get($data);
+            break;
+            
 		default:
 			$result = false;
 			break;
 	}
-
+    
 	// Return answer to client
 	exit(json_encode($result));
 }

@@ -70,6 +70,7 @@ class ProjectTSE
     public function MapDbObject($dbProject) {
         // Map values
         $this->Id = $dbProject->Id;
+        $this->Name = $dbProject->Name;
         $this->Author = $dbProject->Author;
         $this->DateCreated = $dbProject->DateCreated;
     }

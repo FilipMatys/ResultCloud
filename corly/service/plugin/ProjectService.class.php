@@ -3,6 +3,8 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 
 // Get libraries
 Library::using(Library::CORLY_DAO_IMPLEMENTATION_PLUGIN);
+Library::using(Library::CORLY_SERVICE_SUITE);
+Library::using(Library::CORLY_ENTITIES);
 Library::using(Library::UTILITIES);
 
 /**
@@ -18,11 +20,14 @@ class ProjectService
     // Daos
     private $ProjectDao;
     
+    private $SubmissionService;
+    
     /**
      * Project service constructor
      */
     public function __construct()   {
         $this->ProjectDao = new ProjectDao();
+        $this->SubmissionService = new SubmissionService();
     }
     
     /**
@@ -60,5 +65,29 @@ class ProjectService
         
         // Return validation
         return$validation;
+    }
+    
+    /**
+     * Load project with all submissions
+     * @param mixed $project 
+     * @return mixed
+     */
+    public function GetDetail($project) {
+        // Load project from database
+        $dbProject = $this->ProjectDao->Load($project);
+        
+        // Map database object to TSE object
+        $project = new ProjectTSE();
+        $project->MapDbObject($dbProject);
+        
+        // Load submissions and add them to project
+        foreach ($this->SubmissionService->LoadSubmissions($dbProject->Id) as $submission)
+        {
+            // Add submission to project
+            $project->AddSubmission($submission);
+        }
+        
+        // Return project
+        return $project;
     }
 }
