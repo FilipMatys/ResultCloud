@@ -10,32 +10,16 @@
  */
 class ResultTSE
 {
+    private $Id;
     private $RKey;
     private $RValue;
     
     /**
      * Result constructor
      */
-    public function __construct($rKey, $rValue)  {
+    public function __construct($rKey = "", $rValue = "")  {
         $this->RKey = $rKey;
         $this->RValue = $rValue;
-    }
-    
-    /**
-     * Get result as object to save to database
-     * @param mixed $testCaseId 
-     */
-    public function GetDbObject($testCaseId)    {
-        // Init object
-        $result = new stdClass();
-        // Set properties from base object
-        $result->RKey = $this->RKey;
-        $result->RValue = $this->RValue;
-        // Set parent id (test case)
-        $result->TestCase = $testCaseId;
-        
-        // return result
-        return $result;
     }
     
     /**
@@ -50,5 +34,50 @@ class ResultTSE
      */
      private function GetValue()    {
         return $this->RValue;
+     }
+     
+     /**
+      * Map database object into TS entity
+      * @param mixed $dbResult 
+      */
+     public function MapDbObject($dbResult)   {
+         // Map values
+         $this->Id = $dbResult->Id;
+         $this->RKey = $dbResult->RKey;
+         $this->RValue = $dbResult->RValue;
+     }
+     
+     /**
+      * Export object for serialization
+      * @return mixed
+      */
+     public function ExportObject()  {
+         // Init object
+         $result = new stdClass();
+         
+         // Set values
+         $result->Id = $this->Id;
+         $result->RKey = $this->RKey;
+         $result->RValue = $this->RValue;
+         
+         // return result
+         return $result;
+     }
+     
+     /**
+      * Get result as object to save to database
+      * @param mixed $testCaseId 
+      */
+     public function GetDbObject($testCaseId)    {
+         // Init object
+         $result = new stdClass();
+         // Set properties from base object
+         $result->RKey = $this->RKey;
+         $result->RValue = $this->RValue;
+         // Set parent id (test case)
+         $result->TestCase = $testCaseId;
+         
+         // return result
+         return $result;
      }
 }

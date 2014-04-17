@@ -58,4 +58,21 @@ class SubmissionOverviewVisualization
     public function AddSubmissionOverviewCustom($submissionOverviewCustom)  {
         $this->SubmissionOverviewCustoms[] = $submissionOverviewCustom->ExportObject();
     }
+    
+    /**
+     * Export object for serialization
+     * @return mixed
+     */
+    public function ExportObject()  {
+        // Init object
+        $submissionOverviewVisualization = new stdClass();
+    
+        // Set values
+        $submissionOverviewVisualization->SubmissionOverviewChart = $this->SubmissionOverviewChart;
+        $submissionOverviewVisualization->SubmissionOverviewCategories = $this->SubmissionOverviewCategories;
+        $submissionOverviewVisualization->SubmissionOverviewCustoms = $this->SubmissionOverviewCustoms;
+        
+        // return result
+        return $submissionOverviewVisualization;
+    }
 }

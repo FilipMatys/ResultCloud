@@ -197,7 +197,7 @@ class DatabaseInstallation
      * - Name [varchar(127)]
      * - Author [varchar(127)]
      * - DateCreated [varchar(63)]
-     * - Project [double]
+     * - Plugin [double]
      */
     private function CreateTb_Project() {
         $tProject = new DbTable('Project');
