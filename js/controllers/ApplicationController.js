@@ -85,6 +85,12 @@ application.config(function($stateProvider, $urlRouterProvider){
         templateUrl: './views/home/overview/project.html',
         controller: 'ProjectOverviewController'
     })
+    // Submission overview detail
+    .state('home.submission-overview', {
+        url: '/submission-overview/{submissionId}',
+        templateUrl: './views/home/overview/submission.html',
+        controller: 'SubmissionOverviewController'
+    })
     // Profile
 	.state('home.profile', {
 	    url: '/profile',

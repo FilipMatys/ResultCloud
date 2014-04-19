@@ -46,8 +46,17 @@ class GCData
         $data = new stdClass();
         
         // Set values
-        $data->cols = $this->Cols;
-        $data->rows = $this->Rows;
+        $data->cols = array();
+        foreach ($this->Cols as $col)
+        {
+            $data->cols[] = $col->ExportObject();  
+        }
+        
+        $data->rows = array();
+        foreach ($this->Rows as $row)
+        {
+            $data->rows[] = $row->ExportObject();
+        }
         
         // Return values
         return $data;

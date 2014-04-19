@@ -30,6 +30,10 @@ h3  {
     display: inline-block;
 }
 
+.full-width {
+    width: 100%;
+}
+
 /**
     FOOTER
 */
@@ -112,4 +116,47 @@ fieldset div.tab-operations {
 
 fieldset div.tab-operations button {
     margin-bottom: 5px;
+}
+
+/**
+    SUBMISSION LIST    
+*/
+form.list fieldset .button,
+.toolbar .button   {
+    margin-bottom: 0px;
+}   
+
+form.list fieldset,
+div.toolbar form fieldset   {
+    padding: 0.5rem;
+    margin-bottom: 0rem;
+    border: none;
+    margin-top: 0.5rem;
+}
+
+form.list fieldset:hover   {
+    background: #cccccc;
+}
+
+form.list,
+.toolbar form   {
+    margin-bottom: 0rem;
+}
+
+form.list p {
+    margin-bottom: 0rem;
+    line-height: 3.2rem;
+    padding-left: 1rem;
+}
+
+form.list fieldset div.large-4,
+div.toolbar div.large-4 {
+    text-align: right;
+}
+
+/**
+    GOOGLE CHART
+*/
+.google-chart   {
+    height: 360px;
 }

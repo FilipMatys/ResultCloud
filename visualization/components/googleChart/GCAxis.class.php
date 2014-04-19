@@ -35,4 +35,22 @@ class GCAxis
     public function setGridlines($gridlines)  {
         $this->Gridlines = $gridlines;    
     }
+    
+    /**
+     * Export object for serialization
+     * @return mixed
+     */
+    public function ExportObject()  {
+        // Init object
+        $axis = new stdClass();
+        
+        // Set values
+        $axis->title = $this->Title;
+        
+        if (isset($this->Gridlines))
+            $axis->gridlines = $this->Gridlines->ExportObject();
+        
+        // return result
+        return $axis;
+    }
 }

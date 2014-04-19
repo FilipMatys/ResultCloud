@@ -69,6 +69,22 @@ class SubmissionTSE
     }
     
     /**
+     * Export object for serialization, strip all references
+     * @return mixed
+     */
+    public function ExportItem()    {
+        // Init object
+        $submission = new stdClass();
+        
+        // Set values
+        $submission->Id = $this->Id;
+        $submission->DateTime = $this->DateTime;
+        
+        // Return result
+        return $submission;
+    }
+    
+    /**
      * Export object for serialization
      * @return mixed
      */

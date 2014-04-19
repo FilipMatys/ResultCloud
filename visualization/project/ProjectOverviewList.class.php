@@ -27,7 +27,7 @@ class ProjectOverviewList
      * Add submission to project overview list
      * @param mixed $submission 
      */
-    public function AddSubmission($submission)  {
+    public function AddItem($submission)  {
         $this->Submissions[] = $submission;
     }
     
@@ -40,7 +40,13 @@ class ProjectOverviewList
         $projectOverviewList = new stdClass();
         
         // Set values
-        $projectOverviewList->Submissions = $this->Submissions;
+        $projectOverviewList->Submissions = array();
+        
+        // Export each submission
+        foreach ($this->Submissions as $submission)
+        {
+            $projectOverviewList->Submissions[] = $submission->ExportObject();
+        }
         
         // return object
         return $projectOverviewList;

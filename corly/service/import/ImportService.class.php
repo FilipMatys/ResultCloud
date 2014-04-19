@@ -5,6 +5,7 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 Library::using(Library::UTILITIES);
 Library::using(Library::CORLY_DAO_IMPLEMENTATION_PLUGIN);
 Library::using(Library::CORLY_SERVICE_SUITE);
+Library::using(Library::CORLY_SERVICE_PLUGIN);
 
 /**
  * ImportService short summary.
@@ -19,14 +20,14 @@ class ImportService
     // Services
     private $SubmissionService;
     // Daos
-    private $PluginDao; 
+    private $PluginService; 
     
     /**
      * Import service constructor
      */
     public function __construct()   {
         $this->SubmissionService = new SubmissionService();
-        $this->PluginDao = new PluginDao();
+        $this->PluginService = new PluginService();
     }
     
     /**
@@ -49,7 +50,7 @@ class ImportService
         $fileParser = new FileParser($file);
         
         // Get the right plugin to import
-        $this->GetImportPlugin($validation);
+        $this->PluginService->LoadPlugin($validation->Data->Plugin);
         
         // Check if importer was included
         if (!class_exists('Importer'))  {
@@ -72,19 +73,5 @@ class ImportService
         // Return validation
         return $validation;
     }
-    
-    /**
-     * Get given plugin to import data
-     */
-    private function GetImportPlugin(ValidationResult $validation)  {
-        // Prepare plugin object to load
-        $plugin = new stdClass();
-        $plugin->Id = $validation->Data->Plugin;
-        
-        // Load plugin 
-        $plugin = $this->PluginDao->Load($plugin);
-        
-        // Load plugin structure
-        Library::using(Library::PLUGINS .DIRECTORY_SEPARATOR. $plugin->Root);
-    }
+   
 }

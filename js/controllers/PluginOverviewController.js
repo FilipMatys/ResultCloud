@@ -8,9 +8,9 @@ application.controller('PluginOverviewController', ['$scope', '$stateParams', 'P
     // Load given plugin
     var LoadPlugin = function () {
         PluginService.get($stateParams.pluginId)
-        .success(function (data, status, headers, config) {
-            $scope.plugin = data;
-        });
+            .success(function (data, status, headers, config) {
+                $scope.plugin = data;
+            });
     }
 
     // Load plugin on page load

@@ -50,6 +50,15 @@ class GCCell
      * @return mixed  Exported object
      */
     public function ExportObject()  {
+        // Init object
+        $cell = new stdClass();
         
+        // Set values
+        $cell->v = $this->V;
+        $cell->f = $this->F;
+        $cell->p = $this->P;
+        
+        // return result
+        return $cell;
     }
 }

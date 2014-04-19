@@ -104,13 +104,23 @@ class LINQ
         // Init variable
         $result = array();
 
-        // Iterate over array
-        foreach ($this->Array as $item) {
-            if (eval('return ' . '$item->{$property}' . $comparison . '$value' . ';')) {
-                $result[] = $item;
+        // If is simple array
+        if (is_null($property)) {
+            foreach ($this->Array as $item) {
+                if (eval('return ' . '$item' . $comparison . '$value' . ';')) {
+                    $result[] = $item;
+                }
             }
         }
-
+        // Else array of objects
+        else    {
+            foreach ($this->Array as $item) {
+                if (eval('return ' . '$item->{$property}' . $comparison . '$value' . ';')) {
+                    $result[] = $item;
+                }
+            }
+        }
+        
         // Return result
         return new LINQ($result);
     }

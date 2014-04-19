@@ -20,6 +20,7 @@ class ProjectService
     // Daos
     private $ProjectDao;
     
+    private $PluginService;
     private $SubmissionService;
     
     /**
@@ -28,6 +29,7 @@ class ProjectService
     public function __construct()   {
         $this->ProjectDao = new ProjectDao();
         $this->SubmissionService = new SubmissionService();
+        $this->PluginService = new PluginService();
     }
     
     /**
@@ -80,6 +82,18 @@ class ProjectService
         $project = new ProjectTSE();
         $project->MapDbObject($dbProject);
         
+        // Load plugin
+        $this->PluginService->LoadPlugin($dbProject->Plugin);
+        
+        // Initialize validation
+        $validation = new ValidationResult($project);
+        
+        // Check if importer was included
+        if (!class_exists('Visualization'))  {
+            $validation->AddError("Visualization for given plugin was not found");
+            return $validation;
+        }
+        
         // Load submissions and add them to project
         foreach ($this->SubmissionService->LoadSubmissions($dbProject->Id) as $submission)
         {
@@ -87,7 +101,10 @@ class ProjectService
             $project->AddSubmission($submission);
         }
         
+        // Process data by plugin
+        $validation = Visualization::VisualizeProject($project);
+        
         // Return project
-        return $project;
+        return $validation;
     }
 }

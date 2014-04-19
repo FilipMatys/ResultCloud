@@ -32,6 +32,17 @@ class GCRow
      * @return mixed
      */
     public function ExportObject()  {
-    
+        // Init object
+        $row = new stdClass();
+        
+        // Set value
+        $row->c = array();
+        foreach ($this->C as $cell)
+        {
+            $row->c[] = $cell->ExportObject();
+        }
+        
+        // Return result
+        return $row;
     }
 }

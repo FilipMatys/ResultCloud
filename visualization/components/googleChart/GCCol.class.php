@@ -56,8 +56,19 @@ class GCCol
     
     /**
      * Export object for serialization
+     * @return mixed 
      */
     public function ExportObject()  {
-    
+        // Init object
+        $col = new stdClass();
+        
+        // Set values
+        $col->id = $this->Id;
+        $col->type = $this->Type;
+        $col->label = $this->Label;
+        $col->p = $this->P;
+        
+        // Return values
+        return $col;
     }
 }

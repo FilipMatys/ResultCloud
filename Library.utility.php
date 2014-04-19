@@ -38,6 +38,13 @@ class Library	{
     const CORLY_SERVICE_SUITE = "corly/service/suite";
     const CORLY_SERVICE_INSTALLATION = "corly/service/installation";
     const CORLY_SERVICE_APPLICATION = "corly/service/application";
+    
+    // - visualization
+    const VISUALIZATION_PROJECT = "visualization/project";
+    const VISUALIZATION_SUBMISSION = "visualization/submission";
+    
+    // - visualization components
+    const VISUALIZATION_COMPONENT_GOOGLECHART = "visualization/components/googleChart";
 
     // - entities
     const CORLY_ENTITIES = "corly/entities";

@@ -59,5 +59,20 @@ class PluginService
         // Return final plugin object
         return $plugin;
     }
+    
+    /**
+     * Get given plugin to import data
+     */
+    public function LoadPlugin($pluginId)  {
+        // Prepare plugin object to load
+        $plugin = new stdClass();
+        $plugin->Id = $pluginId;
+        
+        // Load plugin 
+        $plugin = $this->PluginDao->Load($plugin);
+        
+        // Load plugin structure
+        Library::using(Library::PLUGINS .DIRECTORY_SEPARATOR. $plugin->Root);
+    }
 }
 

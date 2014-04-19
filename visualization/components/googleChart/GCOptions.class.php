@@ -72,4 +72,24 @@ class GCOptions
     public function setVAxis($vAxis)    {
         $this->VAxis = $vAxis;
     }
+    
+    /**
+     * Export object for serialization
+     * @return mixed
+     */
+    public function ExportObject()  {
+        // Init object
+        $options = new stdClass();
+        
+        // Set values
+        $options->title = $this->Title;
+        $options->isStacked = $this->IsStacked;
+        $options->fill = $this->Fill;
+        $options->displayExactValues = $this->DisplayExactValues;
+        $options->vAxis = $this->VAxis->ExportObject();
+        $options->hAxis = $this->HAxis->ExportObject();
+        
+        // Return result
+        return $options;
+    }
 }

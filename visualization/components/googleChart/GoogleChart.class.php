@@ -20,7 +20,7 @@ class GoogleChart
      * Google Chart constructor
      */
     public function __construct()   {
-    
+        $this->Displayed = true;
     }
     
     /**
@@ -61,5 +61,19 @@ class GoogleChart
      */
     public function setFormatters($formatters)  {
         $this->Formatters = $formatters;
+    }
+    
+    public function ExportObject()  {
+        // Init object
+        $googleChart = new stdClass();
+        
+        // Set values
+        $googleChart->type = $this->Type;
+        $googleChart->displayed = $this->Displayed;
+        $googleChart->data = $this->Data->ExportObject();
+        $googleChart->options = $this->Options->ExportObject();
+        
+        // Return result
+        return $googleChart;
     }
 }

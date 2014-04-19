@@ -25,16 +25,8 @@ class ProjectOverviewListItem
     /**
      * Project overview list item constructor
      */
-    public function __construct()   {
-    
-    }
-    
-    /**
-     * Set submission
-     * @param mixed $submission 
-     */
-    public function SetSubmission($submission)  {
-        $this->Submission = $submission;
+    public function __construct($submission)   {
+        $this->Submission = $submission->ExportItem();
     }
     
     /**
@@ -43,5 +35,21 @@ class ProjectOverviewListItem
      */
     public function SetNumberOfTestCases($numberOfTestCases)    {
         $this->NumberOfTestCases = $numberOfTestCases;
+    }
+    
+    /**
+     * Export object for serialization
+     * @return mixed
+     */
+    public function ExportObject()  {
+        // Init object
+        $listItem = new stdClass();
+        
+        // Set values
+        $listItem->Submission = $this->Submission;
+        $listItem->NumberOfTestCases = $this->NumberOfTestCases;
+        
+        // Return result
+        return $listItem;
     }
 }

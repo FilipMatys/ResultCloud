@@ -25,14 +25,14 @@ class ResultTSE
     /**
      * Get result key
      */
-    private function GetKey()   {
+    public function GetKey()   {
         return $this->Rkey;
     }
     
     /**
      * Get result value
      */
-     private function GetValue()    {
+     public function GetValue()    {
         return $this->RValue;
      }
      
