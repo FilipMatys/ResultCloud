@@ -50,7 +50,7 @@ class SubmissionTSE
         // Init object
         $submission = new stdClass();
         // Assign values of base object
-        $submission->DateTime = $this->DateTime;
+        $submission->DateTime = (string)$this->DateTime;
         // Set parent object id (project)
         $submission->Project = $projectId;
         

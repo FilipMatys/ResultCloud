@@ -54,7 +54,7 @@ class TestCaseTSE
         // Init object
         $testCase = new stdClass();
         // Assign values from base object
-        $testCase->Name = $this->Name;
+        $testCase->Name = (string)$this->Name;
         // Set parent id (category)
         $testCase->Category = $categoryId;
         

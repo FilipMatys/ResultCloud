@@ -1,0 +1,18 @@
+﻿<div class="row" ng-repeat="item in Data.Categories">
+    <div class="large-12 columns">
+        <table class="full-width">
+            <thead>
+                <tr>
+                    <th>Test Case</th>
+                    <th ng-hide="ShowColumn[$index]" ng-repeat="header in item.Category.TestCases[0].Results">{{header.RKey}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="testCase in item.Category.TestCases">
+                    <td>{{testCase.Name}}</td>
+                    <td ng-hide="ShowColumn[$index]" ng-repeat="result in testCase.Results">{{result.RValue}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

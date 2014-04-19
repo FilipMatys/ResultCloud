@@ -86,8 +86,11 @@ class GCOptions
         $options->isStacked = $this->IsStacked;
         $options->fill = $this->Fill;
         $options->displayExactValues = $this->DisplayExactValues;
-        $options->vAxis = $this->VAxis->ExportObject();
-        $options->hAxis = $this->HAxis->ExportObject();
+        
+        if (isset($this->VAxis))
+            $options->vAxis = $this->VAxis->ExportObject();
+        if (isset($this->HAxis))
+            $options->hAxis = $this->HAxis->ExportObject();
         
         // Return result
         return $options;

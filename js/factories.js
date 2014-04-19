@@ -25,6 +25,19 @@ application.factory('UserService', function($http)	{
 	}
 });
 
+// Submission service
+application.factory('SubmissionService', function ($http) {
+    return {
+        get: function (submissionId) {
+            return $http({
+                method: 'POST',
+                url: 'api/SubmissionController.class.php?method=GET',
+                data: submissionId
+            })
+        }
+    }
+});
+
 // Installation service
 application.factory('InstallationService', function ($http) {
     return {

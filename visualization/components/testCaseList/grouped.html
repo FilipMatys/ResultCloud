@@ -1,0 +1,25 @@
+﻿<div class="row" ng-repeat="item in Data.Categories">
+    <div class="large-12 columns">
+        <div class="row" ng-repeat="testCase in item.Category.TestCases">
+            <div class="large-12 columns">
+                <table class="full-width double">
+                    <thead>
+                        <tr>
+                            <th colspan="2">{{testCase.Name}}</th>
+                        </tr>
+                        <tr>
+                            <th>Key</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-hide="ShowColumn[$index]" ng-repeat="result in testCase.Results">
+                            <td>{{result.RKey}}</td>
+                            <td>{{result.RValue}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -20,7 +20,7 @@ class SubmissionOverviewVisualization
      * Submission cateogories with all data
      * @var mixed
      */
-    private $SubmissionOverviewCategories;
+    private $SubmissionOverviewList;
     
     /**
      * Submission custom objects
@@ -32,7 +32,7 @@ class SubmissionOverviewVisualization
      * Submission overview visualisation constructor
      */
     public function __construct()   {
-        $this->SubmissionOverviewCategories = array();
+        $this->SubmissionOverviewList = array();
     }
     
     /**
@@ -47,8 +47,8 @@ class SubmissionOverviewVisualization
      * Add category to submission overview
      * @param mixed $submissionOverviewCategory 
      */
-    public function AddSubmissionOverviewCategory($submissionOverviewCategory)  {
-        $this->SubmissionOverviewCategories[] = $submissionOverviewCategory->ExportObject();
+    public function SetSubmissionOverviewList($submissionOverviewList)  {
+        $this->SubmissionOverviewList = $submissionOverviewList->ExportObject();
     }
     
     /**
@@ -69,7 +69,7 @@ class SubmissionOverviewVisualization
     
         // Set values
         $submissionOverviewVisualization->SubmissionOverviewChart = $this->SubmissionOverviewChart;
-        $submissionOverviewVisualization->SubmissionOverviewCategories = $this->SubmissionOverviewCategories;
+        $submissionOverviewVisualization->SubmissionOverviewList = $this->SubmissionOverviewList;
         $submissionOverviewVisualization->SubmissionOverviewCustoms = $this->SubmissionOverviewCustoms;
         
         // return result

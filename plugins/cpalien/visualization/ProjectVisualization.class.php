@@ -57,14 +57,23 @@ class ProjectVisualization
      */
     private static function GetProjectOverviewChart(ProjectTSE $project)    {
         // Initialize Google chart object
-        $projectOverviewChart = new GoogleChart();
-        $projectOverviewChart->setType(GCType::COLUMN_CHART);
+        $projectOverviewChart = new ProjectOverviewChart();
+        $googleChart = new GoogleChart();
+        
+        $googleChart->setType(GCType::COLUMN_CHART);
         
         // Assign options to chart
-        $projectOverviewChart->setOptions(ProjectVisualization::GetGCOptions());
+        $googleChart->setOptions(ProjectVisualization::GetGCOptions());
         
         // Get data
-        $projectOverviewChart->setData(ProjectVisualization::GetGCData($project));
+        $googleChart->setData(ProjectVisualization::GetGCData($project));
+        
+        // Set overview chart to google chart
+        $projectOverviewChart->SetChart($googleChart);
+        // Add possible values
+        $projectOverviewChart->AddType(GCType::AREA_CHART);
+        $projectOverviewChart->AddType(GCType::COLUMN_CHART);
+        $projectOverviewChart->AddType(GCType::LINE_CHART);
         
         // return google chart object
         return $projectOverviewChart;

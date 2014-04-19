@@ -4,7 +4,9 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 // Get libraries
 Library::using(Library::UTILITIES);
 Library::using(Library::CORLY_DAO_IMPLEMENTATION_SUITE);
+Library::using(Library::CORLY_DAO_IMPLEMENTATION_PLUGIN);
 Library::using(Library::CORLY_SERVICE_SUITE);
+Library::using(Library::CORLY_SERVICE_PLUGIN);
 
 
 /**
@@ -18,15 +20,20 @@ Library::using(Library::CORLY_SERVICE_SUITE);
 class SubmissionService
 {
     private $SubmissionDao;
+    private $ProjectDao;
 
     private $CategoryService;
+    private $PluginService;
     
     /**
-     * Initialize class daos
+     * Initialize class daos and services
      */
     public function __construct()   {
         $this->SubmissionDao = new SubmissionDao();
+        $this->ProjectDao = new ProjectDao();
+        
         $this->CategoryService = new CategoryService();
+        $this->PluginService = new PluginService();
     }
     
 
@@ -50,7 +57,56 @@ class SubmissionService
         // Return validation
         return $validation;
     }
+        
+    /**
+     * Get submission detail for visualization
+     * @param mixed $submission 
+     * @return mixed
+     */
+    public function GetDetail($submission)    {
+        // Load submission from database
+        $dbSubbmission = $this->SubmissionDao->Load($submission);
+        
+        // Map database object to TSE object
+        $submission = new SubmissionTSE();
+        $submission->MapDbObject($dbSubbmission);
+        
+        // Initialize validation
+        $validation = new ValidationResult($submission);
+        
+        // Get to the plugin, so the right one is used
+        // Initialize project object
+        $dbProject = new stdClass();
+        $dbProject->Id = $dbSubbmission->Project;
+        // Load project
+        $dbProject = $this->ProjectDao->Load($dbProject);
+        
+        // Load plugin execution
+        $this->PluginService->LoadPlugin($dbProject->Plugin);
+        
+        // Check if visualizer was included
+        if (!class_exists('Visualization'))  {
+            $validation->AddError("Visualization for given plugin was not found");
+            return $validation;
+        }
+        
+        // Load categories for submission
+        foreach ($this->CategoryService->LoadCategories($dbSubbmission->Id) as $category)   {
+            $submission->AddCategory($category);
+        }
+        
+        // Process data by plugin
+        $validation = Visualization::VisualizeSubmission($submission);
+        
+        // Return result
+        return $validation;
+    }
     
+    /**
+     * Load all submissions for given project
+     * @param mixed $projectId 
+     * @return mixed
+     */
     public function LoadSubmissions($projectId)   {
         // Load submissions for given project
         $dbSubmissions = $this->SubmissionDao->GetFilteredList(QueryParameter::Where('Project', $projectId));

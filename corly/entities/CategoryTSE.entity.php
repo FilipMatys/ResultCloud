@@ -54,7 +54,7 @@ class CategoryTSE
         // Init object
         $category = new stdClass();
         // Set values from base object
-        $category->Name = $this->Name;
+        $category->Name = (string)$this->Name;
         // Set parent id
         $category->Submission = $submissionId;
         
