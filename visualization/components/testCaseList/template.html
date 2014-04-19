@@ -7,11 +7,11 @@
     </div>
 </div>
 
-<div class="row" ng-repeat="column in Data.Categories[0].Category.TestCases[0].Results">
+<div class="row" ng-show="Data.Categories[0].Category.TestCases[0].Results.length > 1" ng-repeat="column in Data.Categories[0].Category.TestCases[0].Results">
     <div class="large-12 columns">
         <label>
             {{column.RKey}}
-            <input ng-model="ShowColumn[$index]" type="checkbox" ng-true-value="false" ng-false-value="true" checked/>
+            <input ng-model="ShowColumn[$index]" type="checkbox" ng-true-value="false" ng-false-value="true" checked />
         </label>
     </div>
 </div>

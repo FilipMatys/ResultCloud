@@ -111,6 +111,7 @@
     <Compile Include="plugins\glibc\Parser.class.php" />
     <Compile Include="plugins\glibc\Visualization.class.php" />
     <Compile Include="plugins\glibc\visualization\ProjectVisualization.class.php" />
+    <Compile Include="plugins\glibc\visualization\SubmissionVirtualization.class.php" />
     <Compile Include="plugins\systemtap\Importer.class.php" />
     <Compile Include="plugins\systemtap\Parser.class.php" />
     <Compile Include="plugins\systemtap\Visualization.class.php" />
