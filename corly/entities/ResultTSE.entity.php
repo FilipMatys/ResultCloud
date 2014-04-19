@@ -26,7 +26,7 @@ class ResultTSE
      * Get result key
      */
     public function GetKey()   {
-        return $this->Rkey;
+        return $this->RKey;
     }
     
     /**
@@ -72,8 +72,8 @@ class ResultTSE
          // Init object
          $result = new stdClass();
          // Set properties from base object
-         $result->RKey = $this->RKey;
-         $result->RValue = $this->RValue;
+         $result->RKey = (string)$this->RKey;
+         $result->RValue = (string)$this->RValue;
          // Set parent id (test case)
          $result->TestCase = $testCaseId;
          

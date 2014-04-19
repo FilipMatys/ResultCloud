@@ -40,7 +40,7 @@ class SubmissionService
     public function Save($submission, $projectId)    {
         // Init validation
         $validation = $this->ValidateSubmission($submission);
-
+        
         // Save submission
         $submissionId = $this->SubmissionDao->Save($submission->GetDbObject($projectId));
         

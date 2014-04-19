@@ -1,0 +1,17 @@
+﻿<div class="row">
+    <div class="large-10 medium-9 columns">
+        <h3>Overview chart</h3>
+    </div>
+    <div class="large-2 medium-3 columns">
+        <select ng-model="Data.type">
+            <option value="ColumnChart">Column Chart</option>
+            <option value="LineChart">Line Chart</option>
+            <option value="AreaChart">Area Chart</option>
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="google-chart" google-chart chart="Data"></div>
+    </div>
+</div>
