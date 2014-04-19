@@ -20,6 +20,7 @@
     <Compile Include="api\InstallationController.class.php" />
     <Compile Include="api\PluginController.class.php" />
     <Compile Include="api\ProjectController.class.php" />
+    <Compile Include="api\SubmissionController.class.php" />
     <Compile Include="corly\daoImplementation\plugin\PluginDao.class.php" />
     <Compile Include="corly\daoImplementation\plugin\ProjectDao.class.php" />
     <Compile Include="corly\daoImplementation\suite\CategoryDao.class.php" />
@@ -103,12 +104,18 @@
     <Compile Include="corly\service\security\UserService.class.php" />
     <Compile Include="plugins\cpalien\Importer.class.php" />
     <Compile Include="plugins\cpalien\Parser.class.php" />
+    <Compile Include="plugins\cpalien\Visualization.class.php" />
+    <Compile Include="plugins\cpalien\visualization\ProjectVisualization.class.php" />
+    <Compile Include="plugins\cpalien\visualization\SubmissionVisualization.class.php" />
     <Compile Include="plugins\glibc\Importer.class.php" />
     <Compile Include="plugins\glibc\Parser.class.php" />
     <Compile Include="plugins\glibc\Visualization.class.php" />
     <Compile Include="plugins\glibc\visualization\ProjectVisualization.class.php" />
     <Compile Include="plugins\systemtap\Importer.class.php" />
     <Compile Include="plugins\systemtap\Parser.class.php" />
+    <Compile Include="plugins\systemtap\Visualization.class.php" />
+    <Compile Include="plugins\systemtap\visualization\ProjectVisualization.class.php" />
+    <Compile Include="plugins\systemtap\visualization\SubmissionVisualization.class.php" />
     <Compile Include="utilities\ColorHandle.php" />
     <Compile Include="utilities\EmailService.php" />
     <Compile Include="utilities\FileHandle.php" />
@@ -132,9 +139,14 @@
     <Compile Include="visualization\components\googleChart\GCRow.class.php" />
     <Compile Include="visualization\components\googleChart\GCType.class.php" />
     <Compile Include="visualization\components\googleChart\GoogleChart.class.php" />
+    <Compile Include="visualization\project\ProjectOverviewChart.class.php" />
     <Compile Include="visualization\project\ProjectOverviewList.class.php" />
     <Compile Include="visualization\project\ProjectOverviewListItem.class.php" />
     <Compile Include="visualization\project\ProjectOverviewVisualization.class.php" />
+    <Compile Include="visualization\submission\SubmissionOverviewChart.class.php" />
+    <Compile Include="visualization\submission\SubmissionOverviewList.class.php" />
+    <Compile Include="visualization\submission\SubmissionOverviewListItem.class.php" />
+    <Compile Include="visualization\submission\SubmissionOverviewType.class.php" />
     <Compile Include="visualization\submission\SubmissionOverviewVisualization.class.php" />
   </ItemGroup>
   <ItemGroup>
@@ -158,7 +170,9 @@
     <Folder Include="js" />
     <Folder Include="corly\" />
     <Folder Include="corly\service\" />
+    <Folder Include="plugins\cpalien\visualization\" />
     <Folder Include="plugins\glibc\visualization\" />
+    <Folder Include="plugins\systemtap\visualization\" />
     <Folder Include="views\home\overview\" />
     <Folder Include="visualization\" />
     <Folder Include="plugins\" />
@@ -180,12 +194,16 @@
     <Folder Include="views\login" />
     <Folder Include="visualization\components\googleChart\" />
     <Folder Include="visualization\components\" />
+    <Folder Include="visualization\components\googleChart\js\" />
+    <Folder Include="visualization\components\testCaseList\" />
     <Folder Include="visualization\components\submissionList\" />
     <Folder Include="visualization\components\submissionList\js\" />
+    <Folder Include="visualization\components\testCaseList\js\" />
     <Folder Include="visualization\submission\" />
     <Folder Include="visualization\project\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="img\loading.gif" />
     <Content Include="js\controllers\DataOverviewController.js" />
     <Content Include="js\controllers\ImportController.js" />
     <Content Include="js\controllers\PluginController.js" />
@@ -195,6 +213,7 @@
     <Content Include="js\controllers\ProjectOverviewController.js" />
     <Content Include="js\controllers\SettingsController.js" />
     <Content Include="js\controllers\SubmissionOverviewController.js" />
+    <Content Include="js\vendor\ng-google-chart.js" />
     <Content Include="views\home\dataOverview.html" />
     <Content Include="views\home\import.html" />
     <Content Include="views\home\overview\plugin.html" />
@@ -204,7 +223,13 @@
     <Content Include="views\home\pluginManagement.html" />
     <Content Include="views\home\profile.html" />
     <Content Include="views\home\settings.html" />
+    <Content Include="visualization\components\googleChart\chart.html" />
+    <Content Include="visualization\components\googleChart\js\GoogleChart.js" />
     <Content Include="visualization\components\submissionList\js\SubmissionList.js" />
     <Content Include="visualization\components\submissionList\list.html" />
+    <Content Include="visualization\components\testCaseList\grouped.html" />
+    <Content Include="visualization\components\testCaseList\js\TestCaseList.js" />
+    <Content Include="visualization\components\testCaseList\list.html" />
+    <Content Include="visualization\components\testCaseList\template.html" />
   </ItemGroup>
 </Project>

@@ -33,3 +33,10 @@
 </nav>
 
 <div ui-view></div>
+
+<div ng-show="PendingChanges" class="cloak">
+</div>
+<div ng-show="PendingChanges" class="loading-window">
+    <img src="img/loading.gif" />
+    <p>Loading</p>
+</div>
