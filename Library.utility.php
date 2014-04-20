@@ -40,6 +40,7 @@ class Library	{
     const CORLY_SERVICE_APPLICATION = "corly/service/application";
     
     // - visualization
+    const VISUALIZATION = "visualization";
     const VISUALIZATION_PROJECT = "visualization/project";
     const VISUALIZATION_SUBMISSION = "visualization/submission";
     
