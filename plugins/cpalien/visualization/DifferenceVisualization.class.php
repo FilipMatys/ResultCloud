@@ -10,8 +10,11 @@
  */
 class DifferenceVisualization
 {
-    public function Visualize($submissions) {
+    public static function Visualize($submissions) {
         // Initialize visualization
+        $differenceOverviewVisualization = new DifferenceOverviewVisualization();
         
+        // return result
+        return $differenceOverviewVisualization;
     }
 }

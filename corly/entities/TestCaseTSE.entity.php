@@ -26,7 +26,7 @@ class TestCaseTSE
      * Add result to TestCase
      * @param result
      */
-    public function AddResult($result)  {
+    public function AddResult(ResultTSE $result)  {
         $this->Results[] = $result;
     }
     
@@ -36,6 +36,29 @@ class TestCaseTSE
      */
     public function GetResults()  {
         return $this->Results;
+    }
+    
+    /**
+     * Get result by key
+     * @param mixed $key 
+     * @return mixed
+     */
+    public function GetResultByKey($key) {
+        // If results array is empty, return null
+        if (empty($this->Results))
+            return null;
+        
+        // Try to find the key in a list
+        foreach ($this->Results as $result)
+        {
+            // Check, if key matches
+            if ($result->GetKey() === $key)
+                return $result;
+        }
+        
+        
+        // Return null if none was found
+        return null;
     }
     
     /**

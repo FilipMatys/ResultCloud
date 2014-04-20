@@ -25,11 +25,25 @@ class Visualization
      * @param mixed $project 
      * @return mixed
      */
-    public static function VisualizeProject($project)  {
+    public static function VisualizeProject(ProjectTSE $project)  {
         return new ValidationResult(ProjectVisualization::Visualize($project));
     }
     
-    public static function VisualizeSubmission($submission)    {
+    /**
+     * Visualize submission detail
+     * @param mixed $submission 
+     * @return mixed
+     */
+    public static function VisualizeSubmission(SubmissionTSE $submission)    {
         return new ValidationResult(SubmissionVisualization::Visualize($submission));   
+    }
+    
+    /**
+     * Visualize submissions difference
+     * @param mixed $submissions 
+     * @return mixed
+     */
+    public static function VisualizeDifference($submissions)    {
+        return new ValidationResult(DifferenceVisualization::Visualize($submissions));
     }
 }

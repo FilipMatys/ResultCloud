@@ -26,7 +26,7 @@ class CategoryTSE
      * Add test case to category
      * @param test case
      */
-    public function AddTestCase($testCase)  {
+    public function AddTestCase(TestCaseTSE $testCase)  {
         $this->TestCases[] = $testCase;
     }
     
@@ -36,6 +36,30 @@ class CategoryTSE
      */
     public function GetTestCases()  {
         return $this->TestCases;
+    }
+    
+    /**
+     * Get test case by name
+     * @param mixed $name 
+     * @return mixed
+     */
+    public function GetTestCaseByName($name) {
+        // Check if there are any test cases, if not
+        // return null
+        if (empty($this->TestCases))
+            return null;
+        
+        // Iterate through test cases
+        foreach ($this->TestCases as $testCase)
+        {
+            // If match is found, return it as a result
+            if ($testCase->GetName() === $name)
+                return $testCase;
+        }
+        
+        
+        // If none was found, return null
+        return null;
     }
     
     /**

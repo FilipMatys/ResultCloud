@@ -36,9 +36,31 @@ class SubmissionTSE
     }
     
     /**
+     * Get category by name
+     * @param mixed $name 
+     * @return mixed
+     */
+    public function GetCategoryByName($name)    {
+        // If there is no category, return null
+        if (empty($this->Categories))
+            return null;
+        
+        // Find match in a list
+        foreach ($this->Categories as $category)
+        {
+            // Check if name matches
+            if ($category->GetName() === $name)
+                return $category;
+        }
+        
+        // If no match was found, return null
+        return null;
+    }
+    
+    /**
      * Add category to submission
      */
-    public function AddCategory($category)  {
+    public function AddCategory(CategoryTSE $category)  {
         $this->Categories[] = $category;
     }
     

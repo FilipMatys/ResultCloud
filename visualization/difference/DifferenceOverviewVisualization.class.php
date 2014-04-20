@@ -1,14 +1,14 @@
 <?php
 
 /**
- * DifferenceOverview short summary.
+ * DifferenceOverviewVisualization short summary.
  *
- * DifferenceOverview description.
+ * DifferenceOverviewVisualization description.
  *
  * @version 1.0
  * @author Filip
  */
-class DifferenceOverview
+class DifferenceOverviewVisualization
 {
     /**
      * Difference overiview chart
@@ -17,10 +17,10 @@ class DifferenceOverview
     private $DifferenceOverviewChart;
     
     /**
-     * Difference overview list
+     * Difference overview lists
      * @var mixed
      */
-    private $DifferenceOverviewList;
+    private $DifferenceOverviewLists;
     
     /**
      * Difference overview customs
@@ -33,6 +33,7 @@ class DifferenceOverview
      */
     public function __construct()   {
         $this->DifferenceOverviewCustoms = array();
+        $this->DifferenceOverviewLists = array();
     }
     
     /**
@@ -47,8 +48,8 @@ class DifferenceOverview
      * Set overview list
      * @param DifferenceOverviewList $differenceOverviewList 
      */
-    public function SetDifferenceOverviewList(DifferenceOverviewList $differenceOverviewList)   {
-        $this->DifferenceOverviewList = $differenceOverviewList->ExportObject();
+    public function AddDifferenceOverviewList(DifferenceOverviewList $differenceOverviewList)   {
+        $this->DifferenceOverviewLists[] = $differenceOverviewList->ExportObject();
     }
     
     /**
