@@ -7,13 +7,39 @@ html, body  {
     background: #e5e5e5;
 }
 
+h1  {
+    font-size: 1.5rem;
+    margin-bottom: 0rem;
+    margin-top: 1rem;
+}
+
+h3  {
+    font-size: 1rem;
+    margin-bottom: 0rem;
+    margin-top: 0.5rem;
+    font-weight: bold;
+}
+
+@media only screen and (min-width: 40.063em)    {
+    h1  {
+        font-size: 1.75rem;
+    }
+    h3  {
+        font-size: 1rem;
+    }
+}
+
+button:focus    {
+    outline-color: #e5e5e5;
+    background: #e5e5e5;
+}
+
 .row    {
     max-width: none;
 }
 
 a:hover {
     color: #ea0011;
-    text-decoration: underline;
 }
 
 a.icon  {
@@ -55,6 +81,10 @@ a.icon:hover  {
     border-width: 1px;
 }
 
+.btn.alert  {
+    background: #ea0011;
+}
+
 .btn:hover {
     color: #000;
     border-color: rgba(0,0,0,0.15) rgba(0,0,0,0.35) rgba(0,0,0,0.5);
@@ -78,6 +108,10 @@ a.icon:hover  {
 
 .fRight {
     float: right;
+}
+
+.tRight {
+    text-align: right;
 }
 
 h3  {
@@ -154,6 +188,14 @@ footer  {
 	padding-bottom: .35rem !important;
 }
 
+.top-bar-section ul li>a.button {
+    background: #ea0011;
+}
+
+.top-bar-section ul li>a.button:hover   {
+    background: #a1000c;
+}
+
 /**
  BUTTONS
 */
@@ -208,6 +250,39 @@ fieldset div.tab-operations {
 fieldset div.tab-operations button {
     margin-bottom: 5px;
 }
+
+div.plugins a,
+div.projects a    {
+    display: block;
+    padding: 1.5rem;
+    background: white;
+    margin-top: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.35);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.35);
+}
+
+div.plugins a span.link {
+    line-height: 1.4rem;
+}
+
+div.plugins a:hover span.link,
+div.projects a:hover p.link {
+    text-decoration: underline;
+}
+
+div.plugins a span.meta  {
+    display: block;
+    color: #888888;
+    text-decoration: none;
+    line-height: 1rem;
+    font-size: 0.8rem;
+}
+
+div.addition    {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
 
 /**
     SUBMISSION LIST    
@@ -287,5 +362,38 @@ input[type=checkbox]  {
 }
 
 /**
-    
+   LOGIN FORM 
 */
+form.login  {
+    max-width: 400px;
+    margin: 0px auto;
+    background: #222222;
+}
+
+form.login h3 {
+    color: white;
+    margin-top: 0rem;
+    font-weight: normal;
+    margin-bottom: 0.5rem;
+}
+
+div.login-header h1::first-letter {
+    color: #ea0011;
+}
+
+div.login-header    {
+    max-width: 400px;
+    margin: 0px auto;
+    margin-top: 1.5rem;
+}
+
+div.login-header h1 {
+    font-weight: bold;
+    text-align: center;
+}
+
+form.login fieldset {
+    padding: 3rem;
+    border: none;
+    padding-top: 2.5rem;
+}

@@ -10,9 +10,7 @@
         <!-- Right Nav Section -->
         <ul class="right">
             <li class="divider"></li>
-            <li><a ui-sref="home.data-overview">Data Overview</a></li>
-            <li class="divider"></li>
-            <li><a ui-sref="home.plugin-management">Plugin Management</a></li>
+            <li><a ui-sref="home.plugin-management">Data Overview</a></li>
             <li class="divider"></li>
             <li><a ui-sref="home.settings">Settings</a></li>
             <li class="divider"></li>
@@ -32,7 +30,7 @@
     </section>
 </nav>
 
-<div ui-view></div>
+<div ui-view class="content"></div>
 
 <div ng-show="PendingChanges" class="cloak">
 </div>

@@ -3,15 +3,12 @@
         <h1>Plugin Management</h1>
     </div>
 </div>
-
-<div class="row">
+<div class="row plugins" ng-repeat="plugin in Plugins">
     <div class="large-12 columns">
-        <p>Here is place for your plugins. You can see all information about them, can install new ones or delete the old.</p>
-    </div>
-</div>
-
-<div class="row" ng-repeat="plugin in Plugins">
-    <div class="large-12 columns">
-        <a ui-sref="home.plugin({pluginId: plugin.Id})" class="button full-width tLeft">{{plugin.Name}} {{plugin.Version}} <i class="fi-arrow-right medium"></i></a>
+        <a ui-sref="home.plugin({pluginId: plugin.Id})" class="full-width tLeft"><span class="link"> {{plugin.Name}} {{plugin.Version}}</span> <i class="fi-arrow-right medium fRight"></i>
+            <span class="meta">
+                {{plugin.About}}
+            </span>
+        </a>
     </div>
 </div>

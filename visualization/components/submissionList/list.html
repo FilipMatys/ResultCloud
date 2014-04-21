@@ -7,9 +7,9 @@
             <div class="large-4 medium-12 columns">
                 <label>
                     Check all
-                    <input type="checkbox" />
+                    <input type="checkbox" ng-model="SelectAll" />
                 </label>
-                <a class="btn">Differ</a>
+                <a class="btn" ng-click="Differ()">Differ</a>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
                                 <span>Imported by Petr Muller on 21.4.2014</span>
                             </div>
                             <div class="large-4 medium-12 columns">
-                                <input type="checkbox" />
+                                <input type="checkbox" ng-model="item.Submission.Differ"/>
                                 <a ui-sref="home.submission-overview({submissionId:item.Submission.Id})" class="fi-list-thumbnails icon"></a>
                             </div>
                         </div>

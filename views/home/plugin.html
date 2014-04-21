@@ -15,7 +15,7 @@
         <h3>Projects</h3>
     </div>
 </div>
-<div class="row">
+<div class="row addition">
     <div class="large-12 columns">
         <div class="row collapse above-tab">
             <div class="small-10 columns">
@@ -27,38 +27,32 @@
         </div>
     </div>
 </div>
-<div class="row" ng-repeat="project in plugin.Projects">
+<div class="row projects" ng-repeat="project in plugin.Projects">
     <div class="large-12 columns">
-        <a class="tab" ng-click="ToggleProjectDetail($index)">
-            <fieldset>
-                {{project.Name}} <i ng-show="!showProjectDetail[$index]" class="fi-plus medium"></i><i ng-show="showProjectDetail[$index]" class="fi-minus medium"></i>
-            </fieldset>
+        <a ui-sref="home.project-overview({projectId:project.Id})">
+            <div class="row">
+                <div class="large-6 columns">
+                    <p class="link">
+                        {{project.Name}}
+                    </p>
+                </div>
+                <div class="large-6 columns tRight">
+                    <button class="btn alert">Delete</button>
+                    <button class="btn">Clean</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="large-12 columns">
+                    <label>
+                        Created
+                        <span>{{project.DateCreated | date:"longDate"}} by {{project.Author}}</span>
+                    </label>
+                    <label>
+                        Number of submissions
+                        <span>0</span>
+                    </label>
+                </div>
+            </div>
         </a>
-    </div>
-    <div ng-show="showProjectDetail[$index]" class="large-12 columns">
-        <fieldset class="tab-detail">
-            <div class="row">
-                <div class="large-6 columns">
-                    <label>Date created</label>
-                    <p>{{project.DateCreated | date:"longDate"}}</p>
-                </div>
-                <div class="large-6 columns">
-                    <label>Author</label>
-                    <p>{{project.Author}}</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="large-6 columns">
-                    <label>Number of submissions</label>
-                    <p>0</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="large-12 columns tab-operations">
-                    <button class="button alert">Delete</button>
-                    <button class="button">Clean</button>
-                </div>
-            </div>
-        </fieldset>
     </div>
 </div>
