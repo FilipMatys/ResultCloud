@@ -1,0 +1,21 @@
+﻿<div class="row" ng-repeat="list in Data">
+    <div class="large-12 columns">
+        <table ng-repeat="testCase in list.Items" class="full-width">
+            <thead>
+                <tr>
+                    <th colspan="{{list.Headers.length + 1}}">{{testCase.Name}}</th>
+                </tr>
+                <tr>
+                    <th>Key</th>
+                    <th ng-repeat="header in list.Headers">{{header}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="set in testCase.ResultSets">
+                    <td>{{set.Key}}</td>
+                    <td ng-repeat="result in set.Values">{{result.Value}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -59,4 +59,21 @@ class DifferenceOverviewVisualization
     public function AddDifferenceOverviewCustom($differenceOverviewCustom)   {
         $this->DifferenceOverviewCustoms[] = $differenceOverviewCustom;
     }
+    
+    /**
+     * Export object for serialization
+     * @return mixed
+     */
+    public function ExportObject()  {
+        // Init object
+        $differenceOverviewVisualization = new stdClass();
+        
+        // Set values
+        $differenceOverviewVisualization->DifferenceOverviewChart = $this->DifferenceOverviewChart;
+        $differenceOverviewVisualization->DifferenceOverviewLists = $this->DifferenceOverviewLists;
+        $differenceOverviewVisualization->DifferenceOverviewCustoms = $this->DifferenceOverviewCustoms;
+        
+        // Return value
+        return $differenceOverviewVisualization;
+    }
 }

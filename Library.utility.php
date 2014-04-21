@@ -41,6 +41,7 @@ class Library	{
     
     // - visualization
     const VISUALIZATION = "visualization";
+    const VISUALIZATION_DIFFERENCE = "visualization/difference";
     const VISUALIZATION_PROJECT = "visualization/project";
     const VISUALIZATION_SUBMISSION = "visualization/submission";
     

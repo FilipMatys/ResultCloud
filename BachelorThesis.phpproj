@@ -105,6 +105,7 @@
     <Compile Include="plugins\cpalien\Importer.class.php" />
     <Compile Include="plugins\cpalien\Parser.class.php" />
     <Compile Include="plugins\cpalien\Visualization.class.php" />
+    <Compile Include="plugins\cpalien\visualization\DifferenceVisualization.class.php" />
     <Compile Include="plugins\cpalien\visualization\ProjectVisualization.class.php" />
     <Compile Include="plugins\cpalien\visualization\SubmissionVisualization.class.php" />
     <Compile Include="plugins\glibc\Importer.class.php" />
@@ -140,6 +141,13 @@
     <Compile Include="visualization\components\googleChart\GCRow.class.php" />
     <Compile Include="visualization\components\googleChart\GCType.class.php" />
     <Compile Include="visualization\components\googleChart\GoogleChart.class.php" />
+    <Compile Include="visualization\difference\DifferenceOverviewVisualization.class.php" />
+    <Compile Include="visualization\difference\DifferenceOverviewChart.class.php" />
+    <Compile Include="visualization\difference\DifferenceOverviewList.class.php" />
+    <Compile Include="visualization\difference\DifferenceOverviewListItem.class.php" />
+    <Compile Include="visualization\difference\DifferenceOverviewListItemResultSet.class.php" />
+    <Compile Include="visualization\difference\DifferenceOverviewListItemResultSetValue.class.php" />
+    <Compile Include="visualization\OverviewChart.class.php" />
     <Compile Include="visualization\project\ProjectOverviewChart.class.php" />
     <Compile Include="visualization\project\ProjectOverviewList.class.php" />
     <Compile Include="visualization\project\ProjectOverviewListItem.class.php" />
@@ -193,19 +201,23 @@
     <Folder Include="corly\service\security\" />
     <Folder Include="views\home" />
     <Folder Include="views\login" />
+    <Folder Include="visualization\components\difference\js\" />
     <Folder Include="visualization\components\googleChart\" />
     <Folder Include="visualization\components\" />
     <Folder Include="visualization\components\googleChart\js\" />
+    <Folder Include="visualization\components\difference\" />
     <Folder Include="visualization\components\testCaseList\" />
     <Folder Include="visualization\components\submissionList\" />
     <Folder Include="visualization\components\submissionList\js\" />
     <Folder Include="visualization\components\testCaseList\js\" />
+    <Folder Include="visualization\difference\" />
     <Folder Include="visualization\submission\" />
     <Folder Include="visualization\project\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="img\loading.gif" />
     <Content Include="js\controllers\DataOverviewController.js" />
+    <Content Include="js\controllers\DifferenceOverviewController.js" />
     <Content Include="js\controllers\ImportController.js" />
     <Content Include="js\controllers\PluginController.js" />
     <Content Include="js\controllers\PluginManagementController.js" />
@@ -217,6 +229,7 @@
     <Content Include="js\vendor\ng-google-chart.js" />
     <Content Include="views\home\dataOverview.html" />
     <Content Include="views\home\import.html" />
+    <Content Include="views\home\overview\difference.html" />
     <Content Include="views\home\overview\plugin.html" />
     <Content Include="views\home\overview\project.html" />
     <Content Include="views\home\overview\submission.html" />
@@ -224,6 +237,8 @@
     <Content Include="views\home\pluginManagement.html" />
     <Content Include="views\home\profile.html" />
     <Content Include="views\home\settings.html" />
+    <Content Include="visualization\components\difference\js\DifferenceList.js" />
+    <Content Include="visualization\components\difference\list.html" />
     <Content Include="visualization\components\googleChart\chart.html" />
     <Content Include="visualization\components\googleChart\js\GoogleChart.js" />
     <Content Include="visualization\components\submissionList\js\SubmissionList.js" />

@@ -91,6 +91,12 @@ application.config(function($stateProvider, $urlRouterProvider){
         templateUrl: './views/home/overview/submission.html',
         controller: 'SubmissionOverviewController'
     })
+    // Submission overview detail
+    .state('home.difference-overview', {
+        url: '/project-overview/{projectId}/difference/{differenceArray}',
+        templateUrl: './views/home/overview/difference.html',
+        controller: 'DifferenceOverviewController'
+    })
     // Profile
 	.state('home.profile', {
 	    url: '/profile',

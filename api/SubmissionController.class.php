@@ -19,6 +19,7 @@ class SubmissionController
 {
     // Method constants
     const GET = "GET";
+    const DIFFERENCE = "DIFFERENCE";
     
     // Services
     private $SubmissionService;
@@ -41,6 +42,33 @@ class SubmissionController
         // Get project detail
         return $this->SubmissionService->GetDetail($submission);
     }
+    
+    /**
+     * Get difference
+     * @param mixed $data 
+     * @return mixed
+     */
+    public function Difference($data)   {
+        // Get submission ids
+        $submissionIds = explode("&", $data->Submissions);
+        
+        // Initialize array for submissions
+        $submissions = array();
+        foreach ($submissionIds as $submissionId) {
+            // Init object
+            $submission = new stdClass();
+            $submission->Id = $submissionId;
+            // Add object to array
+            $submissions[] = $submission;
+        }
+        
+        // Prepare project
+        $project = new stdClass();
+        $project->Id = $data->Project;
+        
+        // Get result
+        return $this->SubmissionService->Difference($submissions, $project);
+    }
 }
 
 // Extract json data
@@ -56,6 +84,10 @@ if (isset($_GET["method"]))	{
 	switch ($_GET["method"]) {
         case SubmissionController::GET:
             $result = $SubmissionController->Get($data);
+            break;
+            
+        case SubmissionController::DIFFERENCE:
+            $result = $SubmissionController->Difference($data);
             break;
         
 		default:

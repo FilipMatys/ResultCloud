@@ -17,10 +17,17 @@ class DifferenceOverviewList
     private $Items;
     
     /**
+     * List of view headers
+     * @var mixed
+     */
+    private $Headers;
+    
+    /**
      * Difference overview list constructor
      */
     public function __construct()   {
         $this->Items = array();
+        $this->Headers = array();
     }
     
     /**
@@ -32,6 +39,14 @@ class DifferenceOverviewList
     }
     
     /**
+     * Add header to list
+     * @param mixed $header 
+     */
+    public function AddHeader($header)  {
+        $this->Headers[] = $header;
+    }
+    
+    /**
      * Export object for serialization
      * @return mixed
      */
@@ -39,10 +54,11 @@ class DifferenceOverviewList
         // Initialize object
         $overviewList = new stdClass();
         // Set values
+        $overviewList->Headers = $this->Headers;
         $overviewList->Items = array();
         foreach ($this->Items as $item)
         {
-            $overviewList[] = $item->ExportObject();
+            $overviewList->Items[] = $item->ExportObject();
         }
         // Return result
         return $overviewList;

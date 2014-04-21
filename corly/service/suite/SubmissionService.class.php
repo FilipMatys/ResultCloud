@@ -57,6 +57,51 @@ class SubmissionService
         // Return validation
         return $validation;
     }
+    
+    /**
+     * Get difference of given submissions 
+     * @param mixed $submissions 
+     * @return mixed
+     */
+    public function Difference($submissions, $project)    {
+        // Initialize validation
+        $validation = new ValidationResult($submissions);
+        
+        // Create array of submissions to pass to visualizer
+        $tseSubmissions = array();
+        foreach ($submissions as $submission)   {
+            // Load submission
+            $dbSubmission = $this->SubmissionDao->Load($submission);
+            
+            // Create new TSE entity
+            $tseSubmission = new SubmissionTSE();
+            $tseSubmission->MapDbObject($dbSubmission);
+            
+            // Load categories into submission
+            foreach ($this->CategoryService->LoadCategories($dbSubmission->Id) as $category)    {
+                $tseSubmission->AddCategory($category);
+            }
+            
+            // Add submission to list
+            $tseSubmissions[] = $tseSubmission;
+        }
+        
+        // Load plugin execution
+        $dbProject = $this->ProjectDao->Load($project);
+        $this->PluginService->LoadPlugin($dbProject->Plugin);
+        
+        // Check if visualizer was included
+        if (!class_exists('Visualization'))  {
+            $validation->AddError("Visualization for given plugin was not found");
+            return $validation;
+        }
+        
+        // Visualize difference
+        $validation = Visualization::VisualizeDifference($tseSubmissions);
+        
+        // Return validation result with data
+        return $validation;
+    }
         
     /**
      * Get submission detail for visualization

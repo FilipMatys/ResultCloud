@@ -1,18 +1,17 @@
 ﻿<div class="row toolbar">
     <div class="large-12 columns">
-        <form>
-            <fieldset>
-                <div class="row">
-                    <div class="large-8 medium-12 columns">
-                        <h3>Submissions</h3>
-                    </div>
-                    <div class="large-4 medium-12 columns">
-                        <i class="button secondary fi-check medium"></i>
-                        <a class="button secondary medium">Differ</a>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
+        <div class="row">
+            <div class="large-8 medium-12 columns">
+                <h3>Submissions</h3>
+            </div>
+            <div class="large-4 medium-12 columns">
+                <label>
+                    Check all
+                    <input type="checkbox" />
+                </label>
+                <a class="btn">Differ</a>
+            </div>
+        </div>
     </div>
 </div>
 <div class="row">
@@ -22,12 +21,13 @@
                 <form class="list">
                     <fieldset>
                         <div class="row">
-                            <div class="large-8 medium-12 columns">
-                                <p>{{item.Submission.DateTime | date:'longDate'}}</p>
+                            <div class="large-8 medium-12 columns desc">
+                                <a ui-sref="home.submission-overview({submissionId:item.Submission.Id})">{{item.Submission.DateTime | date:'longDate'}}</a>
+                                <span>Imported by Petr Muller on 21.4.2014</span>
                             </div>
                             <div class="large-4 medium-12 columns">
-                                <i class="button secondary fi-check medium"></i>
-                                <a ui-sref="home.submission-overview({submissionId:item.Submission.Id})" class="button secondary medium">Detail</a>
+                                <input type="checkbox" />
+                                <a ui-sref="home.submission-overview({submissionId:item.Submission.Id})" class="fi-list-thumbnails icon"></a>
                             </div>
                         </div>
                     </fieldset>

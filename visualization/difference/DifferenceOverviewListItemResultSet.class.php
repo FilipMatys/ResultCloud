@@ -75,9 +75,8 @@ class DifferenceOverviewListItemResultSet
         foreach ($this->Values as $value)
         {
             // Add exported value to set
-            $resultSet[] = $value->ExportObject();
+            $resultSet->Values[] = $value->ExportObject();
         }
-        
         // Return result
         return $resultSet;
     }
