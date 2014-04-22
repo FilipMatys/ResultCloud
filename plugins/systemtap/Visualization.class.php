@@ -25,8 +25,25 @@ class Visualization
      * @param mixed $project 
      * @return mixed
      */
-    public static function VisualizeProject($project)  {
-        return new ValidationResult(ProjectVisualization::Visualize($project));
+    public static function VisualizeProject(ProjectTSE $project, $type)  {
+        return new ValidationResult(ProjectVisualization::Visualize($project, $type));
+    }
+    
+    /**
+     * Get data depth for project components
+     * @param mixed $type 
+     * @return mixed
+     */
+    public static function GetProjectDataDepth($type)   {
+        return ProjectVisualization::GetDataDepth($type);
+    }
+    
+    /**
+     * Get project view components
+     * @return mixed
+     */
+    public static function GetProjectViewComponents()   {
+        return new ValidationResult(ProjectVisualization::GetViewComponents());
     }
     
     /**
@@ -34,7 +51,7 @@ class Visualization
      * @param mixed $submission 
      * @return mixed
      */
-    public static function VisualizeSubmission($submission)    {
+    public static function VisualizeSubmission(SubmissionTSE $submission, $type)    {
         return new ValidationResult(SubmissionVisualization::Visualize($submission));
     }
 }

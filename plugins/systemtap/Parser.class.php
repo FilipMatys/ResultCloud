@@ -15,6 +15,25 @@ Library::using(Library::CORLY_ENTITIES);
  */
 class Parser
 {
+    static $RESULT_CODES;
+    
+    /**
+     * Initializes class variables
+     */
+    public static function Init()   {
+        // Initialzie result codes
+        self::$RESULT_CODES = array(
+                "PASS",
+                "XPASS",
+                "FAIL",
+                "XFAIL",
+                "KFAIL",
+                "UNTESTED",
+                "ERROR",
+                "UNSUPPORTED"
+            );
+    }
+    
     /**
      * Parse uploaded data for import
      */
@@ -32,7 +51,7 @@ class Parser
             }
         
             // Check for test case header
-            if (preg_match("/Running (\.\.\/.*) \.{3}/", $row, $testCaseMatches))   {
+            if (preg_match("/Running (\.+\/.*) \.{3}/", $row, $testCaseMatches))   {
                 
                 // If test case was set, add it to category,
                 // because we are creating new test case
@@ -44,7 +63,10 @@ class Parser
                 $TestCase = new TestCaseTSE($testCaseMatches[1]);
             }
             // Check for result
-            else if (preg_match("/([A-Z]*): (.*)/", $row, $resultMatches))  {
+            else if (preg_match("/([A-Z]+): (.*)/", $row, $resultMatches))  {
+                if (!in_array($resultMatches[1], Parser::$RESULT_CODES))
+                    continue;
+                
                 // Create result object
                 $Result = new ResultTSE($resultMatches[2], $resultMatches[1]);
                 
@@ -62,3 +84,6 @@ class Parser
         return $validation;
     }   
 }
+
+// Call initialize function to set static variables
+Parser::Init();

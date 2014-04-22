@@ -227,10 +227,8 @@
     <Content Include="js\controllers\SettingsController.js" />
     <Content Include="js\controllers\SubmissionOverviewController.js" />
     <Content Include="js\vendor\ng-google-chart.js" />
-    <Content Include="views\home\dataOverview.html" />
     <Content Include="views\home\import.html" />
     <Content Include="views\home\overview\difference.html" />
-    <Content Include="views\home\overview\plugin.html" />
     <Content Include="views\home\overview\project.html" />
     <Content Include="views\home\overview\submission.html" />
     <Content Include="views\home\plugin.html" />

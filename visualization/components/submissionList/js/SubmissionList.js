@@ -2,10 +2,18 @@
     return {
         restrict: 'E',
         templateUrl: 'visualization/components/submissionList/list.html',
-        scope:  {
-            Data: '=data'
-        },
-        controller: function ($scope, $state, $stateParams) {
+        controller: function ($scope, $state, $stateParams, ProjectService) {
+            // Initialize request object
+            $scope.Request = {
+                ItemId: $stateParams.projectId,
+                Type: "LIST"
+            }
+
+            // Load data
+            ProjectService.get($scope.Request)
+                .success(function (data, status, headers, config) {
+                    $scope.Data = data.Data;
+                });
 
             // Compare all selected submissions
             $scope.Differ = function () {
@@ -26,6 +34,9 @@
 
             // Watch for "select all" change
             $scope.$watch('SelectAll', function (value) {
+                if (!$scope.Data)
+                    return;
+
                 angular.forEach($scope.Data.Submissions, function (item) {
                     item.Submission.Differ = value;
                 });

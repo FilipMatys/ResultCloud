@@ -121,5 +121,12 @@ application.factory('ProjectService', ['$http', function ($http) {
                 data: projectId
             })
         },
+        views: function (projectId) {
+            return $http({
+                method: 'POST',
+                url: 'api/ProjectController.class.php?method=VIEWS',
+                data: projectId
+            })
+        }
     }
 }]);

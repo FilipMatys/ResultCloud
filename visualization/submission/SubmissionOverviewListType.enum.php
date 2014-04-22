@@ -8,7 +8,7 @@
  * @version 1.0
  * @author Filip
  */
-class SubmissionOverviewType
+class SubmissionOverviewListType
 {
     const ListView = "List";
     const GroupedView = "Grouped";

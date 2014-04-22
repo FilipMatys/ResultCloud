@@ -11,22 +11,25 @@
 class SubmissionVisualization
 {
     /**
-     * Create submission object for visualization
+     * Create submission object for visualization of given type
      * @param SubmissionTSE $submission 
      * @return mixed
      */
-    public static function Visualize(SubmissionTSE $submission) {
-        // Initialize submission visualization
-        $submissionVisualization = new SubmissionOverviewVisualization();
-        
-        // Set submission overview list
-        $submissionVisualization->SetSubmissionOverviewList(SubmissionVisualization::GetSubmissionOverviewList($submission));
-        
-        // Set submission overview chart
-        $submissionVisualization->SetSubmissionOverviewChart(SubmissionVisualization::GetSubmissionOverviewChart($submission));
-        
-        // return result
-        return $submissionVisualization->ExportObject();
+    public static function Visualize(SubmissionTSE $submission, $type) {
+        // Get view based on demanded ty
+        switch($type)   {
+            // Get google chart
+            case SubmissionOverviewType::GOOGLE_CHART:
+                return SubmissionVisualization::GetSubmissionOverviewChart($submission)->ExportObject();
+                
+            // Get view list
+            case SubmissionOverviewType::VIEWLIST:
+                return SubmissionVisualization::GetSubmissionOverviewList($submission)->ExportObject();
+                
+            // Return null if no assigned component was found
+            default:
+                return null;
+        }
     }
     
     /**
@@ -47,7 +50,7 @@ class SubmissionVisualization
         }
     
         // Set available views
-        $submissionOverviewList->AddView(SubmissionOverviewType::GroupedView);
+        $submissionOverviewList->AddView(SubmissionOverviewListType::GroupedView);
         
         // Return result
         return $submissionOverviewList;

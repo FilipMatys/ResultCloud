@@ -44,8 +44,10 @@ class CategoryService
     /**
      * Load categories for given submission
      * @param mixed $submissionId 
+     * @param mixed $depth
+     * @return array of categories
      */
-    public function LoadCategories($submissionId)   {
+    public function LoadCategories($submissionId, $depth)   {
         // Load categories for given submission
         $dbCategories = $this->CategoryDao->GetFilteredList(QueryParameter::Where('Submission', $submissionId));
         
@@ -58,11 +60,14 @@ class CategoryService
             $category = new CategoryTSE();
             $category->MapDbObject($dbCategory);
             
-            // Load test cases
-            foreach ($this->TestCaseService->LoadTestCases($dbCategory->Id) as $testCase)
-            {
-                // Add test case to category
-                $category->AddTestCase($testCase);
+            // If not reached depth, load test cases
+            if ($depth > 0) {
+                // Load test cases
+                foreach ($this->TestCaseService->LoadTestCases($dbCategory->Id, $depth - 1) as $testCase)
+                {
+                    // Add test case to category
+                    $category->AddTestCase($testCase);
+                }
             }
             
             // Add category to array

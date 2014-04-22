@@ -3,13 +3,10 @@
         <h1>Project</h1>
     </div>
 </div>
+
 <div class="row">
     <div class="large-12 columns">
-        <corly-google-chart data="ProjectOverview.ProjectOverviewChart"></corly-google-chart>
-    </div>
-</div>
-<div class="row">
-    <div class="large-12 columns">
-        <corly-submission-list data="ProjectOverview.ProjectOverviewList"></corly-submission-list>
+        <!-- Dynamic component loader, which loads components recieved from server -->
+        <corly-dynamic-project-component-loader></corly-dynamic-project-component-loader>
     </div>
 </div>

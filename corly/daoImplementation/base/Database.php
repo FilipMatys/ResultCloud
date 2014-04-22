@@ -87,7 +87,7 @@ abstract class Database  {
             // Now bind parameters
             call_user_func_array(array($statement, 'bind_param'), $this->refValues($values));
         }
-
+        
         // Execute query
         $statement->execute();
         return $this->db->insert_id;

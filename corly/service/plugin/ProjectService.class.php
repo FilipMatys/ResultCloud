@@ -70,11 +70,37 @@ class ProjectService
     }
     
     /**
+     * Get views supported by plugin
+     * JFI:Scalable for Project views selection
+     * @param mixed $project 
+     * @return mixed
+     */
+    public function GetViews($project)  {
+        // Load project from database
+        $dbProject = $this->ProjectDao->Load($project);
+        
+        // Load plugin
+        $this->PluginService->LoadPlugin($dbProject->Plugin);
+        
+        // Initialize validation
+        $validation = new ValidationResult($project);
+        
+        // Check if importer was included
+        if (!class_exists('Visualization'))  {
+            $validation->AddError("Visualization for given plugin was not found");
+            return $validation;
+        }
+        
+        // Load plugin views
+        return Visualization::GetProjectViewComponents();
+    }
+    
+    /**
      * Load project with all submissions
      * @param mixed $project 
      * @return mixed
      */
-    public function GetDetail($project) {
+    public function GetDetail($project, $type) {
         // Load project from database
         $dbProject = $this->ProjectDao->Load($project);
         
@@ -95,16 +121,13 @@ class ProjectService
         }
         
         // Load submissions and add them to project
-        foreach ($this->SubmissionService->LoadSubmissions($dbProject->Id) as $submission)
+        foreach ($this->SubmissionService->LoadSubmissions($dbProject->Id, Visualization::GetProjectDataDepth($type)) as $submission)
         {
             // Add submission to project
             $project->AddSubmission($submission);
         }
         
         // Process data by plugin
-        $validation = Visualization::VisualizeProject($project);
-        
-        // Return project
-        return $validation;
+        return Visualization::VisualizeProject($project, $type);
     }
 }

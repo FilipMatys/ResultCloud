@@ -149,10 +149,11 @@ class SubmissionService
     
     /**
      * Load all submissions for given project
-     * @param mixed $projectId 
+     * @param mixed $projectId
+     * @param mixed $depth
      * @return mixed
      */
-    public function LoadSubmissions($projectId)   {
+    public function LoadSubmissions($projectId, $depth)   {
         // Load submissions for given project
         $dbSubmissions = $this->SubmissionDao->GetFilteredList(QueryParameter::Where('Project', $projectId));
         
@@ -165,11 +166,13 @@ class SubmissionService
             $submission = new SubmissionTSE();
             $submission->MapDbObject($dbSubmission);
             
-            // Load categories
-            foreach ($this->CategoryService->LoadCategories($dbSubmission->Id) as $category)
-            {
-                // Add category to submission
-                $submission->AddCategory($category);
+            // Load categories if not reached the depth
+            if ($depth > 0) {
+                foreach ($this->CategoryService->LoadCategories($dbSubmission->Id, $depth - 1) as $category)
+                {
+                    // Add category to submission
+                    $submission->AddCategory($category);
+                }
             }
             
             // Add submission to array

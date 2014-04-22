@@ -22,6 +22,7 @@ class ProjectController
     const PLUGIN = "PLUGIN";
     const GET = "GET";
     const SAVE = "SAVE";
+    const VIEWS = "VIEWS";
     
     // Services
     private $ProjectService;
@@ -60,15 +61,29 @@ class ProjectController
     }
     
     /**
+     * Load views for given project/plugin
+     * @param mixed $projectId 
+     * @return array $views
+     */
+    public function Views($projectId) {
+        // Initialize object
+        $project = new stdClass();
+        $project->Id = $projectId;
+        
+        // Load views
+        return $this->ProjectService->GetViews($project);
+    }
+    
+    /**
      * Get project 
      * @param mixed $projectId 
      * @return mixed
      */
-    public function Get($projectId) {
+    public function Get($request) {
         $project = new stdClass();
-        $project->Id = $projectId;
+        $project->Id = $request->ItemId;
         // Get project detail
-        return $this->ProjectService->GetDetail($project);
+        return $this->ProjectService->GetDetail($project, $request->Type);
     }
 }
 
@@ -97,6 +112,10 @@ if (isset($_GET["method"]))	{
             
         case ProjectController::GET:
             $result = $ProjectController->Get($data);
+            break;
+            
+        case ProjectController::VIEWS:
+            $result = $ProjectController->Views($data);
             break;
             
 		default:

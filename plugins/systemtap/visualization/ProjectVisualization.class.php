@@ -11,22 +11,56 @@
 class ProjectVisualization
 {
     /**
+     * Get data depth based on component type
+     * @param mixed $type 
+     * @return mixed
+     */
+    public static function GetDataDepth($type)   {
+        // Decide data depth
+        switch($type)   {
+            // Get results for google chart
+            case ProjectOverviewType::GOOGLE_CHART:
+                return DataDepth::RESULT;
+            
+            case ProjectOverviewType::VIEWLIST:
+                return DataDepth::SUBMISSION;
+                
+            default:
+                return DataDepth::SUBMISSION;
+        }
+    }
+    
+    /**
+     * Get view components for project view
+     * @return mixed
+     */
+    public static function GetViewComponents()  {
+        return array(
+                ProjectOverviewComponent::VIEWLIST,
+                ProjectOverviewComponent::GOOGLE_CHART
+            );
+    }
+    
+    /**
      * Visualize project detail
      * @param ProjectTSE $project 
      * @return mixed
      */
-    public static function Visualize(ProjectTSE $project)   {
-        // Inititalize project visualization
-        $projectVisualization = new ProjectOverviewVisualization();
-        
-        // Set project overview list
-        $projectVisualization->SetProjectOverviewList(ProjectVisualization::GetProjectOverviewList($project));
-        
-        // Set project overview chart
-        $projectVisualization->SetProjectOverviewChart(ProjectVisualization::GetProjectOverviewChart($project));
-        
-        // Return result
-        return $projectVisualization->ExportObject();
+    public static function Visualize(ProjectTSE $project, $type)   {
+        // Get view based on type
+        switch ($type)  {
+            // Get google chart
+            case ProjectOverviewType::GOOGLE_CHART:
+                return ProjectVisualization::GetProjectOverviewChart($project)->ExportObject();
+                
+            // Get list view
+            case ProjectOverviewType::VIEWLIST:
+                return ProjectVisualization::GetProjectOverviewList($project)->ExportObject();
+            
+            // Return null if type was not found    
+            default:
+                return null;
+        }
     }
     
     /**
