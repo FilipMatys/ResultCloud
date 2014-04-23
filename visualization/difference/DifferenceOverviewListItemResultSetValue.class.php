@@ -23,11 +23,20 @@ class DifferenceOverviewListItemResultSetValue
     private $Style;
     
     /**
+     * Summary of $HasChange
+     * @var mixed
+     */
+    private $HasChange;
+    
+    /**
      * Difference overview list item resultset value
      */
     public function __construct($value = "", $style = "")   {
         $this->Value = $value;
         $this->Style = $style;
+        
+        // Set change flag
+        $this->HasChange = $style != "" ? true : false; 
     }
     
     /**
@@ -44,6 +53,23 @@ class DifferenceOverviewListItemResultSetValue
      */
     public function SetStyle($style)    {
         $this->Style = $style;
+        $this->HasChange = $style != "" ? true : $this->HasChange; 
+    }
+    
+    /**
+     * Get change flag
+     * @return mixed
+     */
+    public function HasChange() {
+        return $this->HasChange;
+    }
+    
+    /**
+     * Get value
+     * @return mixed
+     */
+    public function GetValue()  {
+        return $this->Value;
     }
     
     /**

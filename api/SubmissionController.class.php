@@ -49,9 +49,9 @@ class SubmissionController
      * @param mixed $data 
      * @return mixed
      */
-    public function Difference($data)   {
+    public function Difference($request)   {
         // Get submission ids
-        $submissionIds = explode("&", $data->Submissions);
+        $submissionIds = explode("&", $request->Submissions);
         
         // Initialize array for submissions
         $submissions = array();
@@ -65,10 +65,10 @@ class SubmissionController
         
         // Prepare project
         $project = new stdClass();
-        $project->Id = $data->Project;
+        $project->Id = $request->Project;
         
         // Get result
-        return $this->SubmissionService->Difference($submissions, $project);
+        return $this->SubmissionService->Difference($submissions, $project, $request->Type, $request->Meta);
     }
     
     /**

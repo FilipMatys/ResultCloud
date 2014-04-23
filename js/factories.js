@@ -134,6 +134,13 @@ application.factory('ProjectService', ['$http', function ($http) {
                 url: 'api/ProjectController.class.php?method=VIEWS',
                 data: projectId
             })
+        },
+        diffviews: function (projectId) {
+            return $http({
+                method: 'POST',
+                url: 'api/ProjectController.class.php?method=DIFFVIEWS',
+                data: projectId
+            })
         }
     }
 }]);

@@ -28,6 +28,11 @@ div.card    {
     margin-bottom: 0.5rem;
 }
 
+div.card.header {
+    margin-top: 0.5rem;
+    border-bottom: solid 1px #ea0011;
+}
+
 div.card h1 {
     margin-top: 0rem;
 }

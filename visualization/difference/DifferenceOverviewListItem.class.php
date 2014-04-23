@@ -23,12 +23,19 @@ class DifferenceOverviewListItem
     private $ResultSets;
     
     /**
+     * Change flag
+     * @var mixed
+     */
+    private $HasChange;
+    
+    /**
      * Difference overview list item constructor
      * @param mixed $name 
      */
     public function  __construct($name = "")  {
         $this->Name = $name;
         $this->ResultSets = array();
+        $this->HasChange = false;
     }
     
     /**
@@ -37,6 +44,14 @@ class DifferenceOverviewListItem
      */
     public function SetName($name)  {
         $this->Name = $name;
+    }
+    
+    /**
+     * Get change flag
+     * @return mixed
+     */
+    public function HasChange() {
+        return $this->HasChange;
     }
     
     /**
@@ -53,6 +68,8 @@ class DifferenceOverviewListItem
      */
     public function AddResultSet(DifferenceOverviewListItemResultSet $resultSet)    {
         $this->ResultSets[] = $resultSet;
+        
+        $this->HasChange = $resultSet->HasChange() ? true : $this->HasChange;
     }
     
     /**
@@ -65,6 +82,7 @@ class DifferenceOverviewListItem
         // Set values
         $listItem->Name = $this->Name;
         $listItem->ResultSets = array();
+        $listItem->HasChange = $this->HasChange;
         foreach ($this->ResultSets as $resultSet)
         {
             $listItem->ResultSets[] = $resultSet->ExportObject();

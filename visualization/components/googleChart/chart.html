@@ -1,15 +1,17 @@
 ﻿<div class="row">
-    <div class="large-10 medium-9 columns">
+    <div class="large-12 columns">
         <h3>Overview chart</h3>
     </div>
-    <div ng-show="Data.Types" class="large-2 medium-3 columns">
-        <select ng-model="Data.Chart.type" ng-options="type for type in Data.Types">
-            <option value="ColumnChart">Column Chart</option>
-            <option value="LineChart">Line Chart</option>
-            <option value="AreaChart">Area Chart</option>
-        </select>
+</div>
+
+<div class="row">
+    <div class="large-2 columns">
+    </div>
+    <div class="large-10 tRight toolbar columns">
+        <select ng-show="Data.Types" ng-model="Data.Chart.type" ng-options="type for type in Data.Types"></select>
     </div>
 </div>
+
 <div class="row">
     <div class="large-12 columns">
         <div class="google-chart pending" google-chart chart="Data.Chart"></div>

@@ -94,7 +94,7 @@ class Visualization
      * @param mixed $type 
      * @return mixed
      */
-    public function GetDifferenceDataDepth($type)   {
+    public static function GetDifferenceDataDepth($type)   {
         return DifferenceVisualization::GetDataDepth($type);
     }
 }

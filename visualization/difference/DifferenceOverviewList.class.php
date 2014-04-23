@@ -23,11 +23,32 @@ class DifferenceOverviewList
     private $Headers;
     
     /**
+     * Get name
+     * @var mixed
+     */
+    private $Name;
+    
+    /**
+     * Change flag
+     * @var mixed
+     */
+    private $HasChange;
+    
+    /**
      * Difference overview list constructor
      */
     public function __construct()   {
         $this->Items = array();
         $this->Headers = array();
+        $this->HasChange = false;
+    }
+    
+    /**
+     * Set name
+     * @param mixed $name 
+     */
+    public function SetName($name)   {
+        $this->Name = $name;
     }
     
     /**
@@ -36,6 +57,8 @@ class DifferenceOverviewList
      */
     public function AddItem(DifferenceOverviewListItem $differenceOverviewListItem)   {
         $this->Items[] = $differenceOverviewListItem;
+        
+        $this->HasChange = $differenceOverviewListItem->HasChange() ? true : $this->HasChange;
     }
     
     /**
@@ -56,6 +79,9 @@ class DifferenceOverviewList
         // Set values
         $overviewList->Headers = $this->Headers;
         $overviewList->Items = array();
+        $overviewList->Name = $this->Name;
+        $overviewList->HasChange = $this->HasChange;
+        $overviewList->ItemsCount = count($this->Items);
         foreach ($this->Items as $item)
         {
             $overviewList->Items[] = $item->ExportObject();

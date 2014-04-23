@@ -247,6 +247,8 @@ class DatabaseInstallation
      * Create Submission table
      * - Id [double]
      * - DateTime [varchar(63)]
+     * - ImportDateTime [varchar(63)]
+     * - User [double]
      * - Project [double]
      */
     private function CreateTb_Submission()  {
@@ -267,6 +269,20 @@ class DatabaseInstallation
         $pDateTime->NotNull();
         // Add datetime to table
         $tSubmission->AddProperty($pDateTime);
+        
+        // Set importdatetime property
+        $pImportDateTime = new DbProperty('ImportDateTime');
+        $pImportDateTime->SetType(DbType::Varchar(63));
+        $pImportDateTime->NotNull();
+        // Add importdatetime to table
+        $tSubmission->AddProperty($pImportDateTime);
+        
+        // Set user property
+        $pUser = new DbProperty('User');
+        $pUser->SetType(DbType::Double());
+        $pUser->NotNull();
+        // Add user to table
+        $tSubmission->AddProperty($pUser);
         
         // Set project property
         $pProject = new DbProperty('Project');

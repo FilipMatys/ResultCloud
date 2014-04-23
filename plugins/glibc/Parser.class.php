@@ -33,7 +33,7 @@ class Parser
         $Submission = new SubmissionTSE(date("c"));
         
         // Get all needed rows
-        preg_match_all("/make\[(\d)\]: \*\*\* \[(.*)\] (.*) (\d+)/", $fileContent, $matches);
+        preg_match_all("/(make\[\d\]): \*\*\* \[(.*)\] (.*) (\d+)/", $fileContent, $matches);
         
         // Array of categories
         $lCategories = new LINQ(array()); 

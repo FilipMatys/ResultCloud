@@ -1,21 +1,55 @@
-﻿<div class="row" ng-repeat="list in Data">
+﻿<div class="row">
+    <div class="large-10 columns">
+        <h3>Test Cases</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-2 columns">
+        <span ng-show="PendingChanges" class="pending"></span>
+    </div>
+    <div class="large-10 columns toolbar tRight">
+        <label>
+            Show only changes
+            <input type="checkbox" ng-model="ShowChangesOnly" />
+        </label>
+    </div>
+</div>
+<div ng-hide="ShowChangesOnly && !list.HasChange" class="row" ng-repeat="list in DiffData">
     <div class="large-12 columns">
-        <table ng-repeat="testCase in list.Items" class="full-width">
-            <thead>
-                <tr>
-                    <th colspan="{{list.Headers.length + 1}}">{{testCase.Name}}</th>
-                </tr>
-                <tr>
-                    <th>Key</th>
-                    <th ng-repeat="header in list.Headers">{{header}}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="set in testCase.ResultSets">
-                    <td>{{set.Key}}</td>
-                    <td ng-repeat="result in set.Values">{{result.Value}}</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="card header">
+            <div class="row">
+                <div class="large-6 columns">
+                    <h1><span>Category</span> {{list.Name}}</h1>
+                </div>
+                <div class="large-6 columns tRight">
+                    <span title="{{list.ItemsCount}} Test Cases">{{list.ItemsCount}}</span>
+                    <i title="{{list.ItemsCount}} Test Cases" class="icon fi-results"></i>
+                    <a ng-click="HideCategory[$index] = true" ng-show="!HideCategory[$index]" title="Compress" class="icon fi-arrows-compress"></a>
+                    <a ng-click="HideCategory[$index] = false" ng-show="HideCategory[$index]" title="Expand" class="icon fi-arrows-expand"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-hide="HideCategory[$index]" class="large-12 columns">
+        <div class="card" ng-hide="ShowChangesOnly && !testCase.HasChange" ng-repeat="testCase in list.Items">
+            <h3>
+                {{testCase.Name}}
+            </h3>
+            <table class="full-width">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th ng-repeat="header in list.Headers">{{header}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-hide="ShowChangesOnly && !set.HasChange" ng-repeat="set in testCase.ResultSets">
+                        <td>{{set.Key}}</td>
+                        <td ng-repeat="result in set.Values" style="{{result.Style}}">{{result.Value}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

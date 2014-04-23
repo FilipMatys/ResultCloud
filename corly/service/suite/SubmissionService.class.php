@@ -63,9 +63,25 @@ class SubmissionService
      * @param mixed $submissions 
      * @return mixed
      */
-    public function Difference($submissions, $project)    {
+    public function Difference($submissions, $project, $type, $meta)    {
         // Initialize validation
         $validation = new ValidationResult($submissions);
+        
+        // Load plugin execution
+        $dbProject = $this->ProjectDao->Load($project);
+        $this->PluginService->LoadPlugin($dbProject->Plugin);
+        
+        // Check if visualizer was included
+        if (!class_exists('Visualization'))  {
+            $validation->AddError("Visualization for given plugin was not found");
+            return $validation;
+        }
+        
+        // Close session so other requests are allowed
+        session_write_close();
+        
+        // Get view depth
+        $depth = Visualization::GetSubmissionDataDepth($type);
         
         // Create array of submissions to pass to visualizer
         $tseSubmissions = array();
@@ -78,7 +94,7 @@ class SubmissionService
             $tseSubmission->MapDbObject($dbSubmission);
             
             // Load categories into submission
-            foreach ($this->CategoryService->LoadCategories($dbSubmission->Id) as $category)    {
+            foreach ($this->CategoryService->LoadCategories($dbSubmission->Id, $depth - 1) as $category)    {
                 $tseSubmission->AddCategory($category);
             }
             
@@ -86,18 +102,8 @@ class SubmissionService
             $tseSubmissions[] = $tseSubmission;
         }
         
-        // Load plugin execution
-        $dbProject = $this->ProjectDao->Load($project);
-        $this->PluginService->LoadPlugin($dbProject->Plugin);
-        
-        // Check if visualizer was included
-        if (!class_exists('Visualization'))  {
-            $validation->AddError("Visualization for given plugin was not found");
-            return $validation;
-        }
-        
         // Visualize difference
-        $validation = Visualization::VisualizeDifference($tseSubmissions);
+        $validation = Visualization::VisualizeDifference($tseSubmissions, $type, $meta);
         
         // Return validation result with data
         return $validation;

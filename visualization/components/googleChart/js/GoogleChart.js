@@ -22,7 +22,20 @@
                     });
 
             }
-            // Second, check if project is set
+            // Second, check if difference list is set
+            else if ($stateParams.differenceArray) {
+                // Load data
+                SubmissionService.difference({
+                    Project: $stateParams.projectId,
+                    Submissions: $stateParams.differenceArray,
+                    Type: "GOOGLE_CHART",
+                    Meta: null
+                })
+                    .success(function (data, status, headers, config) {
+                        $scope.Data = data.Data;
+                    });
+            }
+            // Third, check if project is set
             else if ($stateParams.projectId) {
                 // Set project id
                 $scope.Request.ItemId = $stateParams.projectId;

@@ -23,6 +23,7 @@ class ProjectController
     const GET = "GET";
     const SAVE = "SAVE";
     const VIEWS = "VIEWS";
+    const DIFFVIEWS = "DIFFVIEWS";
     
     // Services
     private $ProjectService;
@@ -75,6 +76,20 @@ class ProjectController
     }
     
     /**
+     * Load difference views for given project
+     * @param mixed $projecId 
+     * @return mixed
+     */
+    public function DiffViews($projectId)    {
+        // Initialize object
+        $project = new stdClass();
+        $project->Id = $projectId;
+        
+        // Load views
+        return $this->ProjectService->GetDiffViews($project);
+    }
+    
+    /**
      * Get project 
      * @param mixed $projectId 
      * @return mixed
@@ -116,6 +131,10 @@ if (isset($_GET["method"]))	{
             
         case ProjectController::VIEWS:
             $result = $ProjectController->Views($data);
+            break;
+            
+        case ProjectController::DIFFVIEWS:
+            $result = $ProjectController->DiffViews($data);
             break;
             
 		default:

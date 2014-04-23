@@ -96,6 +96,31 @@ class ProjectService
     }
     
     /**
+     * Get difference view components for given submission
+     * @param mixed $submission 
+     * @return mixed
+     */
+    public function GetDiffViews($project)   {
+        // Load project from database
+        $dbProject = $this->ProjectDao->Load($project);
+        
+        // Load plugin
+        $this->PluginService->LoadPlugin($dbProject->Plugin);
+        
+        // Initialize validation
+        $validation = new ValidationResult($project);
+        
+        // Check if importer was included
+        if (!class_exists('Visualization'))  {
+            $validation->AddError("Visualization for given plugin was not found");
+            return $validation;
+        }
+        
+        // Process data by plugin
+        return Visualization::GetDifferenceViewComponents();
+    }
+    
+    /**
      * Load project with all submissions
      * @param mixed $project 
      * @return mixed

@@ -23,12 +23,19 @@ class DifferenceOverviewListItemResultSet
     private $Values;
     
     /**
+     * Changes flag
+     * @var mixed
+     */
+    private $HasChange;
+    
+    /**
      * Summary of __construct
      * @param mixed $key 
      */
     public function __construct($key = "")  {
         $this->Key  = $key;
         $this->Values = array();
+        $this->HasChange = false;
     }
     
     /**
@@ -40,11 +47,22 @@ class DifferenceOverviewListItemResultSet
     }
     
     /**
+     * Get has change flag
+     * @return mixed
+     */
+    public function HasChange() {
+        return $this->HasChange;
+    }
+    
+    /**
      * Add value
      * @param mixed $value 
      */
     public function AddValue(DifferenceOverviewListItemResultSetValue $value)    {
         $this->Values[] = $value;
+        
+        // Set change flag
+        $this->HasChange = $value->HasChange() ? true : $this->HasChange;
     }
     
     /**
@@ -72,6 +90,7 @@ class DifferenceOverviewListItemResultSet
         // Set values
         $resultSet->Key = $this->Key;
         $resultSet->Values = array();
+        $resultSet->HasChange =  $this->HasChange;
         foreach ($this->Values as $value)
         {
             // Add exported value to set
