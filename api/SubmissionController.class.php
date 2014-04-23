@@ -20,6 +20,7 @@ class SubmissionController
     // Method constants
     const GET = "GET";
     const DIFFERENCE = "DIFFERENCE";
+    const VIEWS = "VIEWS";
     
     // Services
     private $SubmissionService;
@@ -36,11 +37,11 @@ class SubmissionController
      * @param mixed $projectId 
      * @return mixed
      */
-    public function Get($submissionId) {
+    public function Get($request) {
         $submission = new stdClass();
-        $submission->Id = $submissionId;
+        $submission->Id = $request->ItemId;
         // Get project detail
-        return $this->SubmissionService->GetDetail($submission);
+        return $this->SubmissionService->GetDetail($submission, $request->Type, $request->Meta);
     }
     
     /**
@@ -69,6 +70,20 @@ class SubmissionController
         // Get result
         return $this->SubmissionService->Difference($submissions, $project);
     }
+    
+    /**
+     * Get views for submission
+     * @param mixed $submissionId 
+     * @return mixed
+     */
+    public function Views($submissionId) {
+        // Initialize object
+        $submission = new stdClass();
+        $submission->Id = $submissionId;
+        
+        // Load views
+        return $this->SubmissionService->GetViews($submission);
+    }
 }
 
 // Extract json data
@@ -88,6 +103,10 @@ if (isset($_GET["method"]))	{
             
         case SubmissionController::DIFFERENCE:
             $result = $SubmissionController->Difference($data);
+            break;
+            
+        case SubmissionController::VIEWS:
+            $result = $SubmissionController->Views($data);
             break;
         
 		default:

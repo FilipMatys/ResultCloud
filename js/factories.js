@@ -41,6 +41,13 @@ application.factory('SubmissionService', function ($http) {
                 url: 'api/SubmissionController.class.php?method=DIFFERENCE',
                 data: data
             })
+        },
+        views: function (submissionId) {
+            return $http({
+                method: 'POST',
+                url: 'api/SubmissionController.class.php?method=VIEWS',
+                data: submissionId
+            })
         }
     }
 });

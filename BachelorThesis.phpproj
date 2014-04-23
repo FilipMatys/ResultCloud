@@ -141,6 +141,7 @@
     <Compile Include="visualization\components\googleChart\GCRow.class.php" />
     <Compile Include="visualization\components\googleChart\GCType.class.php" />
     <Compile Include="visualization\components\googleChart\GoogleChart.class.php" />
+    <Compile Include="visualization\DataDepth.enum.php" />
     <Compile Include="visualization\difference\DifferenceOverviewVisualization.class.php" />
     <Compile Include="visualization\difference\DifferenceOverviewChart.class.php" />
     <Compile Include="visualization\difference\DifferenceOverviewList.class.php" />
@@ -149,14 +150,15 @@
     <Compile Include="visualization\difference\DifferenceOverviewListItemResultSetValue.class.php" />
     <Compile Include="visualization\OverviewChart.class.php" />
     <Compile Include="visualization\project\ProjectOverviewChart.class.php" />
+    <Compile Include="visualization\project\ProjectOverviewComponent.enum.php" />
     <Compile Include="visualization\project\ProjectOverviewList.class.php" />
     <Compile Include="visualization\project\ProjectOverviewListItem.class.php" />
-    <Compile Include="visualization\project\ProjectOverviewVisualization.class.php" />
+    <Compile Include="visualization\project\ProjectOverviewType.enum.php" />
     <Compile Include="visualization\submission\SubmissionOverviewChart.class.php" />
     <Compile Include="visualization\submission\SubmissionOverviewList.class.php" />
     <Compile Include="visualization\submission\SubmissionOverviewListItem.class.php" />
-    <Compile Include="visualization\submission\SubmissionOverviewType.class.php" />
-    <Compile Include="visualization\submission\SubmissionOverviewVisualization.class.php" />
+    <Compile Include="visualization\submission\SubmissionOverviewListType.enum.php" />
+    <Compile Include="visualization\submission\SubmissionOverviewType.enum.php" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="api" />
@@ -211,6 +213,7 @@
     <Folder Include="visualization\components\submissionList\js\" />
     <Folder Include="visualization\components\testCaseList\js\" />
     <Folder Include="visualization\difference\" />
+    <Folder Include="visualization\project\js\" />
     <Folder Include="visualization\submission\" />
     <Folder Include="visualization\project\" />
   </ItemGroup>
@@ -245,5 +248,6 @@
     <Content Include="visualization\components\testCaseList\js\TestCaseList.js" />
     <Content Include="visualization\components\testCaseList\list.html" />
     <Content Include="visualization\components\testCaseList\template.html" />
+    <Content Include="visualization\project\js\DynamicProjectComponentLoader.js" />
   </ItemGroup>
 </Project>

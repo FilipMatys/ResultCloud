@@ -1,19 +1,19 @@
 <?php
 
 /**
- * ProjectOverviewComponent short summary.
+ * SubmissionOverviewComponent short summary.
  *
- * ProjectOverviewComponent description.
+ * SubmissionOverviewComponent description.
  *
  * @version 1.0
  * @author Filip
  */
-class ProjectOverviewComponent
+class SubmissionOverviewComponent
 {
     /**
      * Basic list for data. T
      */
-    const VIEWLIST = "<corly-submission-list></corly-submission-list>";
+    const VIEWLIST = "<corly-test-case-list></corly-test-case-list>";
     
     /**
      * Google chart, that allows representing data graphically

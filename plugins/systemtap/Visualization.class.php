@@ -51,7 +51,24 @@ class Visualization
      * @param mixed $submission 
      * @return mixed
      */
-    public static function VisualizeSubmission(SubmissionTSE $submission, $type)    {
-        return new ValidationResult(SubmissionVisualization::Visualize($submission));
+    public static function VisualizeSubmission(SubmissionTSE $submission, $type, $meta)    {
+        return new ValidationResult(SubmissionVisualization::Visualize($submission, $type, $meta));
+    }
+    
+    /**
+     * Get data depth for submission view
+     * @param mixed $type 
+     * @return mixed
+     */
+    public static function GetSubmissionDataDepth($type)   {
+        return SubmissionVisualization::GetDataDepth($type);
+    }
+    
+    /**
+     * Get submission view components
+     * @return mixed
+     */
+    public static function GetSubmissionViewComponents()    {
+        return new ValidationResult(SubmissionVisualization::GetViewComponents());
     }
 }

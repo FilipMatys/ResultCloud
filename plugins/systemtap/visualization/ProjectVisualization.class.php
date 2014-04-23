@@ -36,8 +36,8 @@ class ProjectVisualization
      */
     public static function GetViewComponents()  {
         return array(
-                ProjectOverviewComponent::VIEWLIST,
-                ProjectOverviewComponent::GOOGLE_CHART
+                ProjectOverviewComponent::GOOGLE_CHART,
+                ProjectOverviewComponent::VIEWLIST
             );
     }
     

@@ -3,16 +3,10 @@
         <h1>Submission</h1>
     </div>
 </div>
-<div class="row">
-    <div class="large-6 columns">
-        <h3>Summary</h3>
-    </div>
-    <div class="large-6 columns">
-        <corly-google-chart data="SubmissionOverview.SubmissionOverviewChart"></corly-google-chart>
-    </div>
-</div>
+
 <div class="row">
     <div class="large-12 columns">
-        <corly-test-case-list data="SubmissionOverview.SubmissionOverviewList"></corly-test-case-list>
+        <!-- Dynamic component loader, which loads components recieved from server -->
+        <corly-dynamic-submission-component-loader></corly-dynamic-submission-component-loader>
     </div>
 </div>

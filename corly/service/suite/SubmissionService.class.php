@@ -102,13 +102,48 @@ class SubmissionService
         // Return validation result with data
         return $validation;
     }
+    
+    /**
+     * Get view components for given submission
+     * @param mixed $submission 
+     * @return mixed
+     */
+    public function GetViews($submission)   {
+        // Load submission from database
+        $dbSubbmission = $this->SubmissionDao->Load($submission);
+        
+        // Initialize validation
+        $validation = new ValidationResult($submission);
+        
+        // Get to the plugin, so the right one is used
+        // Initialize project object
+        $dbProject = new stdClass();
+        $dbProject->Id = $dbSubbmission->Project;
+        // Load project
+        $dbProject = $this->ProjectDao->Load($dbProject);
+        
+        // Load plugin execution
+        $this->PluginService->LoadPlugin($dbProject->Plugin);
+        
+        // Check if visualizer was included
+        if (!class_exists('Visualization'))  {
+            $validation->AddError("Visualization for given plugin was not found");
+            return $validation;
+        }
+        
+        // Process data by plugin
+        $validation = Visualization::GetSubmissionViewComponents();
+        
+        // Return result
+        return $validation;
+    }
         
     /**
      * Get submission detail for visualization
      * @param mixed $submission 
      * @return mixed
      */
-    public function GetDetail($submission)    {
+    public function GetDetail($submission, $type,  $meta = null)    {
         // Load submission from database
         $dbSubbmission = $this->SubmissionDao->Load($submission);
         
@@ -135,13 +170,19 @@ class SubmissionService
             return $validation;
         }
         
+        // Close session so other requests are allowed
+        session_write_close();
+        
+        // Get view depth
+        $depth = Visualization::GetSubmissionDataDepth($type);
+        
         // Load categories for submission
-        foreach ($this->CategoryService->LoadCategories($dbSubbmission->Id) as $category)   {
+        foreach ($this->CategoryService->LoadCategories($dbSubbmission->Id, $depth - 1) as $category)   {
             $submission->AddCategory($category);
         }
         
         // Process data by plugin
-        $validation = Visualization::VisualizeSubmission($submission);
+        $validation = Visualization::VisualizeSubmission($submission, $type, $meta);
         
         // Return result
         return $validation;

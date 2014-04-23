@@ -1,22 +1,29 @@
 ﻿<div class="row toolbar">
     <div class="large-12 columns">
         <div class="row">
-            <div class="large-8 medium-12 columns">
+            <div class="large-12 medium-12 columns">
                 <h3>Submissions</h3>
-            </div>
-            <div class="large-4 medium-12 columns">
-                <label>
-                    Check all
-                    <input type="checkbox" ng-model="SelectAll" />
-                </label>
-                <a class="btn" ng-click="Differ()">Differ</a>
             </div>
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="large-2 columns">
+        <span ng-show="PendingChanges" class="pending"></span>
+    </div>
+    <div class="large-10 columns toolbar tRight">
+        <label>
+            Check all
+            <input type="checkbox" ng-model="SelectAll" />
+        </label>
+        <a class="btn" ng-click="Differ()">Differ</a>
+    </div>
+</div>
+
 <div class="row">
     <div class="large-12 columns">
-        <div class="row" ng-repeat="item in Data.Submissions">
+        <div class="row" ng-repeat="item in ListData.Submissions">
             <div class="large-12 columns">
                 <form class="list">
                     <fieldset>

@@ -14,12 +14,15 @@ class CategoryTSE
     private $Id;
     private $TestCases;
     
+    private $TestCasesCount;
+    
     /**
      * Category constructor
      */
     public function __construct($Name = "")   {
         $this->Name = $Name;
         $this->TestCases = array();
+        $this->TestCasesCount = 0;
     }
     
     /**
@@ -28,6 +31,24 @@ class CategoryTSE
      */
     public function AddTestCase(TestCaseTSE $testCase)  {
         $this->TestCases[] = $testCase;
+        ++$this->TestCasesCount;
+    }
+    
+    /**
+     * Get number of test cases of category
+     * @return mixed
+     */
+    public function GetNumberOfTestCases()  {
+        return $this->TestCasesCount;
+    }
+    
+    /**
+     * Splice array of test cases
+     * @param mixed $offset 
+     * @param mixed $length 
+     */
+    public function SpliceTestCases($offset, $length)   {
+        $this->TestCases = array_splice($this->TestCases, $offset, $length);
     }
     
     /**
@@ -107,13 +128,14 @@ class CategoryTSE
         // Set values
         $category->Id = $this->Id;
         $category->Name = $this->Name;
+        $category->NumberOfTestCases = $this->TestCasesCount;
         $category->TestCases = array();
         
         // Export each test case
         foreach ($this->TestCases as $testCase) {
             $category->TestCases[] = $testCase->ExportObject();
-        }
-        
+        }        
+
         // return result
         return $category;
     }

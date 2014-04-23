@@ -120,6 +120,9 @@ class ProjectService
             return $validation;
         }
         
+        // End session to allow other requests
+        session_write_close();
+        
         // Load submissions and add them to project
         foreach ($this->SubmissionService->LoadSubmissions($dbProject->Id, Visualization::GetProjectDataDepth($type)) as $submission)
         {

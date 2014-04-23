@@ -3,6 +3,8 @@
         restrict: 'E',
         templateUrl: 'visualization/components/submissionList/list.html',
         controller: function ($scope, $state, $stateParams, ProjectService) {
+            $scope.PendingChanges = false;
+
             // Initialize request object
             $scope.Request = {
                 ItemId: $stateParams.projectId,
@@ -10,16 +12,18 @@
             }
 
             // Load data
+            $scope.PendingChanges = true;
             ProjectService.get($scope.Request)
                 .success(function (data, status, headers, config) {
-                    $scope.Data = data.Data;
+                    $scope.ListData = data.Data;
+                    $scope.PendingChanges = false;
                 });
 
             // Compare all selected submissions
             $scope.Differ = function () {
                 // Get all submissions market for difference
                 var submissions = [];
-                angular.forEach($scope.Data.Submissions, function (item) {
+                angular.forEach($scope.ListData.Submissions, function (item) {
                     if (item.Submission.Differ)
                         submissions.push(item.Submission.Id);
                 });
@@ -34,10 +38,10 @@
 
             // Watch for "select all" change
             $scope.$watch('SelectAll', function (value) {
-                if (!$scope.Data)
+                if (!$scope.ListData)
                     return;
 
-                angular.forEach($scope.Data.Submissions, function (item) {
+                angular.forEach($scope.ListData.Submissions, function (item) {
                     item.Submission.Differ = value;
                 });
             });

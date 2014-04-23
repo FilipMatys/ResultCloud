@@ -22,11 +22,32 @@ class SubmissionOverviewList
      */
     private $ViewTypes;
     
+    private $Page;
+    private $ItemsCount;
+    
     /**
      * Submission overview list constructor
      */
     public function __construct()   {
         $this->Categories = array();
+        $this->Page = 0;
+        $this->ItemsCount = 0;
+    }
+    
+    /**
+     * Set page 
+     * @param mixed $page 
+     */
+    public function SetPage($page)  {
+        $this->Page = $page;
+    }
+    
+    /**
+     * Set items count
+     * @param mixed $itemsCount 
+     */
+    public function SetItemsCount($itemsCount)  {
+        $this->ItemsCount = $itemsCount;
     }
     
     /**
@@ -62,6 +83,9 @@ class SubmissionOverviewList
             $submissionOverviewList->Categories[] = $category->ExportObject();
         }
         $submissionOverviewList->ViewTypes = $this->ViewTypes;
+        
+        $submissionOverviewList->Page = $this->Page;
+        $submissionOverviewList->ItemsCount = $this->ItemsCount;
         
         // return object
         return $submissionOverviewList;

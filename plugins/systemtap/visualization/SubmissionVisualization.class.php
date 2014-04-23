@@ -10,12 +10,46 @@
  */
 class SubmissionVisualization
 {
+    // Constants
+    const PAGE_SIZE = 100;
+    
+    /**
+     * Get data depth based on component type
+     * @param mixed $type 
+     * @return mixed
+     */
+    public static function GetDataDepth($type)   {
+        // Decide data depth
+        switch($type)   {
+            // Get results for google chart
+            case SubmissionOverviewType::GOOGLE_CHART:
+                return DataDepth::RESULT;
+            
+            case SubmissionOverviewType::VIEWLIST:
+                return DataDepth::RESULT;
+            
+            default:
+                return DataDepth::SUBMISSION;
+        }
+    }
+    
+    /**
+     * Get view components for project view
+     * @return mixed
+     */
+    public static function GetViewComponents()  {
+        return array(
+                SubmissionOverviewComponent::GOOGLE_CHART,
+                SubmissionOverviewComponent::VIEWLIST
+            );
+    }
+    
     /**
      * Create submission object for visualization of given type
      * @param SubmissionTSE $submission 
      * @return mixed
      */
-    public static function Visualize(SubmissionTSE $submission, $type) {
+    public static function Visualize(SubmissionTSE $submission, $type, $meta) {
         // Get view based on demanded ty
         switch($type)   {
             // Get google chart
@@ -24,7 +58,7 @@ class SubmissionVisualization
                 
             // Get view list
             case SubmissionOverviewType::VIEWLIST:
-                return SubmissionVisualization::GetSubmissionOverviewList($submission)->ExportObject();
+                return SubmissionVisualization::GetSubmissionOverviewList($submission, $meta)->ExportObject();
                 
             // Return null if no assigned component was found
             default:
@@ -37,17 +71,29 @@ class SubmissionVisualization
      * @param SubmissionTSE $project 
      * @return mixed
      */
-    private static function GetSubmissionOverviewList(SubmissionTSE $submission)    {
+    private static function GetSubmissionOverviewList(SubmissionTSE $submission, $page)    {
         // Initialize list
         $submissionOverviewList = new SubmissionOverviewList();
         
+        // Initialize items count
+        $itemsCount = 0;
+        
         foreach ($submission->GetCategories() as $category)
         {
+            $itemsCount += $category->GetNumberOfTestCases();
+            $category->SpliceTestCases(($page - 1) * SubmissionVisualization::PAGE_SIZE, SubmissionVisualization::PAGE_SIZE);
+            
             // Create new list item
             $submissionOverviewListItem = new SubmissionOverviewListItem($category);
             // Add item to list
             $submissionOverviewList->AddItem($submissionOverviewListItem);
         }
+        
+        // Set page number
+        $submissionOverviewList->SetPage($page);
+        
+        // Set number of records
+        $submissionOverviewList->SetItemsCount($itemsCount);
     
         // Set available views
         $submissionOverviewList->AddView(SubmissionOverviewListType::GroupedView);

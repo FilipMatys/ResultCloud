@@ -1,13 +1,13 @@
 ﻿<div class="row">
     <div class="large-10 columns">
-        <h3>Results</h3>
+        <h3>Test Cases</h3>
     </div>
-    <div class="large-2 columns" ng-show="Data.ViewTypes && Data.ViewTypes.length > 1">
-        <select ng-model="View" ng-options="viewType for viewType in Data.ViewTypes"></select>
+    <div class="large-2 columns" ng-show="ListData.ViewTypes && ListData.ViewTypes.length > 1">
+        <select ng-model="View" ng-options="viewType for viewType in ListData.ViewTypes"></select>
     </div>
 </div>
 
-<div class="row" ng-show="Data.Categories[0].Category.TestCases[0].Results.length > 1" ng-repeat="column in Data.Categories[0].Category.TestCases[0].Results">
+<div class="row" ng-show="ListData.Categories[0].Category.TestCases[0].Results.length > 1" ng-repeat="column in ListData.Categories[0].Category.TestCases[0].Results">
     <div class="large-12 columns">
         <label>
             {{column.RKey}}
@@ -16,11 +16,30 @@
     </div>
 </div>
 
-<div ng-switch on="View">
-    <div ng-switch-when="List">
-        <div ng-include="'visualization/components/testCaseList/list.html'"></div>
+<div class="row">
+    <div class="large-2 columns">
+        <span ng-show="PendingChanges" class="pending"></span>
     </div>
-    <div ng-switch-when="Grouped">
-        <div ng-include="'visualization/components/testCaseList/grouped.html'"></div>
+    <div class="large-10 columns toolbar tRight">
+        <label>
+            Total items
+            {{ListData.ItemsCount}}
+        </label>
+        <span class="divider"></span>
+        <label>
+            Page
+            <input type="number" ng-model="ListData.Page" /> / {{Pages}}
+        </label>
+        <span class="divider"></span>
+        <button ng-click="FetchData()" class="btn" ng-disabled="ListData.Page < 1 || ListData.Page > Pages">Go</button>
+    </div>
+</div>
+
+<div class="row" ng-switch on="View">
+    <div class="large-12 columns" ng-switch-when="List">
+        <div ng-include="'visualization/components/testcaselist/list.html'"></div>
+    </div>
+    <div class="large-12 columns" ng-switch-when="Grouped">
+        <div ng-include="'visualization/components/testcaselist/grouped.html'"></div>
     </div>
 </div>
