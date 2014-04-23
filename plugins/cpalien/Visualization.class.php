@@ -26,17 +26,51 @@ class Visualization
      * @param mixed $project 
      * @return mixed
      */
-    public static function VisualizeProject(ProjectTSE $project)  {
-        return new ValidationResult(ProjectVisualization::Visualize($project));
+    public static function VisualizeProject(ProjectTSE $project, $type)  {
+        return new ValidationResult(ProjectVisualization::Visualize($project, $type));
     }
     
     /**
-     * Visualize submission detail
+     * Get data depth for project components
+     * @param mixed $type 
+     * @return mixed
+     */
+    public static function GetProjectDataDepth($type)   {
+        return ProjectVisualization::GetDataDepth($type);
+    }
+    
+    /**
+     * Get project view components
+     * @return mixed
+     */
+    public static function GetProjectViewComponents()   {
+        return new ValidationResult(ProjectVisualization::GetViewComponents());
+    }
+    
+    /**
+     * Visualize submission
      * @param mixed $submission 
      * @return mixed
      */
-    public static function VisualizeSubmission(SubmissionTSE $submission)    {
-        return new ValidationResult(SubmissionVisualization::Visualize($submission));   
+    public static function VisualizeSubmission(SubmissionTSE $submission, $type, $meta)    {
+        return new ValidationResult(SubmissionVisualization::Visualize($submission, $type, $meta));
+    }
+    
+    /**
+     * Get data depth for submission view
+     * @param mixed $type 
+     * @return mixed
+     */
+    public static function GetSubmissionDataDepth($type)   {
+        return SubmissionVisualization::GetDataDepth($type);
+    }
+    
+    /**
+     * Get submission view components
+     * @return mixed
+     */
+    public static function GetSubmissionViewComponents()    {
+        return new ValidationResult(SubmissionVisualization::GetViewComponents());
     }
     
     /**
@@ -46,5 +80,22 @@ class Visualization
      */
     public static function VisualizeDifference($submissions)    {
         return new ValidationResult(DifferenceVisualization::Visualize($submissions));
+    }
+    
+    /**
+     * Get difference view components
+     * @return mixed
+     */
+    public static function GetDifferenceViewComponents()    {
+        return new ValidationResult(DifferenceVisualization::GetViewComponents());
+    }
+    
+    /**
+     * Get data depth for difference view component
+     * @param mixed $type 
+     * @return mixed
+     */
+    public function GetDifferenceDataDepth($type)   {
+        return DifferenceVisualization::GetDataDepth($type);
     }
 }

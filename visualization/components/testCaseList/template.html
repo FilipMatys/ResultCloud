@@ -2,18 +2,6 @@
     <div class="large-10 columns">
         <h3>Test Cases</h3>
     </div>
-    <div class="large-2 columns" ng-show="ListData.ViewTypes && ListData.ViewTypes.length > 1">
-        <select ng-model="View" ng-options="viewType for viewType in ListData.ViewTypes"></select>
-    </div>
-</div>
-
-<div class="row" ng-show="ListData.Categories[0].Category.TestCases[0].Results.length > 1" ng-repeat="column in ListData.Categories[0].Category.TestCases[0].Results">
-    <div class="large-12 columns">
-        <label>
-            {{column.RKey}}
-            <input ng-model="ShowColumn[$index]" type="checkbox" ng-true-value="false" ng-false-value="true" checked />
-        </label>
-    </div>
 </div>
 
 <div class="row">
@@ -26,12 +14,13 @@
             {{ListData.ItemsCount}}
         </label>
         <span class="divider"></span>
-        <label>
+        <label ng-show="Pages > 1">
             Page
             <input type="number" ng-model="ListData.Page" /> / {{Pages}}
         </label>
-        <span class="divider"></span>
-        <button ng-click="FetchData()" class="btn" ng-disabled="ListData.Page < 1 || ListData.Page > Pages">Go</button>
+        <span ng-show="Pages > 1" class="divider"></span>
+        <button ng-show="Pages > 1" ng-click="FetchData()" class="btn" ng-disabled="ListData.Page < 1 || ListData.Page > Pages">Go</button>
+        <select ng-show="ListData.ViewTypes && ListData.ViewTypes.length > 1" ng-model="View" ng-options="viewType for viewType in ListData.ViewTypes"></select>
     </div>
 </div>
 

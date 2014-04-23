@@ -42,7 +42,7 @@ div.card table  {
 }
 
 div.card .icon,
-div.card span  {
+div.card .tRight span  {
     font-size: 1.5rem;
     position: relative;
     top: 0.5rem;
@@ -463,6 +463,11 @@ div.toolbar label,
 div.toolbar input   {
     display: inline;
     width: auto;
+}
+
+div.toolbar select  {
+    display: inline-block;
+    width: 10rem;
 }
 
 div.toolbar input[type=number]  {

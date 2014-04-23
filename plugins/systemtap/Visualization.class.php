@@ -71,4 +71,30 @@ class Visualization
     public static function GetSubmissionViewComponents()    {
         return new ValidationResult(SubmissionVisualization::GetViewComponents());
     }
+    
+    /**
+     * Visualize submissions difference
+     * @param mixed $submissions 
+     * @return mixed
+     */
+    public static function VisualizeDifference($submissions)    {
+        return new ValidationResult(DifferenceVisualization::Visualize($submissions));
+    }
+    
+    /**
+     * Get difference view components
+     * @return mixed
+     */
+    public static function GetDifferenceViewComponents()    {
+        return new ValidationResult(DifferenceVisualization::GetViewComponents());
+    }
+    
+    /**
+     * Get data depth for difference view component
+     * @param mixed $type 
+     * @return mixed
+     */
+    public function GetDifferenceDataDepth($type)   {
+        return DifferenceVisualization::GetDataDepth($type);
+    }
 }
