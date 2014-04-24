@@ -1,0 +1,29 @@
+﻿<div class="row">
+    <div class="large-12 columns">
+        <ul class="breadcrumbs">
+            <li><a ui-sref="home.settings">Settings</a></li>
+            <li class="current"><a>Users</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+        <h1>Users</h1>
+    </div>
+</div>
+
+<div class="row" ng-repeat="user in Users">
+    <div class="large-12 columns">
+        <form class="list">
+            <fieldset>
+                <div class="row">
+                    <div class="large-12 medium-12 columns desc">
+                        <a>{{user.Person.Name}}</a>
+                        <span>{{user.Role}}</span>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

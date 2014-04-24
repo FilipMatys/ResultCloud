@@ -55,6 +55,12 @@ application.config(function($stateProvider, $urlRouterProvider){
 	    templateUrl: './views/home/settings.html',
 	    controller: 'SettingsController'
 	})
+    // Settings - users
+	.state('home.settings-users', {
+	    url: '/settings/users',
+	    templateUrl: './views/home/settings/users.html',
+	    controller: 'UsersController'
+	})
     // Plugin management
 	.state('home.plugin-management', {
 	    url: '/plugin-management',
@@ -91,7 +97,7 @@ application.config(function($stateProvider, $urlRouterProvider){
         templateUrl: './views/home/overview/submission.html',
         controller: 'SubmissionOverviewController'
     })
-    // Submission overview detail
+    // Difference overview detail
     .state('home.difference-overview', {
         url: '/project-overview/{projectId}/difference/{differenceArray}',
         templateUrl: './views/home/overview/difference.html',

@@ -57,6 +57,7 @@ class DatabaseInstallation
      * - Id [double]
      * - Password [varchar(31)]
      * - Username [varchar(127)]
+     * - Role [varchar(15)]
      */
     private function CreateTb_User()  {
         $tUser = new DbTable('User');
@@ -83,6 +84,13 @@ class DatabaseInstallation
         $pUsername->NotNull();
         // Add Username to table
         $tUser->AddProperty($pUsername);
+        
+        // Set role property
+        $pRole = new DbProperty('Role');
+        $pRole->SetType(DbType::Varchar(15));
+        $pRole->NotNull();
+        // Add role to table
+        $tUser->AddProperty($pRole);
         
         // Add TABLE to database
         $this->Database->AddTable($tUser);

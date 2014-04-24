@@ -22,6 +22,22 @@ class UserService	{
 	public function GetList()	{
 		return $this->UserDao->GetList();
 	}
+    
+    /**
+     * Get list of users with detail
+     * @return mixed
+     */
+    public function GetDetailedList()   {
+        // Get list of users
+        $users = $this->GetList();
+        // Load each users detail
+        foreach ($users as $user)   {
+            $user->Person = $this->GetDetail($user)->Person;
+        }
+        
+        // Return result
+        return $users;
+    }
 
 	/**
 	 * Get user detail

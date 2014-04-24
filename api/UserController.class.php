@@ -32,7 +32,7 @@ class UserController	{
 
 	// Get all items
 	public function Query()	{
-		return $this->UserService->GetList();
+		return $this->UserService->GetDetailedList();
 	}
 }
 

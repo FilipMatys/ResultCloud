@@ -75,6 +75,13 @@ div.card table tbody tr:hover {
     }
 }
 
+ul.breadcrumbs  {
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    margin-bottom: 0rem;
+    margin-top: 1rem;
+}
+
 button:focus    {
     outline-color: #e5e5e5;
     background: #e5e5e5;
@@ -346,6 +353,16 @@ div.addition    {
     margin-bottom: 0.5rem;
 }
 
+div.settings i  {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+    color: #999999;
+}
+
+div.settings span.link    {
+    position: relative;
+    top: -0.1rem;
+}
 
 /**
     SUBMISSION LIST    
