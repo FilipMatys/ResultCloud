@@ -10,6 +10,7 @@ Library::using(Library::VISUALIZATION_PROJECT);
 Library::using(Library::VISUALIZATION_SUBMISSION);
 Library::using(Library::VISUALIZATION_COMPONENT_GOOGLECHART);
 Library::using(Library::PLUGINS .DIRECTORY_SEPARATOR. 'cpalien' .DIRECTORY_SEPARATOR. 'visualization');
+Library::using(Library::PLUGINS .DIRECTORY_SEPARATOR. 'cpalien' .DIRECTORY_SEPARATOR. 'stat');
 
 /**
  * Visualization short summary.
@@ -78,8 +79,8 @@ class Visualization
      * @param mixed $submissions 
      * @return mixed
      */
-    public static function VisualizeDifference($submissions)    {
-        return new ValidationResult(DifferenceVisualization::Visualize($submissions));
+    public static function VisualizeDifference($submissions, $type, $meta)    {
+        return new ValidationResult(DifferenceVisualization::Visualize($submissions, $type, $meta));
     }
     
     /**

@@ -3,6 +3,11 @@
         <h1>Plugin Management</h1>
     </div>
 </div>
+<div class="row">
+    <div class="large-12 columns">
+        <h3>Installed plugins</h3>
+    </div>
+</div>
 <div class="row plugins" ng-repeat="plugin in Plugins">
     <div class="large-12 columns">
         <a ui-sref="home.plugin({pluginId: plugin.Id})" class="full-width tLeft"><span class="link"> {{plugin.Name}} {{plugin.Version}}</span> <i class="fi-arrow-right medium fRight"></i>

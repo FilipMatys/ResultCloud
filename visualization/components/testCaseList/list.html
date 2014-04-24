@@ -1,12 +1,12 @@
 ﻿<div class="row" ng-repeat="item in ListData.Categories">
     <div class="large-12 columns">
-        <div class="card">
+        <div class="card header">
             <div class="row">
                 <div class="large-6 columns">
-                    <h1><span>Category</span> {{item.Category.Name}}</h1>
+                    <h1><span>Category</span> {{item.Name}}</h1>
                 </div>
                 <div class="large-6 columns tRight">
-                    <span>{{item.Category.NumberOfTestCases}}</span>
+                    <span>{{item.NumberOfTestCases}}</span>
                     <i class="icon fi-results"></i>
                     <a ng-click="HideCategory[$index] = true" ng-show="!HideCategory[$index]" title="Compress" class="icon fi-arrows-compress"></a>
                     <a ng-click="HideCategory[$index] = false" ng-show="HideCategory[$index]" title="Expand" class="icon fi-arrows-expand"></a>
@@ -20,13 +20,13 @@
                 <thead>
                     <tr>
                         <th>Test Case</th>
-                        <th ng-hide="ShowColumn[$index]" ng-repeat="header in item.Category.TestCases[0].Results">{{header.RKey}}</th>
+                        <th ng-hide="ShowColumn[$index]" ng-repeat="header in item.TestCases[0].Results">{{header.Key}}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="testCase in item.Category.TestCases">
+                    <tr ng-repeat="testCase in item.TestCases">
                         <td>{{testCase.Name}}</td>
-                        <td ng-hide="ShowColumn[$index]" ng-repeat="result in testCase.Results">{{result.RValue}}</td>
+                        <td ng-hide="ShowColumn[$index]" style="{{result.Style}}" ng-repeat="result in testCase.Results">{{result.Value}}</td>
                     </tr>
                 </tbody>
             </table>

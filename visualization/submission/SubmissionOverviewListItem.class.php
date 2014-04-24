@@ -11,16 +11,30 @@
 class SubmissionOverviewListItem
 {
     /**
-     * Category object
+     * Category name
      * @var mixed
      */
-    private $Category;
+    private $Name;
+    
+    /**
+     * Test case
+     * @var mixed
+     */
+    private $TestCases;
     
     /**
      * Project overview list item constructor
      */
-    public function __construct($category)   {
-        $this->Category = $category->ExportObject();
+    public function __construct($name)   {
+        $this->Name = $name;
+    }
+    
+    /**
+     * Add test case
+     * @param SubmissionOverviewListItemCase $submissionOverviewListItemCase 
+     */
+    public function AddTestCase(SubmissionOverviewListItemCase $submissionOverviewListItemCase) {
+        $this->TestCases[] = $submissionOverviewListItemCase->ExportObject();
     }
     
     /**
@@ -32,7 +46,8 @@ class SubmissionOverviewListItem
         $listItem = new stdClass();
         
         // Set values
-        $listItem->Category = $this->Category;
+        $listItem->Name = $this->Name;
+        $listItem->TestCases = $this->TestCases;
         
         // Return result
         return $listItem;

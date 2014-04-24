@@ -10,17 +10,49 @@
  */
 class DifferenceVisualization
 {
-    public static function Visualize($submissions) {
-        // Initialize visualization
-        $differenceOverviewVisualization = new DifferenceOverviewVisualization();
-        
-        // Get overview lists
-        foreach (DifferenceVisualization::GetDifferenceOverviewLists($submissions) as $differenceOverviewList)  {
-            $differenceOverviewVisualization->AddDifferenceOverviewList($differenceOverviewList);
+    /**
+     * Visualize difference submission type
+     * @param mixed $submissions 
+     * @param mixed $type 
+     * @param mixed $meta 
+     * @return mixed
+     */
+    public static function Visualize($submissions, $type, $meta) {
+        // Choose the right data based on component type
+        switch($type)   {
+            // Return difference lists
+            case DifferenceOverviewType::VIEWLIST:
+                return DifferenceVisualization::GetDifferenceOverviewLists($submissions);
+            
+            default:
+                return null;
         }
-        
-        // return result
-        return $differenceOverviewVisualization->ExportObject();
+    }
+    
+    /**
+     * Get data depth based on component type
+     * @param mixed $type 
+     * @return mixed
+     */
+    public static function GetDataDepth($type)   {
+        // Set data depth based on component type
+        switch($type)   {
+            case DifferenceOverviewType::VIEWLIST:
+                return DataDepth::RESULT;
+            
+            default:
+                return DataDepth::SUBMISSION;
+        }
+    }
+    
+    /**
+     * Get components for plugin
+     * @return mixed
+     */
+    public static function GetViewComponents()   {
+        return array(
+                DifferenceOverviewComponent::VIEWLIST
+            );
     }
     
     /**
@@ -133,7 +165,17 @@ class DifferenceVisualization
                         // create empty record and continue with other
                         // submission
                         if (is_null($subCategory))  {
-                            $differenceOverviewListItemResultSet->AddValue(new DifferenceOverviewListItemResultSetValue());
+                            $differenceOverviewListItemResultValue = new DifferenceOverviewListItemResultSetValue();
+                            
+                            // Get previous result
+                            $prevValue = $differenceOverviewListItemResultSet->GetLastInsertedValue();
+                            if (!is_null($prevValue))   {
+                                // Set no error
+                                if ($prevValue->GetValue() != "")
+                                    $differenceOverviewListItemResultValue->SetStyle(DifferenceVisualization::GetStatusStyleByValue(CPALIEN_StatusValue::NO_VAL));
+                            }
+                            
+                            $differenceOverviewListItemResultSet->AddValue($differenceOverviewListItemResultValue);
                             continue;
                         }
                         
@@ -144,7 +186,17 @@ class DifferenceVisualization
                         // create empty record and continue with other
                         // submission
                         if (is_null($subTestCase))  {
-                            $differenceOverviewListItemResultSet->AddValue(new DifferenceOverviewListItemResultSetValue());
+                            $differenceOverviewListItemResultValue = new DifferenceOverviewListItemResultSetValue();
+                            
+                            // Get previous result
+                            $prevValue = $differenceOverviewListItemResultSet->GetLastInsertedValue();
+                            if (!is_null($prevValue))   {
+                                // Set no error
+                                if ($prevValue->GetValue() != "")
+                                    $differenceOverviewListItemResultValue->SetStyle(DifferenceVisualization::GetStatusStyleByValue(CPALIEN_StatusValue::NO_VAL));
+                            }
+                            
+                            $differenceOverviewListItemResultSet->AddValue($differenceOverviewListItemResultValue);
                             continue;
                         }
                         
@@ -155,11 +207,31 @@ class DifferenceVisualization
                         // create empty record and continue with
                         // another submission
                         if (is_null($subResult))  {
-                            $differenceOverviewListItemResultSet->AddValue(new DifferenceOverviewListItemResultSetValue());
+                            $differenceOverviewListItemResultValue = new DifferenceOverviewListItemResultSetValue();
+                            
+                            // Get previous result
+                            $prevValue = $differenceOverviewListItemResultSet->GetLastInsertedValue();
+                            if (!is_null($prevValue))   {
+                                // Set no error
+                                if ($prevValue->GetValue() != "")
+                                    $differenceOverviewListItemResultValue->SetStyle(DifferenceVisualization::GetStatusStyleByValue(CPALIEN_StatusValue::NO_VAL));
+                            }
+                            
+                            $differenceOverviewListItemResultSet->AddValue($differenceOverviewListItemResultValue);
                             continue;
                         }
                         // Assign value to result set
-                        $differenceOverviewListItemResultSet->AddValue(new DifferenceOverviewListItemResultSetValue($subResult->GetValue()));
+                        $differenceOverviewListItemResultValue = new DifferenceOverviewListItemResultSetValue($subResult->GetValue());
+                        
+                        // Get previous result
+                        $prevValue = $differenceOverviewListItemResultSet->GetLastInsertedValue();
+                        if (!is_null($prevValue))   {
+                            // Set no error
+                            if ($prevValue->GetValue() != $subResult->GetValue())
+                                $differenceOverviewListItemResultValue->SetStyle(DifferenceVisualization::GetStatusStyleByValue($subResult->GetValue()));
+                        }
+                        
+                        $differenceOverviewListItemResultSet->AddValue($differenceOverviewListItemResultValue);
                     }
                     // Add result set to list item
                     $differenceOverviewListItem->AddResultSet($differenceOverviewListItemResultSet);
@@ -168,10 +240,43 @@ class DifferenceVisualization
                 $differenceOverviewList->AddItem($differenceOverviewListItem);
             }
             // Add listview to list
-            $differenceOverivewLists[] = $differenceOverviewList;
+            $differenceOverivewLists[] = $differenceOverviewList->ExportObject();
         }
         
         // Return result
         return $differenceOverivewLists;
+    }
+    
+    /**
+     * Get style based on value
+     * @param mixed $value 
+     * @return mixed
+     */
+    private static function GetStatusStyleByValue($value)   {
+        switch($value)  {
+            case CPALIEN_StatusValue::ERROR:
+                return CPALIEN_StatusStyle::ERROR;
+            
+            case CPALIEN_StatusValue::ERROR_PARSING:
+                return CPALIEN_StatusStyle::ERROR_PARSING;
+            
+            case CPALIEN_StatusValue::EXCEPTION:
+                return CPALIEN_StatusStyle::EXCEPTION;
+            
+            case CPALIEN_StatusValue::SAFE:
+                return CPALIEN_StatusStyle::SAFE;
+            
+            case CPALIEN_StatusValue::TIMEOUT:
+                return CPALIEN_StatusStyle::TIMEOUT;
+            
+            case CPALIEN_StatusValue::UNSAFE:
+                return CPALIEN_StatusStyle::UNSAFE;
+                
+            case CPALIEN_StatusValue::NO_VAL:
+                return CPALIEN_StatusStyle::NO_VAL;
+            
+            default:
+                return "";
+        }
     }
 }

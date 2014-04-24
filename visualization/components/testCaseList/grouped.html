@@ -1,12 +1,12 @@
 ﻿<div class="row" ng-repeat="item in ListData.Categories">
     <div class="large-12 columns">
-        <div class="card">
+        <div class="card header">
             <div class="row">
                 <div class="large-6 columns">
-                    <h1><span>Category</span> {{item.Category.Name}}</h1>
+                    <h1><span>Category</span> {{item.Name}}</h1>
                 </div>
                 <div class="large-6 columns tRight">
-                    <span>{{item.Category.NumberOfTestCases}}</span>
+                    <span>{{item.NumberOfTestCases}}</span>
                     <i class="icon fi-results"></i>
                     <a ng-click="HideCategory[$index] = true" ng-show="!HideCategory[$index]" title="Compress" class="icon fi-arrows-compress"></a>
                     <a ng-click="HideCategory[$index] = false" ng-show="HideCategory[$index]" title="Expand" class="icon fi-arrows-expand"></a>
@@ -15,7 +15,7 @@
         </div>
     </div>
     <div ng-hide="HideCategory[$index]" class="large-12 columns">
-        <div class="row" ng-repeat="testCase in item.Category.TestCases">
+        <div class="row" ng-repeat="testCase in item.TestCases">
             <div class="large-12 columns">
                 <div class="card">
                     <h3>
@@ -30,8 +30,8 @@
                         </thead>
                         <tbody>
                             <tr ng-hide="ShowColumn[$index]" ng-repeat="result in testCase.Results">
-                                <td>{{result.RKey}}</td>
-                                <td>{{result.RValue}}</td>
+                                <td>{{result.Key}}</td>
+                                <td style="{{result.Style}}">{{result.Value}}</td>
                             </tr>
                         </tbody>
                     </table>

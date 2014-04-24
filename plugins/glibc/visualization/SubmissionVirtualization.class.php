@@ -84,7 +84,26 @@ class SubmissionVisualization
             $category->SpliceTestCases(($page - 1) * SubmissionVisualization::PAGE_SIZE, SubmissionVisualization::PAGE_SIZE);
             
             // Create new list item
-            $submissionOverviewListItem = new SubmissionOverviewListItem($category);
+            $submissionOverviewListItem = new SubmissionOverviewListItem($category->GetName());
+            
+            // Iterate through test cases
+            foreach ($category->GetTestCases() as $testCase) {
+                // Set test case
+                $submissionOverviewListItemCase = new SubmissionOverviewListItemCase($testCase->GetName());
+                
+                // Iterate through each result
+                foreach ($testCase->GetResults() as $result) {
+                    // Create new result
+                    $submissionOverviewListItemCaseResult = new SubmissionOverviewListItemCaseResult($result);  
+                    
+                    // Add result to submission case
+                    $submissionOverviewListItemCase->AddResult($submissionOverviewListItemCaseResult);
+                }
+                
+                // Add test case to list item
+                $submissionOverviewListItem->AddTestCase($submissionOverviewListItemCase);
+            }
+            
             // Add item to list
             $submissionOverviewList->AddItem($submissionOverviewListItem);
         }
