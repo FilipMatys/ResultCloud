@@ -29,8 +29,8 @@
                     <fieldset>
                         <div class="row">
                             <div class="large-8 medium-12 columns desc">
-                                <a ui-sref="home.submission-overview({submissionId:item.Submission.Id})">{{item.Submission.DateTime }}</a>
-                                <span>Imported by Petr Muller on 21.4.2014</span>
+                                <a ui-sref="home.submission-overview({submissionId:item.Submission.Id})">{{item.Submission.DateTime}}</a>
+                                <span ng-show="item.Submission.User.Person">Imported by {{item.Submission.User.Person.Name}} on {{item.Submission.ImportDateTime | date:"longDate"}}</span>
                             </div>
                             <div class="large-4 medium-12 columns">
                                 <input type="checkbox" ng-model="item.Submission.Differ"/>

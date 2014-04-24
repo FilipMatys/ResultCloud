@@ -25,7 +25,7 @@ class ProjectOverviewListItem
     /**
      * Project overview list item constructor
      */
-    public function __construct($submission)   {
+    public function __construct(SubmissionTSE $submission)   {
         $this->Submission = $submission->ExportItem();
     }
     

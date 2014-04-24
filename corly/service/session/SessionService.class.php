@@ -29,6 +29,15 @@ class SessionService
     }
     
     /**
+     * Is given session variable set
+     * @param mixed $sessionKey 
+     * @return mixed
+     */
+    public static function IsSessionSet($sessionKey)    {
+        return isset($_SESSION[$sessionKey]);
+    }
+    
+    /**
      * Close session
      */
     public static function CloseSession()   {

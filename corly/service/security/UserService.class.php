@@ -25,9 +25,21 @@ class UserService	{
 
 	/**
 	 * Get user detail
-     */
+	 * @param mixed $user 
+	 * @return mixed
+	 */
 	public function GetDetail($user)	{
-		return $this->UserDao->Load($user);
+        // Load user from database
+		$user = $this->UserDao->Load($user);
+        // Unset password
+        unset($user->Password);
+        
+        // Load person
+        $lPerson = new LINQ($this->PersonDao->GetFilteredList(QueryParameter::Where('User', $user->Id)));
+        $user->Person = $lPerson->Single();
+        
+        // Return user
+        return $user;
 	}
 
 	/**

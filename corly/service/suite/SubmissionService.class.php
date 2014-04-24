@@ -7,6 +7,7 @@ Library::using(Library::CORLY_DAO_IMPLEMENTATION_SUITE);
 Library::using(Library::CORLY_DAO_IMPLEMENTATION_PLUGIN);
 Library::using(Library::CORLY_SERVICE_SUITE);
 Library::using(Library::CORLY_SERVICE_PLUGIN);
+Library::using(Library::CORLY_SERVICE_SECURITY);
 Library::using(Library::CORLY_SERVICE_SESSION);
 
 
@@ -25,6 +26,7 @@ class SubmissionService
 
     private $CategoryService;
     private $PluginService;
+    private $UserService;
     
     /**
      * Initialize class daos and services
@@ -35,6 +37,7 @@ class SubmissionService
         
         $this->CategoryService = new CategoryService();
         $this->PluginService = new PluginService();
+        $this->UserService = new UserService();
     }
     
 
@@ -93,6 +96,16 @@ class SubmissionService
             // Create new TSE entity
             $tseSubmission = new SubmissionTSE();
             $tseSubmission->MapDbObject($dbSubmission);
+            
+            // Load user if set
+            if ($dbSubmission->User != 0)   {
+                $user = new stdClass();
+                $user->Id = $dbSubmission->User;
+                // Load from database
+                $user = $this->UserService->GetDetail($user);
+                // Assign to submission
+                $tseSubmission->SetUser($user);
+            }
             
             // Load categories into submission
             foreach ($this->CategoryService->LoadCategories($dbSubmission->Id, $depth - 1) as $category)    {
@@ -158,6 +171,16 @@ class SubmissionService
         $submission = new SubmissionTSE();
         $submission->MapDbObject($dbSubbmission);
         
+        // Load user if set
+        if ($dbSubmission->User != 0)   {
+            $user = new stdClass();
+            $user->Id = $dbSubmission->User;
+            // Load from database
+            $user = $this->UserService->GetDetail($user);
+            // Assign to submission
+            $submission->SetUser($user);
+        }
+        
         // Initialize validation
         $validation = new ValidationResult($submission);
         
@@ -178,7 +201,7 @@ class SubmissionService
         }
         
         // Close session so other requests are allowed
-        session_write_close();
+        SessionService::CloseSession();
         
         // Get view depth
         $depth = Visualization::GetSubmissionDataDepth($type);
@@ -213,6 +236,16 @@ class SubmissionService
         {
             $submission = new SubmissionTSE();
             $submission->MapDbObject($dbSubmission);
+            
+            // Load user if set
+            if ($dbSubmission->User != 0)   {
+                $user = new stdClass();
+                $user->Id = $dbSubmission->User;
+                // Load from database
+                $user = $this->UserService->GetDetail($user);
+                // Assign to submission
+                $submission->SetUser($user);
+            }
             
             // Load categories if not reached the depth
             if ($depth > 0) {

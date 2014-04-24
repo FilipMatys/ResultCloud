@@ -5,6 +5,8 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 Library::using(Library::CORLY_DAO_IMPLEMENTATION_PLUGIN);
 Library::using(Library::CORLY_SERVICE_SUITE);
 Library::using(Library::CORLY_SERVICE_SESSION);
+Library::using(Library::CORLY_SERVICE_UTILITIES);
+Library::using(Library::CORLY_SERVICE_SECURITY);
 Library::using(Library::CORLY_ENTITIES);
 Library::using(Library::UTILITIES);
 
@@ -60,7 +62,8 @@ class ProjectService
         
         // Set date created if creating new
         if (!isset($project->Id))   {
-            $project->DateCreated = date("c");
+            $project->DateCreated = TimeService::DateTime();
+            $project->Author = SessionService::GetSession('id');
         }
         
         // Save project

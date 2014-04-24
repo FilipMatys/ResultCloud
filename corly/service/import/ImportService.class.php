@@ -6,6 +6,8 @@ Library::using(Library::UTILITIES);
 Library::using(Library::CORLY_DAO_IMPLEMENTATION_PLUGIN);
 Library::using(Library::CORLY_SERVICE_SUITE);
 Library::using(Library::CORLY_SERVICE_PLUGIN);
+Library::using(Library::CORLY_SERVICE_SESSION);
+Library::using(Library::CORLY_SERVICE_UTILITIES);
 
 /**
  * ImportService short summary.
@@ -67,7 +69,9 @@ class ImportService
             return $validation;
         }
         
-        // Save imported data into database
+        // Set user and import date time and save imported data into database
+        $importValidation->Data->SetUser(SessionService::GetSession('id'));
+        $importValidation->Data->SetImportDateTime(TimeService::DateTime());
         $this->SubmissionService->Save($importValidation->Data, $validation->Data->Project);
         
         // Return validation

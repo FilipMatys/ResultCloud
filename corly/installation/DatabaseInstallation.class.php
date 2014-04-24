@@ -220,7 +220,7 @@ class DatabaseInstallation
         
         // Set author property
         $pAuthor = new DbProperty('Author');
-        $pAuthor->SetType(DbType::Varchar(127));
+        $pAuthor->SetType(DbType::Double());
         $pAuthor->NotNull();
         // Add author to table
         $tProject->AddProperty($pAuthor);

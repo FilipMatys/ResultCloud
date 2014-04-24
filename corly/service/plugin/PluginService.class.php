@@ -3,6 +3,7 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 
 // Get libraries
 Library::using(Library::CORLY_DAO_IMPLEMENTATION_PLUGIN);
+Library::using(Library::CORLY_SERVICE_SECURITY);
 Library::using(Library::UTILITIES);
 
 /**
@@ -18,6 +19,9 @@ class PluginService
     // Daos
     private $PluginDao;
     private $ProjectDao;
+    private $SubmissionDao;
+    
+    private $UserService;
     
     /**
      * Plugin service constructor
@@ -25,6 +29,9 @@ class PluginService
     public function __construct()   {
         $this->PluginDao = new PluginDao();
         $this->ProjectDao = new ProjectDao();
+        $this->SubmissionDao = new SubmissionDao();
+        
+        $this->UserService = new UserService();
     }
     
     /**
@@ -55,6 +62,17 @@ class PluginService
 
         // Get all projects
         $plugin->Projects = $this->ProjectDao->GetFilteredList(QueryParameter::Where('Plugin', $plugin->Id));
+        foreach ($plugin->Projects as $project) {
+            $author = new stdClass();
+            $author->Id = $project->Author;
+            // Load  author
+            $project->Author = $this->UserService->GetDetail($author);
+            
+            // Get submissons
+            $lSubmissions = new LINQ($this->SubmissionDao->GetFilteredList(QueryParameter::Where('Project', $project->Id)));
+            // Set submissions count
+            $project->Submissions = $lSubmissions->Count();
+        }
     
         // Return final plugin object
         return $plugin;

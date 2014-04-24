@@ -45,11 +45,11 @@
                 <div class="large-12 columns">
                     <label>
                         Created
-                        <span>{{project.DateCreated | date:"longDate"}} by {{project.Author}}</span>
+                        <span>{{project.DateCreated | date:"longDate"}} by {{project.Author.Person.Name}}</span>
                     </label>
                     <label>
                         Number of submissions
-                        <span>0</span>
+                        <span>{{project.Submissions}}</span>
                     </label>
                 </div>
             </div>

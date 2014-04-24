@@ -11,6 +11,8 @@ class SubmissionTSE
 {
     private $Id;
     private $DateTime;
+    private $User;
+    private $ImportDateTime;
     private $Categories;
 
     /**
@@ -26,6 +28,30 @@ class SubmissionTSE
      */
     public function GetDateTime()   {
         return $this->DateTime;
+    }
+    
+    /**
+     * Set import date time
+     * @param mixed $time 
+     */
+    public function SetImportDateTime($time) {
+        $this->ImportDateTime = $time;
+    }
+    
+    /**
+     * Set user
+     * @param mixed $user 
+     */
+    public function SetUser($user)  {
+        $this->User = $user;
+    }
+    
+    /**
+     * Get user
+     * @return mixed
+     */
+    public function GetUser()   {
+        return $this->User;
     }
     
     /**
@@ -75,6 +101,8 @@ class SubmissionTSE
         $submission->DateTime = (string)$this->DateTime;
         // Set parent object id (project)
         $submission->Project = $projectId;
+        $submission->User = $this->User;
+        $submission->ImportDateTime = $this->ImportDateTime;
         
         // Return object
         return $submission;
@@ -88,6 +116,7 @@ class SubmissionTSE
         // Map values
         $this->Id  = $dbSubmission->Id;
         $this->DateTime = $dbSubmission->DateTime;
+        $this->ImportDateTime = $dbSubmission->ImportDateTime;
     }
     
     /**
@@ -101,6 +130,8 @@ class SubmissionTSE
         // Set values
         $submission->Id = $this->Id;
         $submission->DateTime = $this->DateTime;
+        $submission->ImportDateTime = $this->ImportDateTime;
+        $submission->User = $this->User;
         
         // Return result
         return $submission;
