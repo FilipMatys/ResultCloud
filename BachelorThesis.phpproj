@@ -104,6 +104,8 @@
     <Compile Include="corly\service\security\UserService.class.php" />
     <Compile Include="plugins\cpalien\Importer.class.php" />
     <Compile Include="plugins\cpalien\Parser.class.php" />
+    <Compile Include="plugins\cpalien\stat\CPALIEN_StatusStyle.enum.php" />
+    <Compile Include="plugins\cpalien\stat\CPALIEN_StatusValue.enum.php" />
     <Compile Include="plugins\cpalien\Visualization.class.php" />
     <Compile Include="plugins\cpalien\visualization\DifferenceVisualization.class.php" />
     <Compile Include="plugins\cpalien\visualization\ProjectVisualization.class.php" />
@@ -117,6 +119,7 @@
     <Compile Include="plugins\systemtap\Importer.class.php" />
     <Compile Include="plugins\systemtap\Parser.class.php" />
     <Compile Include="plugins\systemtap\Visualization.class.php" />
+    <Compile Include="plugins\systemtap\visualization\DifferenceVisualization.class.php" />
     <Compile Include="plugins\systemtap\visualization\ProjectVisualization.class.php" />
     <Compile Include="plugins\systemtap\visualization\SubmissionVisualization.class.php" />
     <Compile Include="utilities\ColorHandle.php" />
@@ -159,6 +162,8 @@
     <Compile Include="visualization\submission\SubmissionOverviewComponent.enum.php" />
     <Compile Include="visualization\submission\SubmissionOverviewList.class.php" />
     <Compile Include="visualization\submission\SubmissionOverviewListItem.class.php" />
+    <Compile Include="visualization\submission\SubmissionOverviewListItemCase.class.php" />
+    <Compile Include="visualization\submission\SubmissionOverviewListItemCaseResult.class.php" />
     <Compile Include="visualization\submission\SubmissionOverviewListType.enum.php" />
     <Compile Include="visualization\submission\SubmissionOverviewType.enum.php" />
   </ItemGroup>
@@ -183,6 +188,7 @@
     <Folder Include="js" />
     <Folder Include="corly\" />
     <Folder Include="corly\service\" />
+    <Folder Include="plugins\cpalien\stat\" />
     <Folder Include="plugins\cpalien\visualization\" />
     <Folder Include="plugins\glibc\visualization\" />
     <Folder Include="plugins\systemtap\visualization\" />
