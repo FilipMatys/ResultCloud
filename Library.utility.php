@@ -38,6 +38,7 @@ class Library	{
     const CORLY_SERVICE_SUITE = "corly/service/suite";
     const CORLY_SERVICE_INSTALLATION = "corly/service/installation";
     const CORLY_SERVICE_APPLICATION = "corly/service/application";
+    const CORLY_SERVICE_SESSION = "corly/service/session";
     
     // - visualization
     const VISUALIZATION = "visualization";

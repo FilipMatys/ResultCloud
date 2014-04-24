@@ -3,6 +3,7 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 
 // Get libraries
 Library::using(Library::CORLY_DAO_IMPLEMENTATION_SECURITY);
+Library::using(Library::CORLY_SERVICE_SESSION);
 Library::using(Library::UTILITIES);
 
 class AuthentizationService	{
@@ -44,7 +45,7 @@ class AuthentizationService	{
 		} 
 
 		// Everything passed, so set session variables
-		$_SESSION['id'] = $lUsers->Single()->Id;
+        SessionService::SetSession('id', $lUsers->Single()->Id);
 
 		// Return validation
 		return $credentialsValidation;

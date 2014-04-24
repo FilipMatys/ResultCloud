@@ -4,6 +4,7 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 // Get libraries
 Library::using(Library::CORLY_DAO_IMPLEMENTATION_PLUGIN);
 Library::using(Library::CORLY_SERVICE_SUITE);
+Library::using(Library::CORLY_SERVICE_SESSION);
 Library::using(Library::CORLY_ENTITIES);
 Library::using(Library::UTILITIES);
 
@@ -146,7 +147,7 @@ class ProjectService
         }
         
         // End session to allow other requests
-        session_write_close();
+        SessionService::CloseSession();
         
         // Load submissions and add them to project
         foreach ($this->SubmissionService->LoadSubmissions($dbProject->Id, Visualization::GetProjectDataDepth($type)) as $submission)

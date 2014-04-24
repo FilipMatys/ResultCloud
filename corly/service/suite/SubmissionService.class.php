@@ -7,6 +7,7 @@ Library::using(Library::CORLY_DAO_IMPLEMENTATION_SUITE);
 Library::using(Library::CORLY_DAO_IMPLEMENTATION_PLUGIN);
 Library::using(Library::CORLY_SERVICE_SUITE);
 Library::using(Library::CORLY_SERVICE_PLUGIN);
+Library::using(Library::CORLY_SERVICE_SESSION);
 
 
 /**
@@ -78,7 +79,7 @@ class SubmissionService
         }
         
         // Close session so other requests are allowed
-        session_write_close();
+        SessionService::CloseSession();
         
         // Get view depth
         $depth = Visualization::GetSubmissionDataDepth($type);
