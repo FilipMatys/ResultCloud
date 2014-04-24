@@ -3,6 +3,7 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 
 // Get libraries
 Library::using(Library::CORLY_DAO_IMPLEMENTATION_SECURITY);
+Library::using(Library::CORLY_SERVICE_SESSION);
 Library::using(Library::UTILITIES);
 
 class UserService	{
@@ -16,6 +17,23 @@ class UserService	{
 		$this->PersonDao = new PersonDao();
 	}
 
+    /**
+     * Get current user detail
+     * @return mixed
+     */
+    public function GetCurrent()    {
+        // Init user object
+        $user = new stdClass();
+        // Get current user id
+        $user->Id = SessionService::GetSession('id');
+        
+        // Load user detail
+        $user = $this->GetDetail($user);
+        
+        // Return result
+        return $user;
+    }
+    
 	/**
 	 * Get list of all users
 	 */

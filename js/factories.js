@@ -21,6 +21,12 @@ application.factory('UserService', function($http)	{
 				data: user
 
 			})
+		},
+		current: function () {
+		    return $http({
+		        method: 'GET',
+		        url: 'api/UserController.class.php?method=CURRENT',
+		    })
 		}
 	}
 });

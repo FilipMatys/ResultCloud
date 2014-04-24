@@ -11,6 +11,7 @@ class UserController	{
 	const SAVE = "SAVE";
 	const GET = "GET";
 	const QUERY = "QUERY";
+    const CURRENT = "CURRENT";
 
 	// Service
 	private $UserService;
@@ -34,6 +35,14 @@ class UserController	{
 	public function Query()	{
 		return $this->UserService->GetDetailedList();
 	}
+    
+    /**
+     * Get current user
+     * @return mixed
+     */
+    public function Current()   {
+        return $this->UserService->GetCurrent();
+    }
 }
 
 // Extract json data
@@ -59,6 +68,10 @@ if (isset($_GET["method"]))	{
 			$result = $UserController->Query();
 			break;
 
+        case UserController::CURRENT:
+            $result = $UserController->Current();
+            break;
+            
 		default:
 			$result = false;
 			break;

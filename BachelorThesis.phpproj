@@ -54,6 +54,8 @@
     <Compile Include="corly\service\suite\ResultService.class.php" />
     <Compile Include="corly\service\suite\SubmissionService.class.php" />
     <Compile Include="corly\service\suite\TestCaseService.class.php" />
+    <Compile Include="corly\service\session\SessionService.class.php" />
+    <Compile Include="corly\service\utilities\TimeService.class.php" />
     <Compile Include="index.html" />
     <Compile Include="Library.utility.php" />
     <Compile Include="api\AuthentizationController.class.php" />
@@ -181,6 +183,8 @@
     <Folder Include="corly\service\application\" />
     <Folder Include="corly\service\plugin\" />
     <Folder Include="corly\service\suite\" />
+    <Folder Include="corly\service\session"/>
+    <Folder Include="corly\service\utilities"/>
     <Folder Include="css" />
     <Folder Include="corly\dao\" />
     <Folder Include="corly\daoImplementation\" />
@@ -192,6 +196,7 @@
     <Folder Include="plugins\cpalien\visualization\" />
     <Folder Include="plugins\glibc\visualization\" />
     <Folder Include="plugins\systemtap\visualization\" />
+    <Folder Include="views\home\settings\" />
     <Folder Include="views\home\overview\" />
     <Folder Include="visualization\" />
     <Folder Include="plugins\" />
@@ -239,6 +244,7 @@
     <Content Include="js\controllers\ProjectOverviewController.js" />
     <Content Include="js\controllers\SettingsController.js" />
     <Content Include="js\controllers\SubmissionOverviewController.js" />
+    <Content Include="js\controllers\UsersController.js" />
     <Content Include="js\vendor\ng-google-chart.js" />
     <Content Include="views\home\import.html" />
     <Content Include="views\home\overview\difference.html" />
@@ -248,6 +254,7 @@
     <Content Include="views\home\pluginManagement.html" />
     <Content Include="views\home\profile.html" />
     <Content Include="views\home\settings.html" />
+    <Content Include="views\home\settings\users.html" />
     <Content Include="visualization\components\difference\js\DifferenceList.js" />
     <Content Include="visualization\components\difference\list.html" />
     <Content Include="visualization\components\googleChart\chart.html" />
