@@ -1,19 +1,55 @@
 ﻿<div class="row">
     <div class="large-12 columns">
+        <ul class="breadcrumbs">
+            <li><a ui-sref="home.dashboard">Dashboard</a></li>
+            <li class="current"><a>Plugin management</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
         <h1>Plugin Management</h1>
     </div>
 </div>
+
+<div class="row">
+    <div class="large-12 columns">
+        <h3>Plugin installation</h3>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-12 columns">
+        <button class="btn">Scan for plugins</button>
+    </div>
+</div>
+
 <div class="row">
     <div class="large-12 columns">
         <h3>Installed plugins</h3>
     </div>
 </div>
-<div class="row plugins" ng-repeat="plugin in Plugins">
+<div class="row">
     <div class="large-12 columns">
-        <a ui-sref="home.plugin({pluginId: plugin.Id})" class="full-width tLeft"><span class="link"> {{plugin.Name}} {{plugin.Version}}</span> <i class="fi-arrow-right medium fRight"></i>
-            <span class="meta">
-                {{plugin.About}}
-            </span>
-        </a>
+        <div class="row" ng-repeat="plugin in Plugins">
+            <div class="large-12 columns">
+                <form class="list">
+                    <fieldset>
+                        <div class="row">
+                            <div class="large-8 medium-12 columns desc">
+                                <a>{{plugin.Name}} {{plugin.Version}}</a>
+                                <p class="about">{{plugin.About}}</p>
+                                <span>Created by {{plugin.Author}}</span>
+                            </div>
+                            <div class="large-4 medium-12 columns">
+                                <button class="btn alert">Uninstall</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
     </div>
 </div>

@@ -1,16 +1,28 @@
-<div class="row">
+﻿<div class="row">
     <div class="large-12 columns">
         <h1>Dashboard</h1>
     </div>
 </div>
 
-<div class="row">
+<div class="row plugins settings">
     <div class="large-12 columns">
-      This is your dashboard, make it count!
+        <a ui-sref="home.plugin-management" class="full-width tLeft">
+            <i class="fi-usb"></i><span class="link">Plugin Management</span>
+        </a>
     </div>
 </div>
+
 <div class="row">
     <div class="large-12 columns">
-        <button ng-click="Install()">Install</button>
+        <h3>Installed plugins</h3>
+    </div>
+</div>
+<div class="row plugins" ng-repeat="plugin in Plugins">
+    <div class="large-12 columns">
+        <a ui-sref="home.plugin({pluginId: plugin.Id})" class="full-width tLeft"><span class="link"> {{plugin.Name}} {{plugin.Version}}</span>
+            <span class="meta">
+                {{plugin.About}}
+            </span>
+        </a>
     </div>
 </div>

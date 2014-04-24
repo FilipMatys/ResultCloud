@@ -266,6 +266,10 @@ footer  {
     background: #a1000c;
 }
 
+.top-bar-section ul i    {
+    margin-right: 0.25rem;
+}
+
 /**
  BUTTONS
 */
@@ -416,6 +420,14 @@ form.list .desc span    {
     margin-bottom: 0.2rem;
     color: #888888;
     display: block;
+}
+
+form.list p.about {
+    padding-left: 0rem;
+    line-height: 1.2rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+    margin-top: 0.2rem;
 }
 
 form.list fieldset div.large-4,

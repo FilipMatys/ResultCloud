@@ -1,4 +1,4 @@
-application.controller('DashboardController', function($scope, InstallationService)	{
+application.controller('DashboardController', function($scope, InstallationService, PluginService)	{
 	// Variables init
 
 	// FUNCTIONS
@@ -17,4 +17,14 @@ application.controller('DashboardController', function($scope, InstallationServi
 
         InstallationService.install(credentials);
     }
+
+    // Controller variables
+    $scope.Plugins = [];
+
+
+    // Load plugins
+    PluginService.query()
+        .success(function (data, status, headers, config) {
+            $scope.Plugins = data;
+        });
 });
