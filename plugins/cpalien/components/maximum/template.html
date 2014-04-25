@@ -1,0 +1,190 @@
+﻿<div class="row">
+    <div class="large-12 columns">
+        <h3>Maximums and minimums</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="card header">
+          <h1>{{maximum.MaximumCPUTime.Header}}</h1>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="card">
+            <h3>
+                {{maximum.MaximumCPUTime.TestCase.Name}}
+            </h3>
+            <table class="full-width double">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="result in maximum.MaximumCPUTime.TestCase.Results">
+                        <td>{{result.RKey}}</td>
+                        <td>{{result.RValue}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+        <div class="card header">
+            <h1>{{maximum.MinimumCPUTime.Header}}</h1>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="card">
+            <h3>
+                {{maximum.MinimumCPUTime.TestCase.Name}}
+            </h3>
+            <table class="full-width double">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="result in maximum.MinimumCPUTime.TestCase.Results">
+                        <td>{{result.RKey}}</td>
+                        <td>{{result.RValue}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+        <div class="card header">
+            <h1>{{maximum.MaximumMemUsage.Header}}</h1>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="card">
+            <h3>
+                {{maximum.MaximumMemUsage.TestCase.Name}}
+            </h3>
+            <table class="full-width double">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="result in maximum.MaximumMemUsage.TestCase.Results">
+                        <td>{{result.RKey}}</td>
+                        <td>{{result.RValue}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+        <div class="card header">
+            <h1>{{maximum.MinimumMemUsage.Header}}</h1>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="card">
+            <h3>
+                {{maximum.MinimumMemUsage.TestCase.Name}}
+            </h3>
+            <table class="full-width double">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="result in maximum.MinimumMemUsage.TestCase.Results">
+                        <td>{{result.RKey}}</td>
+                        <td>{{result.RValue}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+        <div class="card header">
+            <h1>{{maximum.MaximumWallTime.Header}}</h1>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="card">
+            <h3>
+                {{maximum.MaximumWallTime.TestCase.Name}}
+            </h3>
+            <table class="full-width double">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="result in maximum.MaximumWallTime.TestCase.Results">
+                        <td>{{result.RKey}}</td>
+                        <td>{{result.RValue}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+        <div class="card header">
+            <h1>{{maximum.MinimumWallTime.Header}}</h1>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="card">
+            <h3>
+                {{maximum.MinimumWallTime.TestCase.Name}}
+            </h3>
+            <table class="full-width double">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="result in maximum.MinimumWallTime.TestCase.Results">
+                        <td>{{result.RKey}}</td>
+                        <td>{{result.RValue}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

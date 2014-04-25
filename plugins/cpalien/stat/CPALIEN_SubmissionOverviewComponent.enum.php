@@ -11,4 +11,6 @@
 class CPALIEN_SubmissionOverviewComponent
 {
     const CONFIGURATION = "<cpalien-configuration></cpalien-configuration>";
+    
+    const MAXIMUM = "<cpalien-maximum></cpalien-maximum>";
 }

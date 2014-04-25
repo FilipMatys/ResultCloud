@@ -21,7 +21,10 @@
   <!-- Plugin GUI components -->
   <components>
     <component folder="configuration">
-      <file>CPALien_Configuration.js</file>
+      <file>CPAlien_Configuration.js</file>
+    </component>
+    <component folder="maximum">
+      <file>CPAlien_Maximum.js</file>
     </component>
   </components>
 </config>

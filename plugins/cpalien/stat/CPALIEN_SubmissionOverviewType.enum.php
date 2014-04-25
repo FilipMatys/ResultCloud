@@ -14,4 +14,9 @@ class CPALIEN_SubmissionOverviewType
      * Show configuration for given submission
      */
     const CONFIGURATION = "CONFIGURATION";
+    
+    /**
+     * Show maximum and minimum values
+     */
+    const MAXIMUM = "MAXIMUM";
 }
