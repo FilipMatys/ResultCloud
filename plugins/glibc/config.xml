@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <config>
+  <!-- Basic plugin info -->
   <base>
     <name>GLIBC Make</name>
     <author>Filip Matys</author>
@@ -7,4 +8,10 @@
     <root>glibc</root>
     <about>Parses errors appearing during make attempts.</about>
   </base>
+  <!-- Plugin GUI components -->
+  <components>
+    <component folder="diffSummary">
+      <file>GLIBC_DiffSummary.js</file>
+    </component>
+  </components>
 </config>

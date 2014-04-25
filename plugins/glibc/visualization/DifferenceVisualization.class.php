@@ -27,6 +27,9 @@ class DifferenceVisualization
             case DifferenceOverviewType::GOOGLE_CHART:
                 return GLIBC_DifferenceOverviewChart::GetDifferenceOverviewChart($submissions);
                 
+            case GLIBC_DifferenceOverviewType::DIFF_SUMMARY:
+                return GLIBC_DifferenceOverviewDiffSummary::GetDifferenceOverviewDiffSummary($submissions);
+                
             default:
                 return null;
         }
@@ -46,6 +49,9 @@ class DifferenceVisualization
             case DifferenceOverviewType::GOOGLE_CHART:
                 return DataDepth::RESULT;
                 
+            case GLIBC_DifferenceOverviewType::DIFF_SUMMARY:
+                return DataDepth::RESULT;
+                
             default:
                 return DataDepth::SUBMISSION;
         }
@@ -58,6 +64,7 @@ class DifferenceVisualization
     public static function GetViewComponents()   {
         return array(
                 DifferenceOverviewComponent::GOOGLE_CHART,
+                GLIBC_DifferenceOverviewComponent::DIFF_SUMMARY,
                 DifferenceOverviewComponent::VIEWLIST
             );
     }
