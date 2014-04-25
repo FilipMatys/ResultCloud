@@ -61,7 +61,11 @@ class PluginService
         $validation = new ValidationResult($plugin);
         
         // Save plugin
-        $this->PluginDao->Save($plugin);
+        $id = $this->PluginDao->Save($plugin);
+        
+        // Set id for validation result
+        if ($id != 0)
+            $validation->Data->Id = $id;
         
         // Return validation
         return $validation;

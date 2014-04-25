@@ -19,8 +19,8 @@
   </entity>
   <!-- Plugin GUI components -->
   <components>
-    <component folder="neco">
-      <file></file>
+    <component folder="configuration">
+      <file>CPALien_Configuration.js</file>
     </component>
   </components>
 </config>

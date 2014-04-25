@@ -50,6 +50,52 @@ class DatabaseInstallation
         $this->CreateTb_TestCase();
         // Result
         $this->CreateTb_Result();
+        // Component
+        $this->CreateTb_Component();
+    }
+    
+    /**
+     * Create COMPONENT table
+     * - Id [double]
+     * - Plugin [double]
+     * - Folder [varchar(63)]
+     * - Filename [varchar(255)]
+     */
+    private function CreateTb_Component()   {
+        $tComponent = new DbTable('Component');
+        
+        // Set id property
+        $pId = new DbProperty('Id');
+        $pId->SetType(DbType::Double());
+        $pId->NotNull();
+        $pId->PrimaryKey();
+        $pId->AutoIncrement();
+        // Add id to table
+        $tComponent->AddProperty($pId);
+        
+        // Set plugin property
+        $pPlugin = new DbProperty('Plugin');
+        $pPlugin->SetType(DbType::Double());
+        $pPlugin->NotNull();
+        // Add id to table
+        $tComponent->AddProperty($pPlugin);
+        
+        // Set Folder property
+        $pFolder = new DbProperty('Folder');
+        $pFolder->SetType(DbType::Varchar(63));
+        $pFolder->NotNull();
+        // Add Folder to table
+        $tComponent->AddProperty($pFolder);
+        
+        // Set Filename property
+        $pFilename = new DbProperty('Filename');
+        $pFilename->SetType(DbType::Varchar(255));
+        $pFilename->NotNull();
+        // Add Filename to table
+        $tComponent->AddProperty($pFilename);
+        
+        // Add component to table
+        $this->Database->AddTable($tComponent);
     }
     
     /**

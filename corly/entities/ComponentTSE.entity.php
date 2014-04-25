@@ -62,4 +62,28 @@ class ComponentTSE
     public function GetFilenames()  {
         return $this->Filenames;
     }
+    
+    /**
+     * Get database object for each filename
+     * @param mixed $pluginId 
+     * @return mixed
+     */
+    public function GetDbObjects($pluginId)  {
+        $dbObjects = array();
+        // Return entity for each filename
+        foreach ($this->Filenames as $filename) {
+            // Init object
+            $component = new stdClass();
+            // Set values
+            $component->Plugin = $pluginId;
+            $component->Folder = $this->Folder;
+            $component->Filename = $filename;
+            
+            // Add to array
+            $dbObjects[] = $component;
+        }
+        
+        // Retrun result
+        return $dbObjects;
+    }
 }

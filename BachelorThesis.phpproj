@@ -40,6 +40,8 @@
     <Compile Include="corly\dbCreator\DbTable.class.php" />
     <Compile Include="corly\dbCreator\DbType.class.php" />
     <Compile Include="corly\entities\CategoryTSE.entity.php" />
+    <Compile Include="corly\entities\ComponentTSE.entity.php" />
+    <Compile Include="corly\entities\PluginTSE.entity.php" />
     <Compile Include="corly\entities\ProjectTSE.entity.php" />
     <Compile Include="corly\entities\ResultTSE.entity.php" />
     <Compile Include="corly\entities\SubmissionTSE.entity.php" />
@@ -247,6 +249,9 @@
     <Content Include="js\controllers\SubmissionOverviewController.js" />
     <Content Include="js\controllers\UsersController.js" />
     <Content Include="js\vendor\ng-google-chart.js" />
+    <Content Include="plugins\cpalien\config.xml" />
+    <Content Include="plugins\glibc\config.xml" />
+    <Content Include="plugins\systemtap\config.xml" />
     <Content Include="views\home\import.html" />
     <Content Include="views\home\overview\difference.html" />
     <Content Include="views\home\overview\project.html" />

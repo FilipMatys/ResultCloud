@@ -29,7 +29,11 @@ class PluginManagementService
     const DOUBLE = "double";
     const LONGTEXT = "longtext";
     
+    // Component attributes
+    const FOLDER = "folder";
+    
     private $PluginDao;
+    private $ComponentDao;
     
     private $PluginService;
     
@@ -39,6 +43,7 @@ class PluginManagementService
     public function __construct()   {
         $this->PluginDao = new PluginDao();
         $this->PluginService = new PluginService();
+        $this->ComponentDao = new ComponentDao();
     }
     
     /**
@@ -58,11 +63,17 @@ class PluginManagementService
         // Check for entity
         if (isset($pluginConfiguration->entity))    {
             $dbTable = $this->ParsePluginEntity($pluginConfiguration->entity);
-            $this->CreatePluginTable($dbTable);
+            //$this->CreatePluginTable($dbTable);
         }
         
         // Save plugin
-        $this->PluginService->Save($pluginTSE->GetDbObject());
+        $pluginValidation = $this->PluginService->Save($pluginTSE->GetDbObject());
+        
+        // Check for components
+        if (isset($pluginConfiguration->components))    {
+            $components = $this->ParsePluginComponents($pluginConfiguration->components);
+            $this->SaveComponents($components, $pluginValidation->Data->Id);
+        }
         
         // Return validation
         return $validation;
@@ -80,6 +91,48 @@ class PluginManagementService
         
         $statement = $mysqli->prepare($table->GetTableDefinition());
         $statement->execute();
+    }
+    
+    /**
+     * Save components
+     * @param mixed $components 
+     */
+    private function SaveComponents($components, $pluginId)    {
+        // Iterate through components
+        foreach ($components as $component) {
+            // and save all files
+            foreach ($component->GetDbObjects($pluginId) as $componentObject) {
+                $this->ComponentDao->Save($componentObject);  
+            }
+            
+        }
+        
+    }
+    
+    /**
+     * Plarse plugin components
+     * @param mixed $xmlComponents 
+     * @return mixed
+     */
+    private function ParsePluginComponents($xmlComponents)  {
+        $components = array();
+        
+        // Iterate through components
+        foreach ($xmlComponents->component as $component) {
+            // Create component entity
+            $componentTse = new ComponentTSE((string)$component[PluginManagementService::FOLDER]);
+            
+            // Get all files for component
+            foreach ($component->file as $file) {
+                $componentTse->AddFilename((string)$file);  
+            }
+         
+            // Add component to array
+            $components[] = $componentTse;
+        }
+        
+        // Return result
+        return $components;
     }
     
     /**
@@ -117,8 +170,6 @@ class PluginManagementService
             // Add property to table
             $dbTable->AddProperty($dbProperty);
         }
-        
-        print_r($dbTable);
         
         // Return result
         return $dbTable;
