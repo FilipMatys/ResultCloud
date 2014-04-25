@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <config>
+  <!-- Basic plugin info -->
   <base>
     <name>CPAlien Forester</name>
     <author>Filip Matys</author>
@@ -7,4 +8,19 @@
     <root>cpalien</root>
     <about>CPAlien Forester results parser.</about>
   </base>
+  <!-- Plugin entity -->
+  <entity name="CPAlien_SystemInfo">
+    <property name="Hostname" type="varchar" value="63"></property>
+    <property name="OS_Name" type="varchar" value="255"></property>
+    <property name="CPU_Model" type="varchar" value="255"></property>
+    <property name="CPU_Frequency" type="varchar" value="31"></property>
+    <property name ="CPU_Cores" type="double"></property>
+    <property name="RAM_Size" type="varchar" value="63"></property> 
+  </entity>
+  <!-- Plugin GUI components -->
+  <components>
+    <component folder="neco">
+      <file></file>
+    </component>
+  </components>
 </config>
