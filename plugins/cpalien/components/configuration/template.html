@@ -1,0 +1,43 @@
+﻿<div class="row">
+    <div class="large-12 columns">
+        <h3>Configuration</h3>
+    </div> 
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="card header">
+            <h1>
+                <span>{{configuration.Hostname.Key}}</span>
+                {{configuration.Hostname.Value}}
+            </h1>
+
+            <br />
+
+            <label>{{configuration.OSName.Key}}
+                <span>{{configuration.OSName.Value}}</span>
+            </label>
+
+            <br />
+
+            <label>{{configuration.CPUModel.Key}}
+                <span>{{configuration.CPUModel.Value}}</span>
+            </label>
+            <label>
+                {{configuration.CPUFrequency.Key}}
+                <span>{{configuration.CPUFrequency.Value}}</span>
+            </label>
+            <label>
+                {{configuration.CPUCores.Key}}
+                <span>{{configuration.CPUCores.Value}}</span>
+            </label>
+
+            <br />
+
+            <label>
+                {{configuration.RAMSize.Key}}
+                <span>{{configuration.RAMSize.Value}}</span>
+            </label>
+        </div>
+    </div>
+</div>
+

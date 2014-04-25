@@ -21,6 +21,16 @@ class DbUtil
      * @return mixed
      */
     public static function GetEntityHandler($class)   {
-        return new Database($class);
+        return new CustomDao($class);
     }
+}
+
+/**
+ * Class to wrap plugin entity handling
+ */
+class CustomDao extends Database    {
+    // Parent constructor
+	function __construct($class)	{
+		parent::__construct($class);
+	} 
 }

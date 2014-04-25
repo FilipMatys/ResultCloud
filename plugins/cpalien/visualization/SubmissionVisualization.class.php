@@ -27,6 +27,9 @@ class SubmissionVisualization
             
             case SubmissionOverviewType::VIEWLIST:
                 return DataDepth::RESULT;
+                
+            case CPALIEN_SubmissionOverviewType::CONFIGURATION:
+                return DataDepth::SUBMISSION;
             
             default:
                 return DataDepth::SUBMISSION;
@@ -39,6 +42,7 @@ class SubmissionVisualization
      */
     public static function GetViewComponents()  {
         return array(
+                CPALIEN_SubmissionOverviewComponent::CONFIGURATION,
                 SubmissionOverviewComponent::GOOGLE_CHART,
                 SubmissionOverviewComponent::VIEWLIST
             );
@@ -60,10 +64,29 @@ class SubmissionVisualization
             case SubmissionOverviewType::VIEWLIST:
                 return SubmissionVisualization::GetSubmissionOverviewList($submission, $meta)->ExportObject();
             
+            // Get configuration
+            case CPALIEN_SubmissionOverviewType::CONFIGURATION:
+                return SubmissionVisualization::GetSubmissionOverviewConfiguration($submission);
+                
             // Return null if no assigned component was found
             default:
                 return null;
         }
+    }
+    
+    /**
+     * Get submission overview configuration
+     * @param SubmissionTSE $submission 
+     * @return mixed
+     */
+    private static function GetSubmissionOverviewConfiguration(SubmissionTSE $submission)   {
+        // Get entity handler
+        $systemInfoHandler = DbUtil::GetEntityHandler(new CPAlien_SystemInfo);
+        // Load system info for given submission
+        $lSystemInfo = new LINQ($systemInfoHandler->GetFilteredList(QueryParameter::Where('DateTime', $submission->GetDateTime())));
+        
+        // Return result
+        return new CPAlien_Configuration($lSystemInfo->Single());
     }
     
     /**

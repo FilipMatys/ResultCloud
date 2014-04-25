@@ -4,6 +4,8 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 // Get libraries
 Library::using(Library::UTILITIES);
 Library::using(Library::CORLY_ENTITIES);
+Library::using(Library::CORLY_SERVICE_UTILITIES);
+Library::usingProject(dirname(__FILE__));
 
 /**
  * Parser short summary.
@@ -59,7 +61,15 @@ class Parser
         foreach ($xmlContent as $element)   {
             // Process system info
             if ($elementIndex == Parser::SYSTEM_INFO_INDEX) {
-                // TODO
+                // Create new system info object
+                $systemInfo = new CPAlien_SystemInfo();
+                $systemInfo->DateTime = (string)$xmlContent[Parser::SYSTEM_INFO_DATE];
+                $systemInfo->Hostname = (string)$element['hostname'];
+                $systemInfo->OS_Name = (string)$element->os['name'];
+                $systemInfo->CPU_Model = (string)$element->cpu['model'];
+                $systemInfo->CPU_Frequency = (string)$element->cpu['frequency'];
+                $systemInfo->CPU_Cores = (string)$element->cpu['cores'];
+                $systemInfo->RAM_Size = (string)$element->ram['size'];
             }
             // Process column definition
             else if ($elementIndex == Parser::COLUMNS_INDEX)    {
@@ -86,6 +96,10 @@ class Parser
         
         // Create validation
         $validation = new ValidationResult($Submission);
+        
+        // Save system info to database
+        $systemInfoHandler = DbUtil::GetEntityHandler(new CPAlien_SystemInfo);
+        $systemInfoHandler->Save($systemInfo);
         
         // Return validation with data
         return $validation;

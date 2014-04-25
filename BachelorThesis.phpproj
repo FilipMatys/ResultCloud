@@ -22,12 +22,14 @@
     <Compile Include="api\PluginManagementController.class.php" />
     <Compile Include="api\ProjectController.class.php" />
     <Compile Include="api\SubmissionController.class.php" />
+    <Compile Include="corly\daoImplementation\plugin\ComponentDao.class.php" />
     <Compile Include="corly\daoImplementation\plugin\PluginDao.class.php" />
     <Compile Include="corly\daoImplementation\plugin\ProjectDao.class.php" />
     <Compile Include="corly\daoImplementation\suite\CategoryDao.class.php" />
     <Compile Include="corly\daoImplementation\suite\ResultDao.class.php" />
     <Compile Include="corly\daoImplementation\suite\SubmissionDao.class.php" />
     <Compile Include="corly\daoImplementation\suite\TestCaseDao.class.php" />
+    <Compile Include="corly\dao\plugin\Component.entity.php" />
     <Compile Include="corly\dao\plugin\Plugin.entity.php" />
     <Compile Include="corly\dao\plugin\Project.entity.php" />
     <Compile Include="corly\dao\stat\ErrorCodes.enum.php" />
@@ -59,6 +61,8 @@
     <Compile Include="corly\service\suite\SubmissionService.class.php" />
     <Compile Include="corly\service\suite\TestCaseService.class.php" />
     <Compile Include="corly\service\session\SessionService.class.php" />
+    <Compile Include="corly\service\utilities\DbUtil.class.php" />
+    <Compile Include="corly\service\utilities\IncludeService.class.php" />
     <Compile Include="corly\service\utilities\TimeService.class.php" />
     <Compile Include="index.php" />
     <Compile Include="Library.utility.php" />
@@ -112,6 +116,7 @@
     <Compile Include="plugins\cpalien\Parser.class.php" />
     <Compile Include="plugins\cpalien\stat\CPALIEN_StatusStyle.enum.php" />
     <Compile Include="plugins\cpalien\stat\CPALIEN_StatusValue.enum.php" />
+    <Compile Include="plugins\cpalien\stat\CPALIEN_SubmissionOverviewType.enum.php" />
     <Compile Include="plugins\cpalien\Visualization.class.php" />
     <Compile Include="plugins\cpalien\visualization\DifferenceVisualization.class.php" />
     <Compile Include="plugins\cpalien\visualization\ProjectVisualization.class.php" />
@@ -195,6 +200,9 @@
     <Folder Include="js" />
     <Folder Include="corly\" />
     <Folder Include="corly\service\" />
+    <Folder Include="plugins\cpalien\components\" />
+    <Folder Include="plugins\cpalien\components\configuration\" />
+    <Folder Include="plugins\cpalien\components\configuration\js\" />
     <Folder Include="plugins\cpalien\stat\" />
     <Folder Include="plugins\cpalien\visualization\" />
     <Folder Include="plugins\glibc\visualization\" />
@@ -249,6 +257,7 @@
     <Content Include="js\controllers\SubmissionOverviewController.js" />
     <Content Include="js\controllers\UsersController.js" />
     <Content Include="js\vendor\ng-google-chart.js" />
+    <Content Include="plugins\cpalien\components\configuration\js\CPALien_Configuration.js" />
     <Content Include="plugins\cpalien\config.xml" />
     <Content Include="plugins\glibc\config.xml" />
     <Content Include="plugins\systemtap\config.xml" />

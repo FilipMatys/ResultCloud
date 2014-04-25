@@ -68,6 +68,37 @@ class Library	{
 	}
     
     /**
+     * Include file of given project folder
+     * @param mixed $projectDirectoryName 
+     */
+    public static function usingProject($projectDirectoryName)   {
+        Library::usingAll($projectDirectoryName);        
+    }    
+    
+    /**
+     * Include all files in all subfolders
+     * @param mixed $path 
+     */
+    private static function usingAll($path)    {
+        // Create recursive iterator
+        $directory = new RecursiveDirectoryIterator($path);
+        $iterator = new RecursiveIteratorIterator($directory);
+        $regex = new RegexIterator($iterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH);
+        // Include all php files
+        foreach ($regex as $file) {
+            include_once(array_values($file)[0]);
+        }
+    }
+    
+    /**
+     * Include all vizualization components
+     */
+    public static function usingVisualization()    {
+        Library::using(Library::VISUALIZATION);
+        Library::usingAll(dirname(__FILE__).DIRECTORY_SEPARATOR . Library::VISUALIZATION);
+    }
+    
+    /**
      * Get chosen path
      */
     public static function path($folder, $file)    {

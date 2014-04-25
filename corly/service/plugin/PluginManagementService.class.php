@@ -63,7 +63,7 @@ class PluginManagementService
         // Check for entity
         if (isset($pluginConfiguration->entity))    {
             $dbTable = $this->ParsePluginEntity($pluginConfiguration->entity);
-            //$this->CreatePluginTable($dbTable);
+            $this->CreatePluginTable($dbTable);
         }
         
         // Save plugin
