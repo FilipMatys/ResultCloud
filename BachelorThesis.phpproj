@@ -112,10 +112,14 @@
     <Compile Include="js\vendor\placeholder.js" />
     <Compile Include="corly\service\security\AuthentizationService.class.php" />
     <Compile Include="corly\service\security\UserService.class.php" />
+    <Compile Include="plugins\cpalien\components\configuration\CPAlien_Configuration.class.php" />
+    <Compile Include="plugins\cpalien\components\configuration\CPAlien_ConfigurationProperty.class.php" />
+    <Compile Include="plugins\cpalien\entity\CPAlien_SystemInfo.entity.php" />
     <Compile Include="plugins\cpalien\Importer.class.php" />
     <Compile Include="plugins\cpalien\Parser.class.php" />
     <Compile Include="plugins\cpalien\stat\CPALIEN_StatusStyle.enum.php" />
     <Compile Include="plugins\cpalien\stat\CPALIEN_StatusValue.enum.php" />
+    <Compile Include="plugins\cpalien\stat\CPALIEN_SubmissionOverviewComponent.enum.php" />
     <Compile Include="plugins\cpalien\stat\CPALIEN_SubmissionOverviewType.enum.php" />
     <Compile Include="plugins\cpalien\Visualization.class.php" />
     <Compile Include="plugins\cpalien\visualization\DifferenceVisualization.class.php" />
@@ -203,6 +207,7 @@
     <Folder Include="plugins\cpalien\components\" />
     <Folder Include="plugins\cpalien\components\configuration\" />
     <Folder Include="plugins\cpalien\components\configuration\js\" />
+    <Folder Include="plugins\cpalien\entity\" />
     <Folder Include="plugins\cpalien\stat\" />
     <Folder Include="plugins\cpalien\visualization\" />
     <Folder Include="plugins\glibc\visualization\" />
@@ -258,6 +263,7 @@
     <Content Include="js\controllers\UsersController.js" />
     <Content Include="js\vendor\ng-google-chart.js" />
     <Content Include="plugins\cpalien\components\configuration\js\CPALien_Configuration.js" />
+    <Content Include="plugins\cpalien\components\configuration\template.html" />
     <Content Include="plugins\cpalien\config.xml" />
     <Content Include="plugins\glibc\config.xml" />
     <Content Include="plugins\systemtap\config.xml" />

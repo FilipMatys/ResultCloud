@@ -64,7 +64,7 @@
                     <fieldset>
                         <div class="row">
                             <div class="large-8 medium-12 columns desc">
-                                <a>{{plugin.Name}} {{plugin.Version}}</a>
+                                <a ui-sref="home.plugin({pluginId: plugin.Id})">{{plugin.Name}} {{plugin.Version}}</a>
                                 <p class="about">{{plugin.About}}</p>
                                 <span>Created by {{plugin.Author}}</span>
                             </div>

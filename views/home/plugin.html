@@ -31,18 +31,14 @@
     <div class="large-12 columns">
         <a ui-sref="home.project-overview({projectId:project.Id})">
             <div class="row">
-                <div class="large-6 columns">
+                <div class="large-12 columns">
                     <p class="link">
                         {{project.Name}}
                     </p>
                 </div>
-                <div class="large-6 columns tRight">
-                    <button class="btn alert">Delete</button>
-                    <button class="btn">Clean</button>
-                </div>
             </div>
             <div class="row">
-                <div class="large-12 columns">
+                <div class="large-6 columns">
                     <label>
                         Created
                         <span>{{project.DateCreated | date:"longDate"}} by {{project.Author.Person.Name}}</span>
@@ -51,6 +47,11 @@
                         Number of submissions
                         <span>{{project.Submissions}}</span>
                     </label>
+                </div>
+                <div class="large-6 columns tRight">
+                    <button class="btn">Import</button>
+                    <button class="btn">Clean</button>
+                    <button class="btn alert">Delete</button>
                 </div>
             </div>
         </a>
