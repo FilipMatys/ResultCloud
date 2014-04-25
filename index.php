@@ -1,3 +1,8 @@
+<?php 
+include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'Library.utility.php');
+Library::using(Library::CORLY_SERVICE_PLUGIN);
+?>
+
 <!doctype html>
 <html class="no-js" lang="en" ng-app="CorlyWMT">
 <head>
@@ -43,6 +48,9 @@
     <script src="visualization/components/googleChart/js/GoogleChart.js" type="text/javascript"></script>
     <script src="visualization/components/testCaseList/js/TestCaseList.js" type="text/javascript"></script>
     <script src="visualization/components/difference/js/DifferenceList.js" type="text/javascript"></script>
+    <!-- Load plugins components -->
+    <?php  IncludeService::JsComponents(); ?>
+
     <script>
         $(document).foundation();
     </script>
