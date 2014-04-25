@@ -19,10 +19,35 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="large-2 columns">
+        <span ng-show="PendingChanges" class="pending"></span>
+    </div>
+    <div class="large-10 columns toolbar tRight">
+        <button ng-click="ScanForPlugins()" class="btn">Scan for plugins</button>
+    </div>
+</div>
 
 <div class="row">
     <div class="large-12 columns">
-        <button class="btn">Scan for plugins</button>
+        <div class="row" ng-repeat="plugin in NotInstalled">
+            <div class="large-12 columns">
+                <form class="list">
+                    <fieldset>
+                        <div class="row">
+                            <div class="large-8 medium-12 columns desc">
+                                <a>{{plugin.Name}} {{plugin.Version}}</a>
+                                <p class="about">{{plugin.About}}</p>
+                                <span>Created by {{plugin.Author}}</span>
+                            </div>
+                            <div class="large-4 medium-12 columns">
+                                <span ng-show="PendingInstallation[$index]" class="pending"></span><button ng-click="InstallPlugin(plugin, $index)" ng-show="!PendingInstallation[$index]" class="btn">Install</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -44,7 +69,6 @@
                                 <span>Created by {{plugin.Author}}</span>
                             </div>
                             <div class="large-4 medium-12 columns">
-                                <button class="btn alert">Uninstall</button>
                             </div>
                         </div>
                     </fieldset>

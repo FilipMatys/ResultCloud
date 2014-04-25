@@ -31,6 +31,25 @@ application.factory('UserService', function($http)	{
 	}
 });
 
+// Plugin management service
+application.factory('PluginManagementService', function ($http) {
+    return {
+        notinstalled: function () {
+            return $http({
+                method: 'GET',
+                url: 'api/PluginManagementController.class.php?method=UNINSTALLED'
+            })
+        },
+        install: function (plugin) {
+            return $http({
+                method: 'POST',
+                url: 'api/PluginManagementController.class.php?method=INSTALL',
+                data: plugin
+            })
+        }
+    }
+});
+
 // Submission service
 application.factory('SubmissionService', function ($http) {
     return {

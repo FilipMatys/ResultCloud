@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <config>
   <base>
-    <name>CPAlien Forester</name>
+    <name>GLIBC Make</name>
     <author>Filip Matys</author>
     <version>v1.0</version>
-    <root>cpalien</root>
-    <about>CPAlien Forester results parser.</about>
+    <root>glibc</root>
+    <about>Parses errors appearing during make attempts.</about>
   </base>
 </config>

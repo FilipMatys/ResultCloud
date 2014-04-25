@@ -111,6 +111,10 @@ a.icon:hover  {
     background-size: 60px;
 }
 
+.list span.pending  {
+    display: inline-block;
+}
+
 span.pending    {
     background-image: url("../img/loading.gif");
     background-repeat: no-repeat;

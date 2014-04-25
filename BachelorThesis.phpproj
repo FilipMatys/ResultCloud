@@ -19,6 +19,7 @@
     <Compile Include="api\ImportController.class.php" />
     <Compile Include="api\InstallationController.class.php" />
     <Compile Include="api\PluginController.class.php" />
+    <Compile Include="api\PluginManagementController.class.php" />
     <Compile Include="api\ProjectController.class.php" />
     <Compile Include="api\SubmissionController.class.php" />
     <Compile Include="corly\daoImplementation\plugin\PluginDao.class.php" />
@@ -48,6 +49,7 @@
     <Compile Include="corly\service\application\ConfigurationService.class.php" />
     <Compile Include="corly\service\import\ImportService.class.php" />
     <Compile Include="corly\service\installation\InstallationService.class.php" />
+    <Compile Include="corly\service\plugin\PluginManagementService.class.php" />
     <Compile Include="corly\service\plugin\PluginService.class.php" />
     <Compile Include="corly\service\plugin\ProjectService.class.php" />
     <Compile Include="corly\service\suite\CategoryService.class.php" />
@@ -56,7 +58,7 @@
     <Compile Include="corly\service\suite\TestCaseService.class.php" />
     <Compile Include="corly\service\session\SessionService.class.php" />
     <Compile Include="corly\service\utilities\TimeService.class.php" />
-    <Compile Include="index.html" />
+    <Compile Include="index.php" />
     <Compile Include="Library.utility.php" />
     <Compile Include="api\AuthentizationController.class.php" />
     <Compile Include="api\UserController.class.php" />
@@ -135,7 +137,6 @@
     <Compile Include="utilities\Security.php" />
     <Compile Include="utilities\StatementBuilder.php" />
     <Compile Include="utilities\ValidationResult.php" />
-    <Compile Include="views\home\dashboard.html" />
     <Compile Include="views\home\index.html" />
     <Compile Include="views\login\index.html" />
     <Compile Include="visualization\components\googleChart\GCAxis.class.php" />
@@ -183,8 +184,8 @@
     <Folder Include="corly\service\application\" />
     <Folder Include="corly\service\plugin\" />
     <Folder Include="corly\service\suite\" />
-    <Folder Include="corly\service\session"/>
-    <Folder Include="corly\service\utilities"/>
+    <Folder Include="corly\service\session" />
+    <Folder Include="corly\service\utilities" />
     <Folder Include="css" />
     <Folder Include="corly\dao\" />
     <Folder Include="corly\daoImplementation\" />
@@ -251,6 +252,7 @@
     <Content Include="views\home\overview\project.html" />
     <Content Include="views\home\overview\submission.html" />
     <Content Include="views\home\plugin.html" />
+    <Content Include="views\home\dashboard.html" />
     <Content Include="views\home\pluginManagement.html" />
     <Content Include="views\home\profile.html" />
     <Content Include="views\home\settings.html" />

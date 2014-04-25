@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <config>
   <base>
-    <name>CPAlien Forester</name>
+    <name>SystemTAP</name>
     <author>Filip Matys</author>
     <version>v1.0</version>
-    <root>cpalien</root>
-    <about>CPAlien Forester results parser.</about>
+    <root>systemtap</root>
+    <about>SystemTap test results parser</about>
   </base>
 </config>

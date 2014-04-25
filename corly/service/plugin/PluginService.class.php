@@ -52,6 +52,22 @@ class PluginService
     }
     
     /**
+     * Save plugin
+     * @param mixed $plugin 
+     * @return mixed
+     */
+    public function Save($plugin)   {
+        // Initialie validation
+        $validation = new ValidationResult($plugin);
+        
+        // Save plugin
+        $this->PluginDao->Save($plugin);
+        
+        // Return validation
+        return $validation;
+    }
+    
+    /**
      * Get detail of plugin
      * @param mixed $plugin 
      * @return plugin with projects
