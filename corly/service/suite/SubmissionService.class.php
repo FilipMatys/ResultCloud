@@ -85,7 +85,7 @@ class SubmissionService
         SessionService::CloseSession();
         
         // Get view depth
-        $depth = Visualization::GetSubmissionDataDepth($type);
+        $depth = Visualization::GetDifferenceDataDepth($type);
         
         // Create array of submissions to pass to visualizer
         $tseSubmissions = array();

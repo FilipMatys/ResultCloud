@@ -23,10 +23,26 @@ class SubmissionOverviewListItem
     private $TestCases;
     
     /**
+     * Overal number of test cases
+     * @var mixed
+     */
+    private $NumberOfTestCases;
+    
+    /**
      * Project overview list item constructor
      */
     public function __construct($name)   {
         $this->Name = $name;
+        $this->TestCases = array();
+        $this->NumberOfTestCases = 0;
+    }
+    
+    /**
+     * Set number of test cases
+     * @param mixed $number 
+     */
+    public function SetNumberOfTestCases($number)  {
+        $this->NumberOfTestCases = $number;
     }
     
     /**
@@ -48,6 +64,7 @@ class SubmissionOverviewListItem
         // Set values
         $listItem->Name = $this->Name;
         $listItem->TestCases = $this->TestCases;
+        $listItem->NumberOfTestCases = $this->NumberOfTestCases;
         
         // Return result
         return $listItem;

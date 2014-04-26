@@ -32,6 +32,7 @@ class GLIBC_SubmissionOverviewList
             
             // Create new list item
             $submissionOverviewListItem = new SubmissionOverviewListItem($category->GetName());
+            $submissionOverviewListItem->SetNumberOfTestCases($category->GetNumberOfTestCases());
             
             // Iterate through test cases
             foreach ($category->GetTestCases() as $testCase) {

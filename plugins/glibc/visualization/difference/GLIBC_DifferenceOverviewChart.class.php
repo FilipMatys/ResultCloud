@@ -20,7 +20,7 @@ class GLIBC_DifferenceOverviewChart
         $differenceOverviewChart = new DifferenceOverviewChart();
         $googleChart = new GoogleChart();
         
-        $googleChart->setType(GCType::COLUMN_CHART);
+        $googleChart->setType(GCType::LINE_CHART);
         
         // Assign options to chart
         $googleChart->setOptions(GLIBC_DifferenceOverviewChart::GetGCOptions());
@@ -31,9 +31,9 @@ class GLIBC_DifferenceOverviewChart
         // Set overview chart to google chart
         $differenceOverviewChart->SetChart($googleChart);
         // Add possible values
+        $differenceOverviewChart->AddType(GCType::LINE_CHART);
         $differenceOverviewChart->AddType(GCType::AREA_CHART);
         $differenceOverviewChart->AddType(GCType::COLUMN_CHART);
-        $differenceOverviewChart->AddType(GCType::LINE_CHART);
         
         // return google chart object
         return $differenceOverviewChart->ExportObject();

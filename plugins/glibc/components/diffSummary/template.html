@@ -3,3 +3,57 @@
         <h3>Summary</h3>
     </div>
 </div>
+
+<div class="row">
+    <div class="large-12 columns">
+        <div class="card header">
+            <h1>Errors per submission</h1>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="card">
+            <table class="full-width">
+                <thead>
+                    <tr>
+                        <th ng-repeat="header in diffSummary.Headers">{{header}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="{{item.Style}}" ng-repeat="item in diffSummary.Counts">{{item.Count}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+        <div class="card header">
+            <h1>Errors per category</h1>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="card">
+            <table class="full-width">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th ng-repeat="header in diffSummary.Headers">{{header}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="category in diffSummary.Categories">
+                        <td>{{category.Name}}</td>
+                        <td style="{{item.Style}}" ng-repeat="item in category.Counts">{{item.Count}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
