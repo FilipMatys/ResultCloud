@@ -4,12 +4,8 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 // Get libraries
 Library::using(Library::UTILITIES);
 Library::using(Library::CORLY_ENTITIES);
-Library::using(Library::VISUALIZATION);
-Library::using(Library::VISUALIZATION_PROJECT);
-Library::using(Library::VISUALIZATION_SUBMISSION);
-Library::using(Library::VISUALIZATION_DIFFERENCE);
-Library::using(Library::VISUALIZATION_COMPONENT_GOOGLECHART);
-Library::using(Library::PLUGINS .DIRECTORY_SEPARATOR. 'systemtap' .DIRECTORY_SEPARATOR. 'visualization');
+Library::usingVisualization();
+Library::usingProject(dirname(__FILE__));
 
 /**
  * Visualization short summary.
