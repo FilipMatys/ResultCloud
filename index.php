@@ -16,7 +16,12 @@ Library::using(Library::CORLY_SERVICE_PLUGIN);
     <script src="js/modernizr.js"></script>
 </head>
 <body>
-    <div ui-view></div>
+    <div class="main-view" ui-view></div>
+    <div class="row footer">
+        <div class="large-12 columns">
+            Corly Management Tool by Filip Matys | Version 2014.1 | 2014/04/26
+        </div>
+    </div>
     <script src="js/jquery.js"></script>
     <script src="js/foundation.min.js"></script>
     <script src="js/angular.min.js" type="text/javascript"></script>
