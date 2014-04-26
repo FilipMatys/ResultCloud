@@ -75,15 +75,9 @@ application.config(function($stateProvider, $urlRouterProvider){
 	})
     // Plugin detail
     .state('home.plugin', {
-        url: '/plugin-management/{pluginId}',
+        url: '/plugin-overview/{pluginId}',
         templateUrl: './views/home/plugin.html',
         controller: 'PluginController'
-    })
-    // Plugin overview detail
-    .state('home.plugin-overview', {
-        url: '/plugin-overview/{pluginId}',
-        templateUrl: './views/home/overview/plugin.html',
-        controller: 'PluginOverviewController'
     })
     // Project overview detail
     .state('home.project-overview', {

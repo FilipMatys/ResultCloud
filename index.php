@@ -41,7 +41,6 @@ Library::using(Library::CORLY_SERVICE_PLUGIN);
     <script src="js/controllers/ProfileController.js" type="text/javascript"></script>
     <script src="js/controllers/PluginController.js" type="text/javascript"></script>
     <script src="js/controllers/DataOverviewController.js" type="text/javascript"></script>
-    <script src="js/controllers/PluginOverviewController.js" type="text/javascript"></script>
     <script src="js/controllers/ProjectOverviewController.js" type="text/javascript"></script>
     <script src="js/controllers/SubmissionOverviewController.js" type="text/javascript"></script>
     <script src="js/controllers/DifferenceOverviewController.js" type="text/javascript"></script>

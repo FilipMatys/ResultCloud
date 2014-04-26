@@ -1,5 +1,16 @@
 ﻿<div class="row">
     <div class="large-12 columns">
+        <ul class="breadcrumbs">
+            <li><a ui-sref="home.dashboard">Dashboard</a></li>
+            <li><a ui-sref="home.plugin({pluginId:path.Plugin.Id})">{{path.Plugin.Name}}</a></li>
+            <li><a ui-sref="home.project-overview({projectId:path.Project.Id})">{{path.Project.Name}}</a></li>
+            <li class="current"><a>{{path.Submission.DateTime}}</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
         <h1>Submission</h1>
     </div>
 </div>

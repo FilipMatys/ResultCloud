@@ -50,6 +50,19 @@ application.factory('PluginManagementService', function ($http) {
     }
 });
 
+// Path service
+application.factory('PathService', function ($http) {
+    return {
+        path: function (request) {
+            return $http({
+                method: 'POST',
+                url: 'api/PathController.class.php?method=PATH',
+                data: request
+            })
+        }
+    }
+});
+
 // Submission service
 application.factory('SubmissionService', function ($http) {
     return {
