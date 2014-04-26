@@ -1,0 +1,42 @@
+﻿<div class="row">
+    <div class="large-12 columns">
+        <h3>System Info</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="card header">
+            <h1>
+                <span>{{configuration.Host.Key}}</span>
+            </h1>
+            <label>{{configuration.Host.Value}}</label>
+
+            <br />
+
+            <label>
+                {{configuration.DateTime.Key}}
+                <span>{{configuration.DateTime.Value}}</span>
+            </label>
+
+            <br />
+
+            <label>
+                {{configuration.Snapshot.Key}}
+                <span>{{configuration.Snapshot.Value}}</span>
+            </label>
+            <label>
+                {{configuration.GCC.Key}}
+                <span>{{configuration.GCC.Value}}</span>
+            </label>
+            <label>
+                {{configuration.Distro.Key}}
+                <span>{{configuration.Distro.Value}}</span>
+            </label>
+            <label>
+                {{configuration.SElinux.Key}}
+                <span>{{configuration.SElinux.Value}}</span>
+            </label>
+        </div>
+    </div>
+</div>
+

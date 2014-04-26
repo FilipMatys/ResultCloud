@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <config>
+  <!-- Basic plugin info -->
   <base>
     <name>SystemTAP</name>
     <author>Filip Matys</author>
@@ -7,4 +8,19 @@
     <root>systemtap</root>
     <about>SystemTap test results parser</about>
   </base>
+  <!-- Plugin entity -->
+  <entity name="SystemTAP_Configuration">
+    <property name="DateTime" type="varchar" value="63"></property>
+    <property name="Host" type="varchar" value="521"></property>
+    <property name="Snapshot" type="varchar" value="255"></property>
+    <property name="GCC" type="varchar" value="255"></property>
+    <property name="Distro" type="varchar" value="255"></property>
+    <property name="SElinux" type="varchar" value="31"></property>
+  </entity>
+  <!-- Plugin GUI components -->
+  <components>
+    <component folder="configuration">
+      <file>SystemTAP_ConfigurationView.js</file>
+    </component>
+  </components>
 </config>

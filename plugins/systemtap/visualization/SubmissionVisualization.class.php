@@ -22,6 +22,9 @@ class SubmissionVisualization
             case SubmissionOverviewType::GOOGLE_CHART:
                 return DataDepth::RESULT;
             
+            case SystemTAP_SubmissionOverviewType::CONFIGURATION:
+                return DataDepth::SUBMISSION;
+                
             case SubmissionOverviewType::VIEWLIST:
                 return DataDepth::RESULT;
             
@@ -36,6 +39,7 @@ class SubmissionVisualization
      */
     public static function GetViewComponents()  {
         return array(
+                SystemTAP_SubmissionOverviewComponent::CONFIGURATION,
                 SubmissionOverviewComponent::GOOGLE_CHART,
                 SubmissionOverviewComponent::VIEWLIST
             );
@@ -56,6 +60,9 @@ class SubmissionVisualization
             // Get view list
             case SubmissionOverviewType::VIEWLIST:
                 return SystemTAP_SubmissionOverviewList::GetSubmissionOverviewList($submission, $meta);
+                
+            case SystemTAP_SubmissionOverviewType::CONFIGURATION:
+                return SystemTAP_SubmissionOverviewConfigurationView::GetSubmissionOverviewConfigurationView($submission);
                 
             // Return null if no assigned component was found
             default:

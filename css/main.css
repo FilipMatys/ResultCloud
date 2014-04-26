@@ -117,7 +117,7 @@ a.icon:hover  {
     background-image: url("../img/loading.gif");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 60px;
+    background-size: 31px;
 }
 
 .list span.pending  {

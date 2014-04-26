@@ -4,6 +4,8 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 // Get libraries
 Library::using(Library::UTILITIES);
 Library::using(Library::CORLY_ENTITIES);
+Library::using(Library::CORLY_SERVICE_UTILITIES);
+Library::usingProject(dirname(__FILE__));
 
 /**
  * Parser short summary.
@@ -42,12 +44,34 @@ class Parser
         $fileRows = file($data);
         
         $Category = new CategoryTSE("Default");
+        
+        // Init configuration
+        $configuration = new SystemTAP_Configuration();
+        $configSet = false;
+        
         // Iterate through array (rows)
         foreach ($fileRows as $row) {
             
             // Check for date and time
             if (!isset($Submission) && preg_match("/Test Run By (.*) on (.*)/", $row, $headerMatch))    {
                 $Submission = new SubmissionTSE($headerMatch[2]);
+                $configuration->DateTime = $headerMatch[2];
+            }
+            
+            // Check for configuration
+            if (!$configSet)    {
+                if (preg_match("/Host: (.*)/", $row, $configMatch))
+                    $configuration->Host = $configMatch[1];
+                else if (preg_match("/Snapshot: (.*)/", $row, $configMatch))
+                    $configuration->Snapshot = $configMatch[1];
+                else if (preg_match("/GCC: (.*)/", $row, $configMatch))
+                    $configuration->GCC = $configMatch[1];
+                else if (preg_match("/Distro: (.*)/", $row, $configMatch))
+                    $configuration->Distro = $configMatch[1];
+                else if (preg_match("/SElinux: (.*)/", $row, $configMatch))  {
+                    $configuration->SElinux = $configMatch[1];
+                    $configSet = true;
+                }
             }
         
             // Check for test case header
@@ -79,6 +103,10 @@ class Parser
         
         // Add category to submission
         $Submission->AddCategory($Category);
+        
+        // Save configuration
+        $systemInfoHandler = DbUtil::GetEntityHandler(new SystemTAP_Configuration);
+        $systemInfoHandler->Save($configuration);
         
         $validation = new ValidationResult($Submission);
         return $validation;
