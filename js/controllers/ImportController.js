@@ -5,6 +5,7 @@
     $scope.valid = true;
     $scope.plugins = [];
     $scope.projects = [];
+    $scope.PendingChanges = false;
 
     // Load installed plugins
     PluginService.query()
@@ -36,6 +37,7 @@
      * Upload given file
      */
     $scope.uploadFile = function () {
+        $scope.PendingChanges = true;
         $scope.upload = $upload.upload({
             url: 'api/ImportController.class.php?method=IMPORT',
             data: {
@@ -46,6 +48,7 @@
             // file is uploaded successfully
             $scope.valid = success.data.IsValid;
             $('#upload-progress').width(100 + '%');
+            $scope.PendingChanges = false;
     
             console.log(success);
         }).progress(function (evt) {

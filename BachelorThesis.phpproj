@@ -18,6 +18,7 @@
   <ItemGroup>
     <Compile Include="api\ImportController.class.php" />
     <Compile Include="api\InstallationController.class.php" />
+    <Compile Include="api\PathController.class.php" />
     <Compile Include="api\PluginController.class.php" />
     <Compile Include="api\PluginManagementController.class.php" />
     <Compile Include="api\ProjectController.class.php" />
@@ -29,10 +30,12 @@
     <Compile Include="corly\daoImplementation\suite\ResultDao.class.php" />
     <Compile Include="corly\daoImplementation\suite\SubmissionDao.class.php" />
     <Compile Include="corly\daoImplementation\suite\TestCaseDao.class.php" />
+    <Compile Include="corly\dao\application\Path.entity.php" />
     <Compile Include="corly\dao\plugin\Component.entity.php" />
     <Compile Include="corly\dao\plugin\Plugin.entity.php" />
     <Compile Include="corly\dao\plugin\Project.entity.php" />
     <Compile Include="corly\dao\stat\ErrorCodes.enum.php" />
+    <Compile Include="corly\dao\stat\PathType.enum.php" />
     <Compile Include="corly\dao\suite\Category.entity.php" />
     <Compile Include="corly\dao\suite\Result.entity.php" />
     <Compile Include="corly\dao\suite\Submission.entity.php" />
@@ -51,6 +54,7 @@
     <Compile Include="corly\installation\ApplicationConfiguration.class.php" />
     <Compile Include="corly\installation\DatabaseInstallation.class.php" />
     <Compile Include="corly\service\application\ConfigurationService.class.php" />
+    <Compile Include="corly\service\application\PathService.class.php" />
     <Compile Include="corly\service\import\ImportService.class.php" />
     <Compile Include="corly\service\installation\InstallationService.class.php" />
     <Compile Include="corly\service\plugin\PluginManagementService.class.php" />
@@ -215,6 +219,7 @@
     <Folder Include="api" />
     <Folder Include="corly\daoImplementation\plugin\" />
     <Folder Include="corly\daoImplementation\suite\" />
+    <Folder Include="corly\dao\application\" />
     <Folder Include="corly\dao\plugin\" />
     <Folder Include="corly\dao\suite\" />
     <Folder Include="corly\dbCreator\" />
@@ -305,7 +310,6 @@
     <Content Include="js\controllers\ImportController.js" />
     <Content Include="js\controllers\PluginController.js" />
     <Content Include="js\controllers\PluginManagementController.js" />
-    <Content Include="js\controllers\PluginOverviewController.js" />
     <Content Include="js\controllers\ProfileController.js" />
     <Content Include="js\controllers\ProjectOverviewController.js" />
     <Content Include="js\controllers\SettingsController.js" />

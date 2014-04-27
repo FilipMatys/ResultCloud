@@ -48,7 +48,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="large-12 columns">
+        <div class="large-12 columns tRight">
+            <span ng-show="PendingChanges" class="pending cPrefix"></span>
             <button ng-disabled="importForm.$invalid" class="btn" ng-click="uploadFile()">Upload</button>
         </div>
     </div>

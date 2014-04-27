@@ -124,6 +124,12 @@ a.icon:hover  {
     display: inline-block;
 }
 
+span.pending.cPrefix {
+    display: inline-block;
+    margin-bottom: -1rem;
+    margin-right: 1rem;
+}
+
 span.pending    {
     background-image: url("../img/loading.gif");
     background-repeat: no-repeat;
