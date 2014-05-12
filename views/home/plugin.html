@@ -27,42 +27,35 @@
 <div class="row addition">
     <div class="large-12 columns">
         <div class="row collapse above-tab">
-            <div class="small-10 columns">
+            <div class="small-9 large-11 columns">
                 <input ng-model="projectName" type="text" placeholder="Project name">
             </div>
-            <div class="small-2 columns">
+            <div class="small-3 large-1 columns">
                 <button ng-disabled="!projectName" ng-click="CreateProject()" href="#" class="btn postfix">New</button>
             </div>
         </div>
     </div>
 </div>
-<div class="row projects" ng-repeat="project in plugin.Projects">
+<div class="row">
     <div class="large-12 columns">
-        <a ui-sref="home.project-overview({projectId:project.Id})">
-            <div class="row">
-                <div class="large-12 columns">
-                    <p class="link">
-                        {{project.Name}}
-                    </p>
-                </div>
+        <div class="row" ng-repeat="project in plugin.Projects">
+            <div class="large-12 columns">
+                <form class="list">
+                    <fieldset>
+                        <div class="row">
+                            <div class="large-8 medium-12 columns desc">
+                                <a ui-sref="home.project-overview({projectId:project.Id})">{{project.Name}}</a>
+                                <p class="about">Created {{project.DateCreated | date:"longDate"}} by {{project.Author.Person.Name}}</p>
+                                <span>Number of submissions {{project.Submissions}}</span>
+                            </div>
+                            <div class="large-4 medium-12 columns">
+                                <button data-tooltip title="This feature wasn't subject of bachelor thesis, so is not functional. But is planned in future releases" class="btn">Clean</button>
+                                <button data-tooltip title="This feature wasn't subject of bachelor thesis, so is not functional. But is planned in future releases" class="btn alert">Delete</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
-            <div class="row">
-                <div class="large-6 columns">
-                    <label>
-                        Created
-                        <span>{{project.DateCreated | date:"longDate"}} by {{project.Author.Person.Name}}</span>
-                    </label>
-                    <label>
-                        Number of submissions
-                        <span>{{project.Submissions}}</span>
-                    </label>
-                </div>
-                <div class="large-6 columns tRight">
-                    <button title="This feature wasn't subject of bachelor thesis, so is not functional. But is planned in future releases" class="btn" disabled>Import</button>
-                    <button title="This feature wasn't subject of bachelor thesis, so is not functional. But is planned in future releases" class="btn" disabled>Clean</button>
-                    <button title="This feature wasn't subject of bachelor thesis, so is not functional. But is planned in future releases" class="btn alert" disabled>Delete</button>
-                </div>
-            </div>
-        </a>
+        </div>
     </div>
 </div>

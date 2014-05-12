@@ -124,6 +124,10 @@ a.icon:hover  {
     display: inline-block;
 }
 
+.list .desc a:hover {
+    text-decoration: underline;
+}
+
 span.pending.cPrefix {
     display: inline-block;
     margin-bottom: -1rem;
@@ -398,7 +402,7 @@ form.list fieldset .button,
 
 form.list fieldset,
 div.toolbar form fieldset   {
-    padding: 0.8rem;
+    padding: 0.875rem;
     margin-bottom: 0rem;
     border: none;
     margin-top: 0.5rem;

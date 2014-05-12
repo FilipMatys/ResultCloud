@@ -40,5 +40,9 @@ application.controller('PluginController', ['$scope', '$stateParams', 'PluginSer
         $scope.showProjectDetail[index] = !$scope.showProjectDetail[index];
     }
 
+    $scope.ImportIntoProject = function () {
+        alert('hej');
+    }
+
 
 }]);
