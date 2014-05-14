@@ -1,23 +1,4 @@
-application.controller('DashboardController', function($scope, InstallationService, PluginService)	{
-	// Variables init
-
-	// FUNCTIONS
-    $scope.Install = function () {
-        //var credentials = {
-        //    Hostname: "127.2.78.130",
-        //    Username: "admin1GlTw9z",
-        //    Password: "ZCFSCCjU8I_s"
-        //};
-
-        var credentials = {
-            Hostname: "localhost",
-            Username: "root",
-            Password: "xampp"
-        }
-
-        InstallationService.install(credentials);
-    }
-
+application.controller('DashboardController', function($scope, PluginService)	{
     // Controller variables
     $scope.Plugins = [];
 
