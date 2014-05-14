@@ -31,6 +31,18 @@ application.factory('UserService', function($http)	{
 	}
 });
 
+// Session service
+application.factory('SessionService', function ($http) {
+    return {
+        check: function () {
+            return $http({
+                method: 'GET',
+                url: 'api/SessionController.class.php?method=CHECK'
+            })
+        }
+    }
+});
+
 // Plugin management service
 application.factory('PluginManagementService', function ($http) {
     return {
@@ -112,6 +124,12 @@ application.factory('AuthentizationService', function($http)	{
 				url: 'api/AuthentizationController.class.php?method=AUTHORIZE',
 				data: credentials
 			})
+		},
+		deauthorize: function () {
+		    return $http({
+		        method: 'GET',
+		        url: 'api/AuthentizationController.class.php?method=DEAUTHORIZE',
+		    })
 		}
 	}
 });

@@ -9,6 +9,7 @@ Library::using(Library::CORLY_SERVICE_SECURITY);
 class AuthentizationController	{
 	// Request constants
 	const AUTHORIZE = "AUTHORIZE";
+    const DEAUTHORIZE = "DEAUTHORIZE";
 
 	// Service
 	private $AuthentizationService;
@@ -18,10 +19,22 @@ class AuthentizationController	{
 		$this->AuthentizationService = new AuthentizationService();
 	}
 
-	// Authorize credentials
+	/**
+	 * Authorize credentials
+	 * @param mixed $credentials 
+	 * @return mixed
+	 */
 	public function Authorize($credentials)	{
 		return $this->AuthentizationService->Authorize($credentials);
 	}
+    
+    /**
+     * Deauthorize current user
+     * @return mixed
+     */
+    public function Deauthorize()   {
+        return $this->AuthentizationService->Deauthorize();
+    }
 }
 
 // Extract json data
@@ -38,6 +51,10 @@ if (isset($_GET["method"]))	{
 		case AuthentizationController::AUTHORIZE:
 			$result = $AuthentizationController->Authorize($data);
 			break;
+            
+        case AuthentizationController::DEAUTHORIZE:
+            $result = $AuthentizationController->Deauthorize();
+            break;
 		
 		default:
 			$result = false;

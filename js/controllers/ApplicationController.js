@@ -13,6 +13,25 @@ application.run(function($rootScope, $timeout)	{
 	})
 });
 
+// Keep track of routing and keep non authorized users away
+application.run(['$rootScope', '$location', 'SessionService', function ($rootScope, $location, SessionService) {
+    // Array of routes, that dont require login
+    var routesThatDontRequireAuth = ['/login'];
+
+    // Wait  for location to change
+    $rootScope.$on('$stateChangeStart', function (event, next) {
+        // If not login page, check if user is logged
+        if (routesThatDontRequireAuth.indexOf($location.path()) < 0)   {
+            // Check session
+            SessionService.check().success(function (data, status, headers, config) {
+                console.log(data);
+                if (data === "false")
+                    $location.path('/login');
+            });
+        }
+    });
+}]);
+
 /**
  * Configuration for routes
  */

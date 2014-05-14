@@ -50,4 +50,15 @@ class AuthentizationService	{
 		// Return validation
 		return $credentialsValidation;
 	}
+    
+    /**
+     * Deauthorize current user
+     */
+    public function Deauthorize()   {
+        // Destroy session
+        SessionService::DestroySession();
+        
+        // Return true
+        return true;
+    }
 }

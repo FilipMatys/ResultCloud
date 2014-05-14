@@ -18,9 +18,9 @@
                 <a ui-sref="home.import" class="button"><i class="fi-upload"></i> Import</a>
             </li>
             <li class="divider"></li>
-            <li><a ui-sref="home.profile"><i class="fi-torso"></i> Petr Muller</a></li>
+            <li><a ui-sref="home.profile"><i class="fi-torso"></i>{{user.Person.Name}}</a></li>
             <li class="divider"></li>
-            <li><a href="#"><i class="fi-power"></i>Logout</a></li>
+            <li><a ng-click="Logout()"><i class="fi-power"></i>Logout</a></li>
         </ul>
 
     </section>
