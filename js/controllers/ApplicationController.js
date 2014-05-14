@@ -24,7 +24,7 @@ application.run(['$rootScope', '$location', 'SessionService', function ($rootSco
         if (routesThatDontRequireAuth.indexOf($location.path()) < 0)   {
             // Check session
             SessionService.check().success(function (data, status, headers, config) {
-                console.log(data);
+                // Check result
                 if (data === "false")
                     $location.path('/login');
             });

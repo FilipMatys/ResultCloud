@@ -23,8 +23,8 @@ class AuthentizationService	{
 		$credentialsValidation = new ValidationResult($credentials);
 
 		// First wave of validation
-		$credentialsValidation->CheckNotNullOrEmpty('Username', 'Uživatelské jméno musí být zadáno');
-		$credentialsValidation->CheckNotNullOrEmpty('Password', 'Heslo musí být zadáno');
+		$credentialsValidation->CheckNotNullOrEmpty('Username', 'Username is required');
+		$credentialsValidation->CheckNotNullOrEmpty('Password', 'Password is required');
 
 		// Check validation result
 		if (!$credentialsValidation->IsValid)	{
@@ -35,12 +35,12 @@ class AuthentizationService	{
 		$lUsers = new LINQ($this->UserDao->GetFilteredList(QueryParameter::Where('Username', $credentials->Username)));
 		// Check if given user exists
 		if ($lUsers->IsEmpty())	{
-			$credentialsValidation->AddError("Neexistující uživatel nebo špatné heslo");
+			$credentialsValidation->AddError("Invalid user or password");
 			return $credentialsValidation;
 		}
 		// Check if passwords match
 		if ($lUsers->Single()->Password != $credentials->Password)	{
-			$credentialsValidation->AddError("Neexistující uživatel nebo špatné heslo");
+			$credentialsValidation->AddError("Invalid user or password");
 			return $credentialsValidation;	
 		} 
 

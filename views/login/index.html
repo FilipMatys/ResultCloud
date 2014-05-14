@@ -2,6 +2,7 @@
     <div class="large-12 columns">
         <div class="login-header">
             <h1>CORLY</h1>
+            <p>Web Tool for Management of Long-Term Testing Results</p>
         </div>
     </div>
 </div>
@@ -12,6 +13,7 @@
             <input type="text" ng-model="credentials.Username" placeholder="Username" />
             <input type="password" ng-model="credentials.Password" placeholder="Password" />
             <input type="submit" ng-click="AuthorizeCredentials()" class="btn full-width" value="Login" />
+            <span class="err" ng-repeat="error in errors">{{error}}</span>
         </fieldset>
     </form>
 </div>
