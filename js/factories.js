@@ -111,6 +111,12 @@ application.factory('InstallationService', function ($http) {
                 url: 'api/InstallationController.class.php?method=INSTALL',
                 data: credentials
             })
+        },
+        check: function () {
+            return $http({
+                method: 'GET',
+                url: 'api/InstallationController.class.php?method=CHECK',
+            })
         }
     }
 });

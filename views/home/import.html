@@ -6,7 +6,15 @@
 <form novalidate name="importForm">
     <div class="row">
         <div class="large-12 columns">
-            <p>Here, you shall import your test cases</p>
+            <p>Choose plugin and project. Then choose file for import and upload it to server.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-12 columns">
+            <div data-alert class="alert-box alert" ng-repeat="error in errors">
+                {{error}}
+            </div>
         </div>
     </div>
     <div class="row">
@@ -49,7 +57,7 @@
     </div>
     <div class="row">
         <div class="large-12 columns tRight">
-            <span ng-show="PendingChanges" class="pending cPrefix"></span>
+            <span ng-show="PendingChanges">Uploading...</span> <span ng-show="PendingChanges" class="pending cPrefix"></span>
             <button ng-disabled="importForm.$invalid" class="btn" ng-click="uploadFile()">Upload</button>
         </div>
     </div>

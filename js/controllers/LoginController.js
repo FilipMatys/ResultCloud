@@ -7,6 +7,8 @@ application.controller('LoginController', function ($scope, $state, UserService,
 	// Variables init
     $scope.credentials = {};
     $scope.errors = [];
+    $scope.installed = true;
+    $scope.installation = {};
 
     $scope.Install = function () {
         //var credentials = {
@@ -15,14 +17,23 @@ application.controller('LoginController', function ($scope, $state, UserService,
         //    Password: "ZCFSCCjU8I_s"
         //};
 
-        var credentials = {
-            Hostname: "localhost",
-            Username: "root",
-            Password: "xampp"
-        }
-
-        InstallationService.install(credentials);
+        InstallationService.install($scope.installation)
+            .success(function (data, status, headers, config) {
+                $scope.errors = data.Errors;
+                $scope.installed = data.IsValid;
+            });
     }
+
+    // Check installation
+    $scope.CheckInstallation = function () {
+        InstallationService.check()
+        .success(function (data, status, headers, config) {
+            $scope.installed = data.IsValid;
+        });
+    }
+
+    // Check installation
+    $scope.CheckInstallation;
 
 	// Authorize credentials
 	$scope.AuthorizeCredentials = function()	{
@@ -33,7 +44,6 @@ application.controller('LoginController', function ($scope, $state, UserService,
 				}
 				else	{
 				    $scope.errors = data.Errors;
-				    console.log($scope.errors);
 				}
 			});		
 	}

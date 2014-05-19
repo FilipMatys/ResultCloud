@@ -44,4 +44,12 @@ class ApplicationConfiguration
         // Return validation
         return $validation;
      }
+     
+     /**
+      * Check if database configuration file exists
+      * @return mixed
+      */
+     public function DatabaseConfigurationFileExists() {
+         return file_exists(Library::path(Library::CORLY_DAO_BASE, "Config.xml"));
+     }
 }

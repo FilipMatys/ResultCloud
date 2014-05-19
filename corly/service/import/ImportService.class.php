@@ -72,7 +72,7 @@ class ImportService
         // Set user and import date time and save imported data into database
         $importValidation->Data->SetUser(SessionService::GetSession('id'));
         $importValidation->Data->SetImportDateTime(TimeService::DateTime());
-        $this->SubmissionService->Save($importValidation->Data, $validation->Data->Project);
+        $validation->Append($this->SubmissionService->Save($importValidation->Data, $validation->Data->Project));
         
         // Return validation
         return $validation;

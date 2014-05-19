@@ -22,6 +22,7 @@
     <Compile Include="api\PluginController.class.php" />
     <Compile Include="api\PluginManagementController.class.php" />
     <Compile Include="api\ProjectController.class.php" />
+    <Compile Include="api\SessionController.class.php" />
     <Compile Include="api\SubmissionController.class.php" />
     <Compile Include="corly\daoImplementation\plugin\ComponentDao.class.php" />
     <Compile Include="corly\daoImplementation\plugin\PluginDao.class.php" />

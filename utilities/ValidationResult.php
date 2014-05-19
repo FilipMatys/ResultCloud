@@ -45,6 +45,16 @@ class ValidationResult {
     }
     
     /**
+     * Check condition is true
+     * @param mixed $condition 
+     * @param mixed $error 
+     */
+    public function IsTrue($condition, $error)  {
+        if (!$condition)
+            $this->AddInvalid($error);
+    }
+    
+    /**
      * Check if validated data are not null
      */
     public function CheckDataNotNull($error)    {

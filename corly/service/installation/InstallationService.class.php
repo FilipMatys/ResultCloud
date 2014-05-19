@@ -49,7 +49,28 @@ class InstallationService
         $configInstallation = new ApplicationConfiguration();
         $validation->Append($configInstallation->GenerateInstallationConfiguration($data));
         
+        // Reset password
+        $validation->Data->Password = "";
+        
         // Return validation
+        return $validation;
+    }
+    
+    /**
+     * Check if application is installed
+     * @return mixed
+     */
+    public function CheckInstallation() {
+        // Initialize validation
+        $validation = new ValidationResult(new stdClass());
+        
+        // Initialize application configuration
+        $applicationConfiguration = new ApplicationConfiguration();
+        
+        // Validate
+        $validation->IsTrue($applicationConfiguration->DatabaseConfigurationFileExists(), "Application is not installed");
+        
+        // Return result
         return $validation;
     }
 }

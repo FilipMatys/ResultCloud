@@ -469,15 +469,15 @@ class DatabaseInstallation
      * Create database
      */
     public function CreateDatabase($credentials)    {
+        // Initialize validation
+        $validation = new ValidationResult(new stdClass());
+        
         // Initialize mysqli
         $mysqli = new mysqli($credentials->Hostname, $credentials->Username, $credentials->Password);
-    
-        // Initialize validation
-        $validation = new ValidationResult($mysqli);
         
         // Check connection
         if ($mysqli->connect_error) {
-            $validation->AddError("Failed to connecto to database server");
+            $validation->AddError("Failed to connect to database server");
             // Return validation result
             return $validation;
         }

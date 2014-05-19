@@ -50,7 +50,11 @@ class SubmissionService
      */
     public function Save($submission, $projectId)    {
         // Init validation
-        $validation = $this->ValidateSubmission($submission);
+        $validation = $this->ValidateSubmission($submission, $projectId);
+        
+        // Check validation result
+        if (!$validation->IsValid)
+            return $validation;
         
         // Save submission
         $submissionId = $this->SubmissionDao->Save($submission->GetDbObject($projectId));
@@ -266,13 +270,24 @@ class SubmissionService
     
     /**
      * Validate submission data
+     * @param mixed $data 
+     * @param mixed $projectId 
+     * @return mixed
      */
-    private function ValidateSubmission($data)   {
+    private function ValidateSubmission(SubmissionTSE $data, $projectId)   {
         // Initialize validation 
         $validation = new ValidationResult($data);
         
         // Check if there are any data
         $validation->CheckDataNotNull("Invalid data supplied");
+        
+        // Get all submissions of given project
+        $lSubmissions = new LINQ($this->SubmissionDao->GetFilteredList(QueryParameter::Where('Project', $projectId)));
+        
+        // Check if submission is in list
+        if (in_array($data->GetDateTime(), $lSubmissions->Select('DateTime')->ToList())) {
+            $validation->AddError("Submission was already imported");
+        }
         
         // Check validation result
         if (!$validation->IsValid)  {

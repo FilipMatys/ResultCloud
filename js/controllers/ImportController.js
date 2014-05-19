@@ -47,10 +47,11 @@
         }).then(function (success, error, progress) {
             // file is uploaded successfully
             $scope.valid = success.data.IsValid;
+            $scope.errors = success.data.Errors;
             $('#upload-progress').width(100 + '%');
             $scope.PendingChanges = false;
     
-            console.log(success);
+            
         }).progress(function (evt) {
             $('#upload-progress').width(parseInt(100.0 * evt.loaded / evt.total) + '%');
         });

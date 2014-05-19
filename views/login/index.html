@@ -1,11 +1,5 @@
 <div class="row">
     <div class="large-12 columns">
-        <button class="btn" ng-click="Install()">Install (remove before production)</button>
-    </div>
-</div>
-
-<div class="row">
-    <div class="large-12 columns">
         <div class="login-header">
             <h1>CORLY</h1>
             <p>Web Tool for Management of Long-Term Testing Results</p>
@@ -14,11 +8,19 @@
 </div>
 <div class="row">
     <form class="login">
-        <fieldset>
+        <fieldset ng-show="installed">
             <h3>Sign in to Corly</h3>
             <input type="text" ng-model="credentials.Username" placeholder="Username" />
             <input type="password" ng-model="credentials.Password" placeholder="Password" />
             <input type="submit" ng-click="AuthorizeCredentials()" class="btn full-width" value="Login" />
+            <span class="err" ng-repeat="error in errors">{{error}}</span>
+        </fieldset>
+        <fieldset ng-show="!installed">
+            <h3>Corly installation</h3>
+            <input type="text" ng-model="installation.Hostname" placeholder="Hostname" />
+            <input type="text" ng-model="installation.Username" placeholder="Username" />
+            <input type="password" ng-model="installation.Password" placeholder="Password" />
+            <input type="submit" ng-click="Install()" class="btn full-width" value="Install" />
             <span class="err" ng-repeat="error in errors">{{error}}</span>
         </fieldset>
     </form>

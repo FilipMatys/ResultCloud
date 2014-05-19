@@ -10,6 +10,7 @@ Library::using(Library::CORLY_SERVICE_INSTALLATION);
 class InstallationController	{
 	// Request constants
 	const INSTALL = "INSTALL";
+    const CHECK = "CHECK";
     
 	// Service
 	private $InstallationService;
@@ -19,10 +20,22 @@ class InstallationController	{
 		$this->InstallationService = new InstallationService();
 	}
 
-	// Install application
+	/**
+	 * Install application
+	 * @param mixed $data 
+	 * @return mixed
+	 */
 	public function Install($data)	{
 		return $this->InstallationService->Install($data);
 	}
+    
+    /**
+     * Check if application is installed
+     * @return mixed
+     */
+    public function Check() {
+        return $this->InstallationService->CheckInstallation();
+    }
 }
 
 // Extract json data
@@ -39,6 +52,10 @@ if (isset($_GET["method"]))	{
 		case InstallationController::INSTALL:
 			$result = $InstallationController->Install($data);
 			break;
+            
+        case InstallationController::CHECK:
+            $result = $InstallationController->Check();
+            break;
 
 		default:
 			$result = false;
