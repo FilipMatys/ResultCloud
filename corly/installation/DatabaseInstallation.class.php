@@ -473,7 +473,7 @@ class DatabaseInstallation
         $validation = new ValidationResult(new stdClass());
         
         // Initialize mysqli
-        $mysqli = new mysqli($credentials->Hostname, $credentials->Username, $credentials->Password);
+        @$mysqli = new mysqli($credentials->Hostname, $credentials->Username, $credentials->Password);
         
         // Check connection
         if ($mysqli->connect_error) {

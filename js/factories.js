@@ -117,6 +117,13 @@ application.factory('InstallationService', function ($http) {
                 method: 'GET',
                 url: 'api/InstallationController.class.php?method=CHECK',
             })
+        },
+        register: function (registration) {
+            return $http({
+                method: 'POST',
+                url: 'api/InstallationController.class.php?method=REGISTER',
+                data: registration
+            })
         }
     }
 });

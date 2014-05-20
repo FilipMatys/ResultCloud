@@ -83,14 +83,14 @@ class UserService	{
 		// Init validations
 		$userValidation = new ValidationResult($user);
 		$personValidation = new ValidationResult($user->Person);
-
+        
 		// Validate
 		if (!isset($user->Id))	{
 			$lUsers = new LINQ($this->UserDao->GetFilteredList(QueryParameter::Where('Username', $user->Username)));
 			
 			// Check if user of given username already exists
 			if (!$lUsers->IsEmpty())	{
-				$userValidation->AddError("Uživatel s daným uživatelským jménem již existuje.");
+				$userValidation->AddError("User with given username already exists");
 			}
 		}
 
@@ -101,16 +101,17 @@ class UserService	{
 
 		// Get person entity
 		$person = $user->Person;
-
-		// Save person
-		$insertedPersonId = $this->PersonDao->Save($person);
-		if ($insertedPersonId != 0)
-			$user->Person = $insertedPersonId;
-		else
-			$user->Person = $person->Id;
+        unset($user->Person);
 
 		// Save user
-		$this->UserDao->Save($user);
+		$insertedUserId = $this->UserDao->Save($user);
+		if ($insertedUserId != 0)
+			$person->User = $insertedUserId;
+		else
+			$person->User = $user->Id;
+
+		// Save person
+		$this->PersonDao->Save($person);
 
 		// Return validation
 		return $userValidation;

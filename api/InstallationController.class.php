@@ -11,6 +11,7 @@ class InstallationController	{
 	// Request constants
 	const INSTALL = "INSTALL";
     const CHECK = "CHECK";
+    const REGISTER = "REGISTER";
     
 	// Service
 	private $InstallationService;
@@ -36,6 +37,15 @@ class InstallationController	{
     public function Check() {
         return $this->InstallationService->CheckInstallation();
     }
+    
+    /**
+     * Register user
+     * @param mixed $user 
+     * @return mixed
+     */
+    public function Register($user) {
+        return $this->InstallationService->RegisterUser($user);
+    }
 }
 
 // Extract json data
@@ -57,6 +67,10 @@ if (isset($_GET["method"]))	{
             $result = $InstallationController->Check();
             break;
 
+        case InstallationController::REGISTER:
+            $result = $InstallationController->Register($data);
+            break;
+            
 		default:
 			$result = false;
 			break;

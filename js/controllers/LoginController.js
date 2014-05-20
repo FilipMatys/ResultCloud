@@ -9,6 +9,8 @@ application.controller('LoginController', function ($scope, $state, UserService,
     $scope.errors = [];
     $scope.installed = true;
     $scope.installation = {};
+    $scope.installationState = 0;
+    $scope.registration = {};
 
     $scope.Install = function () {
         //var credentials = {
@@ -21,19 +23,31 @@ application.controller('LoginController', function ($scope, $state, UserService,
             .success(function (data, status, headers, config) {
                 $scope.errors = data.Errors;
                 $scope.installed = data.IsValid;
+                $scope.installationState = data.Data;
             });
     }
 
     // Check installation
     $scope.CheckInstallation = function () {
         InstallationService.check()
-        .success(function (data, status, headers, config) {
-            $scope.installed = data.IsValid;
-        });
+            .success(function (data, status, headers, config) {
+                $scope.installed = data.IsValid;
+                $scope.installationState = data.Data;
+            });
+    }
+
+    // Register user
+    $scope.Register = function () {
+        InstallationService.register($scope.registration)
+            .success(function (data, status, headers, config) {
+                $scope.installed = data.IsValid;
+                $scope.installationState = data.Data;
+                $scope.errors = data.Errors;
+            });
     }
 
     // Check installation
-    $scope.CheckInstallation;
+    $scope.CheckInstallation();
 
 	// Authorize credentials
 	$scope.AuthorizeCredentials = function()	{
