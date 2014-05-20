@@ -12,7 +12,7 @@
     <div class="large-2 columns">
         <span ng-show="PendingChanges" class="pending"></span>
     </div>
-    <div class="large-10 columns toolbar tRight">
+    <div ng-show="ListData.Submissions.length > 1" class="large-10 columns toolbar tRight">
         <label>
             Check all
             <input type="checkbox" ng-model="SelectAll" />
@@ -33,7 +33,7 @@
                                 <span ng-show="item.Submission.User.Person">Imported by {{item.Submission.User.Person.Name}} on {{item.Submission.ImportDateTime | date:"longDate"}}</span>
                             </div>
                             <div class="large-4 medium-12 columns">
-                                <input type="checkbox" ng-model="item.Submission.Differ"/>
+                                <input ng-show="ListData.Submissions.length > 1" type="checkbox" ng-model="item.Submission.Differ" />
                                 <a ui-sref="home.submission-overview({submissionId:item.Submission.Id})" class="fi-list-thumbnails icon"></a>
                             </div>
                         </div>

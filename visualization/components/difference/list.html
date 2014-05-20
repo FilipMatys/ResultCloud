@@ -12,6 +12,13 @@
         <label>
             Show only changes
             <input type="checkbox" ng-model="ShowChangesOnly" />
+            <span class="divider"></span>
+            <label ng-show="Pages > 1">
+                Page
+                <input type="number" ng-model="DiffData.Page" /> / {{Pages}}
+            </label>
+            <span ng-show="Pages > 1" class="divider"></span>
+            <button ng-show="Pages > 1" ng-click="FetchData()" class="btn" ng-disabled="DiffData.Page < 1 || DiffData.Page > Pages">Go</button>
         </label>
     </div>
 </div>

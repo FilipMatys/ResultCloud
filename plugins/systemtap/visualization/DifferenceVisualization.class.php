@@ -24,6 +24,9 @@ class DifferenceVisualization
             case DifferenceOverviewType::GOOGLE_CHART:
                 return SystemTAP_DifferenceOverviewChart::GetDifferenceOverviewChart($submissions);
             
+            case DifferenceOverviewType::VIEWLIST:
+                return SystemTAP_DifferenceOverviewList::GetDifferenceOverviewLists($submissions, $meta);
+                
             default:
                 return null;
         }
@@ -39,6 +42,9 @@ class DifferenceVisualization
         switch($type)   {
             case DifferenceOverviewType::GOOGLE_CHART:
                 return DataDepth::RESULT;
+                
+            case DifferenceOverviewType::VIEWLIST:
+                return DataDepth::RESULT;
             
             default:
                 return DataDepth::SUBMISSION;
@@ -51,7 +57,8 @@ class DifferenceVisualization
      */
     public static function GetViewComponents()   {
         return array(
-                DifferenceOverviewComponent::GOOGLE_CHART
+                DifferenceOverviewComponent::GOOGLE_CHART,
+                DifferenceOverviewComponent::VIEWLIST
             );
     }
 }

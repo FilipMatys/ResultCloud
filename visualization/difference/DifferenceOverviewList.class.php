@@ -35,12 +35,32 @@ class DifferenceOverviewList
     private $HasChange;
     
     /**
+     * Actual page
+     * @var mixed
+     */
+    private $Page;
+    
+    /**
+     * Total items count
+     * @var mixed
+     */
+    private $ItemsCount;
+    
+    /**
+     * Pagination flag
+     */
+    private $Pagination;
+    
+    /**
      * Difference overview list constructor
      */
     public function __construct()   {
         $this->Items = array();
         $this->Headers = array();
         $this->HasChange = false;
+        $this->Pagination = false;
+        $this->Page = 0;
+        $this->ItemsCount = 0;
     }
     
     /**
@@ -70,6 +90,30 @@ class DifferenceOverviewList
     }
     
     /**
+     * Set page
+     * @param mixed $page 
+     */
+    public function SetPage($page)   {
+        $this->Page = $page;
+    }
+    
+    /**
+     * Set items count
+     * @param mixed $itemsCount 
+     */
+    public function SetItemsCount($itemsCount)  {
+        $this->ItemsCount = $itemsCount;
+    }
+    
+    /**
+     * Set pagination
+     * @param mixed $pagination 
+     */
+    public function SetPagination($pagination)  {
+        $this->Pagination = $pagination;
+    }
+    
+    /**
      * Export object for serialization
      * @return mixed
      */
@@ -81,7 +125,14 @@ class DifferenceOverviewList
         $overviewList->Items = array();
         $overviewList->Name = $this->Name;
         $overviewList->HasChange = $this->HasChange;
-        $overviewList->ItemsCount = count($this->Items);
+        
+        if (!$this->ItemsCount)
+            $overviewList->ItemsCount = count($this->Items);
+        else
+            $overviewList->ItemsCount = $this->ItemsCount;
+        
+        $overviewList->Pagination = $this->Pagination;
+        $overviewList->Page = $this->Page;
         foreach ($this->Items as $item)
         {
             $overviewList->Items[] = $item->ExportObject();
