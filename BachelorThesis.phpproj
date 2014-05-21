@@ -16,6 +16,7 @@
     <IncludeDebugInformation>false</IncludeDebugInformation>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="api\ComponentController.class.php" />
     <Compile Include="api\ImportController.class.php" />
     <Compile Include="api\InstallationController.class.php" />
     <Compile Include="api\PathController.class.php" />
@@ -36,6 +37,7 @@
     <Compile Include="corly\dao\plugin\Plugin.entity.php" />
     <Compile Include="corly\dao\plugin\Project.entity.php" />
     <Compile Include="corly\dao\stat\ErrorCodes.enum.php" />
+    <Compile Include="corly\dao\stat\InstallationState.enum.php" />
     <Compile Include="corly\dao\stat\PathType.enum.php" />
     <Compile Include="corly\dao\suite\Category.entity.php" />
     <Compile Include="corly\dao\suite\Result.entity.php" />
@@ -54,6 +56,7 @@
     <Compile Include="corly\entities\TestCaseTSE.entity.php" />
     <Compile Include="corly\installation\ApplicationConfiguration.class.php" />
     <Compile Include="corly\installation\DatabaseInstallation.class.php" />
+    <Compile Include="corly\service\plugin\ComponentService.class.php" />
     <Compile Include="corly\service\application\ConfigurationService.class.php" />
     <Compile Include="corly\service\application\PathService.class.php" />
     <Compile Include="corly\service\import\ImportService.class.php" />
@@ -69,7 +72,6 @@
     <Compile Include="corly\service\utilities\DbUtil.class.php" />
     <Compile Include="corly\service\utilities\IncludeService.class.php" />
     <Compile Include="corly\service\utilities\TimeService.class.php" />
-    <Compile Include="index.php" />
     <Compile Include="Library.utility.php" />
     <Compile Include="api\AuthentizationController.class.php" />
     <Compile Include="api\UserController.class.php" />
@@ -160,14 +162,22 @@
     <Compile Include="plugins\systemtap\components\configuration\SystemTAP_ConfigurationView.class.php" />
     <Compile Include="plugins\systemtap\components\configuration\SystemTAP_ConfigurationViewProperty.class.php" />
     <Compile Include="plugins\systemtap\components\configuration\SystemTAP_SubmissionOverviewConfiguration.class.php" />
+    <Compile Include="plugins\systemtap\components\diffConfiguration\SystemTAP_DiffConfigurationView.php" />
+    <Compile Include="plugins\systemtap\components\diffConfiguration\SystemTAP_DiffConfigurationViewRow.php" />
     <Compile Include="plugins\systemtap\entity\SystemTAP_Configuration.entity.php" />
     <Compile Include="plugins\systemtap\Importer.class.php" />
     <Compile Include="plugins\systemtap\Parser.class.php" />
+    <Compile Include="plugins\systemtap\stat\SystemTAP_DifferenceOverviewComponent.php" />
+    <Compile Include="plugins\systemtap\stat\SystemTAP_DifferenceOverviewType.php" />
+    <Compile Include="plugins\systemtap\stat\SystemTAP_StatusStyle.php" />
+    <Compile Include="plugins\systemtap\stat\SystemTAP_StatusValue.php" />
     <Compile Include="plugins\systemtap\stat\SystemTAP_SubmissionOverviewComponent.enum.php" />
     <Compile Include="plugins\systemtap\stat\SystemTAP_SubmissionOverviewType.enum.php" />
     <Compile Include="plugins\systemtap\Visualization.class.php" />
     <Compile Include="plugins\systemtap\visualization\DifferenceVisualization.class.php" />
     <Compile Include="plugins\systemtap\visualization\difference\SystemTAP_DifferenceOverviewChart.class.php" />
+    <Compile Include="plugins\systemtap\components\diffConfiguration\SystemTAP_DifferenceOverviewConfiguration.php" />
+    <Compile Include="plugins\systemtap\visualization\difference\SystemTAP_DifferenceOverviewLists.php" />
     <Compile Include="plugins\systemtap\visualization\ProjectVisualization.class.php" />
     <Compile Include="plugins\systemtap\visualization\project\SystemTAP_ProjectOverviewChart.class.php" />
     <Compile Include="plugins\systemtap\visualization\project\SystemTAP_ProjectOverviewList.class.php" />
@@ -185,6 +195,7 @@
     <Compile Include="utilities\ValidationResult.php" />
     <Compile Include="views\home\index.html" />
     <Compile Include="views\login\index.html" />
+    <Compile Include="index.php" />
     <Compile Include="visualization\components\googleChart\GCAxis.class.php" />
     <Compile Include="visualization\components\googleChart\GCCell.class.php" />
     <Compile Include="visualization\components\googleChart\GCCol.class.php" />
@@ -261,6 +272,8 @@
     <Folder Include="plugins\glibc\visualization\submission\" />
     <Folder Include="plugins\systemtap\components\configuration\" />
     <Folder Include="plugins\systemtap\components\configuration\js\" />
+    <Folder Include="plugins\systemtap\components\diffConfiguration\" />
+    <Folder Include="plugins\systemtap\components\diffConfiguration\js\" />
     <Folder Include="plugins\systemtap\entity\" />
     <Folder Include="plugins\systemtap\components\" />
     <Folder Include="plugins\systemtap\stat\" />
@@ -327,6 +340,8 @@
     <Content Include="plugins\glibc\config.xml" />
     <Content Include="plugins\systemtap\components\configuration\js\SystemTAP_ConfigurationView.js" />
     <Content Include="plugins\systemtap\components\configuration\template.html" />
+    <Content Include="plugins\systemtap\components\diffConfiguration\js\SystemTAP_DiffConfigurationView.js" />
+    <Content Include="plugins\systemtap\components\diffConfiguration\template.html" />
     <Content Include="plugins\systemtap\config.xml" />
     <Content Include="views\home\import.html" />
     <Content Include="views\home\overview\difference.html" />

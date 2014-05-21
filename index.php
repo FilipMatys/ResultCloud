@@ -19,7 +19,7 @@ Library::using(Library::CORLY_SERVICE_PLUGIN);
     <div class="main-view" ui-view></div>
     <div class="row footer">
         <div class="large-12 columns">
-            Corly Management Tool by Filip Matys | Version 2014.1 | 2014/04/26
+            Corly Management Tool by Filip Matys | Version 2014.1 | 2014/05/20
         </div>
     </div>
     <script src="js/jquery.js"></script>
