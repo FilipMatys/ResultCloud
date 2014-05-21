@@ -44,7 +44,7 @@ class SystemTAP_SubmissionOverviewList
                     $submissionOverviewListItemCaseResult = new SubmissionOverviewListItemCaseResult($result);  
                     
                     // Set style
-                    //$submissionOverviewListItemCaseResult->SetStyle(SystemTAP_SubmissionOverviewList::GetStatusStyleByValue($result->GetValue()));
+                    $submissionOverviewListItemCaseResult->SetStyle(SystemTAP_SubmissionOverviewList::GetStatusStyleByValue($result->GetValue()));
                     
                     // Add result to submission case
                     $submissionOverviewListItemCase->AddResult($submissionOverviewListItemCaseResult);
@@ -69,5 +69,44 @@ class SystemTAP_SubmissionOverviewList
         
         // Return result
         return $submissionOverviewList->ExportObject();
+    }
+    
+    /**
+     * Get style based on value
+     * @param mixed $value 
+     * @return mixed
+     */
+    private static function GetStatusStyleByValue($value)   {
+        switch($value)  {
+            case SystemTAP_StatusValue::ERROR:
+                return SystemTAP_StatusStyle::ERROR;
+            
+            case SystemTAP_StatusValue::FAIL:
+                return SystemTAP_StatusStyle::FAIL;
+            
+            case SystemTAP_StatusValue::KFAIL:
+                return SystemTAP_StatusStyle::KFAIL;
+            
+            case SystemTAP_StatusValue::XFAIL:
+                return SystemTAP_StatusStyle::XFAIL;
+            
+            case SystemTAP_StatusValue::KPASS:
+                return SystemTAP_StatusStyle::KPASS;
+            
+            case SystemTAP_StatusValue::PASS:
+                return SystemTAP_StatusStyle::PASS;
+                
+            case SystemTAP_StatusValue::XPASS:
+                return SystemTAP_StatusStyle::XPASS;
+                
+            case SystemTAP_StatusValue::UNSUPPORTED:
+                return SystemTAP_StatusStyle::UNSUPPORTED;
+                
+            case SystemTAP_StatusValue::UNTESTED:
+                return SystemTAP_StatusStyle::UNTESTED;
+            
+            default:
+                return "";
+        }
     }
 }

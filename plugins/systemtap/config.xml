@@ -22,5 +22,8 @@
     <component folder="configuration">
       <file>SystemTAP_ConfigurationView.js</file>
     </component>
+    <component folder="diffConfiguration">
+      <file>SystemTAP_DiffConfigurationView.js</file>
+    </component>
   </components>
 </config>

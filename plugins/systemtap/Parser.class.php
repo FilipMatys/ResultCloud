@@ -27,6 +27,7 @@ class Parser
         self::$RESULT_CODES = array(
                 "PASS",
                 "XPASS",
+                "KPASS",
                 "FAIL",
                 "XFAIL",
                 "KFAIL",
