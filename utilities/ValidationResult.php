@@ -1,4 +1,6 @@
 <?php
+include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Library.utility.php');
+
 /**
  * Description of ValidationResult
  * Object carrying main object, whose validation
@@ -7,9 +9,13 @@
  *
  * @author Filip Matys
  * @author Jiri Kratochvil
+ * @author Bohdan Iakymets
  */
 
-class ValidationResult {
+//Include Library
+Library::using(Library::UTILITIES, ['ResultManager.php']);
+
+class ValidationResult extends ResultManager {
     
     // Data object
     public $Data;
@@ -27,6 +33,7 @@ class ValidationResult {
      * @param type $object
      */
     public function __construct($object) {
+        parent::__construct();
         $this->Data = $object;
         $this->IsValid = true;
         $this->Errors = array();
@@ -72,6 +79,7 @@ class ValidationResult {
     public function Append($validation)    {
         $this->IsValid = $validation->IsValid && $this->IsValid;
         $this->Errors = array_merge($this->Errors, $validation->Errors);
+        $this->Results = array_merge($this->Results, $validation->Results);
     }
     
     /**
@@ -103,5 +111,15 @@ class ValidationResult {
     private function AddInvalid($error) {
         $this->IsValid = false;
         $this->Errors[] = $error;
+    }
+    /**
+     * Overloading parent's function
+     * @return JSON string with results
+     */
+    public function toJSON() {
+        if (!$this->IsValid)
+            $this->Results['Errors'] = $this->Errors;
+        $this->Results['IsValid'] = $this->IsValid;
+        return parent::toJSON();
     }
 }

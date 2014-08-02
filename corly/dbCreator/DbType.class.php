@@ -31,4 +31,11 @@ class DbType
     public static function LongText()  {
         return "longtext";
     }
+
+    /**
+     * Get type of integer
+     */
+    public static function Integer()  {
+        return "int(11)";
+    }
 }

@@ -35,7 +35,7 @@ class ImportService
     /**
      * Import file with given plugin
      */
-    public function Import($data, $file)    {
+    public function Import($data, $file, $api_call = false)    {
         // Init validation
         $validation = new ValidationResult($data);
         
@@ -69,8 +69,14 @@ class ImportService
             return $validation;
         }
         
+
         // Set user and import date time and save imported data into database
-        $importValidation->Data->SetUser(SessionService::GetSession('id'));
+        if ($api_call)
+            $idUser = $validation->Data->Id;
+        else
+            $idUser = SessionService::GetSession('id');
+
+        $importValidation->Data->SetUser($idUser);
         $importValidation->Data->SetImportDateTime(TimeService::DateTime());
         $validation->Append($this->SubmissionService->Save($importValidation->Data, $validation->Data->Project));
         

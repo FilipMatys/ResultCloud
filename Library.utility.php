@@ -56,18 +56,28 @@ class Library	{
     
     // Plugins
     const PLUGINS = "plugins";
-    
+  
 	/**
 	 * Include files of given folder
 	 */
-	public static function using($folder)	{
+	public static function using($folder, $files = array())	{
 		$folder = dirname(__FILE__).DIRECTORY_SEPARATOR . $folder;
 		// For each file in given folder
-		foreach (glob("{$folder}/*.php") as $filename)	{
-        	include_once($filename);
+        if (empty($files)) {
+            $files = glob("{$folder}/*.php");
+        }
+        else {
+            // Only selected files
+            array_walk($files, array('Library', 'AddFolder'), $folder);
+        }
+		foreach ($files as $filename)	{
+            if (is_file($filename))
+        	   include_once($filename);
     	}
 	}
-    
+    public static function AddFolder(&$item, $key, $folder) {
+        $item = $folder."/".$item;
+    }
     /**
      * Include file of given project folder
      * @param mixed $projectDirectoryName 
