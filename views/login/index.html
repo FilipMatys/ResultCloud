@@ -13,8 +13,10 @@
             <input type="text" ng-model="credentials.Username" placeholder="Username" />
             <input type="password" ng-model="credentials.Password" placeholder="Password" />
             <input type="submit" ng-click="AuthorizeCredentials()" class="btn full-width" value="Login" />
+            <button class="btn full-width" ng-click="Registration()">Registration</button>
             <span class="err" ng-repeat="error in errors">{{error}}</span>
         </fieldset>
+        
         <fieldset ng-show="!installed && installationState == 0">
             <h3>Corly installation</h3>
             <input type="text" ng-model="installation.Hostname" placeholder="Hostname" />
@@ -23,8 +25,8 @@
             <input type="submit" ng-click="Install()" class="btn full-width" value="Install" />
             <span class="err" ng-repeat="error in errors">{{error}}</span>
         </fieldset>
-        <fieldset ng-show="!installed && installationState == 1">
-            <h3>Corly installation</h3>
+        <fieldset ng-show="(!installed && installationState == 1) || registrationStart">
+            <h3>Corly registration</h3>
             <input type="text" ng-model="registration.Person.Name" placeholder="Name" />
             <input type="text" ng-model="registration.Username" placeholder="Username" />
             <input type="password" ng-model="registration.Password" placeholder="Password" />

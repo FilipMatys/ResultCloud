@@ -11,6 +11,7 @@ application.controller('LoginController', function ($scope, $state, UserService,
     $scope.installation = {};
     $scope.installationState = 0;
     $scope.registration = {};
+    $scope.registrationStart = false;
 
     $scope.Install = function () {
         //var credentials = {
@@ -36,12 +37,18 @@ application.controller('LoginController', function ($scope, $state, UserService,
             });
     }
 
+    // Show registration fields
+    $scope.Registration = function () {
+        $scope.registrationStart = true;
+    }
+
     // Register user
     $scope.Register = function () {
         InstallationService.register($scope.registration)
             .success(function (data, status, headers, config) {
                 $scope.installed = data.IsValid;
                 $scope.installationState = data.Data;
+                $scope.registrationStart = ($scope.installationState == 1);
                 $scope.errors = data.Errors;
             });
     }
