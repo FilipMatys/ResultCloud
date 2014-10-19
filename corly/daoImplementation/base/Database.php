@@ -131,6 +131,12 @@ abstract class Database  {
         
         return ResultParser::parseMultipleResult($statement);
     }
+
+    public function DeleteFilteredList(Parameter $parameter) {
+        $statement = $this->db->prepare($this->statements->getBasicDeleteStatement()." ".$parameter->Condition);
+        $statement->bind_param($this->ObjectPropertyParser->getValueType($parameter->Value), $parameter->Value);
+        $statement->execute();
+    }
     
     /**
      * Get filtered list of given entity

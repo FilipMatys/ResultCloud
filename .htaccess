@@ -1,0 +1,5 @@
+# Do not remove this line or mod_rewrite rules and search engine friendly URLs will stop working
+RewriteEngine On
+RewriteBase /
+RewriteRule ^method/([a-zA-Z0-9]+)\.([a-zA-Z0-9]+)(.*)$ api/MethodController.class.php?method=$1&function=$2 [QSA]
+

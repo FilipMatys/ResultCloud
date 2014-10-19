@@ -43,6 +43,11 @@ class StatementBuilder  {
         return $this->DELETE_STATEMENT;
     }
 
+    //Get basic delete statement
+    public function getBasicDeleteStatement() {
+        return $this->buildBasicDeleteStatement();
+    }
+
     // Build database function statements
     private function buildStatements()  {
         $this->buildDeleteStatement();
@@ -70,7 +75,11 @@ class StatementBuilder  {
     
     // Build basic delete operation
     private function buildDeleteStatement() {
-        $this->DELETE_STATEMENT = 'DELETE FROM '.get_class($this->Class).' WHERE Id=?';
+        $this->DELETE_STATEMENT = $this->buildBasicDeleteStatement().' WHERE Id=?';
+    }
+
+    private function buildBasicDeleteStatement() {
+        return 'DELETE FROM '.get_class($this->Class);
     }
 }
 

@@ -9,16 +9,18 @@ Library::using(Library::UTILITIES);
 class AuthentizationService	{
 	// Daos
 	private $UserDao;
+	private $TokenDao;
 
 	// Init daos
 	public function __construct()	{
 		$this->UserDao = new UserDao();
+		$this->TokenDao = new TokenDao();
 	}
 
 	/**
 	 * Authorize credentials
 	 */
-	public function Authorize($credentials)	{
+	public function Authorize($credentials, $api_call = false)	{
 		// Init validations
 		$credentialsValidation = new ValidationResult($credentials);
 
@@ -44,11 +46,30 @@ class AuthentizationService	{
 			return $credentialsValidation;	
 		} 
 
-		// Everything passed, so set session variables
-        SessionService::SetSession('id', $lUsers->Single()->Id);
+		// Check if method was called from MethodController
+		if ($api_call) {
+			// Generating token key
+			$creation_time = time();
+			// Delete all tokens older than 24h
+			$this->TokenDao->DeleteFilteredList(QueryParameter::WhereLess('CreationTime', ($creation_time-(24*60*60))));
+			// Params to insert into table
+			$new_token = new stdClass();
+			$new_token->CreationTime = $creation_time;
+			$new_token->User = $lUsers->Single()->Id;
+			$new_token->TokenKey = md5(uniqid($lUsers->Single()->Id));
+			// Insert
+			$this->TokenDao->Save($new_token);
 
-		// Return validation
-		return $credentialsValidation;
+			$credentialsValidation->Add("Result", $new_token);
+			// Return validation
+			return $credentialsValidation;	
+
+		}
+		else {
+        	SessionService::SetSession('id', $lUsers->Single()->Id);
+			// Return validation
+			return $credentialsValidation;
+		}
 	}
     
     /**

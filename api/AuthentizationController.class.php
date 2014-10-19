@@ -5,6 +5,7 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Lib
 
 // Include files
 Library::using(Library::CORLY_SERVICE_SECURITY);
+Library::using(Library::UTILITIES, ['ValidationResult.php']);
 
 class AuthentizationController	{
 	// Request constants
@@ -57,7 +58,7 @@ if (isset($_GET["method"]))	{
             break;
 		
 		default:
-			$result = false;
+			$result = new ResultManager();
 			break;
 	}
 

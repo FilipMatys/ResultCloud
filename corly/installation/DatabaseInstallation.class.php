@@ -52,6 +52,10 @@ class DatabaseInstallation
         $this->CreateTb_Result();
         // Component
         $this->CreateTb_Component();
+        // Token
+        $this->CreateTb_Token();
+        // ImportSession
+        $this->CreateTb_ImportSession();
     }
     
     /**
@@ -464,6 +468,90 @@ class DatabaseInstallation
         // Add table to database
         $this->Database->AddTable($tResult);
     }
+
+    /**
+     * Create token table
+     * - TokenKey [varchar(255)]
+     * - User [int(11)]
+     * - CreationTime [int(11)]
+     */
+    private function CreateTb_Token()  {
+        $tResult = new DbTable('Token');
+        
+        // Set token property
+        $pToken = new DbProperty('TokenKey');
+        $pToken->SetType(DbType::Varchar(255));
+        $pToken->NotNull();
+        // Add id to table
+        $tResult->AddProperty($pToken);
+        
+        // Set user id property
+        $pUser = new DbProperty('User');
+        $pUser->SetType(DbType::Integer());
+        $pUser->NotNull();
+        // Add key to table
+        $tResult->AddProperty($pUser);
+        
+        // Set creation time property
+        $pTime = new DbProperty('CreationTime');
+        $pTime->SetType(DbType::Integer());
+        $pTime->NotNull();
+        // Add value to table
+        $tResult->AddProperty($pTime);
+        
+        // Add table to database
+        $this->Database->AddTable($tResult);
+    }
+
+    /**
+     * Create import session table
+     * - SessionId [varchar(255)]
+     * - User [int(11)]
+     * - CreationTime [int(11)]
+     * - Plugin [double]
+     * - Project [double]
+     */
+    private function CreateTb_ImportSession()  {
+        $tResult = new DbTable('ImportSession');
+        
+        // Set token property
+        $pToken = new DbProperty('SessionId');
+        $pToken->SetType(DbType::Varchar(255));
+        $pToken->NotNull();
+        // Add id to table
+        $tResult->AddProperty($pToken);
+        
+        // Set user id property
+        $pUser = new DbProperty('User');
+        $pUser->SetType(DbType::Integer());
+        $pUser->NotNull();
+        // Add key to table
+        $tResult->AddProperty($pUser);
+        
+        // Set creation time property
+        $pTime = new DbProperty('CreationTime');
+        $pTime->SetType(DbType::Integer());
+        $pTime->NotNull();
+        // Add value to table
+        $tResult->AddProperty($pTime);
+
+        // Set plugin id property
+        $pPlugin = new DbProperty('Plugin');
+        $pPlugin->SetType(DbType::Double());
+        $pPlugin->NotNull();
+        // Add key to table
+        $tResult->AddProperty($pPlugin);
+
+        // Set project id property
+        $pProject = new DbProperty('Project');
+        $pProject->SetType(DbType::Double());
+        $pProject->NotNull();
+        // Add key to table
+        $tResult->AddProperty($pProject);
+        
+        // Add table to database
+        $this->Database->AddTable($tResult);
+    }
     
     /**
      * Create database
@@ -474,7 +562,7 @@ class DatabaseInstallation
         
         // Initialize mysqli
         @$mysqli = new mysqli($credentials->Hostname, $credentials->Username, $credentials->Password);
-        
+
         // Check connection
         if ($mysqli->connect_error) {
             $validation->AddError("Failed to connect to database server");

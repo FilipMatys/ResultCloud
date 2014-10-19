@@ -30,6 +30,28 @@ class QueryParameter {
     }
 
     /**
+     * Condition WHERE column < value
+     * 
+     * @param type $property
+     * @param type $value
+     * @return \Parameter
+     */
+    public static function WhereLess($property, $value) {
+        return new Parameter('WHERE '.$property."<?",$value);     
+    }
+
+    /**
+     * Condition WHERE column > value
+     * 
+     * @param type $property
+     * @param type $value
+     * @return \Parameter
+     */
+    public static function WhereGreater($property, $value) {
+        return new Parameter('WHERE '.$property.">?",$value);     
+    }
+
+    /**
      * Condition WHERE column LIKE %value%
      * 
      * @param type $property
