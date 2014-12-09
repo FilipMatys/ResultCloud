@@ -22,12 +22,6 @@
                         {{testCase.Name}}
                     </h3>
                     <table class="full-width double">
-                        <thead>
-                            <tr>
-                                <th>Key</th>
-                                <th>Value</th>
-                            </tr>
-                        </thead>
                         <tbody>
                             <tr ng-hide="ShowColumn[$index]" ng-repeat="result in testCase.Results">
                                 <td>{{result.Key}}</td>
