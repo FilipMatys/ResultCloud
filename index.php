@@ -53,7 +53,7 @@ Library::using(Library::CORLY_SERVICE_PLUGIN);
     <script src="visualization/components/testCaseList/js/TestCaseList.js" type="text/javascript"></script>
     <script src="visualization/components/difference/js/DifferenceList.js" type="text/javascript"></script>
     <!-- Load plugins components -->
-    <?php  IncludeService::JsComponents(); ?>
+    <?php IncludeService::JsComponents(); ?>
 
     <script>
         $(document).foundation();
