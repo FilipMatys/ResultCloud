@@ -110,6 +110,7 @@ class SystemTAP_SubmissionOverviewChart
         // Create options and set all in it
         $gcOptions = new GCOptions();
         $gcOptions->setTitle("Result overview");
+        $gcOptions->setDisplayOverviewHeader(false);
         
         // Return options
         return $gcOptions;

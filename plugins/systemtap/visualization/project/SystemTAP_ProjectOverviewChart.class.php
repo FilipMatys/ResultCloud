@@ -155,6 +155,7 @@ class SystemTAP_ProjectOverviewChart
         $gcOptions = new GCOptions();
         $gcOptions->setFill(20);
         $gcOptions->setTitle("Running results");
+        $gcOptions->setDisplayOverviewHeader(true);
         
         // Create vAxis
         $gcVAxis = new GCAxis();

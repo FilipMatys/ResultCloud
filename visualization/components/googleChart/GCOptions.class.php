@@ -16,6 +16,7 @@ class GCOptions
     private $DisplayExactValues;
     private $VAxis;
     private $HAxis;
+    private $DisplayOverviewHeader;
     
     /**
      * Google charts options controller
@@ -23,6 +24,7 @@ class GCOptions
     public function __construct()   {
         $this->IsStacked = true;
         $this->DisplayExactValues = true;
+        $this->DisplayOverviewHeader = false;
     }
     
     /**
@@ -58,6 +60,14 @@ class GCOptions
     }
     
     /**
+     * Set if to display header for overview table
+     * @param mixed $displayOverviewHeader
+     */
+    public function setDisplayOverviewHeader($displayOverviewHeader)    {
+        $this->DisplayOverviewHeader = $displayOverviewHeader;
+    }
+
+    /**
      * Set Google chart hAxis
      * @param mixed $hAxis 
      */
@@ -86,6 +96,7 @@ class GCOptions
         $options->isStacked = $this->IsStacked;
         $options->fill = $this->Fill;
         $options->displayExactValues = $this->DisplayExactValues;
+        $options->displayOverviewHeader = $this->DisplayOverviewHeader;
         
         if (isset($this->VAxis))
             $options->vAxis = $this->VAxis->ExportObject();
