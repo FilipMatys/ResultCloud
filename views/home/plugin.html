@@ -1,4 +1,4 @@
-﻿<div class="row">
+<div class="row">
     <div class="large-12 columns">
         <ul class="breadcrumbs">
             <li><a ui-sref="home.dashboard">Dashboard</a></li>
@@ -49,8 +49,8 @@
                                 <span>Number of submissions {{project.Submissions}}</span>
                             </div>
                             <div class="large-4 medium-12 columns">
-                                <button data-tooltip title="This feature wasn't subject of bachelor thesis, so is not functional. But is planned in future releases" class="btn">Clean</button>
-                                <button data-tooltip title="This feature wasn't subject of bachelor thesis, so is not functional. But is planned in future releases" class="btn alert">Delete</button>
+                                <button class="btn" ng-click="ClearProject({projectId:project.Id})">Clean</button>
+                                <button ng-click="DeleteProject({projectId:project.Id})" class="btn alert">Delete</button>
                             </div>
                         </div>
                     </fieldset>

@@ -210,6 +210,20 @@ application.factory('ProjectService', ['$http', function ($http) {
                 url: 'api/ProjectController.class.php?method=DIFFVIEWS',
                 data: projectId
             })
+        },
+        clear: function (projectId) {
+            return $http({
+                method: 'POST',
+                url: 'api/ProjectController.class.php?method=CLEAR',
+                data: projectId
+            })
+        },
+        projectDelete: function (projectId) {
+            return $http({
+                method: 'POST',
+                url: 'api/ProjectController.class.php?method=DELETE',
+                data: projectId
+            })
         }
     }
 }]);

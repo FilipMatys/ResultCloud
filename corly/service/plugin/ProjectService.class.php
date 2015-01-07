@@ -162,4 +162,14 @@ class ProjectService
         // Process data by plugin
         return Visualization::VisualizeProject($project, $type);
     }
+
+    public function ClearProject($project) {
+        $dbProject = $this->ProjectDao->Load($project);
+        $this->SubmissionService->ClearSubmission($dbProject->Id);
+    }
+
+    public function DeleteProject($project) {
+        $this->SubmissionService->ClearSubmission($project->Id);
+        $this->ProjectDao->Delete($project);
+    }
 }

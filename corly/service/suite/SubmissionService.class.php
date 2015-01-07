@@ -297,4 +297,12 @@ class SubmissionService
         return $validation;
     }
     
+    public function ClearSubmission($projectId) {
+        $dbSubmissions = $this->SubmissionDao->GetFilteredList(QueryParameter::Where('Project', $projectId));
+        foreach ($dbSubmissions as $dbSubmission)
+        {
+            $this->CategoryService->ClearCategory($dbSubmission->Id);
+        }
+        $this->SubmissionDao->DeleteFilteredList(QueryParameter::Where('Project', $projectId));
+    }
 }
