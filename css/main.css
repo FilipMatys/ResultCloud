@@ -31,6 +31,7 @@ div.card    {
 div.card.header {
     margin-top: 1rem;
     border-bottom: solid 1px #ea0011;
+    margin-bottom: 0.25rem;
 }
 
 div.card.header input,
@@ -40,6 +41,19 @@ div.card.header select {
 
 div.card h1 {
     margin-top: 0rem;
+}
+
+div.card label {
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+div.card.header label   {
+    font-weight: normal;
+}
+
+div.card label input {
+    margin-top: 0.5rem;
 }
 
 div.main-view,
