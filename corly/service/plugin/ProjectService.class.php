@@ -259,7 +259,6 @@ class ProjectService
         
         // Create hAxis
         $gcHAxis = new GCAxis();
-        $gcHAxis->setTitle("Cau");
         $gcHAxis->setTextPosition("top");
 
         // Add to options

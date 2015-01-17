@@ -115,6 +115,23 @@ button:focus    {
     background: #e5e5e5;
 }
 
+.button, 
+button {
+    background-color: #ea0011;
+    border: #ea0011;
+}
+
+button[disabled],
+button[disabled]:hover     {
+    background-color: #999999;
+    border: #999966;
+}
+
+.button:hover,
+button:hover {
+    background-color: #ea0011;
+}
+
 .row    {
     max-width: none;
 }
@@ -127,6 +144,7 @@ a.icon  {
     color: #999999;
 }
 
+.list-item a.icon:hover,
 a.icon:hover  {
     color: #ea0011;
     text-decoration: none;
@@ -143,7 +161,8 @@ a.icon:hover  {
     display: inline-block;
 }
 
-.list .desc a:hover {
+.list .desc a:hover,
+.list-item a:hover {
     text-decoration: underline;
 }
 
@@ -161,49 +180,6 @@ span.pending    {
     width: 2rem;
     display: block;
     height: 2.5rem;
-}
-
-.btn {
-    display: inline-block;
-    padding: 5px 18px;
-    margin-bottom: 0;
-    font-size: 14px;
-    line-height: 20px;
-    color: rgba(47,47,47,0.9);
-    text-align: center;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.7);
-    vertical-align: middle;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    -ms-border-radius: 2px;
-    -o-border-radius: 2px;
-    border-radius: 2px;
-    background-color: #e7e7e7;
-    background-image: -moz-linear-gradient(top, #ececec, #e0e0e0);
-    background-image: -ms-linear-gradient(top, #ececec, #e0e0e0);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ececec), to(#e0e0e0));
-    background-image: -webkit-linear-gradient(top, #ececec, #e0e0e0);
-    background-image: -o-linear-gradient(top, #ececec, #e0e0e0);
-    background-image: linear-gradient(top, #ececec,#e0e0e0);
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ececec', endColorstr='#e0e0e0', GradientType=0),#ececec,#e0e0e0;
-    border-color: rgba(5,5,5,0.05) rgba(5,5,5,0.15) rgba(5,5,5,0.2);
-    cursor: pointer;
-    border-style: solid;
-    border-width: 1px;
-}
-
-.btn.alert  {
-    background: #ea0011;
-}
-
-.btn:hover {
-    color: #000;
-    border-color: rgba(0,0,0,0.15) rgba(0,0,0,0.35) rgba(0,0,0,0.5);
-    text-decoration: none;
-    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-    -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
 }
 
 .hidden     {
@@ -495,6 +471,7 @@ div.list-item div.large-4 {
 
 div.toolbar label   {
     display: inline;
+    margin-right: 0.5rem;
 }
 
 input[type=checkbox]  {
