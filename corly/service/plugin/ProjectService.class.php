@@ -10,6 +10,8 @@ Library::using(Library::CORLY_SERVICE_SECURITY);
 Library::using(Library::CORLY_ENTITIES);
 Library::using(Library::UTILITIES);
 
+Library::using(Library::VISUALIZATION_COMPONENT_GOOGLECHART);
+
 /**
  * ProjectService short summary.
  *
@@ -161,5 +163,109 @@ class ProjectService
         
         // Process data by plugin
         return Visualization::VisualizeProject($project, $type);
+    }
+
+    /**
+     * Get project liveness
+     */
+    public function GetLiveness($project)   {
+        // Get dates to create liveness for
+        $dates = TimeService::MonthIntervalArray(TimeService::Date(), -12);
+
+        // Get submissions of given project
+        $submissions = $this->SubmissionService->GetFilteredList(QueryParameter::Where('Project', $project->Id));
+
+        // Initialize chart
+        $googleChart = new GoogleChart();
+        $googleChart->setType(GCType::COLUMN_CHART);
+
+        // Create options
+        $googleChart->setOptions($this->GetLivenessGCOptions());
+        $googleChart->setData($this->GetLivenessGCData($submissions, $dates));
+
+
+        $project->Liveness = $googleChart->ExportObject();
+        // Return result
+        return $project;
+    }
+
+    private function GetLivenessGCData($submissions, $dates)    {
+        // Initialize date
+        $gcData = new GCData();
+        $lSubmissions = new LINQ($submissions);
+
+        // Set date column
+        $gcDateCol = new GCCol();
+        $gcDateCol->setId("date");
+        $gcDateCol->setLabel("Date");
+        $gcDateCol->setType("string");
+        // Add column to data set
+        $gcData->AddColumn($gcDateCol);
+
+        // Set number column
+        $gcCountCol = new GCCol();
+        $gcCountCol->setId("count");
+        $gcCountCol->setLabel("Count");
+        $gcCountCol->setType("number");
+        // Add column to data set
+        $gcData->AddColumn($gcCountCol);
+
+        foreach ($dates as $date) {
+            // Create new row
+            $gcRow = new GCRow();
+            
+            // Create label cell
+            $gcLabelCell = new GCCell();
+            $gcLabelCell->setValue(substr($date, 0, 7));
+            // Add cell to row
+            $gcRow->AddCell($gcLabelCell);
+            
+            // Create value cell
+            $gcValueCell = new GCCell();
+            $gcValueCell->setValue($lSubmissions->WhereStartsWith('ImportDateTime', substr($date, 0, 7))->Count());
+            // Add cell to row
+            $gcRow->AddCell($gcValueCell);
+            
+            // Add row to data
+            $gcData->AddRow($gcRow);
+        }
+
+        // Return data
+        return $gcData;
+    }
+
+    /**
+     * Get options for liveness google chart
+     * @return Google chart options
+     */
+    private function GetLivenessGCOptions() {
+        // Create options and set all in it
+        $gcOptions = new GCOptions();
+        $gcOptions->setDisplayOverviewHeader(true);
+        $gcOptions->setHeight(100);
+
+        // Set legend
+        $gcLegend = new GCLegend();
+        $gcLegend->setPosition("none");
+        $gcOptions->setLegend($gcLegend);
+        
+        // Create vAxis
+        $gcVAxis = new GCAxis();
+        $gcVAxis->setTextPosition("none");
+        $gcVAxis->setGridlines(new GCGridlines(0));
+        
+        // Add to options
+        $gcOptions->setVAxis($gcVAxis);
+        
+        // Create hAxis
+        $gcHAxis = new GCAxis();
+        $gcHAxis->setTitle("Cau");
+        $gcHAxis->setTextPosition("top");
+
+        // Add to options
+        $gcOptions->setHAxis($gcHAxis);
+        
+        // Return options
+        return $gcOptions;
     }
 }

@@ -438,21 +438,25 @@ form.list fieldset  {
 }
 
 form.list,
-.toolbar form   {
+.toolbar form,
+div.list-item   {
     margin-bottom: 0rem;
 }
 
-form.list p {
+form.list p,
+div.list-item p {
     margin-bottom: 0rem;
     line-height: 3.2rem;
     padding-left: 1rem;
 }
 
-form.list .desc a   {
+form.list .desc a,
+div.list-item .desc a   {
     line-height: 1.6rem;
 }
 
-form.list a.icon    {
+form.list a.icon,
+div.list-item a.icon    {
     font-size: 1.5rem;
     line-height: 2.5rem;
     margin-right: 0.5rem;
@@ -461,7 +465,12 @@ form.list a.icon    {
     top: 0.2rem;
 }
 
-form.list .desc span    {
+div.list-item a.icon    {
+    margin-left: 0.5rem;
+}
+
+form.list .desc span,
+div.list-item .desc span    {
     font-size: 0.8rem;
     line-height: 0.8rem;
     margin-bottom: 0.2rem;
@@ -469,7 +478,8 @@ form.list .desc span    {
     display: block;
 }
 
-form.list p.about {
+form.list p.about,
+div.list-item p.about {
     padding-left: 0rem;
     line-height: 1.2rem;
     font-size: 0.9rem;
@@ -478,7 +488,8 @@ form.list p.about {
 }
 
 form.list fieldset div.large-4,
-div.toolbar div.large-4 {
+div.toolbar div.large-4,
+div.list-item div.large-4 {
     text-align: right;
 }
 
@@ -496,6 +507,11 @@ input[type=checkbox]  {
 */
 .google-chart   {
     height: 360px;
+}
+
+.google-chart.liveness  {
+    height: 100px;
+    margin-top: 1rem;
 }
 
 /**

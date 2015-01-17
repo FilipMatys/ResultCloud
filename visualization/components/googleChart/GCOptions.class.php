@@ -17,6 +17,8 @@ class GCOptions
     private $VAxis;
     private $HAxis;
     private $DisplayOverviewHeader;
+    private $Legend;
+    private $Height;
     
     /**
      * Google charts options controller
@@ -84,6 +86,20 @@ class GCOptions
     }
     
     /**
+     * Set legend for chart
+     */
+    public function setLegend($legend) {
+        $this->Legend = $legend;
+    }
+
+    /**
+     * Set charts height
+     */
+    public function setHeight($height)  {
+        $this->Height = $height;
+    }
+
+    /**
      * Export object for serialization
      * @return mixed
      */
@@ -97,6 +113,8 @@ class GCOptions
         $options->fill = $this->Fill;
         $options->displayExactValues = $this->DisplayExactValues;
         $options->displayOverviewHeader = $this->DisplayOverviewHeader;
+        $options->height = $this->Height;
+        $options->legend = $this->Legend;
         
         if (isset($this->VAxis))
             $options->vAxis = $this->VAxis->ExportObject();

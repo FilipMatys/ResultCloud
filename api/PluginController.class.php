@@ -19,6 +19,7 @@ class PluginController
     // Method constants
     const QUERY = "QUERY";
     const GET = "GET";
+    const GET_L = "GET_L";
     
     // Controller service
     private $PluginService;
@@ -28,6 +29,15 @@ class PluginController
      */
     public function __construct()  {
         $this->PluginService = new PluginService();
+    }
+
+    /**
+     * Get plugin with liveness
+     * @param mixed $pluginId
+     * @return plugin with detail with liveness
+     */
+    public function GetWithLiveness($pluginId) {
+        return $this->PluginService->GetLiveness($this->Get($pluginId));
     }
     
     /**
@@ -71,6 +81,10 @@ if (isset($_GET["method"]))	{
 		case PluginController::QUERY:
 			$result = $PluginController->Query();
 			break;
+
+        case PluginController::GET_L:
+            $result = $PluginController->GetWithLiveness($data);
+            break;
 
 		default:
 			$result = false;

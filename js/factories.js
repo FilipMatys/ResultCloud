@@ -162,6 +162,13 @@ application.factory('PluginService', ['$http', function ($http) {
                 url: 'api/PluginController.class.php?method=GET',
                 data: pluginId
             })
+        },
+        getWithLiveness: function (pluginId) {
+            return $http({
+                method: 'POST',
+                url: 'api/PluginController.class.php?method=GET_L',
+                data: pluginId
+            })
         }
     }
 }]);

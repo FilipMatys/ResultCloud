@@ -3,6 +3,7 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 
 // Get libraries
 Library::using(Library::CORLY_DAO_IMPLEMENTATION_PLUGIN);
+Library::using(Library::CORLY_SERVICE_PLUGIN, ['ProjectService.class.php']);
 Library::using(Library::CORLY_SERVICE_SECURITY);
 Library::using(Library::UTILITIES);
 
@@ -17,29 +18,32 @@ Library::using(Library::UTILITIES);
 class PluginService
 {
     // Daos
-    private $PluginDao;
-    private $ProjectDao;
-    private $SubmissionDao;
+    private static $PluginDao;
+    private static $ProjectDao;
+    private static $SubmissionDao;
     
-    private $UserService;
+    // Services
+    private static $UserService;
+    private static $ProjectService;
     
     /**
-     * Plugin service constructor
+     * Initialize service
      */
-    public function __construct()   {
-        $this->PluginDao = new PluginDao();
-        $this->ProjectDao = new ProjectDao();
-        $this->SubmissionDao = new SubmissionDao();
-        
-        $this->UserService = new UserService();
+    public static function init()   {
+        self::$PluginDao = new PluginDao();
+        self::$ProjectDao = new ProjectDao();
+        self::$SubmissionDao = new SubmissionDao();
+
+        self::$UserService = new UserService();
+        self::$ProjectService = new ProjectService();
     }
-    
+
     /**
      * Get list of all plugins
      * @return list of plugins
      */
     public function GetList()   {
-        return $this->PluginDao->GetList();
+        return self::$PluginDao->GetList();
     }
     
     /**
@@ -48,7 +52,7 @@ class PluginService
      * @return Filtered list of plugins
      */
     public function GetFilteredList(Parameter $parameter)   {
-        return $this->PluginDao->GetFilteredList($parameter);    
+        return self::$PluginDao->GetFilteredList($parameter);    
     }
     
     /**
@@ -61,7 +65,7 @@ class PluginService
         $validation = new ValidationResult($plugin);
         
         // Save plugin
-        $id = $this->PluginDao->Save($plugin);
+        $id = self::$PluginDao->Save($plugin);
         
         // Set id for validation result
         if ($id != 0)
@@ -78,23 +82,39 @@ class PluginService
      */
     public function GetDetail($plugin)  {
         // Load plugin from base table
-        $plugin = $this->PluginDao->Load($plugin);
+        $plugin = self::$PluginDao->Load($plugin);
 
         // Get all projects
-        $plugin->Projects = $this->ProjectDao->GetFilteredList(QueryParameter::Where('Plugin', $plugin->Id));
+        $plugin->Projects = self::$ProjectDao->GetFilteredList(QueryParameter::Where('Plugin', $plugin->Id));
         foreach ($plugin->Projects as $project) {
             $author = new stdClass();
             $author->Id = $project->Author;
             // Load  author
-            $project->Author = $this->UserService->GetDetail($author);
+            $project->Author = self::$UserService->GetDetail($author);
             
             // Get submissons
-            $lSubmissions = new LINQ($this->SubmissionDao->GetFilteredList(QueryParameter::Where('Project', $project->Id)));
+            $lSubmissions = new LINQ(self::$SubmissionDao->GetFilteredList(QueryParameter::Where('Project', $project->Id)));
             // Set submissions count
             $project->Submissions = $lSubmissions->Count();
         }
     
         // Return final plugin object
+        return $plugin;
+    }
+
+    /**
+     * Get liveness for plugin
+     * @param mixed $plugin
+     * @return plugin with liveness
+     */
+    public function GetLiveness($plugin)    {
+        // Create google chart for each project
+        foreach ($plugin->Projects as $project) {
+            // Get chart
+            $project = self::$ProjectService->GetLiveness($project);
+        }
+
+        // Return result
         return $plugin;
     }
     
@@ -107,10 +127,13 @@ class PluginService
         $plugin->Id = $pluginId;
         
         // Load plugin 
-        $plugin = $this->PluginDao->Load($plugin);
+        $plugin = self::$PluginDao->Load($plugin);
         
         // Load plugin structure
         Library::using(Library::PLUGINS .DIRECTORY_SEPARATOR. $plugin->Root);
     }
 }
+
+// Initialize class
+PluginService::init();
 

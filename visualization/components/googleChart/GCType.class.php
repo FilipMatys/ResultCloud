@@ -15,4 +15,5 @@ class GCType
     const COLUMN_CHART = "ColumnChart";
     const LINE_CHART = "LineChart";
     const BAR_CHART = "BarChart";
+    const HISTOGRAM = "Histogram";
 }

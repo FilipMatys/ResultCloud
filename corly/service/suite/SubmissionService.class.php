@@ -221,6 +221,13 @@ class SubmissionService
         // Return result
         return $validation;
     }
+
+    /**
+     * Get filtered list of submissions
+     */
+    public function GetFilteredList(Parameter $parameter)   {
+        return $this->SubmissionDao->GetFilteredList($parameter);
+    }
     
     /**
      * Load all submissions for given project

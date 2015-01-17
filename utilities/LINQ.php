@@ -155,6 +155,27 @@ class LINQ
         // Return result
         return new LINQ($result);
     }
+
+    /**
+     * Filter by prefix for given property
+     * @param mixed property
+     * @param mixed prefix
+     * @return LINQ
+     */
+    public function WhereStartsWith($property, $prefix)  {
+        // Init result
+        $result = array();
+
+        // Iterate through each item
+        foreach ($this->Array as $item) {
+            if (substr($item->{$property}, 0, strlen($prefix)) === $prefix) {
+                $result[] = $item;
+            }
+        }
+
+        // Return result
+        return new LINQ($result);
+    }
     
     /**
      * Check if given value is in array

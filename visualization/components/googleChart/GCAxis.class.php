@@ -12,6 +12,7 @@ class GCAxis
 {
     private $Title;
     private $Gridlines;
+    private $TextPosition;
     
     /**
      * Google chart axis controller
@@ -35,6 +36,14 @@ class GCAxis
     public function setGridlines($gridlines)  {
         $this->Gridlines = $gridlines;    
     }
+
+    /**
+     * Set text position
+     * @param mixed text position
+     */
+    public function setTextPosition($textPosition)    {
+        $this->TextPosition = $textPosition;
+    }
     
     /**
      * Export object for serialization
@@ -46,6 +55,7 @@ class GCAxis
         
         // Set values
         $axis->title = $this->Title;
+        $axis->textPosition = $this->TextPosition;
         
         if (isset($this->Gridlines))
             $axis->gridlines = $this->Gridlines->ExportObject();
