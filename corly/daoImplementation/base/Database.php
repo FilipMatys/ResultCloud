@@ -58,7 +58,7 @@ abstract class Database  {
      */
     public function Save($entity)   {
         // Insert entity if, is 
-        if (!isset($entity->Id))    {
+        if (!isset($entity->Id) || $entity->Id === 0)    {
             $statement = $this->db->prepare($this->statements->getInsertStatement($entity));
 
             // Get parameters, plus add double for id
@@ -87,9 +87,10 @@ abstract class Database  {
             // Now bind parameters
             call_user_func_array(array($statement, 'bind_param'), $this->refValues($values));
         }
-        
+
         // Execute query
         $statement->execute();
+
         return $this->db->insert_id;
     }
     

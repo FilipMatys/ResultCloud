@@ -20,6 +20,7 @@ class PluginManagementService
 {
     // Config file
     const CONFIG_FILE = "config.xml";
+    const TEMPLATES_FILE = "templates.xml";
     
     // Property values
     const NAME = "name";
@@ -234,6 +235,15 @@ class PluginManagementService
     
     private function GetPluginConfiguration($basename)   {
         // Load XML configuration
-        return simplexml_load_file(Library::path(Library::PLUGINS . DIRECTORY_SEPARATOR . $basename, PluginManagementService::CONFIG_FILE));
+        return simplexml_load_file(Library::path(Library::PLUGINS . DIRECTORY_SEPARATOR . $basename, self::CONFIG_FILE));
+    }
+
+    /**
+     * Get templates file for given plugin
+     * @param plugin
+     * @return xml file
+     */
+    public static function GetPluginTemplates($plugin)  {
+        return simplexml_load_file(Library::path(Library::PLUGINS . DIRECTORY_SEPARATOR . $plugin->Root, self::TEMPLATES_FILE));
     }
 }

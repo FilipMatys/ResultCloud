@@ -7,6 +7,7 @@ Library::using(Library::CORLY_SERVICE_SUITE);
 Library::using(Library::CORLY_SERVICE_SESSION);
 Library::using(Library::CORLY_SERVICE_UTILITIES);
 Library::using(Library::CORLY_SERVICE_SECURITY);
+Library::using(Library::CORLY_SERVICE_SETTINGS);
 Library::using(Library::CORLY_ENTITIES);
 Library::using(Library::UTILITIES);
 
@@ -24,17 +25,21 @@ class ProjectService
 {
     // Daos
     private $ProjectDao;
+    private $PluginDao;
     
     private $PluginService;
     private $SubmissionService;
+    private $TemplateSettingsService;
     
     /**
      * Project service constructor
      */
     public function __construct()   {
         $this->ProjectDao = new ProjectDao();
+        $this->PluginDao = new PluginDao();
         $this->SubmissionService = new SubmissionService();
         $this->PluginService = new PluginService();
+        $this->TemplateSettingsService = new TemplateSettingsService();
     }
     
     /**
@@ -69,8 +74,21 @@ class ProjectService
         }
         
         // Save project
-        $this->ProjectDao->Save($project);
-        
+        $id = $this->ProjectDao->Save($project);
+
+        // Check id, if is zero, new was made
+        if ($id != 0)   {
+            // Set project id
+            $project->Id = $id;
+
+            // Create template settings for project
+            $plugin = new stdClass();
+            $plugin->Id = $project->Plugin;
+            $project->Plugin = $this->PluginDao->Load($plugin);
+            // Execute
+            $this->TemplateSettingsService->InitProjectSettings($project);
+        }
+
         // Return validation
         return$validation;
     }

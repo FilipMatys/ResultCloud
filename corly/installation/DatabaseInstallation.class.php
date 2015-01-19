@@ -56,6 +56,10 @@ class DatabaseInstallation
         $this->CreateTb_Token();
         // ImportSession
         $this->CreateTb_ImportSession();
+        // TemplateSettings
+        $this->CreateTb_TemplateSettings();
+        // TemplateSettingsItem
+        $this->CreateTb_TemplateSettingsItem();
     }
     
     /**
@@ -100,6 +104,126 @@ class DatabaseInstallation
         
         // Add component to table
         $this->Database->AddTable($tComponent);
+    }
+
+    /**
+     * Create TemplateSettings table
+     * - Id [double]
+     * - Project [double]
+     * - Identifier [varchar(255)]
+     * - Label [varchar(255)]
+     * - Type [double]
+     */
+    private function CreateTb_TemplateSettings()    {
+        $tTemplateSettings = new DbTable('TemplateSettings');
+
+        // Set id property
+        $pId = new DbProperty('Id');
+        $pId->SetType(DbType::Double());
+        $pId->NotNull();
+        $pId->PrimaryKey();
+        $pId->AutoIncrement();
+        // Add id to table
+        $tTemplateSettings->AddProperty($pId);
+
+        // Set project property
+        $pProject = new DbProperty('Project');
+        $pProject->SetType(DbType::Double());
+        $pProject->NotNull();
+        // Add project to table
+        $tTemplateSettings->AddProperty($pProject);
+
+        // Set Identifier property
+        $pIdentifier = new DbProperty('Identifier');
+        $pIdentifier->SetType(DbType::Varchar(255));
+        $pIdentifier->NotNull();
+        // Add Identifier to table
+        $tTemplateSettings->AddProperty($pIdentifier);
+
+        // Set Name property
+        $pName = new DbProperty('Name');
+        $pName->SetType(DbType::Varchar(255));
+        $pName->NotNull();
+        // Add name to table
+        $tTemplateSettings->AddProperty($pName);
+
+        // Set type property
+        $pType = new DbProperty('Type');
+        $pType->SetType(DbType::Double());
+        $pType->NotNull();
+        // Add type to table
+        $tTemplateSettings->AddProperty($pType);
+
+        // Add template settings to database
+        $this->Database->AddTable($tTemplateSettings);
+    }
+
+    /**
+     * Create TemplateSettings table
+     * - Id [double]
+     * - Template [double]
+     * - Identifier [varchar(255)]
+     * - Label [varchart(255)]
+     * - Value [text]
+     * - Type [double]
+     * - Required [double]
+     */
+    private function CreateTb_TemplateSettingsItem()    {
+        $tTableSettingsItem = new DbTable('TemplateSettingsItem');
+
+        // Set id property
+        $pId = new DbProperty('Id');
+        $pId->SetType(DbType::Double());
+        $pId->NotNull();
+        $pId->PrimaryKey();
+        $pId->AutoIncrement();
+        // Add id to table
+        $tTableSettingsItem->AddProperty($pId);
+
+        // Set template property
+        $pTemplate = new DbProperty('Template');
+        $pTemplate->SetType(DbType::Double());
+        $pTemplate->NotNull();
+        // Add template to table
+        $tTableSettingsItem->AddProperty($pTemplate);
+
+        // Set Identifier property
+        $pIdentifier = new DbProperty('Identifier');
+        $pIdentifier->SetType(DbType::Varchar(255));
+        $pIdentifier->NotNull();
+        // Add Identifier to table
+        $tTableSettingsItem->AddProperty($pIdentifier);
+
+        // Set label property
+        $pLabel = new DbProperty('Label');
+        $pLabel->SetType(DbType::Varchar(255));
+        $pLabel->NotNull();
+        // Add label to table
+        $tTableSettingsItem->AddProperty($pLabel);
+
+        // Set value property
+        $pValue = new DbProperty('Value');
+        $pValue->SetType(DbType::Text());
+        $pValue->NotNull();
+        // Add value to table
+        $tTableSettingsItem->AddProperty($pValue);
+
+        // Set type property
+        $pType = new DbProperty('Type');
+        $pType->SetType(DbType::Double());
+        $pType->NotNull();
+        // Add type to table
+        $tTableSettingsItem->AddProperty($pType);
+
+        // Set required property
+        $pRequired = new DbProperty('Required');
+        $pRequired->SetType(DbType::Double());
+        $pRequired->NotNull();
+        // Add type to table
+        $tTableSettingsItem->AddProperty($pRequired);
+
+        // Add template settings item to database
+        $this->Database->AddTable($tTableSettingsItem);
     }
     
     /**
