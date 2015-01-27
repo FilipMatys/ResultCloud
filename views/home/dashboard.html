@@ -6,15 +6,26 @@
 
 <div class="row">
     <div class="large-12 columns">
-        <h3>Installed plugins</h3>
+        <div class="card header">
+        <h1><span>Installed plugins</span></h1>
+        </div>
     </div>
 </div>
-<div class="row plugins" ng-repeat="plugin in Plugins">
+
+<div class="row">
     <div class="large-12 columns">
-        <a ui-sref="home.plugin({pluginId: plugin.Id})" class="full-width tLeft"><span class="link"> {{plugin.Name}} {{plugin.Version}}</span>
-            <span class="meta">
-                {{plugin.About}}
-            </span>
-        </a>
-    </div>
+        <div class="card">
+        <div class="row" ng-repeat="plugin in Plugins">
+            <div class="large-12 columns">
+                <div class="row list-item">
+                    <div class="large-8 medium-8 columns desc">
+                        <a ui-sref="home.plugin({pluginId: plugin.Id})" class="full-width tLeft">{{plugin.Name}} {{plugin.Version}}</a>
+                        <span>{{plugin.About}}</span>
+                    </div>
+                </div>
+                <hr ng-if="!$last" />
+            </div>
+        </div>
+    </div> 
+</div>
 </div>
