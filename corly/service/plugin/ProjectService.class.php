@@ -2,16 +2,16 @@
 include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Library.utility.php');
 
 // Get libraries
-Library::using(Library::CORLY_DAO_IMPLEMENTATION_PLUGIN);
-Library::using(Library::CORLY_SERVICE_SUITE);
 Library::using(Library::CORLY_SERVICE_SESSION);
 Library::using(Library::CORLY_SERVICE_UTILITIES);
-Library::using(Library::CORLY_SERVICE_SECURITY);
 Library::using(Library::CORLY_SERVICE_SETTINGS);
 Library::using(Library::CORLY_ENTITIES);
 Library::using(Library::UTILITIES);
 
 Library::using(Library::VISUALIZATION_COMPONENT_GOOGLECHART);
+
+Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryService.class.php']);
+Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryDao.class.php']);
 
 /**
  * ProjectService short summary.
@@ -23,32 +23,13 @@ Library::using(Library::VISUALIZATION_COMPONENT_GOOGLECHART);
  */
 class ProjectService
 {
-    // Daos
-    private $ProjectDao;
-    private $PluginDao;
-    
-    private $PluginService;
-    private $SubmissionService;
-    private $TemplateSettingsService;
-    
-    /**
-     * Project service constructor
-     */
-    public function __construct()   {
-        $this->ProjectDao = new ProjectDao();
-        $this->PluginDao = new PluginDao();
-        $this->SubmissionService = new SubmissionService();
-        $this->PluginService = new PluginService();
-        $this->TemplateSettingsService = new TemplateSettingsService();
-    }
-    
     /**
      * Get filtered list of projects
      * @param Parameter $parameter 
      * @return filtered list of projects
      */
     public function GetFilteredList(Parameter $parameter)   {
-        return $this->ProjectDao->GetFilteredList($parameter);
+        return FactoryDao::ProjectDao()->GetFilteredList($parameter);
     }
     
     /**
@@ -56,7 +37,7 @@ class ProjectService
      * @return list of projects
      */
     public function GetList()   {
-        return $this->ProjectDao->GetList();
+        return FactoryDao::ProjectDao()->GetList();
     }
     
     /**
@@ -74,7 +55,7 @@ class ProjectService
         }
         
         // Save project
-        $id = $this->ProjectDao->Save($project);
+        $id = FactoryDao::ProjectDao()->Save($project);
 
         // Check id, if is zero, new was made
         if ($id != 0)   {
@@ -84,9 +65,9 @@ class ProjectService
             // Create template settings for project
             $plugin = new stdClass();
             $plugin->Id = $project->Plugin;
-            $project->Plugin = $this->PluginDao->Load($plugin);
+            $project->Plugin = FactoryDao::PluginDao()->Load($plugin);
             // Execute
-            $this->TemplateSettingsService->InitProjectSettings($project);
+            FactoryService::TemplateSettingsService()->InitProjectSettings($project);
         }
 
         // Return validation
@@ -101,10 +82,10 @@ class ProjectService
      */
     public function GetViews($project)  {
         // Load project from database
-        $dbProject = $this->ProjectDao->Load($project);
+        $dbProject = FactoryDao::ProjectDao()->Load($project);
         
         // Load plugin
-        $this->PluginService->LoadPlugin($dbProject->Plugin);
+        FactoryService::PluginService()->LoadPlugin($dbProject->Plugin);
         
         // Initialize validation
         $validation = new ValidationResult($project);
@@ -126,10 +107,10 @@ class ProjectService
      */
     public function GetDiffViews($project)   {
         // Load project from database
-        $dbProject = $this->ProjectDao->Load($project);
+        $dbProject = FactoryDao::ProjectDao()->Load($project);
         
         // Load plugin
-        $this->PluginService->LoadPlugin($dbProject->Plugin);
+        FactoryService::PluginService()->LoadPlugin($dbProject->Plugin);
         
         // Initialize validation
         $validation = new ValidationResult($project);
@@ -151,14 +132,14 @@ class ProjectService
      */
     public function GetDetail($project, $type) {
         // Load project from database
-        $dbProject = $this->ProjectDao->Load($project);
+        $dbProject = FactoryDao::ProjectDao()->Load($project);
         
         // Map database object to TSE object
         $project = new ProjectTSE();
         $project->MapDbObject($dbProject);
         
         // Load plugin
-        $this->PluginService->LoadPlugin($dbProject->Plugin);
+        FactoryService::PluginService()->LoadPlugin($dbProject->Plugin);
         
         // Initialize validation
         $validation = new ValidationResult($project);
@@ -173,7 +154,7 @@ class ProjectService
         SessionService::CloseSession();
         
         // Load submissions and add them to project
-        $this->SubmissionService->LoadSubmissions($project, Visualization::GetProjectDataDepth($type));
+        FactoryService::SubmissionService()->LoadSubmissions($project, Visualization::GetProjectDataDepth($type));
         
         // Process data by plugin
         return Visualization::VisualizeProject($project, $type);
@@ -187,7 +168,7 @@ class ProjectService
         $dates = TimeService::MonthIntervalArray(TimeService::Date(), -12);
 
         // Get submissions of given project
-        $submissions = $this->SubmissionService->GetFilteredList(QueryParameter::Where('Project', $project->Id))->ToList();
+        $submissions = FactoryService::SubmissionService()->GetFilteredList(QueryParameter::Where('Project', $project->Id))->ToList();
 
         // Initialize chart
         $googleChart = new GoogleChart();
@@ -203,6 +184,12 @@ class ProjectService
         return $project;
     }
 
+    /**
+     * Get data for liveness google chart
+     * @param submssions
+     * @param dates
+     * @return gcData
+     */
     private function GetLivenessGCData($submissions, $dates)    {
         // Initialize date
         $gcData = new GCData();

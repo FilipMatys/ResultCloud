@@ -7,16 +7,6 @@ Library::using(Library::CORLY_SERVICE_SESSION);
 Library::using(Library::UTILITIES);
 
 class AuthentizationService	{
-	// Daos
-	private $UserDao;
-	private $TokenDao;
-
-	// Init daos
-	public function __construct()	{
-		$this->UserDao = new UserDao();
-		$this->TokenDao = new TokenDao();
-	}
-
 	/**
 	 * Authorize credentials
 	 */
@@ -34,7 +24,7 @@ class AuthentizationService	{
 		}
 
 		// Second wave of validation
-		$lUsers = $this->UserDao->GetFilteredList(QueryParameter::Where('Username', $credentials->Username));
+		$lUsers = FactoryDao::UserDao()->GetFilteredList(QueryParameter::Where('Username', $credentials->Username));
 		// Check if given user exists
 		if ($lUsers->IsEmpty())	{
 			$credentialsValidation->AddError("Invalid user or password");
@@ -51,14 +41,14 @@ class AuthentizationService	{
 			// Generating token key
 			$creation_time = time();
 			// Delete all tokens older than 24h
-			$this->TokenDao->DeleteFilteredList(QueryParameter::WhereLess('CreationTime', ($creation_time-(24*60*60))));
+			FactoryDao::TokenDao()->DeleteFilteredList(QueryParameter::WhereLess('CreationTime', ($creation_time-(24*60*60))));
 			// Params to insert into table
 			$new_token = new stdClass();
 			$new_token->CreationTime = $creation_time;
 			$new_token->User = $lUsers->Single()->Id;
 			$new_token->TokenKey = md5(uniqid($lUsers->Single()->Id));
 			// Insert
-			$this->TokenDao->Save($new_token);
+			FactoryDao::TokenDao()->Save($new_token);
 
 			$credentialsValidation->Add("Result", $new_token);
 			// Return validation

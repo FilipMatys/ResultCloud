@@ -3,8 +3,8 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 
 // Get libraries
 Library::using(Library::UTILITIES);
-Library::using(Library::CORLY_DAO_IMPLEMENTATION_SUITE);
 Library::using(Library::CORLY_ENTITIES);
+Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryDao.class.php']);
 
 /**
  * ResultService short summary.
@@ -16,15 +16,6 @@ Library::using(Library::CORLY_ENTITIES);
  */
 class ResultService
 {
-    private $ResultDao;
-    
-    /**
-     * Result service constructor
-     */
-    public function __construct()   {
-        $this->ResultDao = new ResultDao();
-    }
-    
     /**
      * Save results of given test case
      * @param mixed $results 
@@ -33,7 +24,7 @@ class ResultService
     public function SaveResults($results, $testCaseId) {
         foreach ($results as $result)  {
             // Save result
-            $this->ResultDao->Save($result->GetDbObject($testCaseId));
+            FactoryDao::ResultDao()->Save($result->GetDbObject($testCaseId));
         }
     }
     
@@ -44,7 +35,7 @@ class ResultService
      */
     public function LoadResults($testCaseTSE)    {
         // Load results for given 
-        $dbResults = $this->ResultDao->GetFilteredList(QueryParameter::Where('TestCase', $testCaseTSE->GetId()))->ToList();
+        $dbResults = FactoryDao::ResultDao()->GetFilteredList(QueryParameter::Where('TestCase', $testCaseTSE->GetId()))->ToList();
         
         // Initialize results
         $results = array();

@@ -2,21 +2,12 @@
 include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Library.utility.php');
 
 // Get libraries
-Library::using(Library::CORLY_DAO_IMPLEMENTATION_SECURITY);
+Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryService.class.php']);
+Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryDao.class.php']);
 Library::using(Library::CORLY_SERVICE_SESSION);
 Library::using(Library::UTILITIES);
 
 class UserService	{
-	// Daos
-	private $UserDao;
-	private $PersonDao;
-
-	// Init daos
-	public function __construct()	{
-		$this->UserDao = new UserDao();
-		$this->PersonDao = new PersonDao();
-	}
-
     /**
      * Get current user detail
      * @return mixed
@@ -38,7 +29,7 @@ class UserService	{
 	 * Get list of all users
 	 */
 	public function GetList()	{
-		return $this->UserDao->GetList();
+		return FactoryDao::UserDao()->GetList();
 	}
     
     /**
@@ -64,12 +55,12 @@ class UserService	{
 	 */
 	public function GetDetail($user)	{
         // Load user from database
-		$user = $this->UserDao->Load($user);
+		$user = FactoryDao::UserDao()->Load($user);
         // Unset password
         unset($user->Password);
         
         // Load person
-        $lPerson = $this->PersonDao->GetFilteredList(QueryParameter::Where('User', $user->Id));
+        $lPerson = FactoryDao::PersonDao()->GetFilteredList(QueryParameter::Where('User', $user->Id));
         $user->Person = $lPerson->Single();
         
         // Return user
@@ -86,7 +77,7 @@ class UserService	{
         
 		// Validate
 		if (!isset($user->Id))	{
-			$lUsers = $this->UserDao->GetFilteredList(QueryParameter::Where('Username', $user->Username));
+			$lUsers = FactoryDao::UserDao()->GetFilteredList(QueryParameter::Where('Username', $user->Username));
 			
 			// Check if user of given username already exists
 			if (!$lUsers->IsEmpty())	{
@@ -104,14 +95,14 @@ class UserService	{
         unset($user->Person);
 
 		// Save user
-		$insertedUserId = $this->UserDao->Save($user);
+		$insertedUserId = FactoryDao::UserDao()->Save($user);
 		if ($insertedUserId != 0)
 			$person->User = $insertedUserId;
 		else
 			$person->User = $user->Id;
 
 		// Save person
-		$this->PersonDao->Save($person);
+		FactoryDao::PersonDao()->Save($person);
 
 		// Return validation
 		return $userValidation;

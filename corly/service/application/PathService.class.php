@@ -5,8 +5,7 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 Library::using(Library::UTILITIES);
 Library::using(Library::CORLY_DAO_STAT);
 Library::using(Library::CORLY_DAO_APPLICATION);
-Library::using(Library::CORLY_DAO_IMPLEMENTATION_PLUGIN);
-Library::using(Library::CORLY_DAO_IMPLEMENTATION_SUITE);
+Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryDao.class.php']);
 
 /**
  * PathService short summary.
@@ -17,20 +16,7 @@ Library::using(Library::CORLY_DAO_IMPLEMENTATION_SUITE);
  * @author Filip
  */
 class PathService
-{
-    private $PluginDao;
-    private $ProjectDao;
-    private $SubmissionDao;
-    
-    /**
-     * Dao initializators
-     */
-    public function __construct()   {
-        $this->PluginDao = new PluginDao();
-        $this->ProjectDao = new ProjectDao();
-        $this->SubmissionDao = new SubmissionDao();
-    }
-    
+{    
     /**
      * Get path to entity
      * @param mixed $type 
@@ -76,21 +62,21 @@ class PathService
         $path = new Path();
         
         // Load submission
-        $path->Submission = $this->SubmissionDao->Load($entity);
+        $path->Submission = FactoryDao::SubmissionDao()->Load($entity);
         
         // Init project
         $project = new stdClass();
         $project->Id = $path->Submission->Project;
         
         // Load project
-        $path->Project = $this->ProjectDao->Load($project);
+        $path->Project = FactoryDao::ProjectDao()->Load($project);
         
         // Init plugin
         $plugin = new stdClass();
         $plugin->Id = $path->Project->Plugin;
         
         // Load plugin
-        $path->Plugin = $this->PluginDao->Load($plugin);
+        $path->Plugin = FactoryDao::PluginDao()->Load($plugin);
         
         // Return path        
         return $path;
@@ -106,14 +92,14 @@ class PathService
         $path = new Path();
         
         // Load project
-        $path->Project = $this->ProjectDao->Load($entity);
+        $path->Project = FactoryDao::ProjectDao()->Load($entity);
         
         // Init plugin
         $plugin = new stdClass();
         $plugin->Id = $path->Project->Plugin;
         
         // Load plugin
-        $path->Plugin = $this->PluginDao->Load($plugin);
+        $path->Plugin = FactoryDao::PluginDao()->Load($plugin);
         
         // Return path        
         return $path;

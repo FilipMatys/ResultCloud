@@ -3,10 +3,10 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 
 // Get libraries
 Library::using(Library::UTILITIES);
-Library::using(Library::CORLY_DAO_IMPLEMENTATION_PLUGIN);
 Library::using(Library::CORLY_ENTITIES);
 Library::using(Library::CORLY_DBCREATE);
-Library::using(Library::CORLY_SERVICE_APPLICATION);
+Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryService.class.php']);
+Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryDao.class.php']);
 
 /**
  * PluginManagementService short summary.
@@ -33,20 +33,6 @@ class PluginManagementService
     // Component attributes
     const FOLDER = "folder";
     
-    private $PluginDao;
-    private $ComponentDao;
-    
-    private $PluginService;
-    
-    /**
-     * Plugin management service constructor
-     */
-    public function __construct()   {
-        $this->PluginDao = new PluginDao();
-        $this->PluginService = new PluginService();
-        $this->ComponentDao = new ComponentDao();
-    }
-    
     /**
      * Install plugin
      * @param mixed $plugin 
@@ -68,7 +54,7 @@ class PluginManagementService
         }
         
         // Save plugin
-        $pluginValidation = $this->PluginService->Save($pluginTSE->GetDbObject());
+        $pluginValidation = FactoryService::PluginService()->Save($pluginTSE->GetDbObject());
         
         // Check for components
         if (isset($pluginConfiguration->components))    {
@@ -103,7 +89,7 @@ class PluginManagementService
         foreach ($components as $component) {
             // and save all files
             foreach ($component->GetDbObjects($pluginId) as $componentObject) {
-                $this->ComponentDao->Save($componentObject);  
+                FactoryDao::ComponentDao()->Save($componentObject);  
             }
             
         }
@@ -230,7 +216,7 @@ class PluginManagementService
      * @return mixed
      */
     private function GetInstalledPlugins()   {
-        return $this->PluginDao->GetList()->ToList();
+        return FactoryDao::PluginDao()->GetList()->ToList();
     }
     
     private function GetPluginConfiguration($basename)   {
