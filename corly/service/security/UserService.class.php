@@ -47,7 +47,7 @@ class UserService	{
      */
     public function GetDetailedList()   {
         // Get list of users
-        $users = $this->GetList();
+        $users = $this->GetList()->ToList();
         // Load each users detail
         foreach ($users as $user)   {
             $user->Person = $this->GetDetail($user)->Person;
@@ -69,7 +69,7 @@ class UserService	{
         unset($user->Password);
         
         // Load person
-        $lPerson = new LINQ($this->PersonDao->GetFilteredList(QueryParameter::Where('User', $user->Id)));
+        $lPerson = $this->PersonDao->GetFilteredList(QueryParameter::Where('User', $user->Id));
         $user->Person = $lPerson->Single();
         
         // Return user
@@ -86,7 +86,7 @@ class UserService	{
         
 		// Validate
 		if (!isset($user->Id))	{
-			$lUsers = new LINQ($this->UserDao->GetFilteredList(QueryParameter::Where('Username', $user->Username)));
+			$lUsers = $this->UserDao->GetFilteredList(QueryParameter::Where('Username', $user->Username));
 			
 			// Check if user of given username already exists
 			if (!$lUsers->IsEmpty())	{

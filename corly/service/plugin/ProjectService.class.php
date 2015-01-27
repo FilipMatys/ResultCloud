@@ -173,11 +173,7 @@ class ProjectService
         SessionService::CloseSession();
         
         // Load submissions and add them to project
-        foreach ($this->SubmissionService->LoadSubmissions($dbProject->Id, Visualization::GetProjectDataDepth($type)) as $submission)
-        {
-            // Add submission to project
-            $project->AddSubmission($submission);
-        }
+        $this->SubmissionService->LoadSubmissions($project, Visualization::GetProjectDataDepth($type));
         
         // Process data by plugin
         return Visualization::VisualizeProject($project, $type);
@@ -191,7 +187,7 @@ class ProjectService
         $dates = TimeService::MonthIntervalArray(TimeService::Date(), -12);
 
         // Get submissions of given project
-        $submissions = $this->SubmissionService->GetFilteredList(QueryParameter::Where('Project', $project->Id));
+        $submissions = $this->SubmissionService->GetFilteredList(QueryParameter::Where('Project', $project->Id))->ToList();
 
         // Initialize chart
         $googleChart = new GoogleChart();

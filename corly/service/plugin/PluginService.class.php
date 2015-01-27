@@ -85,7 +85,7 @@ class PluginService
         $plugin = self::$PluginDao->Load($plugin);
 
         // Get all projects
-        $plugin->Projects = self::$ProjectDao->GetFilteredList(QueryParameter::Where('Plugin', $plugin->Id));
+        $plugin->Projects = self::$ProjectDao->GetFilteredList(QueryParameter::Where('Plugin', $plugin->Id))->ToList();
         foreach ($plugin->Projects as $project) {
             $author = new stdClass();
             $author->Id = $project->Author;
@@ -93,7 +93,7 @@ class PluginService
             $project->Author = self::$UserService->GetDetail($author);
             
             // Get submissons
-            $lSubmissions = new LINQ(self::$SubmissionDao->GetFilteredList(QueryParameter::Where('Project', $project->Id)));
+            $lSubmissions = self::$SubmissionDao->GetFilteredList(QueryParameter::Where('Project', $project->Id));
             // Set submissions count
             $project->Submissions = $lSubmissions->Count();
         }

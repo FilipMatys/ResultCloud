@@ -12,6 +12,8 @@ class LINQ
 
     // Array to keep data to work with
     private $Array;
+    private $TotalCount;
+    private $Page;
 
     // Temp variable
     private $tmp;
@@ -34,6 +36,38 @@ class LINQ
     public function __construct(array $Array)
     {
         $this->Array = $Array;
+    }
+
+    /**
+     * Set total count
+     * @param total count
+     */
+    public function SetTotalCount($totalCount)  {
+        $this->TotalCount = $totalCount;
+    }
+
+    /**
+     * Get total count
+     * @return 
+     */
+    public function GetTotalCount() {
+        return $this->TotalCount;
+    }
+
+    /**
+     * Set page
+     * @param page
+     */
+    public function SetPage($page)  {
+        $this->Page = $page;
+    }
+
+    /**
+     * Get page
+     * @return page
+     */
+    public function GetPage()   {
+        return $this->Page;
     }
 
     /*

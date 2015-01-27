@@ -230,7 +230,7 @@ class PluginManagementService
      * @return mixed
      */
     private function GetInstalledPlugins()   {
-        return $this->PluginDao->GetList();
+        return $this->PluginDao->GetList()->ToList();
     }
     
     private function GetPluginConfiguration($basename)   {

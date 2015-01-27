@@ -59,7 +59,7 @@ class PluginController
      * @return list of plugins
      */
     public function Query() {
-        return $this->PluginService->GetList();
+        return $this->PluginService->GetList()->ToList();
     }
 }
 

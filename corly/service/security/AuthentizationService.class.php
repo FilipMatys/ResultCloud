@@ -34,7 +34,7 @@ class AuthentizationService	{
 		}
 
 		// Second wave of validation
-		$lUsers = new LINQ($this->UserDao->GetFilteredList(QueryParameter::Where('Username', $credentials->Username)));
+		$lUsers = $this->UserDao->GetFilteredList(QueryParameter::Where('Username', $credentials->Username));
 		// Check if given user exists
 		if ($lUsers->IsEmpty())	{
 			$credentialsValidation->AddError("Invalid user or password");

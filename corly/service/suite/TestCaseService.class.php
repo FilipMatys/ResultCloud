@@ -51,12 +51,9 @@ class TestCaseService
      * @param mixed $categoryId 
      * @return mixed
      */
-    public function LoadTestCases($categoryId, $depth)  {
+    public function LoadTestCases($categoryTSE, $depth)  {
         // Load test cases
-        $dbTestCases = $this->TestCaseDao->GetFilteredList(QueryParameter::Where('Category', $categoryId));
-        
-        // Init array of test cases
-        $testCases = array();
+        $dbTestCases = $this->TestCaseDao->GetFilteredList(QueryParameter::Where('Category', $categoryTSE->GetId()))->ToList();
         
         // Map test cases into TSE objects and load results
         foreach ($dbTestCases as $dbTestCase)
@@ -68,15 +65,11 @@ class TestCaseService
             // If not reached the depth, load results
             if ($depth > 0) {
                 // Load results and add them to test case
-                foreach ($this->ResultService->LoadResults($dbTestCase->Id) as $result)
-                {
-                    // Add result to test case
-                    $testCase->AddResult($result);
-                }
+                $this->ResultService->LoadResults($testCase);
             }
             
             // Add test case to array
-            $testCases[] = $testCase;
+            $categoryTSE->AddTestCase($testCase);
         }
         
         // return array of test cases

@@ -101,7 +101,7 @@ class InstallationService
         $userDao = new UserDao();
      
         // Return list of users
-        return $userDao->GetList(); 
+        return $userDao->GetList()->ToList(); 
     }
     
     /**

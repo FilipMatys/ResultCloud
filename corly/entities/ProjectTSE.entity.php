@@ -22,6 +22,14 @@ class ProjectTSE
     public function __construct()   {
         $this->Submissions = array();
     }
+
+    /**
+     * Get id
+     * @return id
+     */
+    public function GetId() {
+        return $this->Id;
+    }
     
     /**
      * Get project name

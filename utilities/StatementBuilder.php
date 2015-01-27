@@ -48,6 +48,11 @@ class StatementBuilder  {
         return $this->buildBasicDeleteStatement();
     }
 
+    // Get pagination postfix
+    public function getPaginationPostfix($pagination)  {
+        return $this->buildPaginationPostfix($pagination);
+    }
+
     // Build database function statements
     private function buildStatements()  {
         $this->buildDeleteStatement();
@@ -80,6 +85,11 @@ class StatementBuilder  {
 
     private function buildBasicDeleteStatement() {
         return 'DELETE FROM '.get_class($this->Class);
+    }
+
+    // Build pagination postfix
+    private function buildPaginationPostfix(QueryPagination $pagination)   {
+        return 'ORDER BY Id ' . $pagination->GetOrder() . ' LIMIT ' . $pagination->GetPageSize() . ' OFFSET ' . $pagination->GetPageSize() * ($pagination->GetPage() - 1);
     }
 }
 

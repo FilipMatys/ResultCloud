@@ -60,8 +60,5 @@ class TimeService
 
     	// Reverse array to have dates chronologicaly
 		return array_reverse($dateInterval);
-
-    	// Return result
-    	return $dateInterval; 	
     }
 }

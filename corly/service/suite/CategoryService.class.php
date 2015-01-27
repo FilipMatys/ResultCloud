@@ -47,12 +47,9 @@ class CategoryService
      * @param mixed $depth
      * @return array of categories
      */
-    public function LoadCategories($submissionId, $depth)   {
+    public function LoadCategories($submissionTSE, $depth)   {
         // Load categories for given submission
-        $dbCategories = $this->CategoryDao->GetFilteredList(QueryParameter::Where('Submission', $submissionId));
-        
-        // Initialize categories array
-        $categories = array();
+        $dbCategories = $this->CategoryDao->GetFilteredList(QueryParameter::Where('Submission', $submissionTSE->GetId()))->ToList();
         
         // Map each category into TSE object and load their test cases
         foreach ($dbCategories as $dbCategory)
@@ -63,18 +60,11 @@ class CategoryService
             // If not reached depth, load test cases
             if ($depth > 0) {
                 // Load test cases
-                foreach ($this->TestCaseService->LoadTestCases($dbCategory->Id, $depth - 1) as $testCase)
-                {
-                    // Add test case to category
-                    $category->AddTestCase($testCase);
-                }
+                $this->TestCaseService->LoadTestCases($category, $depth - 1);
             }
             
             // Add category to array
-            $categories[] = $category;
+            $submissionTSE->AddCategory($category);
         }
-        
-        // Return list of categories
-        return $categories;
     }
 }

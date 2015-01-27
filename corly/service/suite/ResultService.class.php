@@ -42,9 +42,9 @@ class ResultService
      * @param mixed $testCaseId 
      * @return mixed
      */
-    public function LoadResults($testCaseId)    {
+    public function LoadResults($testCaseTSE)    {
         // Load results for given 
-        $dbResults = $this->ResultDao->GetFilteredList(QueryParameter::Where('TestCase', $testCaseId));
+        $dbResults = $this->ResultDao->GetFilteredList(QueryParameter::Where('TestCase', $testCaseTSE->GetId()))->ToList();
         
         // Initialize results
         $results = array();
@@ -56,7 +56,7 @@ class ResultService
             $result->MapDbObject($dbResult);
             
             // Add to results array
-            $results[] = $result;
+            $testCaseTSE->AddResult($result);
         }
         
         // return results

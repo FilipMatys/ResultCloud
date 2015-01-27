@@ -50,7 +50,7 @@ class ProjectController
      * @return list of projects of given plugin
      */
     public function Plugin($pluginId)    {
-        return $this->ProjectService->GetFilteredList(QueryParameter::Where('Plugin', $pluginId));
+        return $this->ProjectService->GetFilteredList(QueryParameter::Where('Plugin', $pluginId))->ToList();
     }
     
     /**
@@ -58,7 +58,7 @@ class ProjectController
      * @return mixed
      */
     public function Query() {
-        return $this->ProjectService->GetList();
+        return $this->ProjectService->GetList()->ToList();
     }
     
     /**

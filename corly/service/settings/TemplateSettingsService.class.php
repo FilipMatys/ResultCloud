@@ -73,14 +73,14 @@ class TemplateSettingsService
             return $validation;
 
         // Get template
-        $templateSettings = self::GetFilteredList(QueryParameter::Where('Identifier', $identifier));
+        $templateSettings = self::GetFilteredList(QueryParameter::Where('Identifier', $identifier))->ToList();
 
         // Init validation
         $validation = new ValidationResult($templateSettings);
 
         // Get template items and map them to their identifier
         $templateSettings->Items = array();
-        foreach (self::$TemplateSettingsItemDao->GetFilteredList(QueryParameter::Where('Template', $templateSettings->Id)) as $item) {
+        foreach (self::$TemplateSettingsItemDao->GetFilteredList(QueryParameter::Where('Template', $templateSettings->Id))->ToList() as $item) {
             $templateSettings->Items[$item->Identifier] = $item;
         }
 
@@ -136,13 +136,13 @@ class TemplateSettingsService
      */
     public function GetProjectSettings($project)    {
         // Get settings for given project
-        $templateSettings = self::$TemplateSettingsDao->GetFilteredList(QueryParameter::Where('Project', $project->Id));
+        $templateSettings = self::$TemplateSettingsDao->GetFilteredList(QueryParameter::Where('Project', $project->Id))->ToList();
 
         // Group by type
         foreach ($templateSettings as $templateSetting) {
 
              // Get settings by sort name
-             $templateSetting->Items = self::$TemplateSettingsItemDao->GetFilteredList(QueryParameter::Where('Template', $templateSetting->Id));
+             $templateSetting->Items = self::$TemplateSettingsItemDao->GetFilteredList(QueryParameter::Where('Template', $templateSetting->Id))->ToList();
 
              // Normalize all values
              for ($index = 0; $index < count($templateSetting->Items); $index++)    {

@@ -112,9 +112,7 @@ class SubmissionService
             }
             
             // Load categories into submission
-            foreach ($this->CategoryService->LoadCategories($dbSubmission->Id, $depth - 1) as $category)    {
-                $tseSubmission->AddCategory($category);
-            }
+            $this->CategoryService->LoadCategories($tseSubmission, $depth - 1);
             
             // Add submission to list
             $tseSubmissions[] = $tseSubmission;
@@ -211,9 +209,7 @@ class SubmissionService
         $depth = Visualization::GetSubmissionDataDepth($type);
         
         // Load categories for submission
-        foreach ($this->CategoryService->LoadCategories($dbSubbmission->Id, $depth - 1) as $category)   {
-            $submission->AddCategory($category);
-        }
+        $this->CategoryService->LoadCategories($submission, $depth - 1);
         
         // Process data by plugin
         $validation = Visualization::VisualizeSubmission($submission, $type, $meta);
@@ -235,12 +231,9 @@ class SubmissionService
      * @param mixed $depth
      * @return mixed
      */
-    public function LoadSubmissions($projectId, $depth)   {
+    public function LoadSubmissions($projectTSE, $depth)   {
         // Load submissions for given project
-        $dbSubmissions = $this->SubmissionDao->GetFilteredList(QueryParameter::Where('Project', $projectId));
-        
-        // Init submission array
-        $submissions = array();
+        $dbSubmissions = $this->SubmissionDao->GetFilteredList(QueryParameter::Where('Project', $projectTSE->GetId()))->ToList();
         
         // Map submissions to TSE objects and load categories
         foreach ($dbSubmissions as $dbSubmission)
@@ -260,19 +253,12 @@ class SubmissionService
             
             // Load categories if not reached the depth
             if ($depth > 0) {
-                foreach ($this->CategoryService->LoadCategories($dbSubmission->Id, $depth - 1) as $category)
-                {
-                    // Add category to submission
-                    $submission->AddCategory($category);
-                }
+                $this->CategoryService->LoadCategories($submission, $depth - 1);
             }
             
-            // Add submission to array
-            $submissions[] = $submission;
+            // Add submission to project
+            $projectTSE->AddSubmission($submission);
         }
-        
-        // Return submissions
-        return $submissions;
     }
     
     /**
@@ -289,7 +275,7 @@ class SubmissionService
         $validation->CheckDataNotNull("Invalid data supplied");
         
         // Get all submissions of given project
-        $lSubmissions = new LINQ($this->SubmissionDao->GetFilteredList(QueryParameter::Where('Project', $projectId)));
+        $lSubmissions = $this->SubmissionDao->GetFilteredList(QueryParameter::Where('Project', $projectId));
         
         // Check if submission is in list
         if (in_array($data->GetDateTime(), $lSubmissions->Select('DateTime')->ToList())) {

@@ -49,7 +49,7 @@ class IncludeService
         $pluginDao = IncludeService::InitPluginDao();
         
         // Load components
-        $components = $componentDao->GetList();
+        $components = $componentDao->GetList()->ToList();
         // Load plugin for each component
         foreach ($components as $component) {
             // Init plugin object

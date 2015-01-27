@@ -130,7 +130,7 @@ abstract class Database  {
         $statement = $this->db->prepare($this->statements->getSelectStatement());
         $statement->execute();
         
-        return ResultParser::parseMultipleResult($statement);
+        return new LINQ(ResultParser::parseMultipleResult($statement));
     }
 
     public function DeleteFilteredList(Parameter $parameter) {
@@ -143,14 +143,25 @@ abstract class Database  {
      * Get filtered list of given entity
      * @param type $parameter
      */
-    public function GetFilteredList(Parameter $parameter) {
-        $statement = $this->db->prepare($this->statements->getSelectStatement()." ".$parameter->Condition);
-        print_r($this->db->error);
+    public function GetFilteredList(Parameter $parameter, QueryPagination $pagination = null) {
+
+        // Build query
+        $statementQuery = $this->statements->getSelectStatement()." ".$parameter->Condition;
+
+        // Check if pagination is set
+        if (isset($pagination)) {
+            $statementQuery = $statementQuery . ' ' .  $this->statements->getPaginationPostfix($pagination);
+        }
+
+        // Get records
+        $statement = $this->db->prepare($statementQuery);
         $statement->bind_param($this->ObjectPropertyParser->getValueType($parameter->Value), $parameter->Value);
-        print_r($this->db->error);
         $statement->execute();
         
-        return ResultParser::parseMultipleResult($statement);
+        $lResult = new LINQ(ResultParser::parseMultipleResult($statement));
+
+        // Return result
+        return $lResult;
     }
 }
 ?>
