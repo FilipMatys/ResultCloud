@@ -19,6 +19,9 @@ class SystemTAP_SubmissionOverviewList
      * @return mixed
      */
     public static function GetSubmissionOverviewList(SubmissionTSE $submission, $page)    {
+        // Load data
+        FactoryService::CategoryService()->LoadCategories($submission, Visualization::GetSubmissionDataDepth(SubmissionOverviewType::VIEWLIST));
+
         // Initialize list
         $submissionOverviewList = new SubmissionOverviewList();
         

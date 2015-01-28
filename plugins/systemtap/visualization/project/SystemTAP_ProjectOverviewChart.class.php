@@ -16,6 +16,8 @@ class SystemTAP_ProjectOverviewChart
      * @return mixed
      */
     public static function GetProjectOverviewChart(ProjectTSE $project)    {
+        // Load data for project
+        TestSuiteDataService::LoadSubmissions($project, Visualization::GetProjectDataDepth(ProjectOverviewType::GOOGLE_CHART));
         // Initialize Google chart object
         $projectOverviewChart = new ProjectOverviewChart();
         $googleChart = new GoogleChart();

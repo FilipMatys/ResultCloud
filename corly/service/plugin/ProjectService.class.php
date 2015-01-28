@@ -153,9 +153,6 @@ class ProjectService
         // End session to allow other requests
         SessionService::CloseSession();
         
-        // Load submissions and add them to project
-        FactoryService::SubmissionService()->LoadSubmissions($project, Visualization::GetProjectDataDepth($type));
-        
         // Process data by plugin
         return Visualization::VisualizeProject($project, $type);
     }

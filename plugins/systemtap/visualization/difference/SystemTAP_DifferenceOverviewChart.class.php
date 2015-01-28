@@ -16,6 +16,11 @@ class SystemTAP_DifferenceOverviewChart
      * @return mixed
      */
     public static function GetDifferenceOverviewChart($submissions)    {
+        // Load data
+        foreach ($submissions as $submission) {
+            TestSuiteDataService::LoadCategories($submission, Visualization::GetDifferenceDataDepth(DifferenceOverviewType::GOOGLE_CHART));
+        }
+
         // Initialize Google chart object
         $differenceOverviewChart = new DifferenceOverviewChart();
         $googleChart = new GoogleChart();

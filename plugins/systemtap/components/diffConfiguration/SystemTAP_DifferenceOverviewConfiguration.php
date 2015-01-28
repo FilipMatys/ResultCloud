@@ -30,7 +30,7 @@ class SystemTAP_DifferenceOverviewConfiguration
             $diffConfigurationView->AddHeader($submission->GetDateTime());
             
             // Load configuration for given submission
-            $lConfiguration = new LINQ($configurationHandler->GetFilteredList(QueryParameter::Where('DateTime', $submission->GetDateTime())));
+            $lConfiguration = $configurationHandler->GetFilteredList(QueryParameter::Where('DateTime', $submission->GetDateTime()));
             $configuration = $lConfiguration->Single();
             
             // Set values

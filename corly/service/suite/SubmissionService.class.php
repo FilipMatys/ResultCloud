@@ -65,9 +65,6 @@ class SubmissionService
         // Close session so other requests are allowed
         SessionService::CloseSession();
         
-        // Get view depth
-        $depth = Visualization::GetDifferenceDataDepth($type);
-        
         // Create array of submissions to pass to visualizer
         $tseSubmissions = array();
         foreach ($submissions as $submission)   {
@@ -87,9 +84,6 @@ class SubmissionService
                 // Assign to submission
                 $tseSubmission->SetUser($user);
             }
-            
-            // Load categories into submission
-            FactoryService::CategoryService()->LoadCategories($tseSubmission, $depth - 1);
             
             // Add submission to list
             $tseSubmissions[] = $tseSubmission;
@@ -181,12 +175,6 @@ class SubmissionService
         
         // Close session so other requests are allowed
         SessionService::CloseSession();
-        
-        // Get view depth
-        $depth = Visualization::GetSubmissionDataDepth($type);
-        
-        // Load categories for submission
-        FactoryService::CategoryService()->LoadCategories($submission, $depth - 1);
         
         // Process data by plugin
         $validation = Visualization::VisualizeSubmission($submission, $type, $meta);

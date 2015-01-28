@@ -21,7 +21,7 @@ class PluginService
      * @return list of plugins
      */
     public function GetList()   {
-        FactoryDao::PluginDao()->GetList();
+        return FactoryDao::PluginDao()->GetList();
     }
     
     /**
