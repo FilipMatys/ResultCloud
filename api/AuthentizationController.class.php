@@ -6,19 +6,12 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Lib
 // Include files
 Library::using(Library::CORLY_SERVICE_SECURITY);
 Library::using(Library::UTILITIES, ['ValidationResult.php']);
+Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryService.class.php']);
 
 class AuthentizationController	{
 	// Request constants
 	const AUTHORIZE = "AUTHORIZE";
     const DEAUTHORIZE = "DEAUTHORIZE";
-
-	// Service
-	private $AuthentizationService;
-
-	// Constructor
-	public function __construct()	{
-		$this->AuthentizationService = new AuthentizationService();
-	}
 
 	/**
 	 * Authorize credentials
@@ -26,7 +19,7 @@ class AuthentizationController	{
 	 * @return mixed
 	 */
 	public function Authorize($credentials)	{
-		return $this->AuthentizationService->Authorize($credentials);
+		return FactoryService::AuthentizationService()->Authorize($credentials);
 	}
     
     /**
@@ -34,7 +27,7 @@ class AuthentizationController	{
      * @return mixed
      */
     public function Deauthorize()   {
-        return $this->AuthentizationService->Deauthorize();
+        return FactoryService::AuthentizationService()->Deauthorize();
     }
 }
 
