@@ -6,6 +6,7 @@ Library::using(Library::CORLY_SERVICE_PLUGIN);
 Library::using(Library::CORLY_SERVICE_SETTINGS);
 Library::using(Library::CORLY_SERVICE_SECURITY);
 Library::using(Library::CORLY_SERVICE_APPLICATION);
+Library::using(Library::CORLY_SERVICE_SESSION);
 Library::using(Library::CORLY_SERVICE_FACTORY, ['Factory.class.php']);
 
 class FactoryService extends Factory	{
@@ -16,6 +17,30 @@ class FactoryService extends Factory	{
 	 */
 	public static function &TestCaseService()	{
 		return self::GetFactory('TestCaseService');
+	}
+
+	/**
+	 * Get session service
+	 * @return session service
+	 */
+	public static function &SessionService()	{
+		return self::GetFactory('SessionService');
+	}
+
+	/**
+	 * Get import service
+	 * @return import service 
+	 */
+	public static function &ImportService()	{
+		return self::GetFactory('ImportService');
+	}
+
+	/**
+	 * Get path service
+	 * @return path service 
+	 */
+	public static function &PathService()	{
+		return self::GetFactory('PathService');
 	}
 
 	/** 
@@ -80,6 +105,22 @@ class FactoryService extends Factory	{
 	 */
 	public static function &TemplateSettingsService()	{
 		return self::GetFactory('TemplateSettingsService');
+	}
+
+	/**
+	 * Get authentization service
+	 * @return authentization service
+	 */
+	public static function &AuthentizationService()	{
+		return self::GetFactory('AuthentizationService');
+	}
+
+	/**
+	 * Get installation service
+	 * @return installation service
+	 */
+	public static function &InstallationService()	{
+		return self::GetFactory('InstallationService');
 	}
 }
 
