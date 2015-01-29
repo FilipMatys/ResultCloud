@@ -19,7 +19,7 @@ class SettingsService
      * @param identifier
      * @return template with items
      */
-    public static function GetTemplateByIdentifier($identifier) {
-        return FactoryService::TemplateSettingsService()->GetByIdentifier($identifier);
+    public static function GetTemplateByIdentifier($identifier, $projectId) {
+        return FactoryService::TemplateSettingsService()->GetByIdentifier($identifier, $projectId);
     }
 }

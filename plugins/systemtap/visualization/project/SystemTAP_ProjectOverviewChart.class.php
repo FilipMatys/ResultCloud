@@ -17,7 +17,17 @@ class SystemTAP_ProjectOverviewChart
      */
     public static function GetProjectOverviewChart(ProjectTSE $project)    {
         // Load data for project
-        TestSuiteDataService::LoadSubmissions($project, Visualization::GetProjectDataDepth(ProjectOverviewType::GOOGLE_CHART));
+        TestSuiteDataService::LoadSubmissions(
+            $project, 
+            Visualization::GetProjectDataDepth(ProjectOverviewType::GOOGLE_CHART), 
+            new QueryPagination(1, SettingsService::GetTemplateByIdentifier(
+                'systemtap-proj-chart', 
+                $project->GetId())->Data['submissions-number'], 
+                'desc'
+            )
+        );
+
+
         // Initialize Google chart object
         $projectOverviewChart = new ProjectOverviewChart();
         $googleChart = new GoogleChart();

@@ -14,7 +14,7 @@ class TestSuiteDataService	{
 	 * @return projectTSE with loaded submissions
 	 */
 	public static function LoadSubmissions($projectTSE, $dataDepth, QueryPagination $queryPagination = null)	{
-		FactoryService::SubmissionService()->LoadSubmissions($projectTSE, $dataDepth);
+		FactoryService::SubmissionService()->LoadSubmissions($projectTSE, $dataDepth, $queryPagination);
 	}
 
 	/**
@@ -25,7 +25,7 @@ class TestSuiteDataService	{
 	 * @return submissionTSE with loaded categories
 	 */
 	public static function LoadCategories($submissionTSE, $dataDepth, QueryPagination $queryPagination = null)	{
-		FactoryService::CategoryService()->LoadCategories($submissionTSE, $dataDepth);
+		FactoryService::CategoryService()->LoadCategories($submissionTSE, $dataDepth, $queryPagination);
 	} 
 }
 

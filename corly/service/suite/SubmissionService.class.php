@@ -196,9 +196,9 @@ class SubmissionService
      * @param mixed $depth
      * @return mixed
      */
-    public function LoadSubmissions($projectTSE, $depth)   {
+    public function LoadSubmissions($projectTSE, $depth, $queryPagination)   {
         // Load submissions for given project
-        $dbSubmissions = FactoryDao::SubmissionDao()->GetFilteredList(QueryParameter::Where('Project', $projectTSE->GetId()))->ToList();
+        $dbSubmissions = FactoryDao::SubmissionDao()->GetFilteredList(QueryParameter::Where('Project', $projectTSE->GetId()), $queryPagination)->ToList();
         
         // Map submissions to TSE objects and load categories
         foreach ($dbSubmissions as $dbSubmission)

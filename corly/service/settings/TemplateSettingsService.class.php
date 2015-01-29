@@ -63,7 +63,7 @@ class TemplateSettingsService
      * @param identifier
      * @return template settings
      */
-    public function GetByIdentifier($identifier)    {
+    public function GetByIdentifier($identifier, $projectId)    {
         // Init validation
         $validation = new ValidationResult($identifier);
         $validation->IsTrue(!empty($identifier), "Identifier not set");
@@ -73,19 +73,20 @@ class TemplateSettingsService
             return $validation;
 
         // Get template
-        $templateSettings = self::GetFilteredList(QueryParameter::Where('Identifier', $identifier))->ToList();
+        $lTemplateProjectSettings = self::GetFilteredList(QueryParameter::Where('Project', $projectId));
+        $templateSettings = $lTemplateProjectSettings->Where('Identifier', '==', $identifier)->Single();
 
         // Init validation
         $validation = new ValidationResult($templateSettings);
 
         // Get template items and map them to their identifier
-        $templateSettings->Items = array();
+        $items = array();
         foreach (self::$TemplateSettingsItemDao->GetFilteredList(QueryParameter::Where('Template', $templateSettings->Id))->ToList() as $item) {
-            $templateSettings->Items[$item->Identifier] = $item;
+            $items[$item->Identifier] = $item->Value;
         }
 
         // Return validation
-        return new ValidationResult($templateSettings);
+        return new ValidationResult($items);
     }
 
     /**
