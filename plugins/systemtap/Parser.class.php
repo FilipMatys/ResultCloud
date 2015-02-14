@@ -44,8 +44,9 @@ class Parser
         // Load uploaded file as string
         $fileRows = file($data);
         
-        $Category = new CategoryTSE("Default");
-        
+        $Categories = array();
+        $current_Category = new CategoryTSE("Default");
+
         // Init configuration
         $configuration = new SystemTAP_Configuration();
         $configSet = false;
@@ -81,9 +82,13 @@ class Parser
                 // If test case was set, add it to category,
                 // because we are creating new test case
                 if (isset($TestCase))   {
-                    $Category->AddTestCase($TestCase);
+                    $current_Category->AddTestCase($TestCase);
                 }
-                
+                preg_match("/\.\/([0-9a-zA-Z._\-]+)\/.+/", $testCaseMatches[1], $categoryMatches);
+                if(!isset($Categories[$categoryMatches[1]])) {
+                    $Categories[$categoryMatches[1]] = new CategoryTSE($categoryMatches[1]);
+                    $current_Category = $Categories[$categoryMatches[1]];
+                }
                 // Create new test case
                 $TestCase = new TestCaseTSE($testCaseMatches[1]);
             }
@@ -103,7 +108,7 @@ class Parser
         }
         
         // Add category to submission
-        $Submission->AddCategory($Category);
+        $Submission->AddCategories($Categories);
         
         // Save configuration
         $systemInfoHandler = DbUtil::GetEntityHandler(new SystemTAP_Configuration);

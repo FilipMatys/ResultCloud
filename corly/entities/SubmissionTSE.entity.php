@@ -97,6 +97,13 @@ class SubmissionTSE
     public function AddCategory(CategoryTSE $category)  {
         $this->Categories[] = $category;
     }
+
+    /**
+    * Add list of categories to submission
+    */
+    public function AddCategories($categories)  {
+        $this->Categories = $categories;
+    }
     
     /**
      * Get submission as object to save to database

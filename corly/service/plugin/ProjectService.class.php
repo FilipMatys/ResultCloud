@@ -23,7 +23,7 @@ Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryDao.class.php']);
  */
 class ProjectService
 {
-    /**
+
      * Get filtered list of projects
      * @param Parameter $parameter 
      * @return filtered list of projects
@@ -37,6 +37,7 @@ class ProjectService
      * @return list of projects
      */
     public function GetList()   {
+
         return FactoryDao::ProjectDao()->GetList();
     }
     
@@ -82,9 +83,11 @@ class ProjectService
      */
     public function GetViews($project)  {
         // Load project from database
+
         $dbProject = FactoryDao::ProjectDao()->Load($project);
         
         // Load plugin
+
         FactoryService::PluginService()->LoadPlugin($dbProject->Plugin);
         
         // Initialize validation
@@ -107,9 +110,11 @@ class ProjectService
      */
     public function GetDiffViews($project)   {
         // Load project from database
+
         $dbProject = FactoryDao::ProjectDao()->Load($project);
         
         // Load plugin
+
         FactoryService::PluginService()->LoadPlugin($dbProject->Plugin);
         
         // Initialize validation
@@ -132,6 +137,7 @@ class ProjectService
      */
     public function GetDetail($project, $type) {
         // Load project from database
+
         $dbProject = FactoryDao::ProjectDao()->Load($project);
         
         // Map database object to TSE object
@@ -139,6 +145,7 @@ class ProjectService
         $project->MapDbObject($dbProject);
         
         // Load plugin
+
         FactoryService::PluginService()->LoadPlugin($dbProject->Plugin);
         
         // Initialize validation
@@ -153,11 +160,22 @@ class ProjectService
         // End session to allow other requests
         SessionService::CloseSession();
         
+
         // Process data by plugin
         return Visualization::VisualizeProject($project, $type);
     }
 
-    /**
+    public function ClearProject($project) {
+        $dbProject = $this->ProjectDao->Load($project);
+        $this->SubmissionService->ClearSubmission($dbProject->Id);
+    }
+
+    public function DeleteProject($project) {
+        $this->SubmissionService->ClearSubmission($project->Id);
+        $this->ProjectDao->Delete($project);
+    }
+
+/**
      * Get project liveness
      */
     public function GetLiveness($project)   {
@@ -264,5 +282,4 @@ class ProjectService
         
         // Return options
         return $gcOptions;
-    }
-}
+    }}

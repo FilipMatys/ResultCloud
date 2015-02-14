@@ -55,4 +55,14 @@ class CategoryService
             $submissionTSE->AddCategory($category);
         }
     }
+
+    public function ClearCategory($submissionId) 
+    {
+        $dbCategories = $this->CategoryDao->GetFilteredList(QueryParameter::Where('Submission', $submissionId));
+        foreach ($dbCategories as $dbCategory)
+        {
+            $this->TestCaseService->ClearTestCases($dbCategory->Id);
+        }
+        $this->CategoryDao->DeleteFilteredList(QueryParameter::Where('Submission', $submissionId));
+    }
 }
