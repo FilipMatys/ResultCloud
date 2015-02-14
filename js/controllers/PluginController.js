@@ -34,6 +34,25 @@ application.controller('PluginController', ['$scope', '$stateParams', 'PluginSer
                 LoadPlugin();
             });
     };
+    //Clear project
+    $scope.ClearProject = function (pid) {
+        if (confirm("Are you sure?")) {
+            ProjectService.clear(pid.projectId)
+                .success(function (data, status, headers, config) {
+                    LoadPlugin();
+                });
+        }
+    };
+
+    //Delete project
+    $scope.DeleteProject = function (pid) {
+        if (confirm("Are you sure?")) {
+            ProjectService.projectDelete(pid.projectId)
+                .success(function (data, status, headers, config) {
+                    LoadPlugin();
+                });
+        }
+    };
 
     // Toggle project detail
     $scope.ToggleProjectDetail = function (index) {

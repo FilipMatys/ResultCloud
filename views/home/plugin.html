@@ -1,4 +1,4 @@
-﻿<div class="row">
+<div class="row">
     <div class="large-12 columns">
         <ul class="breadcrumbs">
             <li><a ui-sref="home.dashboard">Dashboard</a></li>
@@ -51,12 +51,12 @@
                                 </div>
                                 <div class="large-4 medium-4 columns">
                                     <a ui-sref="home.project-settings({projectId:project.Id})" title="Project settings" class="fi-widget icon"></a>
-                                    <a title="Clean project" class="fi-trash icon"></a>
-                                    <a title="Delete project" class="fi-x icon"></a>
+                                    <a title="Clean project" ng-click="ClearProject({projectId:project.Id})" class="fi-trash icon"></a>
+                                    <a title="Delete project" ng-click="DeleteProject({projectId:project.Id})" class="fi-x icon"></a>
                                 </div>
+								<div class="google-chart liveness" google-chart chart="project.Liveness"></div>
+                            	<hr ng-if="!$last" />
                             </div>
-                            <div class="google-chart liveness" google-chart chart="project.Liveness"></div>
-                            <hr ng-if="!$last" />
                         </div>
                     </div>
                 </div>

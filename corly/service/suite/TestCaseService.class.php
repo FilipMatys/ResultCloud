@@ -63,4 +63,13 @@ class TestCaseService
         // return array of test cases
         return $testCases;
     }
+
+    public function ClearTestCases($categoryId) {
+        $dbTestCases = $this->TestCaseDao->GetFilteredList(QueryParameter::Where('Category', $categoryId));
+        foreach ($dbTestCases as $dbTestCase)
+        {
+            $this->ResultService->ClearResults($dbTestCase->Id);
+        }
+        $this->TestCaseDao->DeleteFilteredList(QueryParameter::Where('Category', $categoryId));
+    }
 }

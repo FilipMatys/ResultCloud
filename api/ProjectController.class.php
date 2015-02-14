@@ -24,6 +24,8 @@ class ProjectController
     const SAVE = "SAVE";
     const VIEWS = "VIEWS";
     const DIFFVIEWS = "DIFFVIEWS";
+    const CLEAR = "CLEAR";
+    const DELETE = "DELETE";
     
     /**
      * Save given project
@@ -78,6 +80,34 @@ class ProjectController
         // Load views
         return FactoryService::ProjectService()->GetDiffViews($project);
     }
+
+    /**
+     * Clear given project
+     * @param mixed $projecId 
+     * @return mixed
+     */
+    public function Clear($projectId)    {
+        // Initialize object
+        $project = new stdClass();
+        $project->Id = $projectId;
+        
+        // Load views
+        return $this->ProjectService->ClearProject($project);
+    }
+
+    /**
+     * Delete given project
+     * @param mixed $projecId 
+     * @return mixed
+     */
+    public function Delete($projectId)    {
+        // Initialize object
+        $project = new stdClass();
+        $project->Id = $projectId;
+        
+        // Load views
+        return $this->ProjectService->DeleteProject($project);
+    }
     
     /**
      * Get project 
@@ -125,6 +155,12 @@ if (isset($_GET["method"]))	{
             
         case ProjectController::DIFFVIEWS:
             $result = $ProjectController->DiffViews($data);
+            break;
+        case ProjectController::CLEAR:
+            $result = $ProjectController->Clear($data);
+            break;
+        case ProjectController::DELETE:
+            $result = $ProjectController->Delete($data);
             break;
             
 		default:
