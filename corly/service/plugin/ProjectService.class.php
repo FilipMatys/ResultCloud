@@ -23,7 +23,7 @@ Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryDao.class.php']);
  */
 class ProjectService
 {
-
+    /**
      * Get filtered list of projects
      * @param Parameter $parameter 
      * @return filtered list of projects

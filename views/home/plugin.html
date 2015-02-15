@@ -54,9 +54,9 @@
                                     <a title="Clean project" ng-click="ClearProject({projectId:project.Id})" class="fi-trash icon"></a>
                                     <a title="Delete project" ng-click="DeleteProject({projectId:project.Id})" class="fi-x icon"></a>
                                 </div>
-								<div class="google-chart liveness" google-chart chart="project.Liveness"></div>
-                            	<hr ng-if="!$last" />
                             </div>
+                            <div class="google-chart liveness" google-chart chart="project.Liveness"></div>
+                            <hr ng-if="!$last" />
                         </div>
                     </div>
                 </div>
