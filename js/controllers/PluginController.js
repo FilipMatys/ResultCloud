@@ -32,6 +32,9 @@ application.controller('PluginController', ['$scope', '$stateParams', 'PluginSer
         ProjectService.save(project)
             .success(function (data, status, headers, config) {
                 LoadPlugin();
+
+                // Show status
+                $scope.ShowStatus('Create new project', data.IsValid, data.Errors);
             });
     };
     //Clear project
@@ -40,6 +43,9 @@ application.controller('PluginController', ['$scope', '$stateParams', 'PluginSer
             ProjectService.clear(pid.projectId)
                 .success(function (data, status, headers, config) {
                     LoadPlugin();
+
+                    // Show status
+                    $scope.ShowStatus('Clear project', data.IsValid, data.Errors);
                 });
         }
     };
@@ -50,6 +56,9 @@ application.controller('PluginController', ['$scope', '$stateParams', 'PluginSer
             ProjectService.projectDelete(pid.projectId)
                 .success(function (data, status, headers, config) {
                     LoadPlugin();
+
+                    // Show status
+                    $scope.ShowStatus('Delete project', data.IsValid, data.Errors);
                 });
         }
     };

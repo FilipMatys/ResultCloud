@@ -1,9 +1,9 @@
 application.controller('HomeController', ['$scope', '$state', 'AuthentizationService', 'UserService', function ($scope, $state, AuthentizationService, UserService) {
     // Init variables
     $scope.user = {};
-    $scope.alert = {
+    $scope.status = {
         errors: [],
-        content: "Pasdas",
+        content: "",
         success: false
     };
 
@@ -18,29 +18,27 @@ application.controller('HomeController', ['$scope', '$state', 'AuthentizationSer
     }
 
     /**
-     * Show alert
+     * Show status
      * operation - operation that was 
      * valid - validity of operation
      * errors - list of errors
      */
-    $scope.ShowAlert = function(operation, valid, errors)   {
+    $scope.ShowStatus = function(operation, valid, errors)   {
         // Scroll to top
         $('html, body').animate({scrollTop: 0}, 800);
 
-        // Fill alert object
+        // Fill status object
         var result = valid ? " " : " not ";
-        $scope.alert.content = "Operation " + operation + " was" + result + "successful";
-        $scope.alert.errors = errors;
-        $scope.alert.success = valid; 
+        $scope.status.content = "Operation " + operation.toUpperCase() + " was" + result + "successful";
+        $scope.status.errors = errors;
+        $scope.status.success = valid; 
     }
 
-    // Clear alert
-    $scope.ClearAlert = function()  {
-        $scope.alert.content = "";
-        $scope.alert.errors = [];
+    // Clear status
+    $scope.ClearStatus = function()  {
+        $scope.status.content = "";
+        $scope.status.errors = [];
     }
-
-    $scope.ShowAlert('Test', true, []);
 
     // Get current user
     UserService.current()

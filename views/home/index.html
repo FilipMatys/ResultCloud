@@ -26,12 +26,12 @@
     </section>
 </nav>
 <!-- ALERT BOX -->
-<div ng-if="alert.content" data-alert class="alert-box" ng-class="{success: alert.success, alert: !alert.success}">
-    <span>{{alert.content}}</span>
-    <ul ng-if="alert.errors">
-        <li ng-repeat="error in alert.errors">{{error}}</li>
+<div ng-if="status.content" data-alert class="alert-box" ng-class="{success: status.success, alert: !status.success}">
+    <span>{{status.content}}</span>
+    <ul ng-if="status.errors">
+        <li ng-repeat="error in status.errors">{{error}}</li>
     </ul>    
-  <a ng-click="ClearAlert()" class="close-mark">&times;</a>
+  <a ng-click="ClearStatus()" class="close-mark">&times;</a>
 </div>
 
 <!-- CONTENT -->
