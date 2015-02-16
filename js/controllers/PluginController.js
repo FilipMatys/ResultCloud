@@ -53,15 +53,4 @@ application.controller('PluginController', ['$scope', '$stateParams', 'PluginSer
                 });
         }
     };
-
-    // Toggle project detail
-    $scope.ToggleProjectDetail = function (index) {
-        $scope.showProjectDetail[index] = !$scope.showProjectDetail[index];
-    }
-
-    $scope.ImportIntoProject = function () {
-        alert('hej');
-    }
-
-
 }]);

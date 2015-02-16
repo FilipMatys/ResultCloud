@@ -255,12 +255,16 @@ class SubmissionService
         return $validation;
     }
     
+    /**
+     * Clear submission
+     * @param projectId
+     */
     public function ClearSubmission($projectId) {
-        $dbSubmissions = $this->SubmissionDao->GetFilteredList(QueryParameter::Where('Project', $projectId));
+        $dbSubmissions = FactoryDao::SubmissionDao()->GetFilteredList(QueryParameter::Where('Project', $projectId))->ToList();
         foreach ($dbSubmissions as $dbSubmission)
         {
-            $this->CategoryService->ClearCategory($dbSubmission->Id);
+            FactoryService::CategoryService()->ClearCategory($dbSubmission->Id);
         }
-        $this->SubmissionDao->DeleteFilteredList(QueryParameter::Where('Project', $projectId));
+        FactoryDao::SubmissionDao()->DeleteFilteredList(QueryParameter::Where('Project', $projectId));
     }
 }

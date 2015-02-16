@@ -56,13 +56,17 @@ class CategoryService
         }
     }
 
+    /**
+     * Clear category
+     * @param submissionId
+     */
     public function ClearCategory($submissionId) 
     {
-        $dbCategories = $this->CategoryDao->GetFilteredList(QueryParameter::Where('Submission', $submissionId));
+        $dbCategories = FactoryDao::CategoryDao()->GetFilteredList(QueryParameter::Where('Submission', $submissionId))->ToList();
         foreach ($dbCategories as $dbCategory)
         {
-            $this->TestCaseService->ClearTestCases($dbCategory->Id);
+            FactoryService::TestCaseService()->ClearTestCases($dbCategory->Id);
         }
-        $this->CategoryDao->DeleteFilteredList(QueryParameter::Where('Submission', $submissionId));
+        FactoryDao::CategoryDao()->DeleteFilteredList(QueryParameter::Where('Submission', $submissionId));
     }
 }

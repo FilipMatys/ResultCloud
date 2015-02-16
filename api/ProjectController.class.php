@@ -92,7 +92,7 @@ class ProjectController
         $project->Id = $projectId;
         
         // Load views
-        return $this->ProjectService->ClearProject($project);
+        return FactoryService::ProjectService()->ClearProject($project);
     }
 
     /**
@@ -106,7 +106,7 @@ class ProjectController
         $project->Id = $projectId;
         
         // Load views
-        return $this->ProjectService->DeleteProject($project);
+        return FactoryService::ProjectService()->DeleteProject($project);
     }
     
     /**

@@ -563,3 +563,16 @@ div.toolbar span.divider    {
     display: inline-block;
     width: 1rem;
 }
+
+/**
+    ALERT BOX
+*/
+div.alert-box ul {
+    margin-bottom: 0rem;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+div.alert-box   {
+    margin-bottom: 0rem;
+}

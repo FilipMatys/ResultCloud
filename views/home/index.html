@@ -25,7 +25,16 @@
 
     </section>
 </nav>
+<!-- ALERT BOX -->
+<div ng-if="alert.content" data-alert class="alert-box" ng-class="{success: alert.success, alert: !alert.success}">
+    <span>{{alert.content}}</span>
+    <ul ng-if="alert.errors">
+        <li ng-repeat="error in alert.errors">{{error}}</li>
+    </ul>    
+  <a ng-click="ClearAlert()" class="close-mark">&times;</a>
+</div>
 
+<!-- CONTENT -->
 <div ui-view class="content"></div>
 
 <div ng-show="PendingChanges" class="cloak">
