@@ -7,6 +7,7 @@ Library::using(Library::CORLY_SERVICE_SETTINGS);
 Library::using(Library::CORLY_SERVICE_SECURITY);
 Library::using(Library::CORLY_SERVICE_APPLICATION);
 Library::using(Library::CORLY_SERVICE_SESSION);
+Library::using(Library::CORLY_SERVICE_IMPORT);
 Library::using(Library::CORLY_SERVICE_FACTORY, ['Factory.class.php']);
 
 class FactoryService extends Factory	{
