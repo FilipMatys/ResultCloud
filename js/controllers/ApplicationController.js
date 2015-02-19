@@ -129,4 +129,3 @@ application.config(function($stateProvider, $urlRouterProvider){
 	    controller: 'ProfileController'
 	});
 });
-

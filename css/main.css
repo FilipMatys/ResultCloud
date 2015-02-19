@@ -110,6 +110,22 @@ ul.breadcrumbs  {
     margin-top: 1rem;
 }
 
+ul.pagination   {
+    margin-bottom: 0rem;
+    margin-top: 0.5rem;
+    display: inline-block;
+}
+
+ul.pagination li a {
+    font-weight: bold;
+    border-radius: 0rem;
+}
+
+ul.pagination li a.active {
+    background: #ea0011;
+    color: white;
+}
+
 button:focus    {
     outline-color: #e5e5e5;
     background: #e5e5e5;

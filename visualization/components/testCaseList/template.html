@@ -1,26 +1,18 @@
 ﻿<div class="card header">
     <div class="row">
-        <div class="large-6 columns">
+        <div class="large-4 columns">
             <h1><span>Test Cases</span></h1>
         </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="large-2 columns">
-        <span ng-show="PendingChanges" class="pending"></span>
-    </div>
-    <div class="large-10 columns toolbar tRight">
-        <label ng-show="Pages > 1">
-            Page
-            <input type="number" ng-model="ListData.Page" /> / {{Pages}}
-        </label>
-        <span ng-show="Pages > 1" class="divider"></span>
-        <button ng-show="Pages > 1" ng-click="FetchData()" class="btn" ng-disabled="ListData.Page < 1 || ListData.Page > Pages">Go</button>
+        <div class="large-8 columns toolbar tRight">
+        <div ng-show="Pages > 1">
+            <ul class="pagination">
+                <li ng-repeat="page in Range(1, Pages)"><a ng-click="ChangePage(page)" ng-class="{active: Page==page}">{{page}}</a></li>
+            </ul>
+        </div>
         <select ng-show="ListData.ViewTypes && ListData.ViewTypes.length > 1" ng-model="View" ng-options="viewType for viewType in ListData.ViewTypes"></select>
     </div>
+    </div>
 </div>
-
 <div class="row" ng-switch on="View">
     <div class="large-12 columns" ng-switch-when="List">
         <div ng-include="'visualization/components/testCaseList/list.html'"></div>
