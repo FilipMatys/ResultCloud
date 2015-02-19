@@ -55,6 +55,6 @@ class ResultService
     }
 
     public function ClearResults($testCaseId) {
-        $this->ResultDao->DeleteFilteredList(QueryParameter::Where('TestCase', $testCaseId));
+        FactoryDao::ResultDao()->DeleteFilteredList(QueryParameter::Where('TestCase', $testCaseId));
     }
 }

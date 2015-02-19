@@ -37,6 +37,7 @@ class ProjectService
      * @return list of projects
      */
     public function GetList()   {
+
         return FactoryDao::ProjectDao()->GetList();
     }
     
@@ -82,9 +83,11 @@ class ProjectService
      */
     public function GetViews($project)  {
         // Load project from database
+
         $dbProject = FactoryDao::ProjectDao()->Load($project);
         
         // Load plugin
+
         FactoryService::PluginService()->LoadPlugin($dbProject->Plugin);
         
         // Initialize validation
@@ -107,9 +110,11 @@ class ProjectService
      */
     public function GetDiffViews($project)   {
         // Load project from database
+
         $dbProject = FactoryDao::ProjectDao()->Load($project);
         
         // Load plugin
+
         FactoryService::PluginService()->LoadPlugin($dbProject->Plugin);
         
         // Initialize validation
@@ -132,6 +137,7 @@ class ProjectService
      */
     public function GetDetail($project, $type) {
         // Load project from database
+
         $dbProject = FactoryDao::ProjectDao()->Load($project);
         
         // Map database object to TSE object
@@ -139,6 +145,7 @@ class ProjectService
         $project->MapDbObject($dbProject);
         
         // Load plugin
+
         FactoryService::PluginService()->LoadPlugin($dbProject->Plugin);
         
         // Initialize validation
@@ -153,19 +160,62 @@ class ProjectService
         // End session to allow other requests
         SessionService::CloseSession();
         
+
         // Process data by plugin
         return Visualization::VisualizeProject($project, $type);
     }
 
+    /**
+     * Clear project
+     * @param project to be cleared
+     * @return Validation result 
+     */
     public function ClearProject($project) {
-        $dbProject = $this->ProjectDao->Load($project);
-        $this->SubmissionService->ClearSubmission($dbProject->Id);
+        // Init validation
+        $validation = new ValidationResult($project);
+
+        // Check
+        $validation->CheckDataNotNull("Project not set");
+        $validation->CheckNotNullOrEmpty("Id", "Project identifier not set");
+
+        // Check validation
+        if (!$validation->IsValid)
+            return $validation;
+
+        // Load and clear project
+        $dbProject = FactoryDao::ProjectDao()->Load($project);
+        FactoryService::SubmissionService()->ClearSubmission($dbProject->Id);
+
+        // Return validation
+        return $validation;
     }
 
-    public function DeleteProject($project) {
-        $this->SubmissionService->ClearSubmission($project->Id);
-        $this->ProjectDao->Delete($project);
     /**
+     * Delete project
+     * @param project to be deleted
+     * @return Validation result 
+     */
+    public function DeleteProject($project) {
+        // Init validation
+        $validation = new ValidationResult($project);
+
+        // Check
+        $validation->CheckDataNotNull("Project not set");
+        $validation->CheckNotNullOrEmpty("Id", "Project identifier not set");
+
+        // Check validation
+        if (!$validation->IsValid)
+            return $validation;
+
+        // Clear submission and delete project
+        FactoryService::SubmissionService()->ClearSubmission($project->Id);
+        FactoryDao::ProjectDao()->Delete($project);
+
+        // Return validation
+        return $validation;
+    }
+
+/**
      * Get project liveness
      */
     public function GetLiveness($project)   {

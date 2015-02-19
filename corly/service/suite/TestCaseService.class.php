@@ -65,11 +65,11 @@ class TestCaseService
     }
 
     public function ClearTestCases($categoryId) {
-        $dbTestCases = $this->TestCaseDao->GetFilteredList(QueryParameter::Where('Category', $categoryId));
+        $dbTestCases = FactoryDao::TestCaseDao()->GetFilteredList(QueryParameter::Where('Category', $categoryId))->ToList();
         foreach ($dbTestCases as $dbTestCase)
         {
-            $this->ResultService->ClearResults($dbTestCase->Id);
+            FactoryService::ResultService()->ClearResults($dbTestCase->Id);
         }
-        $this->TestCaseDao->DeleteFilteredList(QueryParameter::Where('Category', $categoryId));
+        FactoryDao::TestCaseDao()->DeleteFilteredList(QueryParameter::Where('Category', $categoryId));
     }
 }
