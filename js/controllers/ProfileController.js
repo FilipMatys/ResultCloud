@@ -7,4 +7,13 @@
         .success(function (data, status, headers, config) {
             $scope.user = data;
         });
+
+    // Save current user
+    $scope.Save = function()	{
+	    UserService.save($scope.user)
+			.success(function (data, status, headers, config) {
+	            // Show status
+	            $scope.ShowStatus('Save user', data.IsValid, data.Errors);
+	        });
+	}
 }]);
