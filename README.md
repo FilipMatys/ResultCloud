@@ -10,7 +10,7 @@ Web Tool for Management of Long-Term Testing Results
 </ol>
 
 <h3>Requirements</h3>
-<ul> 
+<ul>
 <li>PHP 5+</li>
 <li> MySQL 5+</li>
 <li> Allowed mod_rewrite</li>
