@@ -43,6 +43,26 @@ application.factory('SessionService', function ($http) {
     }
 });
 
+// Session service
+application.factory('TemplateSettingsService', function ($http) {
+    return {
+        get: function (project) {
+            return $http({
+                method: 'POST',
+                url: 'api/TemplateSettingsController.class.php?method=GET',
+                data: project
+            })
+        },
+        save: function (templateSettings) {
+            return $http({
+                method: 'POST',
+                url: 'api/TemplateSettingsController.class.php?method=SAVE',
+                data: templateSettings
+            })
+        }
+    }
+});
+
 // Plugin management service
 application.factory('PluginManagementService', function ($http) {
     return {
@@ -160,6 +180,13 @@ application.factory('PluginService', ['$http', function ($http) {
             return $http({
                 method: 'POST',
                 url: 'api/PluginController.class.php?method=GET',
+                data: pluginId
+            })
+        },
+        getWithLiveness: function (pluginId) {
+            return $http({
+                method: 'POST',
+                url: 'api/PluginController.class.php?method=GET_L',
                 data: pluginId
             })
         }

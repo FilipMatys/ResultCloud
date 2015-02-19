@@ -4,7 +4,7 @@ session_start();
 include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Library.utility.php');
 
 // Include files
-Library::using(Library::CORLY_SERVICE_SESSION);
+Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryService.class.php']);
 
 /**
  * SessionController short summary.
@@ -18,17 +18,9 @@ class SessionController {
     // Request constants
 	const CHECK = "CHECK";
 
-	// Service
-	private $SessionService;
-
-	// Constructor
-	public function __construct()	{
-		$this->SessionService = new SessionService();
-	}
-
 	// Authorize credentials
 	public function Check()	{
-		return $this->SessionService->IsSessionSet('id');
+		return FactoryService::SessionService()->IsSessionSet('id');
 	}
 }
 

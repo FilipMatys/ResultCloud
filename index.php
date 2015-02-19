@@ -1,6 +1,6 @@
 <?php 
 include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'Library.utility.php');
-Library::using(Library::CORLY_SERVICE_PLUGIN);
+Library::using(Library::CORLY_SERVICE_UTILITIES, ['IncludeService.class.php']);
 ?>
 
 <!doctype html>
@@ -44,7 +44,9 @@ Library::using(Library::CORLY_SERVICE_PLUGIN);
     <script src="js/controllers/ProjectOverviewController.js" type="text/javascript"></script>
     <script src="js/controllers/SubmissionOverviewController.js" type="text/javascript"></script>
     <script src="js/controllers/DifferenceOverviewController.js" type="text/javascript"></script>
+    <script src="js/controllers/ProjectSettingsController.js" type="text/javascript"></script>
     <!-- Visualization directives -->
+    <script src="visualization/settings/js/DynamicComponentSettingsLoader.js" type="text/javascript"></script>
     <script src="visualization/submission/js/DynamicSubmissionComponentLoader.js" type="text/javascript"></script>
     <script src="visualization/project/js/DynamicProjectComponentLoader.js" type="text/javascript"></script>
     <script src="visualization/difference/js/DynamicDifferenceComponentLoader.js" type="text/javascript"></script>
@@ -53,7 +55,7 @@ Library::using(Library::CORLY_SERVICE_PLUGIN);
     <script src="visualization/components/testCaseList/js/TestCaseList.js" type="text/javascript"></script>
     <script src="visualization/components/difference/js/DifferenceList.js" type="text/javascript"></script>
     <!-- Load plugins components -->
-    <?php  IncludeService::JsComponents(); ?>
+    <?php IncludeService::JsComponents(); ?>
 
     <script>
         $(document).foundation();

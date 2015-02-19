@@ -4,8 +4,8 @@ session_start();
 include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Library.utility.php');
 
 // Include files
-Library::using(Library::CORLY_SERVICE_PLUGIN);
-Library::using(Library::UTILITIES);
+Library::using(Library::UTILITIES, ['QueryParameter.php']);
+Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryService.class.php']);
 
 /**
  * ProjectController short summary.
@@ -27,23 +27,13 @@ class ProjectController
     const CLEAR = "CLEAR";
     const DELETE = "DELETE";
     
-    // Services
-    private $ProjectService;
-    
-    /**
-     * Project controller constructor
-     */
-    public function __construct()   {
-        $this->ProjectService = new ProjectService();
-    }
-    
     /**
      * Save given project
      * @param mixed $project 
      * @return mixed
      */
     public function Save($project)  {
-        return $this->ProjectService->Save($project);
+        return FactoryService::ProjectService()->Save($project);
     }
     
     /**
@@ -52,7 +42,7 @@ class ProjectController
      * @return list of projects of given plugin
      */
     public function Plugin($pluginId)    {
-        return $this->ProjectService->GetFilteredList(QueryParameter::Where('Plugin', $pluginId));
+        return FactoryService::ProjectService()->GetFilteredList(QueryParameter::Where('Plugin', $pluginId))->ToList();
     }
     
     /**
@@ -60,7 +50,7 @@ class ProjectController
      * @return mixed
      */
     public function Query() {
-        return $this->ProjectService->GetList();
+        return FactoryService::ProjectService()->GetList()->ToList();
     }
     
     /**
@@ -74,7 +64,7 @@ class ProjectController
         $project->Id = $projectId;
         
         // Load views
-        return $this->ProjectService->GetViews($project);
+        return FactoryService::ProjectService()->GetViews($project);
     }
     
     /**
@@ -88,7 +78,7 @@ class ProjectController
         $project->Id = $projectId;
         
         // Load views
-        return $this->ProjectService->GetDiffViews($project);
+        return FactoryService::ProjectService()->GetDiffViews($project);
     }
 
     /**
@@ -128,7 +118,7 @@ class ProjectController
         $project = new stdClass();
         $project->Id = $request->ItemId;
         // Get project detail
-        return $this->ProjectService->GetDetail($project, $request->Type);
+        return FactoryService::ProjectService()->GetDetail($project, $request->Type);
     }
 }
 

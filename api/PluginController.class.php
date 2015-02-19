@@ -4,7 +4,7 @@ session_start();
 include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Library.utility.php');
 
 // Include files
-Library::using(Library::CORLY_SERVICE_PLUGIN);
+Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryService.class.php']);
 
 /**
  * PluginController short summary.
@@ -19,15 +19,15 @@ class PluginController
     // Method constants
     const QUERY = "QUERY";
     const GET = "GET";
-    
-    // Controller service
-    private $PluginService;
-    
+    const GET_L = "GET_L";
+
     /**
-     * Plugin controller constructor
+     * Get plugin with liveness
+     * @param mixed $pluginId
+     * @return plugin with detail with liveness
      */
-    public function __construct()  {
-        $this->PluginService = new PluginService();
+    public function GetWithLiveness($pluginId) {
+        return FactoryService::PluginService()->GetLiveness($this->Get($pluginId));
     }
     
     /**
@@ -41,7 +41,7 @@ class PluginController
         $plugin->Id = $pluginId;
         
         // Return result
-        return $this->PluginService->GetDetail($plugin);
+        return FactoryService::PluginService()->GetDetail($plugin);
     }
     
     /**
@@ -49,7 +49,7 @@ class PluginController
      * @return list of plugins
      */
     public function Query() {
-        return $this->PluginService->GetList();
+        return FactoryService::PluginService()->GetList()->ToList();
     }
 }
 
@@ -71,6 +71,10 @@ if (isset($_GET["method"]))	{
 		case PluginController::QUERY:
 			$result = $PluginController->Query();
 			break;
+
+        case PluginController::GET_L:
+            $result = $PluginController->GetWithLiveness($data);
+            break;
 
 		default:
 			$result = false;

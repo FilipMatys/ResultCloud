@@ -7,6 +7,7 @@ Library::using(Library::CORLY_DBCREATE);
 Library::using(Library::CORLY_DAO_STAT);
 Library::using(Library::CORLY_DAO_IMPLEMENTATION_SECURITY);
 Library::using(Library::CORLY_SERVICE_SECURITY);
+Library::using(Library::CORLY_INSTALLATION, ["ApplicationConfiguration.class.php"]);
 
 /**
  * InstallationService short summary.
@@ -100,7 +101,7 @@ class InstallationService
         $userDao = new UserDao();
      
         // Return list of users
-        return $userDao->GetList(); 
+        return $userDao->GetList()->ToList(); 
     }
     
     /**

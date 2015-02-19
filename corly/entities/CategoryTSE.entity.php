@@ -24,6 +24,14 @@ class CategoryTSE
         $this->TestCases = array();
         $this->TestCasesCount = 0;
     }
+
+    /**
+     * Get id
+     * @return id
+     */
+    public function GetId() {
+        return $this->Id;
+    }
     
     /**
      * Add test case to category

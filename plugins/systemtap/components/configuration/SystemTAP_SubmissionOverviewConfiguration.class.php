@@ -19,7 +19,7 @@ class SystemTAP_SubmissionOverviewConfigurationView
         // Get entity handler
         $configurationHandler = DbUtil::GetEntityHandler(new SystemTAP_Configuration);
         // Load system info for given submission
-        $lConfiguration = new LINQ($configurationHandler->GetFilteredList(QueryParameter::Where('DateTime', $submission->GetDateTime())));
+        $lConfiguration = $configurationHandler->GetFilteredList(QueryParameter::Where('DateTime', $submission->GetDateTime()));
         
         // Return result
         return new SystemTAP_ConfigurationView($lConfiguration->Single());

@@ -12,6 +12,8 @@ class LINQ
 
     // Array to keep data to work with
     private $Array;
+    private $TotalCount;
+    private $Page;
 
     // Temp variable
     private $tmp;
@@ -34,6 +36,38 @@ class LINQ
     public function __construct(array $Array)
     {
         $this->Array = $Array;
+    }
+
+    /**
+     * Set total count
+     * @param total count
+     */
+    public function SetTotalCount($totalCount)  {
+        $this->TotalCount = $totalCount;
+    }
+
+    /**
+     * Get total count
+     * @return 
+     */
+    public function GetTotalCount() {
+        return $this->TotalCount;
+    }
+
+    /**
+     * Set page
+     * @param page
+     */
+    public function SetPage($page)  {
+        $this->Page = $page;
+    }
+
+    /**
+     * Get page
+     * @return page
+     */
+    public function GetPage()   {
+        return $this->Page;
     }
 
     /*
@@ -149,6 +183,27 @@ class LINQ
                     $result[] = $item;
                     break;
                 }
+            }
+        }
+
+        // Return result
+        return new LINQ($result);
+    }
+
+    /**
+     * Filter by prefix for given property
+     * @param mixed property
+     * @param mixed prefix
+     * @return LINQ
+     */
+    public function WhereStartsWith($property, $prefix)  {
+        // Init result
+        $result = array();
+
+        // Iterate through each item
+        foreach ($this->Array as $item) {
+            if (substr($item->{$property}, 0, strlen($prefix)) === $prefix) {
+                $result[] = $item;
             }
         }
 

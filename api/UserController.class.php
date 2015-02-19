@@ -4,7 +4,7 @@ session_start();
 include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Library.utility.php');
 
 // Include files
-Library::using(Library::CORLY_SERVICE_SECURITY);
+Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryService.class.php']);
 
 class UserController	{
 	// Request constants
@@ -13,27 +13,19 @@ class UserController	{
 	const QUERY = "QUERY";
     const CURRENT = "CURRENT";
 
-	// Service
-	private $UserService;
-
-	// Constructor
-	public function __construct()	{
-		$this->UserService = new UserService();
-	}
-
 	// Save item
 	public function Save($user)	{
-		return $this->UserService->Save($user);
+		return FactoryService::UserService()->Save($user);
 	}
 
 	// Get item detail
 	public function Get($user)	{
-		return $this->UserService->GetDetail($user);
+		return FactoryService::UserService()->GetDetail($user);
 	}
 
 	// Get all items
 	public function Query()	{
-		return $this->UserService->GetDetailedList();
+		return FactoryService::UserService()->GetDetailedList();
 	}
     
     /**
@@ -41,7 +33,7 @@ class UserController	{
      * @return mixed
      */
     public function Current()   {
-        return $this->UserService->GetCurrent();
+        return FactoryService::UserService()->GetCurrent();
     }
 }
 

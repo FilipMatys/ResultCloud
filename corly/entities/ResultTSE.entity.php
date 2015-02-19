@@ -21,6 +21,14 @@ class ResultTSE
         $this->RKey = $rKey;
         $this->RValue = $rValue;
     }
+
+    /**
+     * Get id
+     * @return id
+     */
+    public function GetId() {
+        return $this->Id;
+    }
     
     /**
      * Get result key

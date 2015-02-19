@@ -16,6 +16,9 @@ class SystemTAP_SubmissionOverviewChart
      * @return mixed
      */
     public static function GetSubmissionOverviewChart(SubmissionTSE $submission)    {
+        // Load data
+        FactoryService::CategoryService()->LoadCategories($submission, Visualization::GetSubmissionDataDepth(SubmissionOverviewType::GOOGLE_CHART));
+
         // Initialize Google chart object
         $submissionOverviewChart = new SubmissionOverviewChart();
         $googleChart = new GoogleChart();
@@ -110,6 +113,7 @@ class SystemTAP_SubmissionOverviewChart
         // Create options and set all in it
         $gcOptions = new GCOptions();
         $gcOptions->setTitle("Result overview");
+        $gcOptions->setDisplayOverviewHeader(false);
         
         // Return options
         return $gcOptions;

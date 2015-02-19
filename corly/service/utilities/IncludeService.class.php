@@ -4,6 +4,7 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 // Get libraries
 Library::using(Library::CORLY_DAO_IMPLEMENTATION_PLUGIN);
 Library::using(Library::UTILITIES);
+Library::using(Library::CORLY_SERVICE_INSTALLATION);
 
 /**
  * IncludeService short summary.
@@ -26,6 +27,11 @@ class IncludeService
      * Load js components
      */
     public static function JsComponents()   {
+        // Check corly installation
+        $installationService = new InstallationService();
+        if (!$installationService->CheckInstallation()->IsValid)
+            return;
+
         // Get all components
         foreach (IncludeService::LoadComponents() as $component)    {
             IncludeService::OutputJsComponent($component);
@@ -43,7 +49,7 @@ class IncludeService
         $pluginDao = IncludeService::InitPluginDao();
         
         // Load components
-        $components = $componentDao->GetList();
+        $components = $componentDao->GetList()->ToList();
         // Load plugin for each component
         foreach ($components as $component) {
             // Init plugin object

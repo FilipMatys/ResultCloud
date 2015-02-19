@@ -16,6 +16,9 @@ class GCOptions
     private $DisplayExactValues;
     private $VAxis;
     private $HAxis;
+    private $DisplayOverviewHeader;
+    private $Legend;
+    private $Height;
     
     /**
      * Google charts options controller
@@ -23,6 +26,7 @@ class GCOptions
     public function __construct()   {
         $this->IsStacked = true;
         $this->DisplayExactValues = true;
+        $this->DisplayOverviewHeader = false;
     }
     
     /**
@@ -58,6 +62,14 @@ class GCOptions
     }
     
     /**
+     * Set if to display header for overview table
+     * @param mixed $displayOverviewHeader
+     */
+    public function setDisplayOverviewHeader($displayOverviewHeader)    {
+        $this->DisplayOverviewHeader = $displayOverviewHeader;
+    }
+
+    /**
      * Set Google chart hAxis
      * @param mixed $hAxis 
      */
@@ -74,6 +86,20 @@ class GCOptions
     }
     
     /**
+     * Set legend for chart
+     */
+    public function setLegend($legend) {
+        $this->Legend = $legend;
+    }
+
+    /**
+     * Set charts height
+     */
+    public function setHeight($height)  {
+        $this->Height = $height;
+    }
+
+    /**
      * Export object for serialization
      * @return mixed
      */
@@ -86,6 +112,9 @@ class GCOptions
         $options->isStacked = $this->IsStacked;
         $options->fill = $this->Fill;
         $options->displayExactValues = $this->DisplayExactValues;
+        $options->displayOverviewHeader = $this->DisplayOverviewHeader;
+        $options->height = $this->Height;
+        $options->legend = $this->Legend;
         
         if (isset($this->VAxis))
             $options->vAxis = $this->VAxis->ExportObject();

@@ -8,7 +8,7 @@ application.controller('PluginController', ['$scope', '$stateParams', 'PluginSer
 
     // Load given plugin
     var LoadPlugin = function () {
-        PluginService.get($stateParams.pluginId)
+        PluginService.getWithLiveness($stateParams.pluginId)
             .success(function (data, status, headers, config) {
                 $scope.plugin = data;
             });

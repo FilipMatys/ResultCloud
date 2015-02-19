@@ -4,7 +4,7 @@ session_start();
 include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Library.utility.php');
 
 // Include files
-Library::using(Library::CORLY_SERVICE_APPLICATION);
+Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryService.class.php']);
 
 /**
  * PathController short summary.
@@ -18,12 +18,6 @@ class PathController
 {
     const PATH = "PATH";
     
-    private $PathService;
-    
-    public function __construct()   {
-        $this->PathService = new PathService();   
-    }
-    
     /**
      * Get path to given entity
      * @param mixed $data 
@@ -34,7 +28,7 @@ class PathController
         $entity->Id = $data->EntityId;
         
         // Get path
-        return $this->PathService->GetPath($data->Type, $entity);
+        return FactoryService::PathService()->GetPath($data->Type, $entity);
     }
 }
 

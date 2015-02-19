@@ -24,6 +24,14 @@ class SubmissionTSE
     }
     
     /**
+     * Get id
+     * @return id
+     */
+    public function GetId() {
+        return $this->Id;
+    }
+    
+    /**
      * Get submission date time
      */
     public function GetDateTime()   {

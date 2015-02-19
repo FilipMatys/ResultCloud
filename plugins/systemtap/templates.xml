@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Templates for plugin settings -->
+<templates>
+  <!-- Project: Overview chart -->
+  <template identifier="systemtap-proj-chart" name="Overview chart" type="2">
+    <items>
+      <item identifier="submissions-number" label="Number of submissions showed" type="1" default="4" required="true"></item>
+    </items>
+  </template>
+</templates>

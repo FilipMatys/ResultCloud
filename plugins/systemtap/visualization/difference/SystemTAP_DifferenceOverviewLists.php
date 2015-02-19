@@ -22,6 +22,11 @@ class SystemTAP_DifferenceOverviewList
      * @return mixed
      */
     public static function GetDifferenceOverviewLists($submissions, $meta) {
+        // Load data
+        foreach ($submissions as $submission) {
+            TestSuiteDataService::LoadCategories($submission, Visualization::GetDifferenceDataDepth(DifferenceOverviewType::VIEWLIST));
+        }
+
         // For each category, one list is created, so first get all
         // categories across all submissions
         $categories = SystemTAP_DifferenceOverviewList::GetGategoryNames($submissions);

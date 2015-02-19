@@ -15,16 +15,23 @@
 
 <div class="row">
     <div class="large-12 columns">
-        <h3>Plugin installation</h3>
-    </div>
-</div>
-
-<div class="row">
-    <div class="large-2 columns">
-        <span ng-show="PendingChanges" class="pending"></span>
-    </div>
-    <div class="large-10 columns toolbar tRight">
-        <button ng-click="ScanForPlugins()" class="btn">Scan for plugins</button>
+        <div class="header card">
+            <div class="row">
+                <div class="large-6 columns">
+                    <h1><span>Plugin installation</span></h1>
+                </div>
+                <div class="large-6 columns">
+                    <div class="row">
+                        <div class="large-2 columns">
+                            <span ng-show="PendingChanges" class="pending"></span>
+                        </div>
+                        <div class="large-10 columns toolbar tRight">
+                            <button ng-click="ScanForPlugins()" class="button small">Scan for plugins</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -41,7 +48,7 @@
                                 <span>Created by {{plugin.Author}}</span>
                             </div>
                             <div class="large-4 medium-12 columns">
-                                <span ng-show="PendingInstallation[$index]" class="pending"></span><button ng-click="InstallPlugin(plugin, $index)" ng-show="!PendingInstallation[$index]" class="btn">Install</button>
+                                <span ng-show="PendingInstallation[$index]" class="pending"></span><button ng-click="InstallPlugin(plugin, $index)" ng-show="!PendingInstallation[$index]" class="button small">Install</button>
                             </div>
                         </div>
                     </fieldset>
@@ -51,28 +58,35 @@
     </div>
 </div>
 
+
 <div class="row">
     <div class="large-12 columns">
-        <h3>Installed plugins</h3>
-    </div>
-</div>
-<div class="row">
-    <div class="large-12 columns">
-        <div class="row" ng-repeat="plugin in Plugins">
-            <div class="large-12 columns">
-                <form class="list">
-                    <fieldset>
-                        <div class="row">
-                            <div class="large-8 medium-12 columns desc">
-                                <a ui-sref="home.plugin({pluginId: plugin.Id})">{{plugin.Name}} {{plugin.Version}}</a>
-                                <p class="about">{{plugin.About}}</p>
-                                <span>Created by {{plugin.Author}}</span>
+        <div class="card header">
+            <div class="row">
+                <div class="large-12 columns">
+                    <h1><span>Installed plugins</span></h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="row">
+                <div class="large-12 columns">
+                    <div class="row" ng-repeat="plugin in Plugins">
+                        <div class="large-12 columns">
+                            <div class="row list-item">
+                                <div class="large-8 medium-12 columns desc">
+                                    <a ui-sref="home.plugin({pluginId: plugin.Id})">{{plugin.Name}} {{plugin.Version}}</a>
+                                    <p class="about">{{plugin.About}}</p>
+                                    <span>Created by {{plugin.Author}}</span>
+                                </div>
+                                <div class="large-4 medium-12 columns">
+                                </div>
                             </div>
-                            <div class="large-4 medium-12 columns">
-                            </div>
+                            <hr ng-if="!$last" />
                         </div>
-                    </fieldset>
-                </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

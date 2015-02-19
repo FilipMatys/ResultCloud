@@ -23,6 +23,14 @@ class TestCaseTSE
     }
     
     /**
+     * Get id
+     * @return id
+     */
+    public function GetId() {
+        return $this->Id;
+    }
+    
+    /**
      * Add result to TestCase
      * @param result
      */

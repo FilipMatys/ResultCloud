@@ -2,9 +2,9 @@
 include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Library.utility.php');
 
 // Get libraries
-Library::using(Library::CORLY_DAO_IMPLEMENTATION_PLUGIN);
-Library::using(Library::CORLY_SERVICE_SECURITY);
 Library::using(Library::UTILITIES);
+Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryService.class.php']);
+Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryDao.class.php']);
 
 /**
  * PluginService short summary.
@@ -16,30 +16,12 @@ Library::using(Library::UTILITIES);
  */
 class PluginService
 {
-    // Daos
-    private $PluginDao;
-    private $ProjectDao;
-    private $SubmissionDao;
-    
-    private $UserService;
-    
-    /**
-     * Plugin service constructor
-     */
-    public function __construct()   {
-        $this->PluginDao = new PluginDao();
-        $this->ProjectDao = new ProjectDao();
-        $this->SubmissionDao = new SubmissionDao();
-        
-        $this->UserService = new UserService();
-    }
-    
     /**
      * Get list of all plugins
      * @return list of plugins
      */
     public function GetList()   {
-        return $this->PluginDao->GetList();
+        return FactoryDao::PluginDao()->GetList();
     }
     
     /**
@@ -48,7 +30,7 @@ class PluginService
      * @return Filtered list of plugins
      */
     public function GetFilteredList(Parameter $parameter)   {
-        return $this->PluginDao->GetFilteredList($parameter);    
+        return FactoryDao::PluginDao()->GetFilteredList($parameter);    
     }
     
     /**
@@ -61,7 +43,7 @@ class PluginService
         $validation = new ValidationResult($plugin);
         
         // Save plugin
-        $id = $this->PluginDao->Save($plugin);
+        $id = FactoryDao::PluginDao()->Save($plugin);
         
         // Set id for validation result
         if ($id != 0)
@@ -78,23 +60,39 @@ class PluginService
      */
     public function GetDetail($plugin)  {
         // Load plugin from base table
-        $plugin = $this->PluginDao->Load($plugin);
+        $plugin = FactoryDao::PluginDao()->Load($plugin);
 
         // Get all projects
-        $plugin->Projects = $this->ProjectDao->GetFilteredList(QueryParameter::Where('Plugin', $plugin->Id));
+        $plugin->Projects = FactoryDao::ProjectDao()->GetFilteredList(QueryParameter::Where('Plugin', $plugin->Id))->ToList();
         foreach ($plugin->Projects as $project) {
             $author = new stdClass();
             $author->Id = $project->Author;
             // Load  author
-            $project->Author = $this->UserService->GetDetail($author);
+            $project->Author = FactoryService::UserService()->GetDetail($author);
             
             // Get submissons
-            $lSubmissions = new LINQ($this->SubmissionDao->GetFilteredList(QueryParameter::Where('Project', $project->Id)));
+            $lSubmissions = FactoryDao::SubmissionDao()->GetFilteredList(QueryParameter::Where('Project', $project->Id));
             // Set submissions count
             $project->Submissions = $lSubmissions->Count();
         }
     
         // Return final plugin object
+        return $plugin;
+    }
+
+    /**
+     * Get liveness for plugin
+     * @param mixed $plugin
+     * @return plugin with liveness
+     */
+    public function GetLiveness($plugin)    {
+        // Create google chart for each project
+        foreach ($plugin->Projects as $project) {
+            // Get chart
+            $project = FactoryService::ProjectService()->GetLiveness($project);
+        }
+
+        // Return result
         return $plugin;
     }
     
@@ -107,7 +105,7 @@ class PluginService
         $plugin->Id = $pluginId;
         
         // Load plugin 
-        $plugin = $this->PluginDao->Load($plugin);
+        $plugin = FactoryDao::PluginDao()->Load($plugin);
         
         // Load plugin structure
         Library::using(Library::PLUGINS .DIRECTORY_SEPARATOR. $plugin->Root);

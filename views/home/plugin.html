@@ -21,40 +21,45 @@
 
 <div class="row">
     <div class="large-12 columns">
-        <h3>Projects</h3>
-    </div>
-</div>
-<div class="row addition">
-    <div class="large-12 columns">
-        <div class="row collapse above-tab">
-            <div class="small-9 large-11 columns">
-                <input ng-model="projectName" type="text" placeholder="Project name">
-            </div>
-            <div class="small-3 large-1 columns">
-                <button ng-disabled="!projectName" ng-click="CreateProject()" href="#" class="btn postfix">New</button>
+        <div class="card header">
+            <div class="row">
+                <div class="large-8 medium-7 columns">
+                    <h1><span>Projects</span></h1>
+                </div>
+                <div class="large-4 medium-5 columns">
+                    <div class="row collapse above-tab">
+                        <div class="small-12 medium-9 large-9 columns">
+                            <input ng-model="projectName" type="text" placeholder="Project name">
+                        </div>
+                        <div class="small-12 medium-3 large-3 columns">
+                            <button ng-disabled="!projectName" ng-click="CreateProject()" href="#" class="postfix">New</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<div class="row">
-    <div class="large-12 columns">
-        <div class="row" ng-repeat="project in plugin.Projects">
-            <div class="large-12 columns">
-                <form class="list">
-                    <fieldset>
-                        <div class="row">
-                            <div class="large-8 medium-12 columns desc">
-                                <a ui-sref="home.project-overview({projectId:project.Id})">{{project.Name}}</a>
-                                <p class="about">Created {{project.DateCreated | date:"longDate"}} by {{project.Author.Person.Name}}</p>
-                                <span>Number of submissions {{project.Submissions}}</span>
+        <div class="card">
+            <div class="row">
+                <div class="large-12 columns">
+                    <div class="row" ng-repeat="project in plugin.Projects">
+                        <div class="large-12 columns">
+                            <div class="row list-item">
+                                <div class="large-8 medium-8 columns desc">
+                                    <a ui-sref="home.project-overview({projectId:project.Id})">{{project.Name}}</a>
+                                    <p class="about">Created {{project.DateCreated | date:"longDate"}} by {{project.Author.Person.Name}}</p>
+                                    <span>Number of submissions {{project.Submissions}}</span>
+                                </div>
+                                <div class="large-4 medium-4 columns">
+                                    <a ui-sref="home.project-settings({projectId:project.Id})" title="Project settings" class="fi-widget icon"></a>
+                                    <a title="Clean project" ng-click="ClearProject({projectId:project.Id})" class="fi-trash icon"></a>
+                                    <a title="Delete project" ng-click="DeleteProject({projectId:project.Id})" class="fi-x icon"></a>
+                                </div>
                             </div>
-                            <div class="large-4 medium-12 columns">
-                                <button class="btn" ng-click="ClearProject({projectId:project.Id})">Clean</button>
-                                <button ng-click="DeleteProject({projectId:project.Id})" class="btn alert">Delete</button>
-                            </div>
+                            <div class="google-chart liveness" google-chart chart="project.Liveness"></div>
+                            <hr ng-if="!$last" />
                         </div>
-                    </fieldset>
-                </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

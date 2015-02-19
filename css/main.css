@@ -29,12 +29,31 @@ div.card    {
 }
 
 div.card.header {
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     border-bottom: solid 1px #ea0011;
+    margin-bottom: 0.25rem;
+}
+
+div.card.header input,
+div.card.header select {
+    margin-bottom: 0rem;
 }
 
 div.card h1 {
     margin-top: 0rem;
+}
+
+div.card label {
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+div.card.header label   {
+    font-weight: normal;
+}
+
+div.card label input {
+    margin-top: 0.5rem;
 }
 
 div.main-view,
@@ -96,6 +115,23 @@ button:focus    {
     background: #e5e5e5;
 }
 
+.button, 
+button {
+    background-color: #ea0011;
+    border: #ea0011;
+}
+
+button[disabled],
+button[disabled]:hover     {
+    background-color: #999999;
+    border: #999966;
+}
+
+.button:hover,
+button:hover {
+    background-color: #ea0011;
+}
+
 .row    {
     max-width: none;
 }
@@ -108,6 +144,7 @@ a.icon  {
     color: #999999;
 }
 
+.list-item a.icon:hover,
 a.icon:hover  {
     color: #ea0011;
     text-decoration: none;
@@ -124,7 +161,8 @@ a.icon:hover  {
     display: inline-block;
 }
 
-.list .desc a:hover {
+.list .desc a:hover,
+.list-item a:hover {
     text-decoration: underline;
 }
 
@@ -142,49 +180,6 @@ span.pending    {
     width: 2rem;
     display: block;
     height: 2.5rem;
-}
-
-.btn {
-    display: inline-block;
-    padding: 5px 18px;
-    margin-bottom: 0;
-    font-size: 14px;
-    line-height: 20px;
-    color: rgba(47,47,47,0.9);
-    text-align: center;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.7);
-    vertical-align: middle;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    -ms-border-radius: 2px;
-    -o-border-radius: 2px;
-    border-radius: 2px;
-    background-color: #e7e7e7;
-    background-image: -moz-linear-gradient(top, #ececec, #e0e0e0);
-    background-image: -ms-linear-gradient(top, #ececec, #e0e0e0);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ececec), to(#e0e0e0));
-    background-image: -webkit-linear-gradient(top, #ececec, #e0e0e0);
-    background-image: -o-linear-gradient(top, #ececec, #e0e0e0);
-    background-image: linear-gradient(top, #ececec,#e0e0e0);
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ececec', endColorstr='#e0e0e0', GradientType=0),#ececec,#e0e0e0;
-    border-color: rgba(5,5,5,0.05) rgba(5,5,5,0.15) rgba(5,5,5,0.2);
-    cursor: pointer;
-    border-style: solid;
-    border-width: 1px;
-}
-
-.btn.alert  {
-    background: #ea0011;
-}
-
-.btn:hover {
-    color: #000;
-    border-color: rgba(0,0,0,0.15) rgba(0,0,0,0.35) rgba(0,0,0,0.5);
-    text-decoration: none;
-    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-    -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
 }
 
 .hidden     {
@@ -217,6 +212,10 @@ h3  {
 
 table.double tbody td    {
     width: 50%;
+}
+
+table th {
+    text-align: left;
 }
 
 /**
@@ -403,9 +402,9 @@ form.list fieldset .button,
 form.list fieldset,
 div.toolbar form fieldset   {
     padding: 0.875rem;
-    margin-bottom: 0rem;
+    margin-bottom: 0.5rem;
     border: none;
-    margin-top: 0.5rem;
+    margin-top: 0rem;
 }
 
 form.list fieldset  {
@@ -415,21 +414,25 @@ form.list fieldset  {
 }
 
 form.list,
-.toolbar form   {
+.toolbar form,
+div.list-item   {
     margin-bottom: 0rem;
 }
 
-form.list p {
+form.list p,
+div.list-item p {
     margin-bottom: 0rem;
     line-height: 3.2rem;
     padding-left: 1rem;
 }
 
-form.list .desc a   {
+form.list .desc a,
+div.list-item .desc a   {
     line-height: 1.6rem;
 }
 
-form.list a.icon    {
+form.list a.icon,
+div.list-item a.icon    {
     font-size: 1.5rem;
     line-height: 2.5rem;
     margin-right: 0.5rem;
@@ -438,7 +441,12 @@ form.list a.icon    {
     top: 0.2rem;
 }
 
-form.list .desc span    {
+div.list-item a.icon    {
+    margin-left: 0.5rem;
+}
+
+form.list .desc span,
+div.list-item .desc span    {
     font-size: 0.8rem;
     line-height: 0.8rem;
     margin-bottom: 0.2rem;
@@ -446,7 +454,8 @@ form.list .desc span    {
     display: block;
 }
 
-form.list p.about {
+form.list p.about,
+div.list-item p.about {
     padding-left: 0rem;
     line-height: 1.2rem;
     font-size: 0.9rem;
@@ -455,12 +464,14 @@ form.list p.about {
 }
 
 form.list fieldset div.large-4,
-div.toolbar div.large-4 {
+div.toolbar div.large-4,
+div.list-item div.large-4 {
     text-align: right;
 }
 
 div.toolbar label   {
     display: inline;
+    margin-right: 0.5rem;
 }
 
 input[type=checkbox]  {
@@ -473,8 +484,11 @@ input[type=checkbox]  {
 */
 .google-chart   {
     height: 360px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.35);
-    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.35);
+}
+
+.google-chart.liveness  {
+    height: 100px;
+    margin-top: 1rem;
 }
 
 /**

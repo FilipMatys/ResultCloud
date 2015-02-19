@@ -5,7 +5,7 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Lib
 
 // Include files
 Library::using(Library::UTILITIES);
-Library::using(Library::CORLY_SERVICE_IMPORT);
+Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryService.class.php']);
 
 /**
  * ImportController short summary.
@@ -19,16 +19,7 @@ class ImportController
 {
     // Method constants
     const IMPORT = "IMPORT";
-    
-    // Services
-    private $ImportService;
-    
-    /**
-     * Import controller constructor
-     */
-    public function __construct()   {
-        $this->ImportService = new ImportService();
-    }
+
     
     /**
      * Import given data
@@ -44,7 +35,7 @@ class ImportController
         }
         
         // Call import service to import file 
-        return $this->ImportService->Import($data, $_FILES['file']);
+        return FactoryService::ImportService()->Import($data, $_FILES['file']);
     }
 }
 

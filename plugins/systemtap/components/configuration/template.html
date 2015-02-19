@@ -1,13 +1,15 @@
-﻿<div class="row">
-    <div class="large-12 columns">
-        <h3>System Info</h3>
-    </div>
-</div>
+﻿<div class="card header">
 <div class="row">
     <div class="large-12 columns">
-        <div class="card header">
+        <h1><span>System Info</span></h1>
+    </div>
+</div>
+</div>
+<div class="card">
+<div class="row">
+    <div class="large-12 columns">
             <h1>
-                <span>{{configuration.Host.Key}}</span>
+                {{configuration.Host.Key}}
             </h1>
             <label>{{configuration.Host.Value}}</label>
 
@@ -36,7 +38,7 @@
                 {{configuration.SElinux.Key}}
                 <span>{{configuration.SElinux.Value}}</span>
             </label>
-        </div>
     </div>
+</div>
 </div>
 

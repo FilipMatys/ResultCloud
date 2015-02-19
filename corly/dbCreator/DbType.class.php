@@ -33,6 +33,13 @@ class DbType
     }
 
     /**
+     * Get type of text
+     */
+    public static function Text()   {
+        return "text";
+    }
+
+    /**
      * Get type of integer
      */
     public static function Integer()  {

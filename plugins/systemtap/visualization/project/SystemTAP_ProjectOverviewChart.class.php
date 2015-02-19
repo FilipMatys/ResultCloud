@@ -16,6 +16,18 @@ class SystemTAP_ProjectOverviewChart
      * @return mixed
      */
     public static function GetProjectOverviewChart(ProjectTSE $project)    {
+        // Load data for project
+        TestSuiteDataService::LoadSubmissions(
+            $project, 
+            Visualization::GetProjectDataDepth(ProjectOverviewType::GOOGLE_CHART), 
+            new QueryPagination(1, SettingsService::GetTemplateByIdentifier(
+                'systemtap-proj-chart', 
+                $project->GetId())->Data['submissions-number'], 
+                'desc'
+            )
+        );
+
+
         // Initialize Google chart object
         $projectOverviewChart = new ProjectOverviewChart();
         $googleChart = new GoogleChart();
@@ -155,6 +167,7 @@ class SystemTAP_ProjectOverviewChart
         $gcOptions = new GCOptions();
         $gcOptions->setFill(20);
         $gcOptions->setTitle("Running results");
+        $gcOptions->setDisplayOverviewHeader(true);
         
         // Create vAxis
         $gcVAxis = new GCAxis();

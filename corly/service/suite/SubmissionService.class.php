@@ -3,12 +3,9 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 
 // Get libraries
 Library::using(Library::UTILITIES);
-Library::using(Library::CORLY_DAO_IMPLEMENTATION_SUITE);
-Library::using(Library::CORLY_DAO_IMPLEMENTATION_PLUGIN);
-Library::using(Library::CORLY_SERVICE_SUITE);
-Library::using(Library::CORLY_SERVICE_PLUGIN);
-Library::using(Library::CORLY_SERVICE_SECURITY);
 Library::using(Library::CORLY_SERVICE_SESSION);
+Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryService.class.php']);
+Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryDao.class.php']);
 
 
 /**
@@ -20,27 +17,7 @@ Library::using(Library::CORLY_SERVICE_SESSION);
  * @author Filip
  */
 class SubmissionService
-{
-    private $SubmissionDao;
-    private $ProjectDao;
-
-    private $CategoryService;
-    private $PluginService;
-    private $UserService;
-    
-    /**
-     * Initialize class daos and services
-     */
-    public function __construct()   {
-        $this->SubmissionDao = new SubmissionDao();
-        $this->ProjectDao = new ProjectDao();
-        
-        $this->CategoryService = new CategoryService();
-        $this->PluginService = new PluginService();
-        $this->UserService = new UserService();
-    }
-    
-
+{    
     /**
      * Save summary as a whole, which means 
      * save all appended objects as well
@@ -57,10 +34,10 @@ class SubmissionService
             return $validation;
         
         // Save submission
-        $submissionId = $this->SubmissionDao->Save($submission->GetDbObject($projectId));
+        $submissionId = FactoryDao::SubmissionDao()->Save($submission->GetDbObject($projectId));
         
         // Save categories with test cases
-        $this->CategoryService->SaveCategories($submission->GetCategories(), $submissionId);
+        FactoryService::CategoryService()->SaveCategories($submission->GetCategories(), $submissionId);
         
         // Return validation
         return $validation;
@@ -76,8 +53,8 @@ class SubmissionService
         $validation = new ValidationResult($submissions);
         
         // Load plugin execution
-        $dbProject = $this->ProjectDao->Load($project);
-        $this->PluginService->LoadPlugin($dbProject->Plugin);
+        $dbProject = FactoryDao::ProjectDao()->Load($project);
+        FactoryService::PluginService()->LoadPlugin($dbProject->Plugin);
         
         // Check if visualizer was included
         if (!class_exists('Visualization'))  {
@@ -88,14 +65,11 @@ class SubmissionService
         // Close session so other requests are allowed
         SessionService::CloseSession();
         
-        // Get view depth
-        $depth = Visualization::GetDifferenceDataDepth($type);
-        
         // Create array of submissions to pass to visualizer
         $tseSubmissions = array();
         foreach ($submissions as $submission)   {
             // Load submission
-            $dbSubmission = $this->SubmissionDao->Load($submission);
+            $dbSubmission = FactoryDao::SubmissionDao()->Load($submission);
             
             // Create new TSE entity
             $tseSubmission = new SubmissionTSE();
@@ -106,14 +80,9 @@ class SubmissionService
                 $user = new stdClass();
                 $user->Id = $dbSubmission->User;
                 // Load from database
-                $user = $this->UserService->GetDetail($user);
+                $user = FactoryService::UserService()->GetDetail($user);
                 // Assign to submission
                 $tseSubmission->SetUser($user);
-            }
-            
-            // Load categories into submission
-            foreach ($this->CategoryService->LoadCategories($dbSubmission->Id, $depth - 1) as $category)    {
-                $tseSubmission->AddCategory($category);
             }
             
             // Add submission to list
@@ -134,7 +103,7 @@ class SubmissionService
      */
     public function GetViews($submission)   {
         // Load submission from database
-        $dbSubbmission = $this->SubmissionDao->Load($submission);
+        $dbSubbmission = FactoryDao::SubmissionDao()->Load($submission);
         
         // Initialize validation
         $validation = new ValidationResult($submission);
@@ -144,10 +113,10 @@ class SubmissionService
         $dbProject = new stdClass();
         $dbProject->Id = $dbSubbmission->Project;
         // Load project
-        $dbProject = $this->ProjectDao->Load($dbProject);
+        $dbProject = FactoryDao::ProjectDao()->Load($dbProject);
         
         // Load plugin execution
-        $this->PluginService->LoadPlugin($dbProject->Plugin);
+        FactoryService::PluginService()->LoadPlugin($dbProject->Plugin);
         
         // Check if visualizer was included
         if (!class_exists('Visualization'))  {
@@ -169,7 +138,7 @@ class SubmissionService
      */
     public function GetDetail($submission, $type,  $meta = null)    {
         // Load submission from database
-        $dbSubbmission = $this->SubmissionDao->Load($submission);
+        $dbSubbmission = FactoryDao::SubmissionDao()->Load($submission);
         
         // Map database object to TSE object
         $submission = new SubmissionTSE();
@@ -180,7 +149,7 @@ class SubmissionService
             $user = new stdClass();
             $user->Id = $dbSubmission->User;
             // Load from database
-            $user = $this->UserService->GetDetail($user);
+            $user = FactoryService::UserService()->GetDetail($user);
             // Assign to submission
             $submission->SetUser($user);
         }
@@ -193,10 +162,10 @@ class SubmissionService
         $dbProject = new stdClass();
         $dbProject->Id = $dbSubbmission->Project;
         // Load project
-        $dbProject = $this->ProjectDao->Load($dbProject);
+        $dbProject = FactoryDao::ProjectDao()->Load($dbProject);
         
         // Load plugin execution
-        $this->PluginService->LoadPlugin($dbProject->Plugin);
+        FactoryService::PluginService()->LoadPlugin($dbProject->Plugin);
         
         // Check if visualizer was included
         if (!class_exists('Visualization'))  {
@@ -207,19 +176,18 @@ class SubmissionService
         // Close session so other requests are allowed
         SessionService::CloseSession();
         
-        // Get view depth
-        $depth = Visualization::GetSubmissionDataDepth($type);
-        
-        // Load categories for submission
-        foreach ($this->CategoryService->LoadCategories($dbSubbmission->Id, $depth - 1) as $category)   {
-            $submission->AddCategory($category);
-        }
-        
         // Process data by plugin
         $validation = Visualization::VisualizeSubmission($submission, $type, $meta);
         
         // Return result
         return $validation;
+    }
+
+    /**
+     * Get filtered list of submissions
+     */
+    public function GetFilteredList(Parameter $parameter)   {
+        return FactoryDao::SubmissionDao()->GetFilteredList($parameter);
     }
     
     /**
@@ -228,12 +196,9 @@ class SubmissionService
      * @param mixed $depth
      * @return mixed
      */
-    public function LoadSubmissions($projectId, $depth)   {
+    public function LoadSubmissions($projectTSE, $depth, $queryPagination)   {
         // Load submissions for given project
-        $dbSubmissions = $this->SubmissionDao->GetFilteredList(QueryParameter::Where('Project', $projectId));
-        
-        // Init submission array
-        $submissions = array();
+        $dbSubmissions = FactoryDao::SubmissionDao()->GetFilteredList(QueryParameter::Where('Project', $projectTSE->GetId()), $queryPagination)->ToList();
         
         // Map submissions to TSE objects and load categories
         foreach ($dbSubmissions as $dbSubmission)
@@ -246,26 +211,19 @@ class SubmissionService
                 $user = new stdClass();
                 $user->Id = $dbSubmission->User;
                 // Load from database
-                $user = $this->UserService->GetDetail($user);
+                $user = FactoryService::UserService()->GetDetail($user);
                 // Assign to submission
                 $submission->SetUser($user);
             }
             
             // Load categories if not reached the depth
             if ($depth > 0) {
-                foreach ($this->CategoryService->LoadCategories($dbSubmission->Id, $depth - 1) as $category)
-                {
-                    // Add category to submission
-                    $submission->AddCategory($category);
-                }
+                FactoryService::CategoryService()->LoadCategories($submission, $depth - 1);
             }
             
-            // Add submission to array
-            $submissions[] = $submission;
+            // Add submission to project
+            $projectTSE->AddSubmission($submission);
         }
-        
-        // Return submissions
-        return $submissions;
     }
     
     /**
@@ -282,7 +240,7 @@ class SubmissionService
         $validation->CheckDataNotNull("Invalid data supplied");
         
         // Get all submissions of given project
-        $lSubmissions = new LINQ($this->SubmissionDao->GetFilteredList(QueryParameter::Where('Project', $projectId)));
+        $lSubmissions = FactoryDao::SubmissionDao()->GetFilteredList(QueryParameter::Where('Project', $projectId));
         
         // Check if submission is in list
         if (in_array($data->GetDateTime(), $lSubmissions->Select('DateTime')->ToList())) {

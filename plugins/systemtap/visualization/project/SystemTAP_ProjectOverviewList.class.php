@@ -16,6 +16,9 @@ class SystemTAP_ProjectOverviewList
      * @return mixed
      */
     public static function GetProjectOverviewList(ProjectTSE $project)    {
+        // Load data
+        TestSuiteDataService::LoadSubmissions($project, Visualization::GetProjectDataDepth(ProjectOverviewType::VIEWLIST));
+
         // Initialize list
         $projectOverviewList = new ProjectOverviewList();
         

@@ -5,7 +5,7 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Lib
 
 // Include files
 Library::using(Library::CORLY_INSTALLATION);
-Library::using(Library::CORLY_SERVICE_INSTALLATION);
+Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryService.class.php']);
 
 class InstallationController	{
 	// Request constants
@@ -13,21 +13,13 @@ class InstallationController	{
     const CHECK = "CHECK";
     const REGISTER = "REGISTER";
     
-	// Service
-	private $InstallationService;
-
-	// Constructor
-	public function __construct()	{
-		$this->InstallationService = new InstallationService();
-	}
-
 	/**
 	 * Install application
 	 * @param mixed $data 
 	 * @return mixed
 	 */
 	public function Install($data)	{
-		return $this->InstallationService->Install($data);
+		return FactoryService::InstallationService()->Install($data);
 	}
     
     /**
@@ -35,7 +27,7 @@ class InstallationController	{
      * @return mixed
      */
     public function Check() {
-        return $this->InstallationService->CheckInstallation();
+        return FactoryService::InstallationService()->CheckInstallation();
     }
     
     /**
@@ -44,7 +36,7 @@ class InstallationController	{
      * @return mixed
      */
     public function Register($user) {
-        return $this->InstallationService->RegisterUser($user);
+        return FactoryService::InstallationService()->RegisterUser($user);
     }
 }
 

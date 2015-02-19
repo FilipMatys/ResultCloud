@@ -3,11 +3,9 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 
 // Get libraries
 Library::using(Library::UTILITIES);
-Library::using(Library::CORLY_DAO_IMPLEMENTATION_PLUGIN);
-Library::using(Library::CORLY_SERVICE_SUITE);
-Library::using(Library::CORLY_SERVICE_PLUGIN);
 Library::using(Library::CORLY_SERVICE_SESSION);
 Library::using(Library::CORLY_SERVICE_UTILITIES);
+Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryService.class.php']);
 
 /**
  * ImportService short summary.
@@ -18,20 +16,7 @@ Library::using(Library::CORLY_SERVICE_UTILITIES);
  * @author Filip
  */
 class ImportService
-{
-    // Services
-    private $SubmissionService;
-    // Daos
-    private $PluginService; 
-    
-    /**
-     * Import service constructor
-     */
-    public function __construct()   {
-        $this->SubmissionService = new SubmissionService();
-        $this->PluginService = new PluginService();
-    }
-    
+{   
     /**
      * Import file with given plugin
      */
@@ -52,7 +37,7 @@ class ImportService
         $fileParser = new FileParser($file);
         
         // Get the right plugin to import
-        $this->PluginService->LoadPlugin($validation->Data->Plugin);
+        FactoryService::PluginService()->LoadPlugin($validation->Data->Plugin);
         
         // Check if importer was included
         if (!class_exists('Importer'))  {
@@ -78,7 +63,7 @@ class ImportService
 
         $importValidation->Data->SetUser($idUser);
         $importValidation->Data->SetImportDateTime(TimeService::DateTime());
-        $validation->Append($this->SubmissionService->Save($importValidation->Data, $validation->Data->Project));
+        $validation->Append(FactoryService::SubmissionService()->Save($importValidation->Data, $validation->Data->Project));
         
         // Return validation
         return $validation;

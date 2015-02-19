@@ -4,7 +4,7 @@ session_start();
 include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Library.utility.php');
 
 // Include files
-Library::using(Library::CORLY_SERVICE_SUITE);
+Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryService.class.php']);
 Library::using(Library::UTILITIES);
 
 /**
@@ -22,16 +22,6 @@ class SubmissionController
     const DIFFERENCE = "DIFFERENCE";
     const VIEWS = "VIEWS";
     
-    // Services
-    private $SubmissionService;
-    
-    /**
-     * Project controller constructor
-     */
-    public function __construct()   {
-        $this->SubmissionService = new SubmissionService();
-    }
-    
     /**
      * Get project 
      * @param mixed $projectId 
@@ -41,7 +31,7 @@ class SubmissionController
         $submission = new stdClass();
         $submission->Id = $request->ItemId;
         // Get project detail
-        return $this->SubmissionService->GetDetail($submission, $request->Type, $request->Meta);
+        return FactoryService::SubmissionService()->GetDetail($submission, $request->Type, $request->Meta);
     }
     
     /**
@@ -68,7 +58,7 @@ class SubmissionController
         $project->Id = $request->Project;
         
         // Get result
-        return $this->SubmissionService->Difference($submissions, $project, $request->Type, $request->Meta);
+        return FactoryService::SubmissionService()->Difference($submissions, $project, $request->Type, $request->Meta);
     }
     
     /**
@@ -82,7 +72,7 @@ class SubmissionController
         $submission->Id = $submissionId;
         
         // Load views
-        return $this->SubmissionService->GetViews($submission);
+        return FactoryService::SubmissionService()->GetViews($submission);
     }
 }
 
