@@ -1,4 +1,8 @@
 <?php
+include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Library.utility.php');
+
+Library::using(Library::CORLY_ENTITIES, ['PaginatedTSE.entity.php']);
+
 /**
  * Submission short summary.
  *
@@ -7,7 +11,7 @@
  * @version 1.0
  * @author Filip
  */
-class SubmissionTSE
+class SubmissionTSE extends PaginatedTSE
 {
     private $Id;
     private $DateTime;

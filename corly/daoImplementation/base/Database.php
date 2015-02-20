@@ -160,6 +160,23 @@ abstract class Database  {
         
         $lResult = new LINQ(ResultParser::parseMultipleResult($statement));
 
+        // Get meta data for pagination
+        if (isset($pagination)) {
+            // Create statement
+            $statement = $this->db->prepare($this->statements->GetCountStatement()." ".$parameter->Condition);
+            $statement->bind_param($this->ObjectPropertyParser->getValueType($parameter->Value), $parameter->Value);
+            $statement->execute();
+
+            // Set number of results without pagination and page
+            $lResult->SetTotalCount(ResultParser::parseCountResult($statement));
+            $lResult->SetPage($pagination->GetPage());
+        }
+        else {
+            // Otherwise total count is the number of results
+            $lResult->SetTotalCount($lResult->Count());
+            $lResult->SetPage(1);
+        }
+
         // Return result
         return $lResult;
     }

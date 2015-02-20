@@ -1,4 +1,7 @@
 <?php
+include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Library.utility.php');
+
+Library::using(Library::CORLY_ENTITIES, ['PaginatedTSE.entity.php']);
 
 /**
  * ProjectTSE short summary.
@@ -8,13 +11,14 @@
  * @version 1.0
  * @author Filip
  */
-class ProjectTSE
+class ProjectTSE extends PaginatedTSE
 {
     private $Id;
     private $Name;
     private $Author;
     private $DateCreated;
     private $Submissions;
+
     
     /**
      * Project test suite entity constructor

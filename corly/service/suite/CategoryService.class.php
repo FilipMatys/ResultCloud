@@ -37,10 +37,10 @@ class CategoryService
      */
     public function LoadCategories($submissionTSE, $depth)   {
         // Load categories for given submission
-        $dbCategories = FactoryDao::CategoryDao()->GetFilteredList(QueryParameter::Where('Submission', $submissionTSE->GetId()))->ToList();
+        $lCategories = FactoryDao::CategoryDao()->GetFilteredList(QueryParameter::Where('Submission', $submissionTSE->GetId()));
         
         // Map each category into TSE object and load their test cases
-        foreach ($dbCategories as $dbCategory)
+        foreach ($lCategories->ToList() as $dbCategory)
         {
             $category = new CategoryTSE();
             $category->MapDbObject($dbCategory);
@@ -54,6 +54,10 @@ class CategoryService
             // Add category to array
             $submissionTSE->AddCategory($category);
         }
+
+        // Set pagination values
+        $submissionTSE->SetTotalCount($lCategories->GetTotalCount());
+        $submissionTSE->SetPage($lCategories->GetPage());
     }
 
     /**

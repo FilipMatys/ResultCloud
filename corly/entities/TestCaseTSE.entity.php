@@ -1,4 +1,8 @@
 <?php
+include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Library.utility.php');
+
+Library::using(Library::CORLY_ENTITIES, ['PaginatedTSE.entity.php']);
+
 
 /**
  * TestCase short summary.
@@ -8,7 +12,7 @@
  * @version 1.0
  * @author Filip
  */
-class TestCaseTSE
+class TestCaseTSE extends PaginatedTSE
 {
     private $Id;
     private $Name;

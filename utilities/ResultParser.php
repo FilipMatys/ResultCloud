@@ -51,4 +51,40 @@ class ResultParser {
         return $entities;
     }
 
+    /**
+     * Get result of count query
+     * @param statement
+     * @return count
+     */
+    public static function parseCountResult($statement)  {
+        // Store result
+        $statement->store_result();
+
+        // Get result metadata
+        $meta = $statement->result_metadata();
+
+        // Init arrays
+        $variables = array();
+        $data = array();
+
+        // Get field names
+        while ($field = $meta->fetch_field())   {
+            $variables[] = &$data[$field->name];
+        }
+
+        // Bind variabeles to result
+        call_user_func_array(array($statement, 'bind_result'), $variables);
+    
+        // Fetch single result
+        $statement->fetch();
+
+        $count = 0;
+        // Assign value
+        foreach ($data as $key => $value) {
+            $count = $value;
+        }
+
+        return $count;
+    }
+
 }

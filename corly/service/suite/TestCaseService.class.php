@@ -41,10 +41,10 @@ class TestCaseService
      */
     public function LoadTestCases($categoryTSE, $depth)  {
         // Load test cases
-        $dbTestCases = FactoryDao::TestCaseDao()->GetFilteredList(QueryParameter::Where('Category', $categoryTSE->GetId()))->ToList();
+        $lTestCases = FactoryDao::TestCaseDao()->GetFilteredList(QueryParameter::Where('Category', $categoryTSE->GetId()));
         
         // Map test cases into TSE objects and load results
-        foreach ($dbTestCases as $dbTestCase)
+        foreach ($lTestCases->ToList() as $dbTestCase)
         {
             // Create TSE object
             $testCase = new TestCaseTSE();
@@ -59,6 +59,10 @@ class TestCaseService
             // Add test case to array
             $categoryTSE->AddTestCase($testCase);
         }
+
+        // Set pagination values
+        $categoryTSE->SetPage($lTestCases->GetPage());
+        $categoryTSE->SetTotalCount($lTestCases->GetTotalCount());
         
         // return array of test cases
         return $testCases;

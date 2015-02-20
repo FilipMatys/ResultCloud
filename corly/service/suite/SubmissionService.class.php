@@ -198,10 +198,10 @@ class SubmissionService
      */
     public function LoadSubmissions($projectTSE, $depth, $queryPagination)   {
         // Load submissions for given project
-        $dbSubmissions = FactoryDao::SubmissionDao()->GetFilteredList(QueryParameter::Where('Project', $projectTSE->GetId()), $queryPagination)->ToList();
+        $lSubmissions = FactoryDao::SubmissionDao()->GetFilteredList(QueryParameter::Where('Project', $projectTSE->GetId()), $queryPagination);
         
         // Map submissions to TSE objects and load categories
-        foreach ($dbSubmissions as $dbSubmission)
+        foreach ($lSubmissions->ToList() as $dbSubmission)
         {
             $submission = new SubmissionTSE();
             $submission->MapDbObject($dbSubmission);
@@ -224,6 +224,10 @@ class SubmissionService
             // Add submission to project
             $projectTSE->AddSubmission($submission);
         }
+
+        // Set pagination values
+        $projectTSE->SetPage($lSubmissions->GetPage());
+        $projectTSE->SetTotalCount($lSubmissions->GetTotalCount());
     }
     
     /**

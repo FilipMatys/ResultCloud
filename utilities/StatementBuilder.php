@@ -12,6 +12,7 @@ class StatementBuilder  {
     // object contruction
     private $SELECT_STATEMENT;
     private $DELETE_STATEMENT;
+    private $COUNT_STATEMENT;
     
     private $ObjectPropertyParser;
     private $Class;
@@ -53,10 +54,16 @@ class StatementBuilder  {
         return $this->buildPaginationPostfix($pagination);
     }
 
+    // Get count statements
+    public function getCountStatement() {
+        return $this->COUNT_STATEMENT;
+    }
+
     // Build database function statements
     private function buildStatements()  {
         $this->buildDeleteStatement();
         $this->buildSelectStatement();
+        $this->buildCountStatement();
     }
     
     // Build basic insert operation
@@ -90,6 +97,11 @@ class StatementBuilder  {
     // Build pagination postfix
     private function buildPaginationPostfix(QueryPagination $pagination)   {
         return 'ORDER BY Id ' . $pagination->GetOrder() . ' LIMIT ' . $pagination->GetPageSize() . ' OFFSET ' . $pagination->GetPageSize() * ($pagination->GetPage() - 1);
+    }
+
+    // Build count statement
+    private function buildCountStatement()  {
+        $this->COUNT_STATEMENT = 'SELECT COUNT(*) FROM '.get_class($this->Class);
     }
 }
 
