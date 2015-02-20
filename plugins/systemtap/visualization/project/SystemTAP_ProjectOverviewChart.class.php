@@ -27,6 +27,8 @@ class SystemTAP_ProjectOverviewChart
             )
         );
 
+        // Reverse order of submissions
+        $project->ReverseSubmissions();
 
         // Initialize Google chart object
         $projectOverviewChart = new ProjectOverviewChart();

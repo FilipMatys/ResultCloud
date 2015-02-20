@@ -70,6 +70,13 @@ class ProjectTSE
     public function AddSubmission($submission)  {
         $this->Submissions[] = $submission;
     }
+
+    /**
+     * Reverse submissions
+     */
+    public function ReverseSubmissions() {
+        $this->Submissions = array_reverse($this->Submissions);
+    }
     
     /**
      * Summary of MapDbObject
