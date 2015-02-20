@@ -1,3 +1,4 @@
+<div ng-if="(templates | filter:{Type:2}).length > 0">
 <div class="card header">
     <div class="row">
         <div class="large-12 columns">
@@ -24,7 +25,9 @@
         </div>
     </div>
 </div>  
+</div>
 
+<div ng-if="(templates | filter:{Type:0}).length > 0">
 <div class="card header">
     <div class="row">
         <div class="large-12 columns">
@@ -51,8 +54,9 @@
         </div>
     </div>
 </div>  
+</div>
 
-
+<div ng-if="(templates | filter:{Type:1}).length > 0">
 <div class="card header">
     <div class="row">
         <div class="large-12 columns">
@@ -79,3 +83,4 @@
         </div>
     </div>
 </div>  
+</div>
