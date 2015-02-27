@@ -3,8 +3,11 @@
 
         <div class="card header">
             <div class="row">
-                <div class="large-12 columns">
+                <div class="large-6 columns">
                     <h1><span>Profile</span></h1>
+                </div>
+                <div class="large-6 columns tRight toolbar">
+                    <input type="submit" class="button small" ng-disabled="user.Password && (user.Password != passwordCheck)" ng-click="Save()" value="Save Changes"/>
                 </div>
             </div>
         </div>
@@ -52,11 +55,6 @@
                     Password check
                     <input type="password" ng-model="passwordCheck" />
                 </label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="large-12 columns tRight">
-                <input type="submit" class="button small" ng-disabled="user.Password && (user.Password != passwordCheck)" ng-click="Save()" value="Save Changes"/>
             </div>
         </div>
     </div>

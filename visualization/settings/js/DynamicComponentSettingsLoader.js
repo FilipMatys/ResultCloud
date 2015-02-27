@@ -10,6 +10,14 @@ application.directive('corlyComponentSettingsLoader', function () {
                 .success(function (data, status, headers, config) {
                     $scope.templates = data;
                 });
+
+            $scope.Save =  function()   {
+                    TemplateSettingsService.save($scope.templates)
+                    .success(function (data, status, headers, config) {
+                        // Show status
+                        $scope.ShowStatus('Save settings', data.IsValid, data.Errors);
+                    });
+            }
         }
     }
 });

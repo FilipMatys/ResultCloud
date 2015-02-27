@@ -5,6 +5,7 @@ Library::using(Library::CORLY_SERVICE_FACTORY, ['Factory.class.php']);
 Library::using(Library::CORLY_DAO_IMPLEMENTATION_SUITE);
 Library::using(Library::CORLY_DAO_IMPLEMENTATION_PLUGIN);
 Library::using(Library::CORLY_DAO_IMPLEMENTATION_SECURITY);
+Library::using(Library::CORLY_DAO_IMPLEMENTATION_SETTINGS);
 
 class FactoryDao extends Factory	{
 
@@ -14,6 +15,22 @@ class FactoryDao extends Factory	{
 	 */
 	public static function &CategoryDao()	{
 		return self::GetFactory('CategoryDao');
+	}
+
+	/**
+	 * Get template settings dao
+	 * @return template settings dao
+	 */
+	public static function &TemplateSettingsDao()	{
+		return self::GetFactory('TemplateSettingsDao');
+	}
+
+	/**
+	 * Get template settings item dao
+	 * @return template settings item dao
+	 */
+	public static function &TemplateSettingsItemDao()	{
+		return self::GetFactory('TemplateSettingsItemDao');
 	}
 
 	/**

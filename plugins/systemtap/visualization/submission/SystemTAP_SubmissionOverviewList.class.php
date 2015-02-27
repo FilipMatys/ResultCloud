@@ -10,20 +10,20 @@
  */
 class SystemTAP_SubmissionOverviewList
 {
-    // Constants
-    const PAGE_SIZE = 1;
-    
     /**
      * Get submission overview list data for visualization
      * @param SubmissionTSE $project 
      * @return mixed
      */
     public static function GetSubmissionOverviewList(SubmissionTSE $submission, $page)    {
+        // Get page size
+        $pageSize = SettingsService::GetTemplateByIdentifier('systemtap-sub-list', $submission->GetProjectId())->Data['page-size'];
+
         // Load data
-        FactoryService::CategoryService()->LoadCategories(
+        TestSuiteDataService::LoadCategories(
             $submission, 
             Visualization::GetSubmissionDataDepth(SubmissionOverviewType::VIEWLIST),
-            new QueryPagination($page, SystemTAP_SubmissionOverviewList::PAGE_SIZE, 'asc'));
+            new QueryPagination($page, $pageSize, 'asc'));
 
         // Initialize list
         $submissionOverviewList = new SubmissionOverviewList();
@@ -63,7 +63,7 @@ class SystemTAP_SubmissionOverviewList
         $submissionOverviewList->SetPage($page);
 
         // Set page size
-        $submissionOverviewList->SetPageSize(SystemTAP_SubmissionOverviewList::PAGE_SIZE);
+        $submissionOverviewList->SetPageSize($pageSize);
         
         // Set number of records
         $submissionOverviewList->SetItemsCount($submission->GetTotalCount());

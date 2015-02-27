@@ -13,6 +13,10 @@ h1  {
     margin-top: 1rem;
 }
 
+h2  {
+    font-size: 1.125rem;
+}
+
 h3  {
     font-size: 1rem;
     margin-bottom: 0rem;
@@ -98,6 +102,11 @@ div.card table tbody tr:hover {
     h1  {
         font-size: 1.75rem;
     }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
     h3  {
         font-size: 1rem;
     }

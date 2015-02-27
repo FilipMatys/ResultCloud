@@ -18,6 +18,7 @@ class SubmissionTSE extends PaginatedTSE
     private $User;
     private $ImportDateTime;
     private $Categories;
+    private $ProjectId;
 
     /**
      * Submission constructor
@@ -64,6 +65,14 @@ class SubmissionTSE extends PaginatedTSE
      */
     public function GetUser()   {
         return $this->User;
+    }
+
+    /**
+     * Get project id
+     * @return mixed projectId
+     */
+    public function GetProjectId()  {
+        return $this->ProjectId;
     }
     
     /**
@@ -136,6 +145,7 @@ class SubmissionTSE extends PaginatedTSE
         $this->Id  = $dbSubmission->Id;
         $this->DateTime = $dbSubmission->DateTime;
         $this->ImportDateTime = $dbSubmission->ImportDateTime;
+        $this->ProjectId = $dbSubmission->Project;
     }
     
     /**
