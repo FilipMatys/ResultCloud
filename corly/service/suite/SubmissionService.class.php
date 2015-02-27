@@ -196,7 +196,7 @@ class SubmissionService
      * @param mixed $depth
      * @return mixed
      */
-    public function LoadSubmissions($projectTSE, $depth, $queryPagination)   {
+    public function LoadSubmissions($projectTSE, $depth, $queryPagination = null)   {
         // Load submissions for given project
         $lSubmissions = FactoryDao::SubmissionDao()->GetFilteredList(QueryParameter::Where('Project', $projectTSE->GetId()), $queryPagination);
         

@@ -35,9 +35,9 @@ class CategoryService
      * @param mixed $depth
      * @return array of categories
      */
-    public function LoadCategories($submissionTSE, $depth)   {
+    public function LoadCategories($submissionTSE, $depth, $queryPagination = null)   {
         // Load categories for given submission
-        $lCategories = FactoryDao::CategoryDao()->GetFilteredList(QueryParameter::Where('Submission', $submissionTSE->GetId()));
+        $lCategories = FactoryDao::CategoryDao()->GetFilteredList(QueryParameter::Where('Submission', $submissionTSE->GetId()), $queryPagination);
         
         // Map each category into TSE object and load their test cases
         foreach ($lCategories->ToList() as $dbCategory)

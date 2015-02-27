@@ -24,6 +24,7 @@ class SubmissionOverviewList
     
     private $Page;
     private $ItemsCount;
+    private $PageSize;
     
     /**
      * Submission overview list constructor
@@ -32,6 +33,7 @@ class SubmissionOverviewList
         $this->Categories = array();
         $this->Page = 0;
         $this->ItemsCount = 0;
+        $this->PageSize = 0;
     }
     
     /**
@@ -48,6 +50,14 @@ class SubmissionOverviewList
      */
     public function SetItemsCount($itemsCount)  {
         $this->ItemsCount = $itemsCount;
+    }
+
+    /**
+     * Set page size
+     * @param mixed $pageSize
+     */
+    public function SetPageSize($pageSize)  {
+        $this->PageSize = $pageSize;
     }
     
     /**
@@ -86,6 +96,7 @@ class SubmissionOverviewList
         
         $submissionOverviewList->Page = $this->Page;
         $submissionOverviewList->ItemsCount = $this->ItemsCount;
+        $submissionOverviewList->PageSize = $this->PageSize;
         
         // return object
         return $submissionOverviewList;

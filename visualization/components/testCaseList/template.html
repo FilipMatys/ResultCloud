@@ -4,13 +4,14 @@
             <h1><span>Test Cases</span></h1>
         </div>
         <div class="large-8 columns toolbar tRight">
-        <div ng-show="Pages > 1">
-            <ul class="pagination">
-                <li ng-repeat="page in Range(1, Pages)"><a ng-click="ChangePage(page)" ng-class="{active: Page==page}">{{page}}</a></li>
-            </ul>
+            <div ng-show="Pages > 1">
+                <span class="pending" ng-show="PendingChanges"></span>
+                <ul class="pagination">
+                    <li ng-repeat="page in Range(1, Pages)"><a ng-click="ChangePage(page)" ng-class="{active: Page==page}">{{page}}</a></li>
+                </ul>
+            </div>
+            <select ng-show="ListData.ViewTypes && ListData.ViewTypes.length > 1" ng-model="View" ng-options="viewType for viewType in ListData.ViewTypes"></select>
         </div>
-        <select ng-show="ListData.ViewTypes && ListData.ViewTypes.length > 1" ng-model="View" ng-options="viewType for viewType in ListData.ViewTypes"></select>
-    </div>
     </div>
 </div>
 <div class="row" ng-switch on="View">

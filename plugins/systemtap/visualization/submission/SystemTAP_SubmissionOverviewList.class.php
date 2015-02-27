@@ -11,7 +11,7 @@
 class SystemTAP_SubmissionOverviewList
 {
     // Constants
-    const PAGE_SIZE = 100;
+    const PAGE_SIZE = 1;
     
     /**
      * Get submission overview list data for visualization
@@ -20,18 +20,16 @@ class SystemTAP_SubmissionOverviewList
      */
     public static function GetSubmissionOverviewList(SubmissionTSE $submission, $page)    {
         // Load data
-        FactoryService::CategoryService()->LoadCategories($submission, Visualization::GetSubmissionDataDepth(SubmissionOverviewType::VIEWLIST));
+        FactoryService::CategoryService()->LoadCategories(
+            $submission, 
+            Visualization::GetSubmissionDataDepth(SubmissionOverviewType::VIEWLIST),
+            new QueryPagination($page, SystemTAP_SubmissionOverviewList::PAGE_SIZE, 'asc'));
 
         // Initialize list
         $submissionOverviewList = new SubmissionOverviewList();
-        
-        // Initialize items count
-        $itemsCount = 0;
-        
+
+        // Iterate through categories        
         foreach ($submission->GetCategories() as $category) {
-            $itemsCount += $category->GetNumberOfTestCases();
-            $category->SpliceTestCases(($page - 1) * SystemTAP_SubmissionOverviewList::PAGE_SIZE, SystemTAP_SubmissionOverviewList::PAGE_SIZE);
-            
             // Create new list item
             $submissionOverviewListItem = new SubmissionOverviewListItem($category->GetName());
             $submissionOverviewListItem->SetNumberOfTestCases($category->GetNumberOfTestCases());
@@ -63,9 +61,12 @@ class SystemTAP_SubmissionOverviewList
         
         // Set page number
         $submissionOverviewList->SetPage($page);
+
+        // Set page size
+        $submissionOverviewList->SetPageSize(SystemTAP_SubmissionOverviewList::PAGE_SIZE);
         
         // Set number of records
-        $submissionOverviewList->SetItemsCount($itemsCount);
+        $submissionOverviewList->SetItemsCount($submission->GetTotalCount());
         
         // Set available views
         $submissionOverviewList->AddView(SubmissionOverviewListType::GroupedView);

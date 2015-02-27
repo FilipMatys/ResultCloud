@@ -14,7 +14,22 @@ class SystemTAP_DifferenceOverviewList
     const NO_RESULT = "background: #3498db; color: #ffffff";
     const CHANGE = "background: #f1c40f; color: #ffffff";
     
-    const PAGE_SIZE = 40;
+    const PAGE_SIZE = 2;
+
+    /**
+     * Get number of categories
+     */
+    private static function GetNumberOfCategories($submissions) {
+        $numberOfCategories = 0;
+
+        // Get highest number of categories
+        foreach ($submissions as $submission) {
+            if ($submission->GetTotalCount() > $numberOfCategories)
+                $numberOfCategories = $submission->GetTotalCount();
+        }
+
+        return $numberOfCategories;
+    }
     
     /**
      * Get difference overview lists
@@ -24,7 +39,10 @@ class SystemTAP_DifferenceOverviewList
     public static function GetDifferenceOverviewLists($submissions, $meta) {
         // Load data
         foreach ($submissions as $submission) {
-            TestSuiteDataService::LoadCategories($submission, Visualization::GetDifferenceDataDepth(DifferenceOverviewType::VIEWLIST));
+            TestSuiteDataService::LoadCategories(
+                $submission, 
+                Visualization::GetDifferenceDataDepth(DifferenceOverviewType::VIEWLIST),
+                new QueryPagination($meta, SystemTAP_DifferenceOverviewList::PAGE_SIZE, 'asc'));
         }
 
         // For each category, one list is created, so first get all
@@ -47,14 +65,13 @@ class SystemTAP_DifferenceOverviewList
             // Before starting processing, we need to get all test cases
             // across each submission and assigned results. Then, we can
             // go through each submission and compare its values
-            $testCases = SystemTAP_DifferenceOverviewList::GetTestCasesHierarchy($submissions, $category);
+            $testCases = self::GetTestCasesHierarchy($submissions, $category);
             
             // Set pagination
-            $differenceOverviewList->SetItemsCount(count($testCases));
+            $differenceOverviewList->SetItemsCount(self::GetNumberOfCategories($submissions));
             $differenceOverviewList->SetPagination(true);
             $differenceOverviewList->SetPage($meta);
-            
-            $testCases = array_splice($testCases, ($meta - 1) * SystemTAP_DifferenceOverviewList::PAGE_SIZE, SystemTAP_DifferenceOverviewList::PAGE_SIZE);
+            $differenceOverviewList->SetPageSize(self::PAGE_SIZE);
             
             // After iterating through each submissions category and getting all test
             // cases and its results, these results must be made unique. After that,

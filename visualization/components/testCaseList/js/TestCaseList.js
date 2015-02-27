@@ -51,7 +51,7 @@
                     $scope.ListData = data.Data;
                     $scope.PendingChanges = false;
                     $scope.Page = $scope.ListData.Page ? $scope.ListData.Page : 1;
-                    $scope.Pages = Math.ceil($scope.ListData.ItemsCount / 100);
+                    $scope.Pages = Math.ceil($scope.ListData.ItemsCount / $scope.ListData.PageSize);
                 });
             }
 

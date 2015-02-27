@@ -50,6 +50,8 @@ class DifferenceOverviewList
      * Pagination flag
      */
     private $Pagination;
+
+    private $PageSize;
     
     /**
      * Difference overview list constructor
@@ -61,6 +63,7 @@ class DifferenceOverviewList
         $this->Pagination = false;
         $this->Page = 0;
         $this->ItemsCount = 0;
+        $this->PageSize = 0;
     }
     
     /**
@@ -70,6 +73,15 @@ class DifferenceOverviewList
     public function SetName($name)   {
         $this->Name = $name;
     }
+
+    /**
+     * Set page size
+     * @param mixed $pageSize
+     */
+    public function SetPageSize($pageSize)  {
+        $this->PageSize = $pageSize;
+    }
+
     
     /**
      * Add item to list
@@ -125,6 +137,7 @@ class DifferenceOverviewList
         $overviewList->Items = array();
         $overviewList->Name = $this->Name;
         $overviewList->HasChange = $this->HasChange;
+        $overviewList->PageSize = $this->PageSize;
         
         if (!$this->ItemsCount)
             $overviewList->ItemsCount = count($this->Items);
