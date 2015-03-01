@@ -1,0 +1,32 @@
+ <nav class="top-bar" data-topbar>
+    <ul class="title-area">
+        <li class="name">
+            <h1><a ui-sref="public.projects">Corly Management Tool</a></h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a>Menu</a></li>
+    </ul>
+
+    <section class="top-bar-section">
+        <!-- Right Nav Section -->
+        <ul class="right">
+            <li class="divider"></li>
+            <li><a ui-sref="public.projects"><i class="fi-home"></i> Dashboard</a></li>
+            <li class="divider"></li>
+            <li class="has-form">
+                <a ui-sref="login" class="button"><i class="fi-torso"></i> Login</a>
+            </li>
+        </ul>
+
+    </section>
+</nav>
+<!-- ALERT BOX -->
+<div ng-if="status.content" data-alert class="alert-box" ng-class="{success: status.success, alert: !status.success}">
+    <span>{{status.content}}</span>
+    <ul ng-if="status.errors">
+        <li ng-repeat="error in status.errors">{{error}}</li>
+    </ul>    
+  <a ng-click="ClearStatus()" class="close-mark">&times;</a>
+</div>
+
+<!-- CONTENT -->
+<div ui-view class="content"></div>

@@ -45,6 +45,13 @@ Library::using(Library::CORLY_SERVICE_UTILITIES, ['IncludeService.class.php']);
     <script src="js/controllers/SubmissionOverviewController.js" type="text/javascript"></script>
     <script src="js/controllers/DifferenceOverviewController.js" type="text/javascript"></script>
     <script src="js/controllers/ProjectSettingsController.js" type="text/javascript"></script>
+    <script src="js/controllers/ProjectDashboardController.js" type="text/javascript"></script>
+
+    <!-- Public controllers -->
+    <script src="js/controllers/public/PublicController.js" type="text/javascript"></script>
+    <script src="js/controllers/public/PublicProjectsController.js" type="text/javascript"></script>
+    <script src="js/controllers/public/PublicProjectsController.js" type="text/javascript"></script>
+
     <!-- Visualization directives -->
     <script src="visualization/settings/js/DynamicComponentSettingsLoader.js" type="text/javascript"></script>
     <script src="visualization/submission/js/DynamicSubmissionComponentLoader.js" type="text/javascript"></script>

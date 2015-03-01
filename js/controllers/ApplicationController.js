@@ -17,11 +17,12 @@ application.run(function($rootScope, $timeout)	{
 application.run(['$rootScope', '$location', 'SessionService', function ($rootScope, $location, SessionService) {
     // Array of routes, that dont require login
     var routesThatDontRequireAuth = ['/login'];
+    var publicRoutes = '/public';
 
     // Wait  for location to change
     $rootScope.$on('$stateChangeStart', function (event, next) {
         // If not login page, check if user is logged
-        if (routesThatDontRequireAuth.indexOf($location.path()) < 0)   {
+        if (routesThatDontRequireAuth.indexOf($location.path()) < 0 && $location.path().indexOf(publicRoutes) != 0)   {
             // Check session
             SessionService.check().success(function (data, status, headers, config) {
                 // Check result
@@ -104,6 +105,12 @@ application.config(function($stateProvider, $urlRouterProvider){
         templateUrl: './views/home/overview/project.html',
         controller: 'ProjectOverviewController'
     })
+    // Project dashboard
+    .state('home.project-dashboard', {
+        url: '/project-dashboard/{projectId}',
+        templateUrl: './views/home/overview/dashboard.html',
+        controller: 'ProjectDashboardController'
+    })
     // Project overview detail
     .state('home.project-settings', {
         url: '/project-settings/{projectId}',
@@ -127,5 +134,18 @@ application.config(function($stateProvider, $urlRouterProvider){
 	    url: '/profile',
 	    templateUrl: './views/home/profile.html',
 	    controller: 'ProfileController'
+	})
+	// Public page
+	.state('public', {
+	    url: '/public',
+	    abstract: true,
+	    templateUrl: './views/public/index.html',
+	    controller: 'PublicController'
+	})
+	// List of projects
+	.state('public.projects', {
+	    url: '',
+	    templateUrl: './views/public/projects.html',
+	    controller: 'PublicProjectsController'
 	});
 });

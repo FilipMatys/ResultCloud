@@ -20,6 +20,7 @@ class PluginController
     const QUERY = "QUERY";
     const GET = "GET";
     const GET_L = "GET_L";
+    const QUERY_L = "QUERY_L";
 
     /**
      * Get plugin with liveness
@@ -51,6 +52,22 @@ class PluginController
     public function Query() {
         return FactoryService::PluginService()->GetList()->ToList();
     }
+
+    /**
+     * Get list of all plugins with projects
+     */
+    public function QueryWithLiveness() {
+        // Initialize plugins array
+        $plugins = array();
+
+        // For each plugin, get all projects
+        foreach ($this->Query() as $plugin) {
+            $plugins[] = $this->GetWithLiveness($plugin->Id);
+        }
+
+        // Return result
+        return $plugins;
+    }
 }
 
 // Extract json data
@@ -74,6 +91,10 @@ if (isset($_GET["method"]))	{
 
         case PluginController::GET_L:
             $result = $PluginController->GetWithLiveness($data);
+            break;
+
+        case PluginController::QUERY_L:
+            $result = $PluginController->QueryWithLiveness();
             break;
 
 		default:

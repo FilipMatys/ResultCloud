@@ -56,6 +56,11 @@ div.card.header label   {
     font-weight: normal;
 }
 
+div.card.header p {
+    margin-bottom: 0.1rem;
+    margin-top: 0.1rem;
+}
+
 div.card label input {
     margin-top: 0.5rem;
 }

@@ -50,6 +50,7 @@
                                     <span>Number of submissions {{project.Submissions}}</span>
                                 </div>
                                 <div class="large-4 medium-4 columns">
+                                    <a ui-sref="home.project-dashboard({projectId:project.Id})" title="Project dashboard" class="fi-projection-screen icon"></a>
                                     <a ui-sref="home.project-settings({projectId:project.Id})" title="Project settings" class="fi-widget icon"></a>
                                     <a title="Clean project" ng-click="ClearProject({projectId:project.Id})" class="fi-trash icon"></a>
                                     <a title="Delete project" ng-click="DeleteProject({projectId:project.Id})" class="fi-x icon"></a>

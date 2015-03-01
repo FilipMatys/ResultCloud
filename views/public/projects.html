@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="large-12 columns">
+        <h1>Test Suite Results</h1>
+    </div>
+</div>
+
+<div class="row" ng-repeat="plugin in plugins">
+	<div class="large-12 columns">
+		<div class="card header">
+			<h1><span>{{plugin.Name}}</span></h1>
+			<p>{{plugin.About}}</p>
+		</div>
+		<div class="card">
+		    <div class="row">
+		        <div class="large-12 columns">
+		            <div class="row" ng-repeat="project in plugin.Projects">
+		                <div class="large-12 columns">
+		                    <div class="row list-item">
+		                        <div class="large-12 medium-12 columns desc">
+		                            <a>{{project.Name}}</a>
+		                            <p class="about">Created {{project.DateCreated | date:"longDate"}}</p>
+		                            <span>Number of submissions {{project.Submissions}}</span>
+		                        </div>
+		                    </div>
+		                    <div class="google-chart liveness" google-chart chart="project.Liveness"></div>
+		                    <hr ng-if="!$last" />
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	</div>
+</div>

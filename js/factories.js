@@ -189,6 +189,12 @@ application.factory('PluginService', ['$http', function ($http) {
                 url: 'api/PluginController.class.php?method=GET_L',
                 data: pluginId
             })
+        },
+        queryWithLiveness: function () {
+            return $http({
+                method: 'GET',
+                url: 'api/PluginController.class.php?method=QUERY_L'
+            })
         }
     }
 }]);
