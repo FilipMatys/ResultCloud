@@ -254,3 +254,15 @@ application.factory('ProjectService', ['$http', function ($http) {
         }
     }
 }]);
+
+// Update service
+application.factory('UpdateService', ['$http', function ($http) {
+    return {
+        check: function () {
+            return $http({
+                method: 'GET',
+                url: 'api/UpdateController.class.php?method=CHECK'
+            })
+        }
+    }
+}]);

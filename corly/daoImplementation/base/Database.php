@@ -19,10 +19,8 @@ abstract class Database  {
     // Database constructor
     function __construct($class) {
     
-        // Load configuration
-        $dbConfig = ConfigurationService::Database();
-        // Create new database handler
-        $this->db = new mysqli($dbConfig->Data["hostname"], $dbConfig->Data["username"], $dbConfig->Data["password"], $dbConfig->Data["database"]);
+        DatabaseDriver::connect();
+        $this->db = DatabaseDriver::$db;
         // Init properties
         $this->class = $class;        
         $this->statements = new StatementBuilder($class);
@@ -162,6 +160,16 @@ abstract class Database  {
 
         // Return result
         return $lResult;
+    }
+
+    //Check existing table into Database
+    public function Check() {
+        $statement = $this->db->prepare($this->statements->getSelectStatement());
+        if (!$statement) {
+            return 0;
+        }
+        $statement->execute();
+        return (new LINQ(ResultParser::parseMultipleResult($statement)))->Last();
     }
 }
 ?>

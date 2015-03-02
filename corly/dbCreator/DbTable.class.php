@@ -59,6 +59,6 @@ class DbTable
         $sProperties = implode(", ", $properties);
         
         // Return table definition
-        return "CREATE TABLE " . $this->Name . " ({$sProperties});"; 
+        return "CREATE TABLE `" . $this->Name . "` ({$sProperties});"; 
     }
 }

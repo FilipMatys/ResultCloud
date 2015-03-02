@@ -37,6 +37,7 @@ class ApplicationConfiguration
         $eDatabase->addAttribute("username", $data->Username);
         $eDatabase->addAttribute("password", $data->Password);
         $eDatabase->addAttribute("database", $data->Database);
+        $eDatabase->addAttribute("version", $data->Version);
         
         // Save XML file
         $rConfig->asXML(Library::path(Library::CORLY_DAO_BASE, "Config.xml"));

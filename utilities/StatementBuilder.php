@@ -27,6 +27,11 @@ class StatementBuilder  {
     public function getInsertStatement($entity)    {
         return $this->buildInsertStatement($entity);
     }
+
+    //Get insert statement with default values
+    public function getInsertWithDefault() {
+        return $this->buildInsertStatement($this->Class);
+    }
     
     // Get update statement
     public function getUpdateStatement($entity)    {
@@ -61,8 +66,8 @@ class StatementBuilder  {
     
     // Build basic insert operation
     private function buildInsertStatement($entity) {
-        $statement = 'INSERT INTO '.get_class($this->Class);
-        $statement.= ' ('.implode(',', $this->ObjectPropertyParser->getObjectProperties($entity)).')';
+        $statement = 'INSERT INTO `'.get_class($this->Class);
+        $statement.= '` ('.implode(',', $this->ObjectPropertyParser->getObjectProperties($entity)).')';
         $statement.= ' VALUES ('.implode(',', $this->ObjectPropertyParser->getObjectPropertiesMarks($entity)).')';
         
         return $statement;
@@ -70,12 +75,12 @@ class StatementBuilder  {
     
     // Build basic select operation
     private function buildSelectStatement() {
-        $this->SELECT_STATEMENT = 'SELECT * FROM '.get_class($this->Class);        
+        $this->SELECT_STATEMENT = 'SELECT * FROM `'.get_class($this->Class).'`';        
     }
     
     // Build basic update operation
     private function buildUpdateStatement($entity) {
-        return 'UPDATE '.get_class($this->Class).' SET '.implode(',', $this->ObjectPropertyParser->getObjectPropertiesToUpdate($entity)).' WHERE Id=?';
+        return 'UPDATE `'.get_class($this->Class).'` SET '.implode(',', $this->ObjectPropertyParser->getObjectPropertiesToUpdate($entity)).' WHERE Id=?';
     }
     
     // Build basic delete operation
@@ -84,7 +89,7 @@ class StatementBuilder  {
     }
 
     private function buildBasicDeleteStatement() {
-        return 'DELETE FROM '.get_class($this->Class);
+        return 'DELETE FROM `'.get_class($this->Class).'`';
     }
 
     // Build pagination postfix

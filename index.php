@@ -1,6 +1,7 @@
 <?php 
 include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'Library.utility.php');
 Library::using(Library::CORLY_SERVICE_UTILITIES, ['IncludeService.class.php']);
+Library::using(Library::UTILITIES, ['DatabaseDriver.php']);
 ?>
 
 <!doctype html>

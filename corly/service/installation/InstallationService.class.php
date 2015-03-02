@@ -6,6 +6,7 @@ Library::using(Library::UTILITIES);
 Library::using(Library::CORLY_DBCREATE);
 Library::using(Library::CORLY_DAO_STAT);
 Library::using(Library::CORLY_DAO_IMPLEMENTATION_SECURITY);
+Library::using(Library::CORLY_DAO_IMPLEMENTATION_UPDATE);
 Library::using(Library::CORLY_SERVICE_SECURITY);
 Library::using(Library::CORLY_INSTALLATION, ["ApplicationConfiguration.class.php"]);
 
@@ -38,6 +39,7 @@ class InstallationService
         
         // Set database
         $data->Database = "corly";
+        $data->Version = Library::DB_VERSION;
         
         // Attempt to create database
         $dbInstallation = new DatabaseInstallation($data->Database);
@@ -52,7 +54,18 @@ class InstallationService
         // Create configuration files
         $configInstallation = new ApplicationConfiguration();
         $validation->Append($configInstallation->GenerateInstallationConfiguration($data));
-                
+        
+        //Set default settings
+        $update_ver = new stdClass();
+        $update_ver->DBVersion = Library::DB_VERSION;
+
+        $update_dao = new UpdateDao();
+        $update_dao->Save($update_ver);
+        if (DatabaseDriver::$db->errno > 0)
+        {
+            $validation->AddError("Can't insert information into Table");
+        }
+
         // Return validation
         $validation->Data = InstallationState::DATABASE_CREATED;
         $validation->IsValid = false;
