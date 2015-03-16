@@ -18,6 +18,6 @@ class Importer
      */
     public static function Import($validation, $file)  {
    
-        return Parser::ParseImport($file->getTemp());
+        return Parser::ParseImport($validation, $file->getTemp());
     }
 }

@@ -13,6 +13,7 @@ Library::using(Library::UTILITIES, ['ValidationResult.php', 'DatabaseDriver.php'
 class UpdateDriver {
 	public $DB;
 	const INSERT_TABLE = 1;
+	const ADD_TO_TABLE = 2;
 
 	function __construct() {
 		DatabaseDriver::connect();
@@ -26,16 +27,25 @@ class UpdateDriver {
 	**/
 	public function Update($type, $Database) {
 		$validation = new ValidationResult(new stdClass());
-		if ($type == self::INSERT_TABLE) {
-			foreach ($Database->GetTables() as $table) {
-				if (!($statement = $this->DB->prepare($table->GetTableDefinition()))) {
-					echo $table->GetTableDefinition();
-			        $validation->AddError("Failed to create table: {$table->GetName()}");
-			        // Return validation
-			        return $validation;
-			    }
-			    $statement->execute();
-			}
+		switch ($type) {
+			case self::INSERT_TABLE:
+				foreach ($Database->GetTables() as $table) {
+					if (!($statement = $this->DB->prepare($table->GetTableDefinition()))) {
+				        $validation->AddError("Failed to create table: {$table->GetName()}");
+				        // Return validation
+				        return $validation;
+				    }
+				    $statement->execute();
+				}
+				break;
+			case self::ADD_TO_TABLE:
+				if (!($statement = $this->DB->prepare($Database->GetAdd2TableDefinition()))) {
+					$validation->AddError("Failed to create table: {$Database->GetName()}");
+					// Return validation
+					return $validation;
+				}
+				$statement->execute();
+				break;
 		}
         return $validation;
 	}

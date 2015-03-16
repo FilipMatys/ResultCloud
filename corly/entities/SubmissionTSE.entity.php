@@ -14,6 +14,9 @@ class SubmissionTSE
     private $User;
     private $ImportDateTime;
     private $Categories;
+    private $Good;
+    private $Bad;
+    private $Strange;
 
     /**
      * Submission constructor
@@ -60,6 +63,12 @@ class SubmissionTSE
      */
     public function GetUser()   {
         return $this->User;
+    }
+
+    public function SetDiff($good, $bad, $strange) {
+        $this->Good = $good;
+        $this->Bad = $bad;
+        $this->Strange = $strange;
     }
     
     /**
@@ -118,6 +127,9 @@ class SubmissionTSE
         $submission->Project = $projectId;
         $submission->User = $this->User;
         $submission->ImportDateTime = $this->ImportDateTime;
+        $submission->Good = $this->Good;
+        $submission->Bad = $this->Bad;
+        $submission->Strange = $this->Strange;
         
         // Return object
         return $submission;
@@ -132,6 +144,9 @@ class SubmissionTSE
         $this->Id  = $dbSubmission->Id;
         $this->DateTime = $dbSubmission->DateTime;
         $this->ImportDateTime = $dbSubmission->ImportDateTime;
+        $this->Good = $dbSubmission->Good;
+        $this->Bad = $dbSubmission->Bad;
+        $this->Strange = $dbSubmission->Strange;
     }
     
     /**
@@ -147,6 +162,9 @@ class SubmissionTSE
         $submission->DateTime = $this->DateTime;
         $submission->ImportDateTime = $this->ImportDateTime;
         $submission->User = $this->User;
+        $submission->Good = $this->Good;
+        $submission->Bad = $this->Bad;
+        $submission->Strange = $this->Strange;
         
         // Return result
         return $submission;

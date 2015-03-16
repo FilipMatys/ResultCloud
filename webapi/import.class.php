@@ -175,7 +175,7 @@
         		return $validation;
 
         	$TokenDao = new TokenDao();
-        	$tokens = new LINQ($TokenDao->GetFilteredList(QueryParameter::Where('TokenKey', $data->Token)));
+        	$tokens = $TokenDao->GetFilteredList(QueryParameter::Where('TokenKey', $data->Token));
 
         	//	Check if token exist in DB
         	if ($tokens->IsEmpty()) {
@@ -211,7 +211,7 @@
 
         	$sessioncreator = new ImportSessionDao();
 
-        	$sessions = new LINQ($sessioncreator->GetFilteredList(QueryParameter::Where('SessionId', $data->SessionId)));
+        	$sessions = $sessioncreator->GetFilteredList(QueryParameter::Where('SessionId', $data->SessionId));
 
         	// If import session id exist
         	if ($sessions->IsEmpty()) {

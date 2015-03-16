@@ -61,4 +61,19 @@ class DbTable
         // Return table definition
         return "CREATE TABLE `" . $this->Name . "` ({$sProperties});"; 
     }
+
+    public function GetAdd2TableDefinition()    {
+        $properties = array();
+        
+        // Get all properties definitions
+        foreach ($this->Properties as $property)    {
+            $properties[] = $property->GetAddPropertyDefinition();    
+        }
+        
+        // Parse properties into string
+        $sProperties = implode(", ", $properties);
+        
+        // Return table definition
+        return "ALTER TABLE `" . $this->Name . "` {$sProperties};"; 
+    }
 }

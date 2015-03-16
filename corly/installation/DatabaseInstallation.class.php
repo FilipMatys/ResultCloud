@@ -497,6 +497,24 @@ class DatabaseInstallation
         // Add project to table
         $tSubmission->AddProperty($pProject);
         
+        $pGood = new DbProperty('Good');
+        $pGood->SetType(DbType::Double());
+        $pGood->NotNull();
+        // Add Good to table
+        $tSubmission->AddProperty($pGood);
+
+        $pBad = new DbProperty('Bad');
+        $pBad->SetType(DbType::Double());
+        $pBad->NotNull();
+        // Add Bad to table
+        $tSubmission->AddProperty($pBad);
+
+        $pStrange = new DbProperty('Strange');
+        $pStrange->SetType(DbType::Double());
+        $pStrange->NotNull();
+        // Add Strange to table
+        $tSubmission->AddProperty($pStrange);
+
         // Add table to database
         $this->Database->AddTable($tSubmission); 
     }

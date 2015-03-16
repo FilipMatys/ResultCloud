@@ -21,10 +21,12 @@ class SystemTAP_DifferenceOverviewList
      * @param mixed $submissions 
      * @return mixed
      */
-    public static function GetDifferenceOverviewLists($submissions, $meta) {
-        // Load data
-        foreach ($submissions as $submission) {
-            TestSuiteDataService::LoadCategories($submission, Visualization::GetDifferenceDataDepth(DifferenceOverviewType::VIEWLIST));
+    public static function GetDifferenceOverviewLists($submissions, $meta, $sys_diff = false) {
+        if(!$sys_diff) {
+            // Load data  
+            foreach ($submissions as $submission) {
+                TestSuiteDataService::LoadCategories($submission, Visualization::GetDifferenceDataDepth(DifferenceOverviewType::VIEWLIST));
+            }
         }
 
         // For each category, one list is created, so first get all
@@ -54,7 +56,8 @@ class SystemTAP_DifferenceOverviewList
             $differenceOverviewList->SetPagination(true);
             $differenceOverviewList->SetPage($meta);
             
-            $testCases = array_splice($testCases, ($meta - 1) * SystemTAP_DifferenceOverviewList::PAGE_SIZE, SystemTAP_DifferenceOverviewList::PAGE_SIZE);
+            if (!$sys_diff)
+                $testCases = array_splice($testCases, ($meta - 1) * SystemTAP_DifferenceOverviewList::PAGE_SIZE, SystemTAP_DifferenceOverviewList::PAGE_SIZE);
             
             // After iterating through each submissions category and getting all test
             // cases and its results, these results must be made unique. After that,
@@ -141,7 +144,7 @@ class SystemTAP_DifferenceOverviewList
                         $prevValue = $differenceOverviewListItemResultSet->GetLastInsertedValue();
                         if (!is_null($prevValue))   {
                             // Set no error
-                            if ($prevValue->GetValue() == "")
+                            if ($prevValue->GetValue() == "" || $subResult->GetValue() != $prevValue->GetValue())
                                 $differenceOverviewListItemResultValue->SetStyle(SystemTAP_DifferenceOverviewList::CHANGE);
                         }
                         

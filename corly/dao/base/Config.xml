@@ -1,2 +1,2 @@
 <?xml version="1.0"?>
-<Config><db version="1" hostname="localhost" username="root" password="xampp" database="corly"/></Config>
+<Config><db version="2" hostname="localhost" username="root" password="xampp" database="corly"/></Config>
