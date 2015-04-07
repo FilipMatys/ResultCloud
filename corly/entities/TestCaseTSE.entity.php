@@ -16,6 +16,7 @@ class TestCaseTSE extends PaginatedTSE
 {
     private $Id;
     private $Name;
+    private $Status;
     private $Results;
     
     /**
@@ -23,17 +24,34 @@ class TestCaseTSE extends PaginatedTSE
      */
     public function __construct($Name = "")   {
         $this->Name = $Name;
+        $this->Status = 0;
         $this->Results = array();
     }
     
     /**
      * Get id
-     * @return id
+     * @return mixed id
      */
     public function GetId() {
         return $this->Id;
     }
     
+    /**
+     * Get status of test case
+     * @return int
+     */
+    public function GetStatus() {
+        return $this->Status;
+    }
+
+    /**
+     * Set status of test case
+     * @param mixed $status
+     */
+    public function SetStatus($status)  {
+        $this->Status = $status;
+    }
+
     /**
      * Add result to TestCase
      * @param result
@@ -46,7 +64,7 @@ class TestCaseTSE extends PaginatedTSE
      * Get results
      * @return results
      */
-    public function GetResults()  {
+    public function &GetResults()  {
         return $this->Results;
     }
     
@@ -89,7 +107,10 @@ class TestCaseTSE extends PaginatedTSE
         // Init object
         $testCase = new stdClass();
         // Assign values from base object
+        $testCase->Id = $this->Id;
         $testCase->Name = (string)$this->Name;
+        $testCase->Status = $this->Status;
+
         // Set parent id (category)
         $testCase->Category = $categoryId;
         
@@ -101,10 +122,11 @@ class TestCaseTSE extends PaginatedTSE
      * Map database object into TS entity
      * @param mixed $dbCategory 
      */
-    public function MapDbObject($dbCategory)    {
+    public function MapDbObject($dbTestCase)    {
         // Map values
-        $this->Id = $dbCategory->Id;
-        $this->Name = $dbCategory->Name;
+        $this->Id = $dbTestCase->Id;
+        $this->Name = $dbTestCase->Name;
+        $this->Status = $dbTestCase->Status;
     }
     
     /**

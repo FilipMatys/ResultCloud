@@ -243,12 +243,15 @@ class SubmissionService
         // Check if there are any data
         $validation->CheckDataNotNull("Invalid data supplied");
         
-        // Get all submissions of given project
-        $lSubmissions = FactoryDao::SubmissionDao()->GetFilteredList(QueryParameter::Where('Project', $projectId));
-        
-        // Check if submission is in list
-        if (in_array($data->GetDateTime(), $lSubmissions->Select('DateTime')->ToList())) {
-            $validation->AddError("Submission was already imported");
+        // Check for duplicate, if saving new
+        if ($data->GetId() == 0)   {
+            // Get all submissions of given project
+            $lSubmissions = FactoryDao::SubmissionDao()->GetFilteredList(QueryParameter::Where('Project', $projectId));
+
+            // Check if submission is in list
+            if (in_array($data->GetDateTime(), $lSubmissions->Select('DateTime')->ToList())) {
+                $validation->AddError("Submission was already imported");
+            }
         }
         
         // Check validation result

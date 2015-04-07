@@ -18,6 +18,70 @@ Library::usingProject(dirname(__FILE__));
 class Visualization
 {
     /**
+     * Get components for given view
+     * @param mixed $viewType
+     * @return ValidationResult
+     */
+    public static function GetViewComponents($viewType) {
+        // Get components for given view
+        switch($viewType)   {
+            // Project
+            case ViewType::PROJECT:
+                return new ValidationResult(ProjectVisualization::GetViewComponents());
+
+            // Submission
+            case ViewType::SUBMISSION:
+                return new ValidationResult(SubmissionVisualization::GetViewComponents());
+
+            // Difference
+            case ViewType::DIFFERENCE:
+                return new ValidationResult(DifferenceVisualization::GetViewComponents());
+
+            // Dashboard
+            case ViewType::DASHBOARD:
+                return new ValidationResult(DashboardVisualization::GetViewComponents());
+
+            default:
+                // Set error
+                $validation = new ValidationResult($viewType);
+                $validation->AddError("Unsupported view type");
+                return $validation;
+        }
+    }
+
+    /**
+     * Visualize component for given view
+     * @param mixed $data
+     * @return ValidationResult
+     */
+    public static function Visualize($request) {
+        // Get components for given view
+        switch($request->View)   {
+            // Project
+            case ViewType::PROJECT:
+                return new ValidationResult(ProjectVisualization::GetViewComponents());
+
+            // Submission
+            case ViewType::SUBMISSION:
+                return new ValidationResult(SubmissionVisualization::GetViewComponents());
+
+            // Difference
+            case ViewType::DIFFERENCE:
+                return new ValidationResult(DifferenceVisualization::GetViewComponents());
+
+            // Dashboard
+            case ViewType::DASHBOARD:
+                return new ValidationResult(DashboardVisualization::Visualize($request));
+
+            default:
+                // Set error
+                $validation = new ValidationResult($request);
+                $validation->AddError("Unsupported view type");
+                return $validation;
+        }
+    }
+
+    /**
      * Visualize project
      * @param mixed $project 
      * @return mixed

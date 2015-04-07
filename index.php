@@ -50,17 +50,16 @@ Library::using(Library::CORLY_SERVICE_UTILITIES, ['IncludeService.class.php']);
     <!-- Public controllers -->
     <script src="js/controllers/public/PublicController.js" type="text/javascript"></script>
     <script src="js/controllers/public/PublicProjectsController.js" type="text/javascript"></script>
-    <script src="js/controllers/public/PublicProjectsController.js" type="text/javascript"></script>
+    <script src="js/controllers/public/PublicDashboardController.js" type="text/javascript"></script>
 
     <!-- Visualization directives -->
-    <script src="visualization/settings/js/DynamicComponentSettingsLoader.js" type="text/javascript"></script>
-    <script src="visualization/submission/js/DynamicSubmissionComponentLoader.js" type="text/javascript"></script>
-    <script src="visualization/project/js/DynamicProjectComponentLoader.js" type="text/javascript"></script>
-    <script src="visualization/difference/js/DynamicDifferenceComponentLoader.js" type="text/javascript"></script>
+    <script src="visualization/loaders/DynamicComponentSettingsLoader.js" type="text/javascript"></script>
+    <script src="visualization/loaders/DynamicComponentLoader.js" type="text/javascript"></script>
     <script src="visualization/components/submissionList/js/SubmissionList.js" type="text/javascript"></script>
     <script src="visualization/components/googleChart/js/GoogleChart.js" type="text/javascript"></script>
     <script src="visualization/components/testCaseList/js/TestCaseList.js" type="text/javascript"></script>
     <script src="visualization/components/difference/js/DifferenceList.js" type="text/javascript"></script>
+    <script src="visualization/components/multiTable/js/MultiTable.js" type="text/javascript"></script>
     <!-- Load plugins components -->
     <?php IncludeService::JsComponents(); ?>
 

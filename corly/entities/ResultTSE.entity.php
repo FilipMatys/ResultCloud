@@ -20,6 +20,7 @@ class ResultTSE
     public function __construct($rKey = "", $rValue = "")  {
         $this->RKey = $rKey;
         $this->RValue = $rValue;
+        $this->Id = 0;
     }
 
     /**
@@ -80,6 +81,7 @@ class ResultTSE
          // Init object
          $result = new stdClass();
          // Set properties from base object
+         $result->Id = $this->Id;
          $result->RKey = (string)$this->RKey;
          $result->RValue = (string)$this->RValue;
          // Set parent id (test case)

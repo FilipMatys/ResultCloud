@@ -101,15 +101,9 @@ application.config(function($stateProvider, $urlRouterProvider){
     })
     // Project overview detail
     .state('home.project-overview', {
-        url: '/project-overview/{projectId}',
+        url: '/project/{projectId}',
         templateUrl: './views/home/overview/project.html',
         controller: 'ProjectOverviewController'
-    })
-    // Project dashboard
-    .state('home.project-dashboard', {
-        url: '/project-dashboard/{projectId}',
-        templateUrl: './views/home/overview/dashboard.html',
-        controller: 'ProjectDashboardController'
     })
     // Project overview detail
     .state('home.project-settings', {
@@ -119,13 +113,13 @@ application.config(function($stateProvider, $urlRouterProvider){
     })
     // Submission overview detail
     .state('home.submission-overview', {
-        url: '/submission-overview/{submissionId}',
+        url: '/project/{projectId}/submission/{submissionId}',
         templateUrl: './views/home/overview/submission.html',
         controller: 'SubmissionOverviewController'
     })
     // Difference overview detail
     .state('home.difference-overview', {
-        url: '/project-overview/{projectId}/difference/{differenceArray}',
+        url: '/project/{projectId}/difference/{differenceArray}',
         templateUrl: './views/home/overview/difference.html',
         controller: 'DifferenceOverviewController'
     })
@@ -147,5 +141,11 @@ application.config(function($stateProvider, $urlRouterProvider){
 	    url: '',
 	    templateUrl: './views/public/projects.html',
 	    controller: 'PublicProjectsController'
+	})
+    // Project dashboard
+	.state('public.dashboard', {
+	    url: '/dashboard/{projectId}',
+	    templateUrl: './views/public/dashboard.html',
+	    controller: 'PublicDashboardController'
 	});
 });

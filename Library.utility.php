@@ -45,6 +45,7 @@ class Library	{
     const CORLY_SERVICE_UTILITIES = "corly/service/utilities";
     const CORLY_SERVICE_SETTINGS = "corly/service/settings";
     const CORLY_SERVICE_FACTORY = "corly/service/factory";
+    const CORLY_SERVICE_VISUALIZATION = "corly/service/visualization";
     
     // - visualization
     const VISUALIZATION = "visualization";

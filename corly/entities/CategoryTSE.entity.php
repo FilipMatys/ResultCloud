@@ -26,6 +26,7 @@ class CategoryTSE extends PaginatedTSE
         $this->Name = $Name;
         $this->TestCases = array();
         $this->TestCasesCount = 0;
+        $this->Id;
     }
 
     /**
@@ -66,7 +67,7 @@ class CategoryTSE extends PaginatedTSE
      * Get test cases
      * @return test cases
      */
-    public function GetTestCases()  {
+    public function &GetTestCases()  {
         return $this->TestCases;
     }
     
@@ -89,7 +90,6 @@ class CategoryTSE extends PaginatedTSE
                 return $testCase;
         }
         
-        
         // If none was found, return null
         return null;
     }
@@ -110,6 +110,7 @@ class CategoryTSE extends PaginatedTSE
         // Init object
         $category = new stdClass();
         // Set values from base object
+        $category->Id = $this->Id;
         $category->Name = (string)$this->Name;
         // Set parent id
         $category->Submission = $submissionId;

@@ -17,7 +17,7 @@
 		                <div class="large-12 columns">
 		                    <div class="row list-item">
 		                        <div class="large-12 medium-12 columns desc">
-		                            <a>{{project.Name}}</a>
+                                    <a ui-sref="public.dashboard({projectId:project.Id})">{{project.Name}}</a>
 		                            <p class="about">Created {{project.DateCreated | date:"longDate"}}</p>
 		                            <span>Number of submissions {{project.Submissions}}</span>
 		                        </div>

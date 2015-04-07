@@ -612,3 +612,17 @@ div.alert-box ul {
 div.alert-box   {
     margin-bottom: 0rem;
 }
+
+/**
+    MULTITABLE
+*/
+div.multitable table td {
+    width: 2rem;
+    max-width: 2rem;
+    word-wrap:break-word;
+    border: solid 1px white;
+}
+
+div.multitable table td:first-child {
+    width: auto;
+}

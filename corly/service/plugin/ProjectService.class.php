@@ -83,17 +83,15 @@ class ProjectService
      */
     public function GetViews($project)  {
         // Load project from database
-
         $dbProject = FactoryDao::ProjectDao()->Load($project);
         
         // Load plugin
-
         FactoryService::PluginService()->LoadPlugin($dbProject->Plugin);
         
         // Initialize validation
         $validation = new ValidationResult($project);
         
-        // Check if importer was included
+        // Check if visualization was included
         if (!class_exists('Visualization'))  {
             $validation->AddError("Visualization for given plugin was not found");
             return $validation;
@@ -120,7 +118,7 @@ class ProjectService
         // Initialize validation
         $validation = new ValidationResult($project);
         
-        // Check if importer was included
+        // Check if visualization was included
         if (!class_exists('Visualization'))  {
             $validation->AddError("Visualization for given plugin was not found");
             return $validation;
@@ -151,7 +149,7 @@ class ProjectService
         // Initialize validation
         $validation = new ValidationResult($project);
         
-        // Check if importer was included
+        // Check if visualization was included
         if (!class_exists('Visualization'))  {
             $validation->AddError("Visualization for given plugin was not found");
             return $validation;

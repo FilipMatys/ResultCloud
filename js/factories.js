@@ -43,6 +43,26 @@ application.factory('SessionService', function ($http) {
     }
 });
 
+// View service
+application.factory('ViewService', function ($http) {
+    return {
+        views: function (data) {
+            return $http({
+                method: 'POST',
+                url: 'api/ViewController.class.php?method=VIEWS',
+                data: data
+            })
+        },
+        visualize: function (data) {
+            return $http({
+                method: 'POST',
+                url: 'api/ViewController.class.php?method=VISUALIZE',
+                data: data
+            })
+        }
+    }
+});
+
 // Session service
 application.factory('TemplateSettingsService', function ($http) {
     return {

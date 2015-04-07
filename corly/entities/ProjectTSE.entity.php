@@ -25,6 +25,7 @@ class ProjectTSE extends PaginatedTSE
      */
     public function __construct()   {
         $this->Submissions = array();
+        $this->Id = 0;
     }
 
     /**
@@ -63,7 +64,7 @@ class ProjectTSE extends PaginatedTSE
      * Get project submissions
      * @return mixed
      */
-    public function GetSubmissions()    {
+    public function &GetSubmissions()    {
         return $this->Submissions;
     }
     

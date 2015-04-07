@@ -46,8 +46,8 @@ class ValidationResult extends ResultManager {
      * @param type $property
      */
     public function CheckNotNullOrEmpty($property, $error)  {
-        if (!isset($this->Data->{$property}) || $this->Data->{$property} == "") {
-            $this->AddInvalid($property." is required");
+        if ((!isset($this->Data->{$property}) || $this->Data->{$property} == "") && $this->Data->{$property} != 0) {
+            $this->AddInvalid($error);
         }
     }
     

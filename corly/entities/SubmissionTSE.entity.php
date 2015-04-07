@@ -26,6 +26,7 @@ class SubmissionTSE extends PaginatedTSE
     public function __construct($dateTime = "")   {
         $this->DateTime = $dateTime;
         $this->Categories = array();
+        $this->Id = 0;
     }
     
     /**
@@ -78,7 +79,7 @@ class SubmissionTSE extends PaginatedTSE
     /**
      * Get categories
      */
-    public function GetCategories() {
+    public function &GetCategories() {
         return $this->Categories;
     }
     
@@ -125,6 +126,7 @@ class SubmissionTSE extends PaginatedTSE
     public function GetDbObject($projectId)   {
         // Init object
         $submission = new stdClass();
+        $submission->Id = $this->Id;
         // Assign values of base object
         $submission->DateTime = (string)$this->DateTime;
         // Set parent object id (project)
@@ -146,6 +148,7 @@ class SubmissionTSE extends PaginatedTSE
         $this->DateTime = $dbSubmission->DateTime;
         $this->ImportDateTime = $dbSubmission->ImportDateTime;
         $this->ProjectId = $dbSubmission->Project;
+        $this->User = $dbSubmission->User;
     }
     
     /**

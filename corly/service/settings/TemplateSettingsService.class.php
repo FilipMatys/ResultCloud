@@ -5,7 +5,7 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryService.class.php']);
 Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryDao.class.php']);
 Library::using(Library::CORLY_SERVICE_PLUGIN, ["PluginManagementService.class.php"]);
-Library::using(Library::CORLY_DAO_STAT, ['TemplateSettingsType.enum.php']);
+Library::using(Library::CORLY_DAO_STAT, ['ViewType.enum.php']);
 Library::using(Library::CORLY_DAO_STAT, ['TemplateSettingsItemType.enum.php']);
 Library::using(Library::UTILITIES);
 

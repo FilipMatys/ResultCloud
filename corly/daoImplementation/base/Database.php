@@ -91,7 +91,8 @@ abstract class Database  {
         // Execute query
         $statement->execute();
 
-        return $this->db->insert_id;
+        // Return id of inserted entity
+        return $this->db->insert_id != 0 ? $this->db->insert_id : $entity->Id;
     }
     
     /**

@@ -4,6 +4,7 @@
         templateUrl: 'visualization/components/submissionList/list.html',
         controller: function ($scope, $state, $stateParams, ProjectService) {
             $scope.PendingChanges = false;
+            $scope.projectId = $stateParams.projectId;
 
             // Initialize request object
             $scope.Request = {

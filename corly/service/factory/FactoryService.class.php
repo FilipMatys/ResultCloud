@@ -8,6 +8,7 @@ Library::using(Library::CORLY_SERVICE_SECURITY);
 Library::using(Library::CORLY_SERVICE_APPLICATION);
 Library::using(Library::CORLY_SERVICE_SESSION);
 Library::using(Library::CORLY_SERVICE_IMPORT);
+Library::using(Library::CORLY_SERVICE_VISUALIZATION);
 Library::using(Library::CORLY_SERVICE_FACTORY, ['Factory.class.php']);
 
 class FactoryService extends Factory	{
@@ -19,6 +20,14 @@ class FactoryService extends Factory	{
 	public static function &TestCaseService()	{
 		return self::GetFactory('TestCaseService');
 	}
+
+    /**
+     * Get dashboard service
+     * @return dashboard service
+     */
+    public static function &DashboardService()  {
+        return self::GetFactory('DashboardService');
+    }
 
 	/**
 	 * Get session service
@@ -123,6 +132,14 @@ class FactoryService extends Factory	{
 	public static function &InstallationService()	{
 		return self::GetFactory('InstallationService');
 	}
+
+    /**
+     * Get view service
+     * @return reference
+     */
+    public static function &ViewService()   {
+        return self::GetFactory('ViewService');
+    }
 }
 
 // Initialize factory service

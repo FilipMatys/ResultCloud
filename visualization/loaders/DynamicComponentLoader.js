@@ -1,10 +1,18 @@
-﻿application.directive('corlyDynamicDifferenceComponentLoader', function ($compile) {
+﻿application.directive('corlyDynamicComponentLoader', function ($compile) {
     return {
         restrict: 'E',
-        controller: function ($scope, $element, $stateParams, ProjectService) {
+        scope: {
+            view: '=view'
+        },
+        controller: function ($scope, $element, $stateParams, ViewService) {
 
-            // Load views for current submission
-            ProjectService.diffviews($stateParams.projectId)
+            // Load views for current project
+            ViewService.views({
+                Project: {
+                    Id: $stateParams.projectId
+                },
+                View: $scope.view
+            })
                 .success(function (data, status, headers, config) {
                     // Compile each component...
                     angular.forEach(data.Data, function (component) {
