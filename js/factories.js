@@ -251,6 +251,13 @@ application.factory('ProjectService', ['$http', function ($http) {
                 url: 'api/ProjectController.class.php?method=DELETE',
                 data: projectId
             })
+        },
+        submissionDelete: function (Ids) {
+            return $http({
+                method: 'POST',
+                url: 'api/ProjectController.class.php?method=DELETE_SUBMISSION',
+                data: Ids
+            })
         }
     }
 }]);

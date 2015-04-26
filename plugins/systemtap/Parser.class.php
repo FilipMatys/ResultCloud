@@ -111,12 +111,12 @@ class Parser
         // Add category to submission
         $Submission->AddCategories($Categories);
 
-        $good = 0;
-        $bad = 0;
-        $strange = 0;
+        $result = new stdClass();
+        $result->Good = 0;
+        $result->Bad = 0;
+        $result->Strange = 0;
         
         $SubmissionList = SubmissionService::GetFilteredList(QueryParameter::Where('Project', $pValidation->Data->Project));
-        $diff = new stdClass();
         if (!$SubmissionList->IsEmpty())
         {
             $dbSubmission = $SubmissionList->Last();
@@ -128,37 +128,10 @@ class Parser
             $submissions[] = $submission2;
             $submissions[] = $Submission;
 
-            $diff = DifferenceVisualization::Visualize($submissions, SystemTAP_DifferenceOverviewType::DIFF_LAST, 0);
-            foreach ($diff as $category) {
-                if($category->HasChange)
-                {
-                    foreach ($category->Items as $item) {
-                        if($item->HasChange)
-                        {
-                            foreach ($item->ResultSets as $results) {
-                                if($results->HasChange) {
-                                    if($results->Values[0]->Value == "PASS" && 
-                                        $results->Values[1]->Value == "FAIL")
-                                    {
-                                        $bad++;
-                                    }
-                                    elseif ($results->Values[0]->Value == "FAIL" && 
-                                        $results->Values[1]->Value == "PASS" ) {
-                                        $good++;                               
-                                    }
-                                    elseif ($results->Values[0]->Value == "FAIL" && 
-                                        $results->Values[1]->Value == "ERROR") {
-                                        $strange++;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            $result = Parser::GetDifferenceCount($submissions);
         }
 
-        $Submission->SetDiff($good, $bad, $strange);
+        $Submission->SetDiff($result->Good, $result->Bad, $result->Strange);
 
         // Save configuration
         $systemInfoHandler = DbUtil::GetEntityHandler(new SystemTAP_Configuration);
@@ -167,7 +140,47 @@ class Parser
         $validation = new ValidationResult($Submission);
 
         return $validation;
-    }   
+    } 
+
+    public static function GetDifferenceCount($submissions) {
+        $good = 0;
+        $bad = 0;
+        $strange = 0;
+
+        $diff = DifferenceVisualization::Visualize($submissions, SystemTAP_DifferenceOverviewType::DIFF_LAST, 0);
+        foreach ($diff as $category) {
+            if($category->HasChange)
+            {
+                foreach ($category->Items as $item) {
+                    if($item->HasChange)
+                    {
+                        foreach ($item->ResultSets as $results) {
+                            if($results->HasChange) {
+                                if($results->Values[0]->Value == "PASS" && 
+                                    $results->Values[1]->Value == "FAIL")
+                                {
+                                    $bad++;
+                                }
+                                elseif ($results->Values[0]->Value == "FAIL" && 
+                                    $results->Values[1]->Value == "PASS" ) {
+                                    $good++;                               
+                                }
+                                elseif ($results->Values[0]->Value == "FAIL" && 
+                                    $results->Values[1]->Value == "ERROR") {
+                                    $strange++;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        $res = new stdClass();
+        $res->Good = $good;
+        $res->Bad = $bad;
+        $res->Strange = $strange;
+        return $res;
+    }
 }
 
 // Call initialize function to set static variables
