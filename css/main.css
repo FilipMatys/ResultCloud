@@ -65,6 +65,23 @@ div.card label input {
     margin-top: 0.5rem;
 }
 
+div.card span.result {
+    display: inline-block;
+    margin-right: 1rem;
+}
+
+div.card span.result.good {
+    color: #2ecc71;
+}
+
+div.card span.result.bad {
+    color: #e74c3c;
+}
+
+div.card span.result.strange {
+    color: #3498db;
+}
+
 div.main-view,
 div.content   {
     min-height: 100%;
