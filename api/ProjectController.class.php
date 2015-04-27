@@ -26,6 +26,7 @@ class ProjectController
     const DIFFVIEWS = "DIFFVIEWS";
     const CLEAR = "CLEAR";
     const DELETE = "DELETE";
+    const DELETE_SUBMISSION = "DELETE_SUBMISSION";
     
     /**
      * Save given project
@@ -120,6 +121,22 @@ class ProjectController
         // Get project detail
         return FactoryService::ProjectService()->GetDetail($project, $request->Type);
     }
+
+    /**
+     * Delete given submission
+     * @param mixed $projecId 
+     * @return mixed
+     */
+    public function DeleteSubmission($Ids)    {
+        // Initialize object
+        $submission = new stdClass();
+        $submission->Id = $Ids->submissionId;
+        $submission->projectId = $Ids->projectId;
+
+        
+        // Load views
+        return FactoryService::SubmissionService()->DeleteSubmission($submission);
+    }
 }
 
 // Extract json data
@@ -162,7 +179,10 @@ if (isset($_GET["method"]))	{
         case ProjectController::DELETE:
             $result = $ProjectController->Delete($data);
             break;
-            
+        case ProjectController::DELETE_SUBMISSION:
+            $result = $ProjectController->DeleteSubmission($data);
+            break;
+
 		default:
 			$result = false;
 			break;

@@ -11,4 +11,5 @@
 class SystemTAP_DifferenceOverviewType
 {
     const DIFF_CONFIGURATION = "DIFF_CONFIGURATION";
+    const DIFF_LAST = "DIFF_LAST";
 }

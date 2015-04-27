@@ -30,6 +30,8 @@ class DifferenceVisualization
             case SystemTAP_DifferenceOverviewType::DIFF_CONFIGURATION:
                 return SystemTAP_DifferenceOverviewConfiguration::GetDifferenceOverviewConfiguration($submissions);
                 
+            case SystemTAP_DifferenceOverviewType::DIFF_LAST:
+                return SystemTAP_DifferenceOverviewList::GetDifferenceOverviewLists($submissions, $meta, true);
             default:
                 return null;
         }

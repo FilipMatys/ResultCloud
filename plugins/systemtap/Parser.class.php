@@ -4,6 +4,7 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 // Get libraries
 Library::using(Library::UTILITIES);
 Library::using(Library::CORLY_ENTITIES);
+Library::using(Library::CORLY_SERVICE_SUITE);
 Library::using(Library::CORLY_SERVICE_UTILITIES);
 Library::usingProject(dirname(__FILE__));
 
@@ -40,7 +41,7 @@ class Parser
     /**
      * Parse uploaded data for import
      */
-    public static function ParseImport($data)    {
+    public static function ParseImport($pValidation, $data)    {
         // Load uploaded file as string
         $fileRows = file($data);
         
@@ -109,14 +110,77 @@ class Parser
         
         // Add category to submission
         $Submission->AddCategories($Categories);
+
+        $result = new stdClass();
+        $result->Good = 0;
+        $result->Bad = 0;
+        $result->Strange = 0;
         
+        $SubmissionList = SubmissionService::GetFilteredList(QueryParameter::Where('Project', $pValidation->Data->Project));
+        if (!$SubmissionList->IsEmpty())
+        {
+            $dbSubmission = $SubmissionList->Last();
+            $submission2 = new SubmissionTSE();
+            $submission2->MapDbObject($dbSubmission);
+            TestSuiteDataService::LoadCategories($submission2, Visualization::GetDifferenceDataDepth(DifferenceOverviewType::VIEWLIST));
+
+            $submissions = array();
+            $submissions[] = $submission2;
+            $submissions[] = $Submission;
+
+            $result = Parser::GetDifferenceCount($submissions);
+        }
+
+        $Submission->SetDiff($result->Good, $result->Bad, $result->Strange);
+
         // Save configuration
         $systemInfoHandler = DbUtil::GetEntityHandler(new SystemTAP_Configuration);
         $systemInfoHandler->Save($configuration);
         
         $validation = new ValidationResult($Submission);
+
         return $validation;
-    }   
+    } 
+
+    public static function GetDifferenceCount($submissions) {
+        $good = 0;
+        $bad = 0;
+        $strange = 0;
+
+        $diff = DifferenceVisualization::Visualize($submissions, SystemTAP_DifferenceOverviewType::DIFF_LAST, 0);
+        foreach ($diff as $category) {
+            if($category->HasChange)
+            {
+                foreach ($category->Items as $item) {
+                    if($item->HasChange)
+                    {
+                        foreach ($item->ResultSets as $results) {
+                            if($results->HasChange) {
+                                if($results->Values[0]->Value == "PASS" && 
+                                    $results->Values[1]->Value == "FAIL")
+                                {
+                                    $bad++;
+                                }
+                                elseif ($results->Values[0]->Value == "FAIL" && 
+                                    $results->Values[1]->Value == "PASS" ) {
+                                    $good++;                               
+                                }
+                                elseif ($results->Values[0]->Value == "FAIL" && 
+                                    $results->Values[1]->Value == "ERROR") {
+                                    $strange++;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        $res = new stdClass();
+        $res->Good = $good;
+        $res->Bad = $bad;
+        $res->Strange = $strange;
+        return $res;
+    }
 }
 
 // Call initialize function to set static variables

@@ -19,6 +19,9 @@ class SubmissionTSE extends PaginatedTSE
     private $ImportDateTime;
     private $Categories;
     private $ProjectId;
+    private $Good;
+    private $Bad;
+    private $Strange;
 
     /**
      * Submission constructor
@@ -66,6 +69,12 @@ class SubmissionTSE extends PaginatedTSE
      */
     public function GetUser()   {
         return $this->User;
+    }
+
+    public function SetDiff($good, $bad, $strange) {
+        $this->Good = $good;
+        $this->Bad = $bad;
+        $this->Strange = $strange;
     }
 
     /**
@@ -133,6 +142,9 @@ class SubmissionTSE extends PaginatedTSE
         $submission->Project = $projectId;
         $submission->User = $this->User;
         $submission->ImportDateTime = $this->ImportDateTime;
+        $submission->Good = $this->Good;
+        $submission->Bad = $this->Bad;
+        $submission->Strange = $this->Strange;
         
         // Return object
         return $submission;
@@ -147,8 +159,12 @@ class SubmissionTSE extends PaginatedTSE
         $this->Id  = $dbSubmission->Id;
         $this->DateTime = $dbSubmission->DateTime;
         $this->ImportDateTime = $dbSubmission->ImportDateTime;
+        $this->Good = $dbSubmission->Good;
+        $this->Bad = $dbSubmission->Bad;
+        $this->Strange = $dbSubmission->Strange;
         $this->ProjectId = $dbSubmission->Project;
         $this->User = $dbSubmission->User;
+
     }
     
     /**
@@ -164,6 +180,9 @@ class SubmissionTSE extends PaginatedTSE
         $submission->DateTime = $this->DateTime;
         $submission->ImportDateTime = $this->ImportDateTime;
         $submission->User = $this->User;
+        $submission->Good = $this->Good;
+        $submission->Bad = $this->Bad;
+        $submission->Strange = $this->Strange;
         
         // Return result
         return $submission;

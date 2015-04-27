@@ -320,4 +320,5 @@ class ProjectService
         
         // Return options
         return $gcOptions;
-    }}
+    }
+}

@@ -8,8 +8,7 @@ Library::using(Library::CORLY_SERVICE_SECURITY);
 Library::using(Library::CORLY_SERVICE_APPLICATION);
 Library::using(Library::CORLY_SERVICE_SESSION);
 Library::using(Library::CORLY_SERVICE_IMPORT);
-Library::using(Library::CORLY_SERVICE_VISUALIZATION);
-Library::using(Library::CORLY_SERVICE_FACTORY, ['Factory.class.php']);
+Library::using(Library::CORLY_SERVICE_UPDATE);Library::using(Library::CORLY_SERVICE_VISUALIZATION);Library::using(Library::CORLY_SERVICE_FACTORY, ['Factory.class.php']);
 
 class FactoryService extends Factory	{
 
@@ -132,6 +131,14 @@ class FactoryService extends Factory	{
 	public static function &InstallationService()	{
 		return self::GetFactory('InstallationService');
 	}
+	/**
+	 * Get update service
+	 * @return update service
+	 */
+	public static function &UpdateService()	{
+		return self::GetFactory('UpdateService');
+	}
+
 
     /**
      * Get view service

@@ -89,6 +89,16 @@ class DbProperty
      * @return string Property database definition
      */
     public function GetPropertyDefinition() {
+        
+        return $this->GetBasicPropertyDefinition();
+    }
+
+    public function GetAddPropertyDefinition() {
+        
+        return "ADD ".$this->GetBasicPropertyDefinition();
+    }
+
+    private function GetBasicPropertyDefinition() {
         $definition = "";
         // Set property name
         $definition .= $this->Name . " ";

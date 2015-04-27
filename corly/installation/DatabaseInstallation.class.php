@@ -5,6 +5,7 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 // Include files
 Library::using(Library::CORLY_DBCREATE);
 Library::using(Library::CORLY_DAO_BASE);
+Library::using(Library::UTILITIES, ['DatabaseDriver.php']);
 
 /**
  * DatabaseInstallation short summary.
@@ -60,6 +61,8 @@ class DatabaseInstallation
         $this->CreateTb_TemplateSettings();
         // TemplateSettingsItem
         $this->CreateTb_TemplateSettingsItem();
+        // Update
+        $this->CreateTb_UpdateItem();
     }
     
     /**
@@ -104,6 +107,27 @@ class DatabaseInstallation
         
         // Add component to table
         $this->Database->AddTable($tComponent);
+    }
+
+    private function CreateTb_UpdateItem() {
+        $tUpdate = new DbTable('Update');
+
+        // Set id property
+        $pId = new DbProperty('Id');
+        $pId->SetType(DbType::Double());
+        $pId->NotNull();
+        $pId->PrimaryKey();
+        $pId->AutoIncrement();
+        // Add id to table
+        $tUpdate->AddProperty($pId);
+
+        $pDBver = new DbProperty('DBVersion');
+        $pDBver->SetType(DbType::Double());
+        $pDBver->NotNull();
+        // Add id to table
+        $tUpdate->AddProperty($pDBver);
+
+        $this->Database->AddTable($tUpdate);
     }
 
     /**
@@ -473,6 +497,24 @@ class DatabaseInstallation
         // Add project to table
         $tSubmission->AddProperty($pProject);
         
+        $pGood = new DbProperty('Good');
+        $pGood->SetType(DbType::Double());
+        $pGood->NotNull();
+        // Add Good to table
+        $tSubmission->AddProperty($pGood);
+
+        $pBad = new DbProperty('Bad');
+        $pBad->SetType(DbType::Double());
+        $pBad->NotNull();
+        // Add Bad to table
+        $tSubmission->AddProperty($pBad);
+
+        $pStrange = new DbProperty('Strange');
+        $pStrange->SetType(DbType::Double());
+        $pStrange->NotNull();
+        // Add Strange to table
+        $tSubmission->AddProperty($pStrange);
+
         // Add table to database
         $this->Database->AddTable($tSubmission); 
     }
@@ -709,6 +751,9 @@ class DatabaseInstallation
         // Select database to create tables in
         $mysqli->select_db($this->Database->GetName());
         
+        //Set connection in DatabaseDriver
+        DatabaseDriver::ConnectExisting($mysqli);
+
         // Create tables
         foreach ($this->Database->GetTables() as $table) {
             if (!($statement = $mysqli->prepare($table->GetTableDefinition()))) {

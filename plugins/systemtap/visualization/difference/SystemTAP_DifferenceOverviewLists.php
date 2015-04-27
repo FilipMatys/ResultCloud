@@ -13,37 +13,20 @@ class SystemTAP_DifferenceOverviewList
     // Style for 
     const NO_RESULT = "background: #3498db; color: #ffffff";
     const CHANGE = "background: #f1c40f; color: #ffffff";
-
-    /**
-     * Get number of categories
-     */
-    private static function GetNumberOfCategories($submissions) {
-        $numberOfCategories = 0;
-
-        // Get highest number of categories
-        foreach ($submissions as $submission) {
-            if ($submission->GetTotalCount() > $numberOfCategories)
-                $numberOfCategories = $submission->GetTotalCount();
-        }
-
-        return $numberOfCategories;
-    }
+    
+    const PAGE_SIZE = 40;
     
     /**
      * Get difference overview lists
      * @param mixed $submissions 
      * @return mixed
      */
-    public static function GetDifferenceOverviewLists($submissions, $meta) {
-        // Get page size
-        $pageSize = SettingsService::GetTemplateByIdentifier('systemtap-diff-list', $submissions[0]->GetProjectId())->Data['page-size'];
-
-        // Load data
-        foreach ($submissions as $submission) {
-            TestSuiteDataService::LoadCategories(
-                $submission, 
-                Visualization::GetDifferenceDataDepth(DifferenceOverviewType::VIEWLIST),
-                new QueryPagination($meta, $pageSize, 'asc'));
+    public static function GetDifferenceOverviewLists($submissions, $meta, $sys_diff = false) {
+        if(!$sys_diff) {
+            // Load data  
+            foreach ($submissions as $submission) {
+                TestSuiteDataService::LoadCategories($submission, Visualization::GetDifferenceDataDepth(DifferenceOverviewType::VIEWLIST));
+            }
         }
 
         // For each category, one list is created, so first get all
@@ -66,13 +49,15 @@ class SystemTAP_DifferenceOverviewList
             // Before starting processing, we need to get all test cases
             // across each submission and assigned results. Then, we can
             // go through each submission and compare its values
-            $testCases = self::GetTestCasesHierarchy($submissions, $category);
+            $testCases = SystemTAP_DifferenceOverviewList::GetTestCasesHierarchy($submissions, $category);
             
             // Set pagination
-            $differenceOverviewList->SetItemsCount(self::GetNumberOfCategories($submissions));
+            $differenceOverviewList->SetItemsCount(count($testCases));
             $differenceOverviewList->SetPagination(true);
             $differenceOverviewList->SetPage($meta);
-            $differenceOverviewList->SetPageSize($pageSize);
+            
+            if (!$sys_diff)
+                $testCases = array_splice($testCases, ($meta - 1) * SystemTAP_DifferenceOverviewList::PAGE_SIZE, SystemTAP_DifferenceOverviewList::PAGE_SIZE);
             
             // After iterating through each submissions category and getting all test
             // cases and its results, these results must be made unique. After that,
@@ -159,7 +144,7 @@ class SystemTAP_DifferenceOverviewList
                         $prevValue = $differenceOverviewListItemResultSet->GetLastInsertedValue();
                         if (!is_null($prevValue))   {
                             // Set no error
-                            if ($prevValue->GetValue() == "")
+                            if ($prevValue->GetValue() == "" || $subResult->GetValue() != $prevValue->GetValue())
                                 $differenceOverviewListItemResultValue->SetStyle(SystemTAP_DifferenceOverviewList::CHANGE);
                         }
                         

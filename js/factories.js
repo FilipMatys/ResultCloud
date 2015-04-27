@@ -277,6 +277,25 @@ application.factory('ProjectService', ['$http', function ($http) {
                 url: 'api/ProjectController.class.php?method=DELETE',
                 data: projectId
             })
+        },
+        submissionDelete: function (Ids) {
+            return $http({
+                method: 'POST',
+                url: 'api/ProjectController.class.php?method=DELETE_SUBMISSION',
+                data: Ids
+            })
+        }
+    }
+}]);
+
+// Update service
+application.factory('UpdateService', ['$http', function ($http) {
+    return {
+        check: function () {
+            return $http({
+                method: 'GET',
+                url: 'api/UpdateController.class.php?method=CHECK'
+            })
         }
     }
 }]);

@@ -13,12 +13,15 @@
             }
 
             // Load data
-            $scope.PendingChanges = true;
+            var LoadSubmissions = function () {
+                $scope.PendingChanges = true;
             ProjectService.get($scope.Request)
                 .success(function (data, status, headers, config) {
                     $scope.ListData = data.Data;
                     $scope.PendingChanges = false;
                 });
+            }
+            LoadSubmissions();
 
             // Compare all selected submissions
             $scope.Differ = function () {
@@ -36,6 +39,22 @@
                 // Go to differ page
                 $state.go('home.difference-overview', { projectId: $stateParams.projectId, differenceArray: submissions.join("&") });
             }
+
+            $scope.DeleteSubmission = function (sid, pid) {
+                if (confirm("Are you sure?")) {
+                    Ids = {
+                        submissionId: sid.submissionId,
+                        projectId: pid.projectId
+                    };
+                    ProjectService.submissionDelete(Ids)
+                        .success(function (data, status, headers, config) {
+                            LoadSubmissions();
+
+                            // Show status
+                            $scope.ShowStatus('Delete submission', data.IsValid, data.Errors);
+                        });
+                }
+            };
 
             // Watch for "select all" change
             $scope.$watch('SelectAll', function (value) {

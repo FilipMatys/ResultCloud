@@ -270,8 +270,90 @@ class SubmissionService
         $dbSubmissions = FactoryDao::SubmissionDao()->GetFilteredList(QueryParameter::Where('Project', $projectId))->ToList();
         foreach ($dbSubmissions as $dbSubmission)
         {
+            //Load plugin and delete its configuration
+            $project = new stdClass();
+            $project->Id = $projectId;
+            $dbProject = FactoryDao::ProjectDao()->Load($project);
+            FactoryService::PluginService()->LoadPlugin($dbProject->Plugin);
+            $configurationHandler = DbUtil::GetEntityHandler(new SystemTAP_Configuration);
+            $lConfiguration = $configurationHandler->DeleteFilteredList(QueryParameter::Where('DateTime', $dbSubmission->DateTime));
+            //Clean all submission's categories
             FactoryService::CategoryService()->ClearCategory($dbSubmission->Id);
         }
         FactoryDao::SubmissionDao()->DeleteFilteredList(QueryParameter::Where('Project', $projectId));
+    }
+
+    /**
+     * Delete submission
+     * @param submission to be deleted
+     * @return Validation result 
+     */
+    public function DeleteSubmission($submission) {
+        // Init validation
+        $validation = new ValidationResult($submission);
+
+        // Check data
+        $validation->CheckDataNotNull("Submission not set");
+        $validation->CheckNotNullOrEmpty("Id", "Submission identifier not set");
+        $validation->CheckNotNullOrEmpty("projectId", "Project identifier not set");
+
+        // Check validation
+        if (!$validation->IsValid)
+            return $validation;
+
+        //Get plugin
+        $project = new stdClass();
+        $project->Id = $submission->projectId;
+        $dbProject = FactoryDao::ProjectDao()->Load($project);
+        FactoryService::PluginService()->LoadPlugin($dbProject->Plugin);
+
+        //Delete configuration
+        $configurationHandler = DbUtil::GetEntityHandler(new SystemTAP_Configuration);
+        $lConfiguration = $configurationHandler->DeleteFilteredList(QueryParameter::Where('DateTime', FactoryDao::SubmissionDao()->Load($submission)->DateTime));
+
+        // Clear submission and delete project
+        FactoryService::CategoryService()->ClearCategory($submission->Id);
+        FactoryDao::SubmissionDao()->Delete($submission);
+
+        //Get next submission
+        $sub_query = FactoryDao::SubmissionDao()->GetFilteredList(QueryParameter::WhereGreater("Id", $submission->Id), new QueryPagination(1, 1, "DESC"));
+        if (!$sub_query->IsEmpty())
+        {
+            //Load all information about submission
+            $submission_tse = new SubmissionTSE();
+            $submission_tse->MapDbObject($sub_query->Single());
+            TestSuiteDataService::LoadCategories($submission_tse, Visualization::GetDifferenceDataDepth(DifferenceOverviewType::VIEWLIST));
+
+            $submissions = array(2);
+            $submissions[1] = $submission_tse;
+            //Load previous submission
+            $sub_query = FactoryDao::SubmissionDao()->GetFilteredList(QueryParameter::WhereLess("Id", $submission->Id), new QueryPagination(1, 1, ""));
+            if (!$sub_query->IsEmpty())
+            {
+                //Load all information about submission
+                $submission_tse2 = new SubmissionTSE();
+                $submission_tse2->MapDbObject($sub_query->Single());
+                TestSuiteDataService::LoadCategories($submission_tse2, Visualization::GetDifferenceDataDepth(DifferenceOverviewType::VIEWLIST));
+                $submissions[0] = $submission_tse2;
+
+                //Compute difference
+                $result = Parser::GetDifferenceCount($submissions);
+                $result->Id = $submissions[1]->GetId();
+                FactoryDao::SubmissionDao()->Save($result);
+
+            }
+            else{
+                //if deleted submission was first, change all difference to 0
+                $result = new stdClass();
+                $result->Good = 0;
+                $result->Bad = 0;
+                $result->Strange = 0;
+                $result->Id = $submissions[1]->GetId();
+                FactoryDao::SubmissionDao()->Save($result);
+            }
+        }
+        
+        // Return validation
+        return $validation;
     }
 }

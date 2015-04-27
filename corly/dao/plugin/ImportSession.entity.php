@@ -25,3 +25,4 @@ class ImportSession extends IndexedEntity
     //Project id
     public $Project;
 }
+?>

@@ -515,6 +515,11 @@ input[type=checkbox]  {
     top: 0.1rem;
 }
 
+div.changes {
+    color: #3280B8;
+    font-size: 12px
+}
+
 /**
     GOOGLE CHART
 */
