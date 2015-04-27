@@ -17,6 +17,21 @@
                 .success(function (data, status, headers, config) {
                     $scope.data = data.Data;
                 });
+
+            $scope.toggleHeader = function (index, cells) {
+                if (index == 0)
+                    return;
+
+                var i = 0;
+                angular.forEach(cells, function (item) {
+                    if (i == index)
+                        item.Active = true;
+                    else
+                        item.Active = false;
+
+                    i++;
+                });
+            };
         }
     }
 });

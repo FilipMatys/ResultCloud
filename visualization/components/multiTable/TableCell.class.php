@@ -19,6 +19,12 @@ class TableCell
      * @var mixed
      */
     public $Style;
+    
+    /**
+     * Flag if cell is active
+     * @var mixed
+     */
+    public $Active;
 
     /**
      * Constructor
@@ -29,5 +35,6 @@ class TableCell
     {
         $this->Data = $data;
         $this->Style = $style;
+        $this->Active = false;
     }
 }

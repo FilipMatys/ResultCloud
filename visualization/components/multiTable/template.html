@@ -16,7 +16,7 @@
                     <table class="full-width">
                         <thead>
                             <tr>
-                                <th ng-repeat="header in table.HeaderRow.Cells">{{header.Data}}</th>
+                                <th ng-click="toggleHeader($index, table.HeaderRow.Cells)" ng-class="{active: header.Active}" ng-repeat="header in table.HeaderRow.Cells"><span>{{header.Data}}</span></th>
                             </tr>
                         </thead>
                         <tbody>

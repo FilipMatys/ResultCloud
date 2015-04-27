@@ -645,6 +645,28 @@ div.multitable table td {
     border: solid 1px white;
 }
 
+div.multitable table th {
+    border: solid 1px white;
+}
+
 div.multitable table td:first-child {
     width: auto;
+}
+
+div.multitable table th span {
+    display: none;
+    color: white;
+}
+
+div.multitable table th:hover {
+    background: #bdc3c7;
+}
+
+div.multitable table th.active  {
+    width: 15rem;
+    background: #95a5a6;
+}
+
+div.multitable table th.active span {
+    display: inline;
 }

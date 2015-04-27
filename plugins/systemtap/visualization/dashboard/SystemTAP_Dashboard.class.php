@@ -44,7 +44,7 @@ class SystemTAP_Dashboard
         $multiTable->Header = "SystemTAP " . $project->GetName();
 
         // Load submissions for given project
-        TestSuiteDataService::LoadSubmissions($project, DataDepth::TEST_CASE, new QueryPagination(1, 10, 'asc'));
+        TestSuiteDataService::LoadSubmissions($project, DataDepth::TEST_CASE, new QueryPagination(1, 10, 'desc'));
 
         // Get template of dashboard
         $template = self::GetTemplate($project);
@@ -68,7 +68,7 @@ class SystemTAP_Dashboard
         foreach ($template as &$table)
         {
             // Iterate through submissions
-		foreach ($project->GetSubmissions() as $submission)
+            foreach ($project->GetSubmissions() as $submission)
             {
                 // Get category by table header
                 $subCategory = $submission->GetCategoryByName($table->Header);
@@ -77,7 +77,7 @@ class SystemTAP_Dashboard
                 // Iterate through rows (test cases)
                 foreach ($table->Rows as &$row)
                 {
-			// Get test case value
+			        // Get test case value
                     $tcVal = $subCategory->GetTestCaseByName($row->Cells[0]->Data);
 
                     // Check value
@@ -87,6 +87,8 @@ class SystemTAP_Dashboard
                         $row->Cells[] = new TableCell("", self::$StatusColors[$tcVal->GetStatus()]);
                 }
             }
+            
+            $table->HeaderRow->Cells[1]->Active = true;
         }
 
         // Return result
@@ -107,17 +109,17 @@ class SystemTAP_Dashboard
         // Iterate through submissions
         foreach ($project->GetSubmissions() as $submission)
         {
-		// Iterate through categories
+            // Iterate through categories
             foreach ($submission->GetCategories() as $category)
             {
-		// Add category to array, if it doesnt already exists
+                // Add category to array, if it doesnt already exists
                 if (!array_key_exists($category->GetName(), $categories))
                     $categories[$category->GetName()] = array();
 
                 // Iterate through test cases
                 foreach ($category->GetTestCases() as $testCase)
                 {
-			// Add test case, if not present
+                    // Add test case, if not present
                     if (!in_array($testCase->GetName(), $categories[$category->GetName()]))
                         $categories[$category->GetName()][] = $testCase->GetName();
                 }
@@ -128,7 +130,7 @@ class SystemTAP_Dashboard
         foreach ($categories as $category => $testCases)
         {
             // Create new table
-		$table = new Table();
+		    $table = new Table();
             $table->Header = $category;
 
             // Create empty header cell for test cases
@@ -140,7 +142,7 @@ class SystemTAP_Dashboard
             foreach ($testCases as $testCase)
             {
                 // Create new row
-		$row = new TableRow();
+		        $row = new TableRow();
                 $row->Cells = array();
 
                 // Create cell, that holds test case name
@@ -149,7 +151,7 @@ class SystemTAP_Dashboard
                 // Add row to table
                 $table->Rows[] = $row;
             }
-
+            
             // Add table to array
             $tables[] = $table;
         }
