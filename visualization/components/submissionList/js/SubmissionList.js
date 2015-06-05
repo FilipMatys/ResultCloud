@@ -2,7 +2,7 @@
     return {
         restrict: 'E',
         templateUrl: 'visualization/components/submissionList/list.html',
-        controller: function ($scope, $state, $stateParams, ProjectService) {
+        controller: function ($scope, $state, $rootScope, $stateParams, ProjectService) {
             $scope.PendingChanges = false;
             $scope.projectId = $stateParams.projectId;
 
@@ -40,16 +40,19 @@
                 $state.go('home.difference-overview', { projectId: $stateParams.projectId, differenceArray: submissions.join("&") });
             }
 
+            // Delete submission
             $scope.DeleteSubmission = function (sid, pid) {
                 if (confirm("Are you sure?")) {
                     Ids = {
                         submissionId: sid.submissionId,
                         projectId: pid.projectId
                     };
-                    ProjectService.submissionDelete(Ids)
+                   ProjectService.submissionDelete(Ids)
                         .success(function (data, status, headers, config) {
+                            // Load new data
                             LoadSubmissions();
-
+                            // Broadcast data change
+                            $rootScope.$broadcast("data-change");
                             // Show status
                             $scope.ShowStatus('Delete submission', data.IsValid, data.Errors);
                         });
