@@ -2,7 +2,7 @@
     return {
         restrict: 'E',
         templateUrl: 'visualization/components/submissionList/list.html',
-        controller: function ($scope, $state, $rootScope, $stateParams, ProjectService) {
+        controller: function ($scope, $state, $stateParams, ProjectService) {
             $scope.PendingChanges = false;
             $scope.projectId = $stateParams.projectId;
 
@@ -39,6 +39,16 @@
                 // Go to differ page
                 $state.go('home.difference-overview', { projectId: $stateParams.projectId, differenceArray: submissions.join("&") });
             }
+            var listAllProperties = function (o){     
+                var objectToInspect;     
+                var result = [];
+                
+                for(objectToInspect = o; objectToInspect !== null; objectToInspect = Object.getPrototypeOf(objectToInspect)){  
+                    result = result.concat(Object.getOwnPropertyNames(objectToInspect));  
+                }
+                
+                return result; 
+            }
 
             // Delete submission
             $scope.DeleteSubmission = function (sid, pid) {
@@ -52,9 +62,9 @@
                             // Load new data
                             LoadSubmissions();
                             // Broadcast data change
-                            $rootScope.$broadcast("data-change");
+                            $scope.$root.$broadcast("data-change");
                             // Show status
-                            $scope.ShowStatus('Delete submission', data.IsValid, data.Errors);
+                            $scope.$parent.ShowStatus('Delete submission', data.IsValid, data.Errors);
                         });
                 }
             };

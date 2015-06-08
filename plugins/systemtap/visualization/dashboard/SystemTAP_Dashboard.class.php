@@ -20,6 +20,8 @@ class SystemTAP_Dashboard
      * Initialize class static variables
      */
     public static function Init()   {
+        if (!class_exists("SystemTAP_TestCaseStatus")) 
+            include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'stat' . DIRECTORY_SEPARATOR . 'SystemTAP_TestCaseStatus.enum.php');
         // Initialize array of colors
         self::$StatusColors = array(
                 SystemTAP_TestCaseStatus::FIX => "background-color:#27ae60",
