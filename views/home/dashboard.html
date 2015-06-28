@@ -5,27 +5,58 @@
 </div>
 
 <div class="row">
-    <div class="large-12 columns">
-        <div class="card header">
-        <h1><span>Installed plugins</span></h1>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="large-12 columns">
-        <div class="card">
-        <div class="row" ng-repeat="plugin in Plugins">
+    <div class="large-6 columns">
+        <!-- Installed plugins -->
+        <div class="row">
             <div class="large-12 columns">
-                <div class="row list-item">
-                    <div class="large-8 medium-8 columns desc">
-                        <a ui-sref="home.plugin({pluginId: plugin.Id})" class="full-width tLeft">{{plugin.Name}} {{plugin.Version}}</a>
-                        <span>{{plugin.About}}</span>
-                    </div>
+                <div class="card header">
+                <h1><span>Plugins</span></h1>
                 </div>
-                <hr ng-if="!$last" />
             </div>
         </div>
-    </div> 
-</div>
+        <div class="row">
+            <div class="large-12 columns">
+                <div class="card">
+                    <div class="row" ng-repeat="plugin in plugins">
+                        <div class="large-12 columns">
+                            <div class="row list-item">
+                                <div class="large-8 medium-8 columns desc">
+                                    <a ui-sref="home.plugin({pluginId: plugin.Id})" class="full-width tLeft">{{plugin.Name}} {{plugin.Version}}</a>
+                                    <span>{{plugin.About}}</span>
+                                </div>
+                            </div>
+                            <hr ng-if="!$last" />
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+    <div class="large-6 columns">
+        <!-- Recent imports -->
+        <div class="row">
+            <div class="large-12 columns">
+                <div class="card header">
+                <h1><span>Recent imports</span></h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
+                <div class="card">
+                    <div class="row" ng-repeat="recentImport in recentImports | orderBy:'-ImportDateTime'">
+                        <div class="large-12 columns">
+                            <div class="row list-item">
+                                <div class="large-8 medium-8 columns desc">
+                                    <a ui-sref="home.plugin({pluginId: plugin.Id})" class="full-width tLeft">{{recentImport.ImportDateTime | date:'medium'}} {{plugin.Version}}</a>
+                                    <span>Imported by {{recentImport.User.Person.Name}} into project {{recentImport.Project.Name}}</span>
+                                </div>
+                            </div>
+                            <hr ng-if="!$last" />
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
 </div>

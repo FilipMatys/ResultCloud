@@ -189,6 +189,41 @@ class SubmissionService
     public function GetFilteredList(Parameter $parameter)   {
         return FactoryDao::SubmissionDao()->GetFilteredList($parameter);
     }
+
+    /**
+     * Get recent submissions
+     */
+    public function GetRecent() {
+        // Get last five submissions (use workaround for query parameter)
+        $lSubmissions = FactoryDao::SubmissionDao()->GetFilteredList(QueryParameter::WhereNot('Project', 0), 
+            new QueryPagination(1, 5, 'asc'));
+
+        // Init result
+        $submissions = array();
+
+        // Load author and project for each submission
+        foreach ($lSubmissions->ToList() as $dbSubmission) {
+
+            // Load user if set
+            if ($dbSubmission->User != 0)   {
+                $user = new stdClass();
+                $user->Id = $dbSubmission->User;
+                // Assign to submission
+                $dbSubmission->User = FactoryService::UserService()->GetDetail($user);
+            }
+
+            // Load project
+            $project = new stdClass();
+            $project->Id = $dbSubmission->Project;
+            $dbSubmission->Project = FactoryDao::ProjectDao()->Load($project);
+
+            // Add submission to array
+            $submissions[] = $dbSubmission;
+        }
+
+        // Return result
+        return $submissions;
+    }
     
     /**
      * Load all submissions for given project

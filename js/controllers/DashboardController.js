@@ -1,11 +1,17 @@
-application.controller('DashboardController', function($scope, PluginService)	{
+application.controller('DashboardController', function($scope, PluginService, SubmissionService)	{
     // Controller variables
-    $scope.Plugins = [];
-
+    $scope.plugins = [];
+	$scope.recentImports = [];
 
     // Load plugins
     PluginService.query()
         .success(function (data, status, headers, config) {
-            $scope.Plugins = data;
+            $scope.plugins = data;
         });
+
+    // Load recent submissions
+    SubmissionService.recent()
+		.success(function (data, status, headers, config) {
+            $scope.recentImports = data;
+        });    	
 });

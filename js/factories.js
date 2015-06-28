@@ -138,6 +138,12 @@ application.factory('SubmissionService', function ($http) {
                 url: 'api/SubmissionController.class.php?method=VIEWS',
                 data: submissionId
             })
+        },
+        recent: function()  {
+            return $http({
+                method: 'GET',
+                url: 'api/SubmissionController.class.php?method=RECENT',
+            })
         }
     }
 });
