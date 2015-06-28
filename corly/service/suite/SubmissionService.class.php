@@ -196,7 +196,7 @@ class SubmissionService
     public function GetRecent() {
         // Get last five submissions (use workaround for query parameter)
         $lSubmissions = FactoryDao::SubmissionDao()->GetFilteredList(QueryParameter::WhereNot('Project', 0), 
-            new QueryPagination(1, 5, 'asc'));
+            new QueryPagination(1, 5, 'desc'));
 
         // Init result
         $submissions = array();

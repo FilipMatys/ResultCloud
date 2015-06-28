@@ -28,7 +28,7 @@
                         <span title="Bad" class="result bad">{{item.Submission.Bad}}</span>
                         <span title="Strange" class="result strange">{{item.Submission.Strange}}</span>
                         <input ng-show="ListData.Submissions.length > 1" type="checkbox" ng-model="item.Submission.Differ" />
-                        <a ui-sref="home.submission-overview({submissionId:item.Submission.Id})" class="fi-list-thumbnails icon"></a>
+                        <a ui-sref="home.submission-overview({projectId: projectId, submissionId:item.Submission.Id})" class="fi-list-thumbnails icon"></a>
                         <a title="Delete submission" ng-click="DeleteSubmission({submissionId:item.Submission.Id}, {projectId: Request.ItemId})" class="fi-x icon"></a>
                     </div>
                 </div>

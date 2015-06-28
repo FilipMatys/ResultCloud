@@ -48,7 +48,7 @@
                         <div class="large-12 columns">
                             <div class="row list-item">
                                 <div class="large-8 medium-8 columns desc">
-                                    <a ui-sref="home.plugin({pluginId: plugin.Id})" class="full-width tLeft">{{recentImport.ImportDateTime | date:'medium'}} {{plugin.Version}}</a>
+                                    <a ui-sref="home.submission-overview({projectId: recentImport.Project.Id, submissionId:recentImport.Id})" class="full-width tLeft">{{recentImport.ImportDateTime | date:'medium'}} {{plugin.Version}}</a>
                                     <span>Imported by {{recentImport.User.Person.Name}} into project {{recentImport.Project.Name}}</span>
                                 </div>
                             </div>
