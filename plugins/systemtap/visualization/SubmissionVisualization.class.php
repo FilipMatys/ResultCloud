@@ -63,10 +63,25 @@ class SubmissionVisualization
                 
             case SystemTAP_SubmissionOverviewType::CONFIGURATION:
                 return SystemTAP_SubmissionOverviewConfigurationView::GetSubmissionOverviewConfigurationView($submission);
-                
+            
+            // Statuses
+            case SubmissionOverviewType::STATUSES:
+                return self::GetStatuses();
             // Return null if no assigned component was found
             default:
                 return null;
         }
+    }
+
+    /**
+     * Get all available test results
+     */
+    public static function GetStatuses() {
+        $reflect = new ReflectionClass(get_class(new SystemTAP_StatusValue));
+        $arr = array();
+        foreach ($reflect->getConstants() as $key => $value) {
+            $arr[] = $value;
+        }
+        return $arr;
     }
 }

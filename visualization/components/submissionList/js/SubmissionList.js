@@ -1,4 +1,4 @@
-﻿application.directive('corlySubmissionList', function () {
+application.directive('corlySubmissionList', function () {
     return {
         restrict: 'E',
         templateUrl: 'visualization/components/submissionList/list.html',
@@ -6,23 +6,22 @@
             $scope.PendingChanges = false;
             $scope.projectId = $stateParams.projectId;
 
-            // Initialize request object
-            $scope.Request = {
-                ItemId: $stateParams.projectId,
-                Type: "LIST"
-            }
-
             // Load data
             var LoadSubmissions = function () {
+                // Initialize request object
+                $scope.Request = {
+                    ItemId: $stateParams.projectId,
+                    Type: "LIST"
+                }
                 $scope.PendingChanges = true;
-            ProjectService.get($scope.Request)
+                ProjectService.get($scope.Request)
                 .success(function (data, status, headers, config) {
                     $scope.ListData = data.Data;
                     $scope.PendingChanges = false;
                 });
             }
             LoadSubmissions();
-
+            
             // Compare all selected submissions
             $scope.Differ = function () {
                 // Get all submissions market for difference

@@ -57,6 +57,9 @@
             $scope.$on("data-change", function () {
                 $scope.LoadChart();
             });
+            $scope.$on("selected-item", function (event, data) {
+                console.log(data);
+            });
         }
     }
 });

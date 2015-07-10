@@ -202,6 +202,7 @@
                                         if (selectedItem) {
                                             $scope.$apply(function () {
                                                 $scope.select({selectedItem: selectedItem});
+                                                $rootScope.$broadcast("selected-item", {selectedItem: selectedItem});
                                             });
                                         }
                                     });
