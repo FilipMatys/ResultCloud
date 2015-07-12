@@ -670,3 +670,37 @@ div.multitable table th.active  {
 div.multitable table th.active span {
     display: inline;
 }
+
+/**
+ * Filter Box
+ */
+div.filter-box {
+    height: auto;
+}
+
+input.filter,input.filter:focus {
+    border: none;
+    background: #fff;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    height: 19px;
+    box-shadow: 0px 0px 0px 0px;    
+}
+
+div.filter-inner-box {
+    border: solid;
+    overflow:hidden;
+    width: auto;
+}
+
+ul.dropdown-list {
+    position:absolute; 
+    list-style-type: none; 
+    z-index: 9999; 
+    margin: 0px 0px 0px 0px;
+}
+
+li.dropdown-list-item {
+    background: white; 
+    border: solid 1px;
+}

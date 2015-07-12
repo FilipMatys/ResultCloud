@@ -3,14 +3,14 @@
         restrict: 'E',
         templateUrl: 'visualization/components/googleChart/chart.html',
         controller: function ($scope, $stateParams, ProjectService, SubmissionService) {
-            //  Initalize request
-            $scope.Request = {
-                ItemId: 0,
-                Type: "GOOGLE_CHART"
-            }
 
             // Load chart
             $scope.LoadChart = function () {
+                //  Initalize request
+                $scope.Request = {
+                    ItemId: 0,
+                    Type: "GOOGLE_CHART"
+                }
                 // Load data based on project/submission
                 // First check, if state of submission is set
                 if ($stateParams.submissionId) {
@@ -56,6 +56,9 @@
             // Check for data change
             $scope.$on("data-change", function () {
                 $scope.LoadChart();
+            });
+            $scope.$on("selected-item", function (event, data) {
+                console.log(data);
             });
         }
     }

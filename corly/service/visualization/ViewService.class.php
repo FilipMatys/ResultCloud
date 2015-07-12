@@ -37,7 +37,6 @@ class ViewService
 
         // Load plugin
         $validation->Append($this->LoadPlugin($request->Project));
-
         // Check validation
         if (!$validation->IsValid)  {
             return $validation;
@@ -108,7 +107,6 @@ class ViewService
         $dbProject = FactoryDao::ProjectDao()->Load($project);
         // Load plugin
         FactoryService::PluginService()->LoadPlugin($dbProject->Plugin);
-
         // Check if visualization class exists
         if (!class_exists('Visualization')) {
             $validation->AddError("Project does not support visualization");

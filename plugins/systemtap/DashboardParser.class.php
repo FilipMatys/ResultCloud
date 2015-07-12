@@ -38,13 +38,15 @@ class DashboardParser {
      */
     private static function Parse($submissions) {
         // Iterate through categories
-        foreach ($submissions[0]->GetCategories() as &$category)
+        $categories = $submissions[0]->GetCategories();
+        foreach ($categories as &$category)
         {
             // Get previous category
             $prevCategory = $submissions[1]->GetCategoryByName($category->GetName());
 
             // Iterate through test cases
-            foreach ($category->GetTestCases() as &$testCase)
+            $testcases = $category->GetTestCases();
+            foreach ($testcases as &$testCase)
             {
 		// Get basic status for test case
                 $testCase->SetStatus(self::GetTestCaseStatus($testCase));
@@ -117,7 +119,8 @@ class DashboardParser {
         $badResults = array();
 
         //Iterate through results
-        foreach ($testCase->GetResults() as $result)
+        $results =$testCase->GetResults(); 
+        foreach ($results as $result)
         {
             // Check value
 		switch ($result->GetValue())    {
@@ -144,10 +147,12 @@ class DashboardParser {
      */
     private static function ParseFirst(SubmissionTSE $submission) {
         // Get all categories
-        foreach ($submission->GetCategories() as &$category)
+        $categories = $submission->GetCategories();
+        foreach ($categories as &$category)
         {
 		// Now get all test cases
-            foreach ($category->GetTestCases() as &$testCase)
+        $testcases = $category->GetTestCases(); 
+            foreach ($testcases as &$testCase)
             {
                 // Set status for given test case
 		$testCase->SetStatus(self::GetTestCaseStatus($testCase));
@@ -168,7 +173,8 @@ class DashboardParser {
         $status = SystemTAP_TestCaseStatus::STAYS_POSITIVE;
 
         // Check each result
-        foreach ($testCase->GetResults() as $result)
+        $results =$testCase->GetResults();
+        foreach ($results as $result)
         {
             // Check result value
 		switch ($result->GetValue())

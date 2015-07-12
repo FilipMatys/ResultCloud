@@ -25,4 +25,10 @@ class SubmissionOverviewType
      * based on given data
      */
     const GOOGLE_CHART = "GOOGLE_CHART";
+
+    /**
+     * List of all available results of tests, it will be used for
+     * submission filter.
+     */
+    const STATUSES = "STATUSES";
 }
