@@ -11,6 +11,7 @@ application.directive('corlyTestCaseList', function () {
             $scope.FilterField = {};
             $scope.FullData = {};
             $scope.FilterList = [];
+            $scope.Filter = [];
 
             // Generate range
             $scope.Range = function(from, to)   {
@@ -49,7 +50,6 @@ application.directive('corlyTestCaseList', function () {
                 })
             .success(function (data, status, headers, config) {
                 $scope.Statuses = data.Data;
-                $scope.Filter = $.extend(true, [], $scope.Statuses);
                 console.log($scope.Filter);
             });
 
@@ -153,6 +153,15 @@ application.directive('corlyTestCaseList', function () {
             }
             $scope.DeleteFilter = function (Filter) {
                 $scope.Filter.splice($scope.Filter.indexOf(Filter.Filter),1);
+
+                console.log($scope.Filter);
+
+                // When no filter is set, show all
+                if ($scope.Filter.length == 0)  {
+                    $scope.ListData = $scope.FullData;
+                    return;
+                }
+
                 $scope.ListData = GetFilteredList($scope.FullData);
                 console.log(GetFilteredList($scope.FullData));
             }

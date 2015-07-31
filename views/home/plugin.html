@@ -1,67 +1,52 @@
 <div class="row">
-    <div class="large-12 columns">
-        <ul class="breadcrumbs">
-            <li><a ui-sref="home.dashboard">Dashboard</a></li>
-            <li class="current"><a>{{plugin.Name}} {{plugin.Version}}</a></li>
-        </ul>
-    </div>
-</div>
-
-<div class="row">
-    <div class="large-12 columns">
-        <h1>{{plugin.Name}} {{plugin.Version}}</h1>
-    </div>
-</div>
-
-<div class="row">
-    <div class="large-12 columns">
-        <p>{{plugin.About}}</p>
-    </div>
-</div>
-
-<div class="row">
-    <div class="large-12 columns">
-        <div class="card header">
-            <div class="row">
-                <div class="large-8 medium-7 columns">
-                    <h1><span>Projects</span></h1>
-                </div>
-                <div class="large-4 medium-5 columns">
-                    <div class="row collapse above-tab">
-                        <div class="small-12 medium-9 large-9 columns">
-                            <input ng-model="projectName" type="text" placeholder="Project name">
-                        </div>
-                        <div class="small-12 medium-3 large-3 columns">
-                            <button ng-disabled="!projectName" ng-click="CreateProject()" href="#" class="postfix">New</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title black-text">{{plugin.Name}} {{plugin.Version}}</span>
+            <a ng-click="OpenModal('newProject')" class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">add</i></a>
+            <p>{{plugin.About}}</p>
         </div>
-        <div class="card">
-            <div class="row">
-                <div class="large-12 columns">
-                    <div class="row" ng-repeat="project in plugin.Projects">
-                        <div class="large-12 columns">
-                            <div class="row list-item">
-                                <div class="large-8 medium-8 columns desc">
-                                    <a ui-sref="home.project-overview({projectId:project.Id})">{{project.Name}}</a>
-                                    <p class="about">Created {{project.DateCreated | date:"longDate"}} by {{project.Author.Person.Name}}</p>
-                                    <span>Number of submissions {{project.Submissions}}</span>
-                                </div>
-                                <div class="large-4 medium-4 columns">
-                                    <a target="_blank" ui-sref="public.dashboard({projectId:project.Id})" title="Project dashboard" class="fi-projection-screen icon"></a>
-                                    <a ui-sref="home.project-settings({projectId:project.Id})" title="Project settings" class="fi-widget icon"></a>
-                                    <a title="Clean project" ng-click="ClearProject({projectId:project.Id})" class="fi-trash icon"></a>
-                                    <a title="Delete project" ng-click="DeleteProject({projectId:project.Id})" class="fi-x icon"></a>
-                                </div>
-                            </div>
-                            <div class="google-chart liveness" google-chart chart="project.Liveness"></div>
-                            <hr ng-if="!$last" />
-                        </div>
-                    </div>
-                </div>
-            </div>
+      </div>
+    </div>
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title black-text">Projects</span>
+          <ul class="collection">
+            <li class="collection-item" ng-repeat="project in plugin.Projects">
+              <span class="title"><a ui-sref="home.project-overview({projectId:project.Id})">{{project.Name}}</a></span>
+              <a class='dropdown-button right' data-activates="dropmenu{{$index}}"><i class="material-icons right">more_vert</i></a>
+              <ul id='dropmenu{{$index}}' class='dropdown-content'>
+                <li><a target="_blank" ui-sref="public.dashboard({projectId:project.Id})">Public</a></li>
+                <li><a ui-sref="home.project-settings({projectId:project.Id})">Settings</a></li>
+                <li><a ng-click="ClearProject({projectId:project.Id})">Clear</a></li>
+                <li><a ng-click="DeleteProject({projectId:project.Id})">Delete</a></li>
+              </ul>
+              <p>
+                Created {{project.DateCreated | date:"longDate"}} by {{project.Author.Person.Name}}<br />
+                Number of submissions {{project.Submissions}}
+              </p>
+              <div class="google-chart liveness" google-chart chart="project.Liveness"></div>
+            </li>
+          </ul>
         </div>
+      </div>
+    </div>
+</div>
+
+<!-- Modal Structure -->
+<div id="newProject" class="modal">
+    <div class="modal-content">
+      <h4>New project</h4>
+      <div class="row">
+          <div class="input-field col s12">
+            <input id="project_name" ng-model="projectName" type="text" class="validate">
+            <label for="project_name">Project name</label>
+          </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a ng-click="CloseModal('newProject')" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+      <a ng-click="CreateProject()" class=" modal-action modal-close waves-effect waves-green btn">Create</a>
     </div>
 </div>

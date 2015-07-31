@@ -8,7 +8,10 @@ var application = angular.module('CorlyWMT', [
 application.run(function($rootScope, $timeout)	{
 	$rootScope.$on('$viewContentLoaded', function()	{
 		$timeout(function()	{
-			$(document).foundation();
+			$(".button-collapse").sideNav();
+			$('.collapsible').collapsible();
+			$('.dropdown-button').dropdown();
+			$('select').material_select();
 		}, 500);
 	})
 });
@@ -80,6 +83,12 @@ application.config(function($stateProvider, $urlRouterProvider){
 	    url: '/settings/users',
 	    templateUrl: './views/home/settings/users.html',
 	    controller: 'UsersController'
+	})
+	// Settings - release notes
+	.state('home.settings-release-notes', {
+	    url: '/settings/release-notes',
+	    templateUrl: './views/home/settings/release.html',
+	    controller: 'ReleaseNotesController'
 	})
     // Plugin management
 	.state('home.plugin-management', {

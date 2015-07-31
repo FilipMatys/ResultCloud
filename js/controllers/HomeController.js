@@ -17,6 +17,25 @@ application.controller('HomeController', ['$scope', '$state', 'AuthentizationSer
             });
     }
 
+    // Open settings
+    $scope.OpenSettings = function()    {
+        $('#settings_modal').openModal();
+    }
+
+    // Go to state
+    $scope.GoTo = function(dest)    {
+        $('#settings_modal').closeModal();
+        $state.go(dest);
+    }
+
+    $scope.OpenModal = function(modal)  {
+        $('#' + modal).openModal();
+    }
+
+    $scope.CloseModal = function(modal) {
+        $('#' + modal).closeModal();
+    }
+
     /**
      * Show status
      * operation - operation that was 
@@ -24,14 +43,14 @@ application.controller('HomeController', ['$scope', '$state', 'AuthentizationSer
      * errors - list of errors
      */
     $scope.ShowStatus = function(operation, valid, errors)   {
-        // Scroll to top
-        $('html, body').animate({scrollTop: 0}, 800);
-
         // Fill status object
         var result = valid ? " " : " not ";
         $scope.status.content = "Operation " + operation.toUpperCase() + " was" + result + "successful";
         $scope.status.errors = errors;
         $scope.status.success = valid; 
+
+        Materialize.toast($scope.status.content, 4000);
+        // TODO ERRORS
     }
 
     // Clear status

@@ -1,32 +1,24 @@
-﻿<div class="card header">
-    <div class="row">
-        <div class="large-12 columns">
-            <h1><span>{{data.Header}}</span></h1>
-        </div>
-    </div>
-</div>
-<div class="card multitable">
-    <div class="row">
-        <div class="large-12 columns">
-            <div class="row" ng-repeat="table in data.Tables">
-                <div class="large-12 columns">
-                    <h3>
-                        {{table.Header}}
-                    </h3>
-                    <table class="full-width">
-                        <thead>
-                            <tr>
-                                <th ng-click="toggleHeader($index, table.HeaderRow.Cells)" ng-class="{active: header.Active}" ng-repeat="header in table.HeaderRow.Cells"><span>{{header.Data}}</span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="row in table.Rows">
-                                <td ng-repeat="cell in row.Cells" style="{{cell.Style}}">{{cell.Data}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <hr ng-if="!$last" />
-                </div>
+﻿<div class="card multitable">
+    <div class="card-content">
+        <span class="card-title black-text">{{data.Header}}</span>
+        <div class="row" ng-repeat="table in data.Tables">
+            <div class="large-12 columns">
+                <h3>
+                    {{table.Header}}
+                </h3>
+                <table class="full-width">
+                    <thead>
+                        <tr>
+                            <th ng-click="toggleHeader($index, table.HeaderRow.Cells)" ng-class="{active: header.Active}" ng-repeat="header in table.HeaderRow.Cells"><span>{{header.Data}}</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in table.Rows">
+                            <td ng-repeat="cell in row.Cells" style="{{cell.Style}}">{{cell.Data}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr ng-if="!$last" />
             </div>
         </div>
     </div>

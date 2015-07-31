@@ -10,21 +10,14 @@ Library::using(Library::UTILITIES, ['DatabaseDriver.php']);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Corly | Web Management Tool</title>
-    <link rel="stylesheet" href="css/normalize.css" />
-    <link rel="stylesheet" href="css/foundation.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css" />
-    <link rel="stylesheet" href="css/foundation-icons/foundation-icons.css" />
-    <script src="js/modernizr.js"></script>
 </head>
 <body>
     <div class="main-view" ui-view></div>
-    <div class="row footer">
-        <div class="large-12 columns">
-            Corly Management Tool by Filip Matys | Version 2014.1 | 2014/05/20
-        </div>
-    </div>
     <script src="js/jquery.js"></script>
-    <script src="js/foundation.min.js"></script>
+    <script src="js/materialize.min.js"></script>
     <script src="js/angular.min.js" type="text/javascript"></script>
     <script src="js/angular-ui-router.min.js" type="text/javascript"></script>
     <script src="js/angular-file-upload.min.js" type="text/javascript"></script>
@@ -47,6 +40,7 @@ Library::using(Library::UTILITIES, ['DatabaseDriver.php']);
     <script src="js/controllers/DifferenceOverviewController.js" type="text/javascript"></script>
     <script src="js/controllers/ProjectSettingsController.js" type="text/javascript"></script>
     <script src="js/controllers/ProjectDashboardController.js" type="text/javascript"></script>
+    <script src="js/controllers/ReleaseNotesController.js" type="text/javascript"></script>
 
     <!-- Public controllers -->
     <script src="js/controllers/public/PublicController.js" type="text/javascript"></script>
@@ -65,7 +59,9 @@ Library::using(Library::UTILITIES, ['DatabaseDriver.php']);
     <?php IncludeService::JsComponents(); ?>
 
     <script>
-        $(document).foundation();
+        $(document).ready(function()    {
+
+        });
     </script>
 </body>
 </html>

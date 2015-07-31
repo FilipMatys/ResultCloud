@@ -1,58 +1,31 @@
 ﻿<div class="row">
-    <div class="large-12 columns">
-        <h1>Import</h1>
+    <div class="col s12">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title black-text">Import</span>
+                <form name="importForm">
+                    <label>Plugin</label>
+                    <select class="browser-default" ng-model="import.Plugin" ng-options="plugin.Id as (plugin.Name + ' ' + plugin.Version) for plugin in plugins" ng-change="LoadProjects()" required></select>
+
+                    <label>Project</label>
+                    <select class="browser-default" ng-disabled="!import.Plugin" ng-model="import.Project" ng-options="project.Id as project.Name for project in projects" required></select>
+
+                    <label>File</label>
+                    <input type="text" ng-model="selectedFile.name" readonly required/>
+                    <button class="btn postfix" onclick="$(this).siblings('input').click()">Choose file</button>
+                    <input class="hidden" type="file" ng-file-select="onFileSelect($files)"/>
+                </form>
+            </div>
+            <div class="card-action">
+                <label>Upload progress</label>
+                <div class="progress" ng-class="{ alert: !$scope.valid, success: $scope.valid }">
+                    <div id="upload-progress" class="determinate" style="width: 0%;"></div>
+                </div>
+                <div>
+                    <span ng-show="PendingChanges">Uploading...</span> <span ng-show="PendingChanges" class="pending cPrefix"></span>
+                    <button ng-disabled="importForm.$invalid" class="btn" ng-click="uploadFile()">Upload</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<form novalidate name="importForm">
-    <div class="row">
-        <div class="large-12 columns">
-            <p>Choose plugin and project. Then choose file for import and upload it to server.</p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="large-12 columns">
-            <div data-alert class="alert-box alert" ng-repeat="error in errors">
-                {{error}}
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="large-12 columns">
-            <label>Plugin</label>
-            <select ng-model="import.Plugin" ng-options="plugin.Id as (plugin.Name + ' ' + plugin.Version) for plugin in plugins" ng-change="LoadProjects()" required></select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="large-12 columns">
-            <label>Project</label>
-            <select ng-disabled="!import.Plugin" ng-model="import.Project" ng-options="project.Id as project.Name for project in projects" required></select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="large-12 columns">
-            <label>File</label>
-        </div>
-        <div class="large-10 columns">
-            <input type="text" ng-model="selectedFile.name" readonly required/>
-        </div>
-        <div class="large-2 columns">
-            <button class="btn postfix" onclick="$(this).siblings('input').click()">Choose file</button>
-            <input class="hidden" type="file" ng-file-select="onFileSelect($files)"/>
-        </div>
-    </div>
-    <div class="row">
-        <div class="large-12 columns">
-            <label>Upload progress</label>
-            <div class="progress" ng-class="{ alert: !$scope.valid, success: $scope.valid }">
-                <span id="upload-progress" class="meter" style="width: 0%;"></span>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="large-12 columns tRight">
-            <span ng-show="PendingChanges">Uploading...</span> <span ng-show="PendingChanges" class="pending cPrefix"></span>
-            <button ng-disabled="importForm.$invalid" class="btn" ng-click="uploadFile()">Upload</button>
-        </div>
-    </div>
-</form>

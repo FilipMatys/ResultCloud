@@ -1,59 +1,39 @@
-﻿<div class="card header">
-    <div class="row">
-        <div class="large-4 columns">
-            <h1><span>Test Cases</span></h1>
-        </div>
-        <div class="large-8 columns toolbar tRight">
-            <div ng-show="Pages > 1">
-                <span class="pending" ng-show="PendingChanges"></span>
-                <ul class="pagination">
-                    <li ng-repeat="page in Range(1, Pages)"><a ng-click="ChangePage(page)" ng-class="{active: Page==page}">{{page}}</a></li>
-                </ul>
-            </div>
-            <label>
-                Show only changes
-                <input type="checkbox" ng-model="ShowChangesOnly" />
-            </label>
-        </div>
-    </div>
-</div>
-
+﻿<!-- visualization/components/difference/list.html -->
 <div class="card">
-<div ng-hide="ShowChangesOnly && !list.HasChange" class="row" ng-repeat="list in DiffData">
-    <div class="large-12 columns">
-            <div class="row">
-                <div class="large-6 columns">
-                    <h1><span>Category</span> {{list.Name}}</h1>
-                </div>
-                <div class="large-6 columns tRight">
-                    <span title="{{list.ItemsCount}} Test Cases">{{list.ItemsCount}}</span>
-                    <i title="{{list.ItemsCount}} Test Cases" class="icon fi-results"></i>
-                    <a ng-click="HideCategory[$index] = true" ng-show="!HideCategory[$index]" title="Compress" class="icon fi-arrows-compress"></a>
-                    <a ng-click="HideCategory[$index] = false" ng-show="HideCategory[$index]" title="Expand" class="icon fi-arrows-expand"></a>
-                </div>
+    <!-- Card content -->
+    <div class="card-content">
+        <span class="card-title black-text">Test Cases</span>
+        <!-- Categories -->
+        <div ng-hide="ShowChangesOnly && !list.HasChange" ng-repeat="list in DiffData">
+            <h4>{{list.Name}}</h4>
+            <div ng-hide="ShowChangesOnly && !testCase.HasChange" ng-repeat="testCase in list.Items">
+                <h3>
+                    {{testCase.Name}}
+                </h3>
+                <table class="full-width">
+                    <thead>
+                        <tr>
+                            <th>Key</th>
+                            <th ng-repeat="header in list.Headers">{{header}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-hide="ShowChangesOnly && !set.HasChange" ng-repeat="set in testCase.ResultSets">
+                            <td>{{set.Key}}</td>
+                            <td ng-repeat="result in set.Values" style="{{result.Style}}">{{result.Value}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr ng-show="!$last" />
+            </div>
         </div>
     </div>
-    <div ng-hide="HideCategory[$index]" class="large-12 columns">
-        <div ng-hide="ShowChangesOnly && !testCase.HasChange" ng-repeat="testCase in list.Items">
-            <h3>
-                {{testCase.Name}}
-            </h3>
-            <table class="full-width">
-                <thead>
-                    <tr>
-                        <th>Key</th>
-                        <th ng-repeat="header in list.Headers">{{header}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-hide="ShowChangesOnly && !set.HasChange" ng-repeat="set in testCase.ResultSets">
-                        <td>{{set.Key}}</td>
-                        <td ng-repeat="result in set.Values" style="{{result.Style}}">{{result.Value}}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <hr ng-show="!$last" />
-        </div>
-    </div>
-</div>
+    <!-- Action bar -->
+    <div class="card-action">
+        <input type="checkbox" class="filled-in" id="check_all" ng-model="ShowChangesOnly"/>
+        <label for="check_all">Show only changes</label>
+        <ul ng-show="Pages > 1" class="pagination">
+            <li ng-repeat="page in Range(1, Pages)" ng-class="{active: page==Page}"><a ng-click="ChangePage(page)">{{page}}</a></li>
+        </ul>
+    </div>  
 </div>

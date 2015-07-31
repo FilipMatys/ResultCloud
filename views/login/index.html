@@ -1,22 +1,5 @@
 <div class="row">
-    <div class="large-12 columns">
-        <div class="login-header">
-            <h1>CORLY</h1>
-            <p>Web Tool for Management of Long-Term Testing Results</p>
-        </div>
-    </div>
-</div>
-<div class="row">
     <form class="login">
-        <fieldset ng-show="installed">
-            <h3>Sign in to Corly</h3>
-            <input type="text" ng-model="credentials.Username" placeholder="Username" />
-            <input type="password" ng-model="credentials.Password" placeholder="Password" />
-            <input type="submit" ng-click="AuthorizeCredentials()" class="button full-width small" value="Login" />
-            <button class="button full-width small" ng-click="Registration()">Registration</button>
-            <span class="err" ng-repeat="error in errors">{{error}}</span>
-        </fieldset>
-        
         <fieldset ng-show="!installed && installationState == 0">
             <h3>Corly installation</h3>
             <input type="text" ng-model="installation.Hostname" placeholder="Hostname" />
@@ -25,14 +8,60 @@
             <input type="submit" ng-click="Install()" class="button full-width small" value="Install" />
             <span class="err" ng-repeat="error in errors">{{error}}</span>
         </fieldset>
-        <fieldset ng-show="(!installed && installationState == 1) || registrationStart">
-            <h3>Corly registration</h3>
-            <input type="text" ng-model="registration.Person.Name" placeholder="Name" />
-            <input type="text" ng-model="registration.Username" placeholder="Username" />
-            <input type="password" ng-model="registration.Password" placeholder="Password" />
-            <input type="password" ng-model="registration.PasswordCheck" placeholder="Password Check" />
-            <input type="submit" ng-click="Register()" class="button full-width small" value="Register" />
-            <span class="err" ng-repeat="error in errors">{{error}}</span>
-        </fieldset>
     </form>
+</div>
+
+<div class="row">
+    <div class="col s12 m4 offset-m4">
+      <!-- LOGIN FORM -->
+      <div class="card" ng-show="installed && !registrationStart">
+        <div class="card-content">
+          <span class="card-title black-text">Sign in</span>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="username" ng-model="credentials.Username" type="text" class="validate">
+              <label for="username">Username</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="password" ng-model="credentials.Password" type="password" class="validate">
+              <label for="password">Password</label>
+            </div>
+          </div>
+          <p class="err red-text" ng-repeat="error in errors">{{error}}</p>
+        </div>
+        <div class="card-action">
+          <a class="btn" ng-click="AuthorizeCredentials()">Sign in</a>
+          <a class="btn" ng-click="Registration()">Register</a>
+        </div>
+      </div>
+
+      <!-- REGISTRATION -->
+      <div class="card" ng-show="(!installed && installationState == 1) || registrationStart">
+        <div class="card-content">
+          <span class="card-title black-text">Registration</span>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="reg_name" type="text" ng-model="registration.Person.Name" class="validate" />
+              <label for="reg_name">Name</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="reg_username" type="text" ng-model="registration.Username" class="validate" />
+              <label for="reg_username">Username</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="reg_pswd" type="password" ng-model="registration.Password" class="validate" />
+              <label for="reg_pswd">Password</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="reg_pswd_check" type="password" ng-model="registration.PasswordCheck" class="validate" />
+              <label for="reg_pswd_check">Password check</label>
+            </div>
+          </div>
+          <p class="err red-text" ng-repeat="error in errors">{{error}}</p>
+        </div>
+        <div class="card-action">
+          <a class="btn" ng-click="Register()">Register</a>
+        </div>
+      </div>
+    </div>
 </div>
