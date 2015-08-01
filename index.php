@@ -16,7 +16,7 @@ Library::using(Library::UTILITIES, ['DatabaseDriver.php']);
 </head>
 <body>
     <div class="main-view" ui-view></div>
-    <script src="js/jquery.js"></script>
+    <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/materialize.min.js"></script>
     <script src="js/angular.min.js" type="text/javascript"></script>
     <script src="js/angular-ui-router.min.js" type="text/javascript"></script>

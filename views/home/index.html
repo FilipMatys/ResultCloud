@@ -11,17 +11,25 @@
                     <li><a ui-sref="home.profile">{{user.Person.Name}}<i class="material-icons right">perm_identity</i></a></li>
                     <li><a ng-click="Logout()"><i class="material-icons">input</i></a></li>
                 </ul>
-                <ul id="mobile-demo" class="side-nav">
-                    <li><a ui-sref="home.dashboard">Dashboard</a></li>
-                    <li><a ui-sref="home.import" >Import</a></li>
-                    <li><a ng-click="OpenSettings()">Settings</a></li>
-                    <li><a ui-sref="home.profile">{{user.Person.Name}}</a></li>
-                    <li><a ng-click="Logout()">Logout</a></li>
-                </ul>
             </div>
         </div>
     </div>
+    <ul id="mobile-demo" class="side-nav">
+      <li><a ui-sref="home.dashboard">Dashboard</a></li>
+      <li><a ui-sref="home.import" >Import</a></li>
+      <li><a ng-click="OpenSettings()">Settings</a></li>
+      <li><a ui-sref="home.profile">{{user.Person.Name}}</a></li>
+      <li><a ng-click="Logout()">Logout</a></li>
+    </ul>
 </nav>
+
+<script type="text/javascript">
+// Navbar for mobile fix
+$(".side-nav a").click(function() {
+    $('#sidenav-overlay').remove();
+    $('.button-collapse').sideNav('hide');
+  });
+</script>
 
 <!-- CONTENT -->
 <div ui-view class="content"></div>
