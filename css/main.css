@@ -294,7 +294,7 @@ a {
 
 .secondary-content a,
 a.dropdown-button {
-    color: black;
+    color: #B2B2B2;
 }
 
 .secondary-content label {
@@ -357,4 +357,18 @@ ul.pagination {
 
 .pagination li.active {
     background: #4db6ac;   
+}
+
+hr {
+    color: #e0e0e0;
+}
+
+td {
+    border-radius: 0rem;
+}
+
+.secondary-content span.text-title {
+    display: inline-block;
+    padding: 0.5rem;
+    font-size: 2rem;
 }

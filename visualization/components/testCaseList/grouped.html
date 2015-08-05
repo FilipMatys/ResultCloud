@@ -1,17 +1,10 @@
 ﻿<div class="row" ng-repeat="item in ListData.Categories">
-    <div class="large-12 columns">
-        <div class="row">
-            <div class="large-6 columns">
-                <h1>{{item.Name}}</h1>
-            </div>
-            <div class="large-6 columns tRight">
-                <span>{{item.NumberOfTestCases}}</span>
-                <i class="icon fi-results"></i>
-                <a ng-click="HideCategory[$index] = true" ng-show="!HideCategory[$index]" title="Compress" class="icon fi-arrows-compress"></a>
-                <a ng-click="HideCategory[$index] = false" ng-show="HideCategory[$index]" title="Expand" class="icon fi-arrows-expand"></a>
-            </div>
-        </div>
+    <div class="secondary-content">
+        <span class="text-title">{{item.NumberOfTestCases}}</span>
+        <a ng-click="HideCategory[$index] = true" ng-show="!HideCategory[$index]" title="Compress"><i class="material-icons">games</i></a>
+        <a ng-click="HideCategory[$index] = false" ng-show="HideCategory[$index]" title="Expand"><i class="material-icons">games</i></a>
     </div>
+    <h2>{{item.Name}}</h2>
     <div ng-hide="HideCategory[$index]" class="large-12 columns">
         <div class="row" ng-repeat="testCase in item.TestCases">
             <div class="large-12 columns">
@@ -24,9 +17,13 @@
                                 <td>{{result.Key}}</td>
                                 <td style="{{result.Style}}">{{result.Value}}</td>
                             </tr>
+                            <tr ng-hide="ShowColumn[$index] || testCase.Results.length">
+                                <td>No results</td>    
+                                <td></td>
+                            </tr>
                         </tbody>
                     </table>
-                    <hr ng-if="!$last" />
+                    <div class="divider" ng-if="!$last" />
             </div>
         </div>
     </div>
