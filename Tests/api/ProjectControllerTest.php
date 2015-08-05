@@ -1,4 +1,9 @@
 <?php
+include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Library.utility.php');
+
+Library::using(Library::API, ['ProjectController.class.php']);
+
+
 class ProjectControllerTest extends PHPUnit_Framework_TestCase
 {
 	public function testGet()
