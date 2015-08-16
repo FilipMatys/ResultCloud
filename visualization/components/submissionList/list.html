@@ -1,39 +1,24 @@
-<div class="card header">
-    <div class="row">
-        <div class="large-4 medium-4 columns">
-            <h1><span>Submissions</span></h1>
-        </div>
-        <div ng-show="ListData.Submissions.length > 1" class="large-8 medium-8 columns toolbar tRight">
-            <label>
-                Check all
-                <input type="checkbox" ng-model="SelectAll" />
-            </label>
-            <a class="button small" ng-click="Differ()">Differ</a>
-        </div>
-    </div>
-</div>
 <div class="card">
-<div class="row">
-    <div class="large-12 columns">
-        <div class="row" ng-repeat="item in ListData.Submissions | orderBy:DateTime:true">
-            <div class="large-12 columns">
-                <div class="row list-item">
-                    <div class="large-8 medium-8 columns desc">
-                        <a ui-sref="home.submission-overview({projectId: projectId, submissionId:item.Submission.Id})">{{item.Submission.DateTime}}</a>
-                        <span ng-show="item.Submission.User.Person">Imported by {{item.Submission.User.Person.Name}} on {{item.Submission.ImportDateTime | date:"longDate"}}</span>
-                    </div>
-                    <div class="large-4 medium-4 columns">
-                        <span title="Good" class="result good">{{item.Submission.Good}}</span>
-                        <span title="Bad" class="result bad">{{item.Submission.Bad}}</span>
-                        <span title="Strange" class="result strange">{{item.Submission.Strange}}</span>
-                        <input ng-show="ListData.Submissions.length > 1" type="checkbox" ng-model="item.Submission.Differ" />
-                        <a ui-sref="home.submission-overview({submissionId:item.Submission.Id})" class="fi-list-thumbnails icon"></a>
-                        <a title="Delete submission" ng-click="DeleteSubmission({submissionId:item.Submission.Id}, {projectId: Request.ItemId})" class="fi-x icon"></a>
-                    </div>
-                </div>
-                <hr ng-if="!$last" />
-            </div>
+  <div class="card-content">
+    <span class="card-title black-text">Submissions</span>
+    <ul class="collection">
+      <li class="collection-item" ng-repeat="item in ListData.Submissions | orderBy:DateTime:true">
+         <div class="secondary-content">
+          <input type="checkbox" class="filled-in" id="checkbox{{$index}}" ng-model="item.Submission.Differ"/>
+          <label for="checkbox{{$index}}"></label>
+          <a title="Delete submission" ng-click="DeleteSubmission({submissionId:item.Submission.Id}, {projectId: Request.ItemId})"><i class="material-icons">delete</i></a>
         </div>
-    </div> 
-</div>
+        <span class="title"><a ui-sref="home.submission-overview({projectId: projectId, submissionId:item.Submission.Id})">{{item.Submission.DateTime}}</a></span>
+        <p ng-show="item.Submission.User.Person">Imported by {{item.Submission.User.Person.Name}} on {{item.Submission.ImportDateTime | date:"longDate"}}
+        </br>
+        Good {{item.Submission.Good}}, Bad {{item.Submission.Bad}}, Strange {{item.Submission.Strange}}
+        </p>
+      </li>
+    </ul>
+  </div>
+  <div class="card-action">
+    <a class="btn" ng-click="Differ()">Differ</a>
+  <input type="checkbox" class="filled-in" id="check_all" ng-model="SelectAll"/>
+  <label for="check_all">Check all for difference</label>
+  </div>
 </div>

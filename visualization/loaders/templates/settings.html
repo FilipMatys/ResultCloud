@@ -1,61 +1,48 @@
-<div class="card header">
-    <div class="row">
-        <div class="large-6 columns">
-            <h1>Project settings</h1>
-        </div>
-        <div class="large-6 columns tRight toolbar">
-            <input type="submit" class="button small" ng-click="Save()" value="Save Changes"/>
-        </div>
-    </div>
-</div>
-
 <div class="card">
+    <div class="card-content">
 <div ng-if="(templates | filter:{Type:2}).length > 0">
     <div class="row">
-        <div class="large-12 columns">
+        <div class="col s12">
             <h1><span>Project detail components</span></h1>
         </div>
     </div>
     <div class="row" ng-repeat="template in templates | filter:{Type:2}">
-        <div class="large-12 columns">
+        <div class="col s12">
             <h2>{{template.Name}}</h2>
         </div>
-        <div class="large-12 columns" ng-repeat="item in template.Items">
+        <div class="col s12" ng-repeat="item in template.Items">
             <div class="row">
-                <div class="large-12 columns">
-                    <label>{{item.Label}}
-                        <textarea ng-if="item.Type == 2" ng-model="item.Value"></textarea>
-                        <input ng-if="item.Type == 0" type="text" ng-model="item.Value" />
-                        <input ng-if="item.Type == 3" type="date" ng-model="item.Value" />
-                        <input ng-if="item.Type == 1" type="number" ng-model="item.Value" />
-                        <input ng-if="item.Type == 4" type="checkbox" ng-model="item.Value" />
-                    </label>
+                <div class="col s12">
+                    <label>{{item.Label}}</label>
+                    <textarea ng-if="item.Type == 2" ng-model="item.Value"></textarea>
+                    <input ng-if="item.Type == 0" type="text" ng-model="item.Value" />
+                    <input ng-if="item.Type == 3" type="date" ng-model="item.Value" />
+                    <input ng-if="item.Type == 1" type="number" ng-model="item.Value" />
+                    <input ng-if="item.Type == 4" type="checkbox" ng-model="item.Value" />
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <div ng-if="(templates | filter:{Type:0}).length > 0">
     <div class="row">
-        <div class="large-12 columns">
+        <div class="col s12">
             <h1><span>Submission detail components</span></h1>
         </div>
     </div>
     <div class="row" ng-repeat="template in templates | filter:{Type:0}">
-        <div class="large-12 columns">
+        <div class="col s12">
             <h2>{{template.Name}}</h2>
         </div>
-        <div class="large-12 columns" ng-repeat="item in template.Items">
+        <div class="col s12" ng-repeat="item in template.Items">
             <div class="row">
-                <div class="large-12 columns">
-                    <label>{{item.Label}}
-                        <textarea ng-if="item.Type == 2" ng-model="item.Value"></textarea>
-                        <input ng-if="item.Type == 0" type="text" ng-model="item.Value" />
-                        <input ng-if="item.Type == 3" type="date" ng-model="item.Value" />
-                        <input ng-if="item.Type == 1" type="number" ng-model="item.Value" />
-                        <input ng-if="item.Type == 4" type="checkbox" ng-model="item.Value" />
-                    </label>
+                <div class="col s12">
+                    <label>{{item.Label}}</label>
+                    <textarea ng-if="item.Type == 2" ng-model="item.Value"></textarea>
+                    <input ng-if="item.Type == 0" type="text" ng-model="item.Value" />
+                    <input ng-if="item.Type == 3" type="date" ng-model="item.Value" />
+                    <input ng-if="item.Type == 1" type="number" ng-model="item.Value" />
+                    <input ng-if="item.Type == 4" type="checkbox" ng-model="item.Value" />
                 </div>
             </div>
         </div>
@@ -64,27 +51,30 @@
 
 <div ng-if="(templates | filter:{Type:1}).length > 0">
     <div class="row">
-        <div class="large-12 columns">
+        <div class="col s12">
             <h1><span>Difference components</span></h1>
         </div>
     </div>
     <div class="row" ng-repeat="template in templates | filter:{Type:1}">
-        <div class="large-12 columns">
+        <div class="col s12">
             <h2>{{template.Name}}</h2>
         </div>
-        <div class="large-12 columns" ng-repeat="item in template.Items">
+        <div class="col s12" ng-repeat="item in template.Items">
             <div class="row">
-                <div class="large-12 columns">
-                    <label>{{item.Label}}
+                <div class="col s12">
+                    <label>{{item.Label}}</label>
                         <textarea ng-if="item.Type == 2" ng-model="item.Value"></textarea>
                         <input ng-if="item.Type == 0" type="text" ng-model="item.Value" />
                         <input ng-if="item.Type == 3" type="date" ng-model="item.Value" />
                         <input ng-if="item.Type == 1" type="number" ng-model="item.Value" />
                         <input ng-if="item.Type == 4" type="checkbox" ng-model="item.Value" />
-                    </label>
                 </div>
             </div>
         </div>
     </div>
+</div>
+</div>
+<div class="card-action">
+  <a class="btn" ng-click="Save()" ui-sref="home.plugin-management">Save</a>
 </div>
 </div>

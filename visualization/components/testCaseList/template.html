@@ -1,41 +1,28 @@
-<div class="card header">
-    <div class="row">
-        <div class="large-4 columns">
-            <h1><span>Test Cases</span></h1>
-        </div>
-        <div class="large-8 columns toolbar tRight">
-            <div ng-show="Pages > 1">
-                <span class="pending" ng-show="PendingChanges"></span>
-                <ul class="pagination">
-                    <li ng-repeat="page in Range(1, Pages)"><a ng-click="ChangePage(page)" ng-class="{active: Page==page}">{{page}}</a></li>
-                </ul>
-            </div>
-            <select ng-show="ListData.ViewTypes && ListData.ViewTypes.length > 1" ng-model="View" ng-options="viewType for viewType in ListData.ViewTypes"></select>
-        </div>
-    </div>
-</div>
 <div class="card">
-    <div class="row">
-        <div class="large-12 columns"> 
-            <div class="row filter-box">
-                <div class="large-1 small-1 medium-1 columns filter-inner-box" style="padding: 0px 0px 0px 0px" ng-repeat="filtr in Filter"><span>{{filtr}}</span><a class="fi-x" ng-click="DeleteFilter({Filter:filtr})"></a></div>
-                <div class="large-2 small-2 columns end" id="field-block" style="position:relative">
-                    <input type="text" class="filter" id="my-input" ng-keypress="KeyAddFilter($event);" ng-model="FilterField.value"/>
+    <div class="card-content">
+        <span class="card-title black-text">Test Cases</span>
+                <div class="end" id="field-block" style="position:relative">
+                        <input type="text" placeholder="Filter test cases" class="filter" id="my-input" ng-keypress="KeyAddFilter($event);" ng-model="FilterField.value"/>
                     <ul class="dropdown-list" ng-show="FilterField.value">
                         <li class="dropdown-list-item" ng-repeat="filterItem in FilterList | filter:FilterField.value"><a ng-click="AddFilter(filterItem.hide_name)" style="display: block">{{filterItem.show_name}}</a></li>
                     </ul>
                 </div>
-            </div> 
+                <a ng-click="DeleteFilter({Filter:filtr})" class="btn filter-inner-box" ng-repeat="filtr in Filter"><span>{{filtr}}</span></a>
+
+
+        <div ng-switch on="View">
+            <div ng-switch-when="List">
+                <div ng-include="'visualization/components/testCaseList/list.html'"></div>
+            </div>
+            <div ng-switch-when="Grouped">
+                <div ng-include="'visualization/components/testCaseList/grouped.html'"></div>
+            </div>
         </div>
     </div>
-</div>
-
-
-<div class="row" ng-switch on="View">
-    <div class="large-12 columns" ng-switch-when="List">
-        <div ng-include="'visualization/components/testCaseList/list.html'"></div>
-    </div>
-    <div class="large-12 columns" ng-switch-when="Grouped">
-        <div ng-include="'visualization/components/testCaseList/grouped.html'"></div>
+    <div class="card-action">
+        <select id="choose_list_template" class="browser-default" ng-model="View" ng-options="viewType for viewType in ListData.ViewTypes"></select>
+        <ul ng-show="Pages > 1" class="pagination">
+            <li ng-repeat="page in Range(1, Pages)" ng-class="{active: page==Page}"><a ng-click="ChangePage(page)">{{page}}</a></li>
+        </ul>
     </div>
 </div>

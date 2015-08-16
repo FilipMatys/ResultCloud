@@ -21,6 +21,7 @@ class SubmissionController
     const GET = "GET";
     const DIFFERENCE = "DIFFERENCE";
     const VIEWS = "VIEWS";
+    const RECENT = "RECENT";
     
     /**
      * Get project 
@@ -74,6 +75,15 @@ class SubmissionController
         // Load views
         return FactoryService::SubmissionService()->GetViews($submission);
     }
+
+    /**
+     * Get recent submissions
+     * @return mixed $submissions
+     */
+    public function Recent()    {
+        // Load recent submissions
+        return FactoryService::SubmissionService()->GetRecent();
+    }
 }
 
 // Extract json data
@@ -97,6 +107,10 @@ if (isset($_GET["method"]))	{
             
         case SubmissionController::VIEWS:
             $result = $SubmissionController->Views($data);
+            break;
+
+        case SubmissionController::RECENT:
+            $result = $SubmissionController->Recent();
             break;
         
 		default:

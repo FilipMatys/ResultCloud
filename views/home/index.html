@@ -1,41 +1,65 @@
- <nav class="top-bar" data-topbar>
-    <ul class="title-area">
-        <li class="name">
-            <h1><a ui-sref="home.dashboard">Corly Management Tool</a></h1>
-        </li>
-        <li class="toggle-topbar menu-icon"><a>Menu</a></li>
+ <nav>
+    <div class="nav-wrapper blue-grey darken-4">
+        <div class="row">
+            <div class="col s12">
+                <a class="brand-logo" ui-sref="home.dashboard"><img src="img/logo_white.png" /></a>
+                <a data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a ui-sref="home.dashboard"><i class="material-icons">dashboard</i></a></li>
+                    <li><a ui-sref="home.import" ><i class="material-icons">play_for_work</i></a></li>
+                    <li><a ng-click="OpenSettings()"><i class="material-icons">settings</i></a></li>
+                    <li><a ui-sref="home.profile">{{user.Person.Name}}<i class="material-icons right">perm_identity</i></a></li>
+                    <li><a ng-click="Logout()"><i class="material-icons">input</i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <ul id="mobile-demo" class="side-nav">
+      <li><a ui-sref="home.dashboard">Dashboard</a></li>
+      <li><a ui-sref="home.import" >Import</a></li>
+      <li><a ng-click="OpenSettings()">Settings</a></li>
+      <li><a ui-sref="home.profile">{{user.Person.Name}}</a></li>
+      <li><a ng-click="Logout()">Logout</a></li>
     </ul>
-
-    <section class="top-bar-section">
-        <!-- Right Nav Section -->
-        <ul class="right">
-            <li class="divider"></li>
-            <li><a ui-sref="home.dashboard"><i class="fi-home"></i> Dashboard</a></li>
-            <li class="divider"></li>
-            <li class="has-form">
-                <a ui-sref="home.import" class="button"><i class="fi-upload"></i> Import</a>
-            </li>
-            <li class="divider"></li>
-            <li><a ui-sref="home.settings"><i class="fi-widget"></i> Settings</a></li>
-            <li class="divider"></li>
-            <li><a ui-sref="home.profile"><i class="fi-torso"></i>{{user.Person.Name}}</a></li>
-            <li class="divider"></li>
-            <li><a ng-click="Logout()"><i class="fi-power"></i>Logout</a></li>
-        </ul>
-
-    </section>
 </nav>
-<!-- ALERT BOX -->
-<div ng-if="status.content" data-alert class="alert-box" ng-class="{success: status.success, alert: !status.success}">
-    <span>{{status.content}}</span>
-    <ul ng-if="status.errors">
-        <li ng-repeat="error in status.errors">{{error}}</li>
-    </ul>    
-  <a ng-click="ClearStatus()" class="close-mark">&times;</a>
-</div>
+
+<script type="text/javascript">
+// Navbar for mobile fix
+$(".side-nav a").click(function() {
+    $('#sidenav-overlay').remove();
+    $('.button-collapse').sideNav('hide');
+  });
+</script>
 
 <!-- CONTENT -->
 <div ui-view class="content"></div>
+
+<!-- SETTINGS MODAL -->
+<div id="settings_modal" class="modal bottom-sheet">
+    <div class="modal-content">
+      <h4>Settings</h4>
+      <div class="collection">
+        <a ng-click="GoTo('home.settings-release-notes')" class="collection-item avatar">
+          <i class="material-icons circle teal lighten-2">announcement</i>
+          <span class="title black-text">Release notes</span>
+          <p class="blue-grey-text darken-4-text">Changes made to the system in plain language
+          </p>
+        </a>
+        <a ng-click="GoTo('home.settings-users')" class="collection-item avatar">
+          <i class="material-icons circle teal lighten-2">supervisor_account</i>
+          <span class="title black-text">Users</span>
+          <p class="blue-grey-text darken-4-text">User management
+          </p>
+        </a>
+        <a ng-click="GoTo('home.plugin-management')" class="collection-item avatar">
+          <i class="material-icons circle teal lighten-2">settings_input_composite</i>
+          <span class="title black-text">Plugin management</span>
+          <p class="blue-grey-text darken-4-text">Installation of new plugins
+          </p>
+        </a>
+      </div>
+    </div>
+</div>
 
 <div ng-show="PendingChanges" class="cloak">
 </div>

@@ -1,45 +1,19 @@
-<div class="card header">
-<div class="row">
-    <div class="large-4 medium-4 columns">
-        <h1><span>Overview chart</span></h1>
-    </div>
-    <div class="large-8 medium-8 tRight toolbar columns">
-        <select ng-show="Data.Types" ng-model="Data.Chart.type" ng-options="type for type in Data.Types"></select>
-    </div>
-</div>
-</div>
 
 <div class="card">
-    <div class="row">
-        <div class="large-12 columns">
-            <h1>Chart</h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="large-12 columns">
-            <div class="google-chart pending" google-chart chart="Data.Chart"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="large-12 columns">
-            <hr />
-        </div>
-    </div>
-    <div class="row">
-        <div class="large-12 columns">
-            <h1>Data overview</h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="large-12 columns">
-            <table class="full-width">
-                <tr ng-if="Data.Chart.options.displayOverviewHeader">
-                    <th ng-repeat="header in Data.Chart.data.cols">{{header.label}}</th>
-                </tr>
-                <tr ng-repeat="row in Data.Chart.data.rows">
-                    <td ng-repeat="col in row.c">{{col.v}}</td>
-                </tr>
-            </table>
-        </div>
-    </div>
+  <div class="card-content">
+    <span class="card-title black-text">Overview chart</span>
+    <div class="google-chart pending" google-chart chart="Data.Chart"></div>
+    <span class="card-title black-text">Data overview</span>
+    <table class="full-width">
+      <tr ng-if="Data.Chart.options.displayOverviewHeader">
+          <th ng-repeat="header in Data.Chart.data.cols">{{header.label}}</th>
+      </tr>
+      <tr ng-repeat="row in Data.Chart.data.rows">
+          <td ng-repeat="col in row.c">{{col.v}}</td>
+      </tr>
+  </table>
+  </div>
+  <div class="card-action" ng-show="Data.Types">
+      <select class="browser-default" ng-model="Data.Chart.type" ng-options="type for type in Data.Types"></select>
+  </div>
 </div>

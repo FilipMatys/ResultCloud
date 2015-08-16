@@ -579,6 +579,13 @@ class DatabaseInstallation
         $pCategory->NotNull();
         // Add category to table
         $tTestCase->AddProperty($pCategory);
+
+        // Set category property
+        $pStatus = new DbProperty('Status');
+        $pStatus->SetType(DbType::Double());
+        $pStatus->NotNull();
+        // Add category to table
+        $tTestCase->AddProperty($pStatus);
         
         // Set name property
         $pName = new DbProperty('Name');

@@ -14,7 +14,7 @@ class DatabaseDriver {
 	/**
 	* Connect to Database if connection doesn't exist
 	**/
-	public function connect() {
+	public static function connect() {
 		//Check connection
 		if (empty(self::$connected) || self::$connected === false) {
 			//If it is not exist connect
@@ -22,7 +22,7 @@ class DatabaseDriver {
 			self::$db = new mysqli(self::$dbConfig->Data["hostname"], self::$dbConfig->Data["username"], 
 				self::$dbConfig->Data["password"], self::$dbConfig->Data["database"]);
 
-			if ($this->db->connect_errno > 0)   {
+			if (self::$db->connect_errno > 0)   {
 	            die ('Unable to connect to database[' . $this->db->connect_error . ']');
 	        }
 		}
@@ -31,7 +31,7 @@ class DatabaseDriver {
 	/**
 	* Set connection
 	**/
-	public function ConnectExisting($db) {
+	public static function ConnectExisting($db) {
 		self::$db = $db;
 		self::$connected = true;
 	}

@@ -1,31 +1,31 @@
 ﻿<div class="row">
-    <div class="large-12 columns">
-        <h1>Dashboard</h1>
-    </div>
-</div>
-
-<div class="row">
-    <div class="large-12 columns">
-        <div class="card header">
-        <h1><span>Installed plugins</span></h1>
+    <div class="col s12 m6">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title black-text">Plugins</span>
+          <ul class="collection">
+            <li class="collection-item" ng-repeat="plugin in plugins">
+              <span class="title"><a ui-sref="home.plugin({pluginId: plugin.Id})">{{plugin.Name}} {{plugin.Version}}</a></span>
+              <p>{{plugin.About}}</p>
+            </li>
+          </ul>
         </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="large-12 columns">
-        <div class="card">
-        <div class="row" ng-repeat="plugin in Plugins">
-            <div class="large-12 columns">
-                <div class="row list-item">
-                    <div class="large-8 medium-8 columns desc">
-                        <a ui-sref="home.plugin({pluginId: plugin.Id})" class="full-width tLeft">{{plugin.Name}} {{plugin.Version}}</a>
-                        <span>{{plugin.About}}</span>
-                    </div>
-                </div>
-                <hr ng-if="!$last" />
-            </div>
+        <div class="card-action">
+          <a class="btn" ui-sref="home.plugin-management">Plugin management</a>
         </div>
-    </div> 
-</div>
+      </div>
+    </div>
+    <div class="col s12 m6">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title black-text">Recent imports</span>
+          <ul class="collection">
+            <li class="collection-item" ng-repeat="recentImport in recentImports | orderBy:'-ImportDateTime'">
+              <span class="title"><a ui-sref="home.submission-overview({projectId: recentImport.Project.Id, submissionId:recentImport.Id})" class="full-width tLeft">{{recentImport.ImportDateTime | date:'medium'}} {{plugin.Version}}</a></span>
+              <p>Imported by {{recentImport.User.Person.Name}} into project {{recentImport.Project.Name}}</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
 </div>

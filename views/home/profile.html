@@ -1,62 +1,38 @@
 ﻿<div class="row">
-    <div class="large-12 columns">
-
-        <div class="card header">
-            <div class="row">
-                <div class="large-6 columns">
-                    <h1><span>Profile</span></h1>
-                </div>
-                <div class="large-6 columns tRight toolbar">
-                    <input type="submit" class="button small" ng-disabled="user.Password && (user.Password != passwordCheck)" ng-click="Save()" value="Save Changes"/>
-                </div>
-            </div>
-        </div>
-
+    <div class="col s12">
         <div class="card">
-            <div class="row">
-                <div class="large-12 columns">
-                    <h1>Person Detail</h1>
+            <div class="card-content">
+              <span class="card-title black-text">Person detail</span>
+              <div class="row">
+                <div class="col s12 m6">
+                  <label for="name">Name</label>
+                  <input ng-model="user.Person.Name" id="name" type="text">
                 </div>
-            </div>
-            <div class="row">
-                <div class="large-6 columns">
-                 <label>Name
-                     <input type="text" ng-model="user.Person.Name" />
-                 </label>
-             </div>
-            <div class="large-6 columns">
-                <label>Email
-                    <input type="text" ng-model="user.Person.Email" />
-                </label>
-            </div>
-        </div>
-        <div class="row">
-                <div class="large-12 columns">
-                    <h1>Credentials</h1>
+                <div class="col s12 m6">
+                  <label for="email">Email</label>
+                  <input ng-model="user.Person.Email" id="email" type="text">
                 </div>
+              </div>
+              <span class="card-title black-text">Credentials</span>
+              <div class="row">
+                <div class="col s12 m6">
+                  <label for="username">Username</label>
+                  <input ng-model="user.Username" id="username" type="text">
+                </div>
+                <div class="col s12 m6">
+                  <label for="password">Password</label>
+                  <input ng-model="user.Password" id="password" type="password">
+                </div>
+                <div class="col s12 m6">
+                  <label for="password_check">Password check</label>
+                  <input ng-model="passwordCheck" id="password_check" type="password">
+                </div>
+              </div>
             </div>
-        <div class="row">
-            <div class="large-6 columns">
-                <label>
-                    Username
-                    <input type="text" ng-model="user.Username" />
-                </label>
+            <div class="card-action">
+              <a class="btn" ng-click="Save()">Save changes</a>
             </div>
-        </div>
-        <div class="row">
-            <div class="large-6 columns">
-                <label>
-                    Password
-                    <input type="password" ng-model="user.Password" />
-                </label>
-            </div>
-            <div class="large-6 columns">
-                <label>
-                    Password check
-                    <input type="password" ng-model="passwordCheck" />
-                </label>
-            </div>
+          </div>
         </div>
     </div>
-</div>
 </div>
