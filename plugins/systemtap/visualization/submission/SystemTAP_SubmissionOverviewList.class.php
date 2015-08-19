@@ -22,8 +22,8 @@ class SystemTAP_SubmissionOverviewList
         // Load data
         TestSuiteDataService::LoadCategories(
             $submission, 
-            Visualization::GetSubmissionDataDepth(SubmissionOverviewType::VIEWLIST),
-            new QueryPagination($page, $pageSize, 'asc'));
+            Visualization::GetSubmissionDataDepth(SubmissionOverviewType::VIEWLIST));
+            // new QueryPagination($page, $pageSize, 'asc'), $filters);
 
         // Initialize list
         $submissionOverviewList = new SubmissionOverviewList();

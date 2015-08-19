@@ -12,6 +12,7 @@ application.directive('corlyTestCaseList', function () {
             $scope.FullData = {};
             $scope.FilterList = [];
             $scope.Filter = [];
+            $scope.FilteredData = {};
 
             // Generate range
             $scope.Range = function(from, to)   {
@@ -39,8 +40,9 @@ application.directive('corlyTestCaseList', function () {
                     return;
 
                 // Change page and get data
-                $scope.ListData.Page = page;
-                $scope.FetchData();
+                $scope.ListData = GetCategoriesByPage($scope.FilteredData, page);
+                $scope.Page = page;
+                // $scope.FetchData();
             }
 
             SubmissionService.get({
@@ -60,20 +62,17 @@ application.directive('corlyTestCaseList', function () {
                 var isFilterCategory = !($scope.Filter.every(function(value, key, element) { if (value[0] == this[0]) { return false; } return true; } , ["@"]));
                 var isFilterTestCase = !($scope.Filter.every(function(value, key, element) { if (value[0] == this[0]) { return false; } return true; } , ["#"]));
                 var isFilterResult = !($scope.Filter.every(function(value, key, element) { if (value[0] == this[0]) { return false; } return true; } , ["$"]));
+
                 for (var i = 0; i < data["Categories"].length; i++) {
                     var d = data["Categories"][i];
-                    if (isFilterCategory && $scope.Filter.indexOf("@"+d["Name"]) == -1) {
-                        ret_data["Categories"].splice(i-category_shift,1);
-                        category_shift++;
-                        continue;
-                    }
                     var tc_shift = 0;
                     for (var j = 0; j < d["TestCases"].length; j++) {
                         var r = d["TestCases"][j];
                         var res_shift = 0;
                         for (var g = 0; g < r["Results"].length; g++) {
                             var result = r["Results"][g];
-                            if ($scope.Filter.indexOf(result["Value"]) == -1)
+                            if (isFilterResult && $scope.Filter.indexOf(result["Value"]) == -1 
+                                && $scope.Filter.indexOf("$"+result["Key"]) == -1)
                             {
                                 ret_data["Categories"][i-category_shift]
                                 ["TestCases"][j-tc_shift]["Results"].splice(g-res_shift,1);
@@ -90,7 +89,15 @@ application.directive('corlyTestCaseList', function () {
                                 continue;
                         }
                     };
+                    if ((isFilterCategory && $scope.Filter.indexOf("@"+d["Name"]) == -1) ||
+                        (ret_data["Categories"][i-category_shift]
+                                ["TestCases"].length == 0)) {
+                        ret_data["Categories"].splice(i-category_shift,1);
+                        category_shift++;
+                        continue;
+                    }
                 };
+                ret_data.ItemsCount = ret_data["Categories"].length;
                 return ret_data;
             }
             var GetFilters = function (data) {
@@ -115,18 +122,36 @@ application.directive('corlyTestCaseList', function () {
                 };
                 return result;
             }
+            var GetCategoriesByPage = function (data, page) {
+                var result = {};
+                result["Categories"] = [];
+                result["ViewTypes"] = data["ViewTypes"];
+                result["ItemsCount"] = data["ItemsCount"];
+                result["PageSize"] = data["PageSize"];
+                result["Page"] = page;
+                pageNumber = page;
+                pageSize = data.PageSize;
+                for (var i = (pageNumber-1)*pageSize; i < (pageNumber*pageSize); i++) {
+                    if (i < data["Categories"].length)
+                    {
+                        result["Categories"].push(data["Categories"][i]);
+                    }
+                }
+                return result;
+            }
             // Load data
             $scope.FetchData = function () {
                 $scope.PendingChanges = true;
                 SubmissionService.get({
                     ItemId: $stateParams.submissionId,
                     Type: "LIST",
-                    Filter: $scope.Filter,
+                    Filters: $scope.Filter,
                     Meta: $scope.ListData ? $scope.ListData.Page : 1
                 })
                 .success(function (data, status, headers, config) {
                     $scope.FullData = data.Data;
-                    $scope.ListData = data.Data;
+                    $scope.ListData = GetCategoriesByPage(data.Data, data.Data.Page);
+                    $scope.FilteredData = $scope.FullData;
                     $scope.PendingChanges = false;
                     $scope.Page = $scope.ListData.Page ? $scope.ListData.Page : 1;
                     $scope.Pages = Math.ceil($scope.ListData.ItemsCount / $scope.ListData.PageSize);
@@ -137,11 +162,17 @@ application.directive('corlyTestCaseList', function () {
 
             $scope.FetchData();
             $scope.AddFilter = function (filter_text) {
+                console.log(filter_text);
                 if ($scope.Filter.indexOf(filter_text) == -1)
                 {
+                    // console.log(filter_text);
                     $scope.Filter.push(filter_text);
                     $scope.FilterField.value = "";
-                    $scope.ListData = GetFilteredList($scope.FullData);
+                    $scope.FilteredData = GetFilteredList($scope.FullData);
+                    $scope.ListData = GetCategoriesByPage($scope.FilteredData, 1);
+                    $scope.Page = 1;
+                    $scope.Pages = Math.ceil($scope.ListData.ItemsCount / $scope.ListData.PageSize);
+                    console.log($scope.ListData);
                 }
             }
             $scope.KeyAddFilter = function (event) {
