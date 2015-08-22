@@ -7,4 +7,5 @@ php:
   # aliased to 5.3.29
   - 5.4
 
-script: phpunit Tests
+script: phpunit --verbose --coverage-text
+

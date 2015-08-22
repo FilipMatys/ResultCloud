@@ -1,5 +1,4 @@
 <?php
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -24,6 +23,7 @@ class FileParser {
     // Path to temp file
     private $Temp;
 
+    public static $MoveUploadedFile = "move_uploaded_file";
     /**
      * File parser contructor
      */
@@ -42,7 +42,8 @@ class FileParser {
      * Movile file to given path
      */
     public function moveFileTo($path)    {
-        return move_uploaded_file($this->Temp, $path.basename($this->Name));
+        $func = self::$MoveUploadedFile;
+        return $func($this->Temp, $path.basename($this->Name));
     }
     
     /**
