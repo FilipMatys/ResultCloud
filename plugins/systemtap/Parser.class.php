@@ -78,7 +78,7 @@ class Parser
             }
         
             // Check for test case header
-            if (preg_match("/Running (\.?\/.*) \.{3}/", $row, $testCaseMatches))   {
+            if (preg_match("/Running (\.*\/.*) \.{3}/", $row, $testCaseMatches))   {
                 
                 // If test case was set, add it to category,
                 // because we are creating new test case
