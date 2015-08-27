@@ -2,7 +2,7 @@
 <config>
   <!-- Basic plugin info -->
   <base>
-    <name>SystemTAP</name>
+    <name>DejaGnu summary</name>
     <author>Filip Matys</author>
     <version>v1.0</version>
     <root>systemtap</root>

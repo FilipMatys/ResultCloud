@@ -2,7 +2,7 @@
 <config>
   <!-- Basic plugin info -->
   <base>
-    <name>CPAlien Forester</name>
+    <name>BenchExec XML</name>
     <author>Filip Matys</author>
     <version>v1.0</version>
     <root>cpalien</root>
