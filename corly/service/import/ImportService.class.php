@@ -32,6 +32,10 @@ class ImportService
         if (!$validation->IsValid)  {
             return $validation;
         }
+
+
+        // Close session so other requests are allowed
+        SessionService::CloseSession();
         
         // Initialize file parser
         $fileParser = new FileParser($file);
