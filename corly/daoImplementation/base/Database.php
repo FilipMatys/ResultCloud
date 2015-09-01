@@ -55,6 +55,9 @@ abstract class Database  {
      * @return inserted id
      */
     public function Save($entity)   {
+        // Reset time limit
+        set_time_limit(30);
+
         // Insert entity if, is 
         if (!isset($entity->Id) || $entity->Id === 0)    {
             $statement = $this->db->prepare($this->statements->getInsertStatement($entity));
@@ -100,6 +103,9 @@ abstract class Database  {
      * @return single entity
      */
     public function Load($entity)   {
+        // Reset time limit
+        set_time_limit(30);
+
         $statement = $this->db->prepare($this->statements->getSelectStatement().' WHERE Id=?');
 
         $statement->bind_param("d", $entity->Id);
@@ -114,6 +120,9 @@ abstract class Database  {
      * @param type $entity
      */
     public function Delete($entity)    {
+        // Reset time limit
+        set_time_limit(30);
+
         $statement = $this->db->prepare($this->statements->getDeleteStatement());
         $statement->bind_param("d", $entity->Id);
         $statement->execute();
@@ -126,6 +135,9 @@ abstract class Database  {
      * @return list of entities
      */
     public function GetList()    {
+        // Reset time limit
+        set_time_limit(30);
+
         $statement = $this->db->prepare($this->statements->getSelectStatement());
         $statement->execute();
         
@@ -133,6 +145,9 @@ abstract class Database  {
     }
 
     public function DeleteFilteredList(Parameter $parameter) {
+        // Reset time limit
+        set_time_limit(30);
+
         $statement = $this->db->prepare($this->statements->getBasicDeleteStatement()." ".$parameter->Condition);
         $statement->bind_param($this->ObjectPropertyParser->getValueType($parameter->Value), $parameter->Value);
         $statement->execute();
@@ -143,6 +158,8 @@ abstract class Database  {
      * @param type $parameter
      */
     public function GetFilteredList(Parameter $parameter, QueryPagination $pagination = null) {
+        // Reset time limit
+        set_time_limit(30);
 
         // Build query
         $statementQuery = $this->statements->getSelectStatement()." ".$parameter->Condition;
