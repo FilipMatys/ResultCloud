@@ -40,10 +40,11 @@ application.controller('PluginController', ['$scope', '$stateParams', 'PluginSer
     //Clear project
     $scope.ClearProject = function (pid) {
         if (confirm("Are you sure?")) {
+            $scope.LoadingUp();
             ProjectService.clear(pid.projectId)
                 .success(function (data, status, headers, config) {
                     LoadPlugin();
-
+                    $scope.LoadingDown();
                     // Show status
                     $scope.ShowStatus('Clear project', data.IsValid, data.Errors);
                 });
@@ -53,9 +54,11 @@ application.controller('PluginController', ['$scope', '$stateParams', 'PluginSer
     //Delete project
     $scope.DeleteProject = function (pid) {
         if (confirm("Are you sure?")) {
+            $scope.LoadingUp();
             ProjectService.projectDelete(pid.projectId)
                 .success(function (data, status, headers, config) {
                     LoadPlugin();
+                    $scope.LoadingDown();
 
                     // Show status
                     $scope.ShowStatus('Delete project', data.IsValid, data.Errors);

@@ -36,6 +36,16 @@ application.controller('HomeController', ['$scope', '$state', 'AuthentizationSer
         $('#' + modal).closeModal();
     }
 
+    $scope.LoadingUp = function()   {
+        $('#loading-modal').openModal({
+            dismissible: false
+        });
+    }
+
+    $scope.LoadingDown = function() {
+        $('#loading-modal').closeModal();
+    }
+
     /**
      * Show status
      * operation - operation that was 
