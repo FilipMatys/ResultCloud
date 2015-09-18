@@ -42,6 +42,7 @@ class Parser
      * Parse uploaded data for import
      */
     public static function ParseImport($pValidation, $data)    {
+
         // Load uploaded file as string
         $fileRows = file($data);
         
@@ -107,6 +108,10 @@ class Parser
                 }
             }
         }
+
+        // Add the last test case
+        if (isset($TestCase))
+            $current_Category->AddTestCase($TestCase);
         
         // Add category to submission
         $Submission->AddCategories($Categories);
