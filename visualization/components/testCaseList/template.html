@@ -7,7 +7,10 @@
                         <li class="dropdown-list-item" ng-repeat="filterItem in FilterList | filter:FilterField.value"><a ng-click="AddFilter(filterItem.hide_name)" style="display: block">{{filterItem.show_name}}</a></li>
                     </ul>
                 </div>
-                <a ng-click="DeleteFilter({Filter:filtr})" class="btn filter-inner-box" ng-repeat="filtr in Filter"><span>{{filtr}}</span></a>
+                <div ng-repeat="filtr in Filter" class="chip">
+                    {{filtr}}
+                    <i ng-click="DeleteFilter({Filter:filtr})" class="material-icons">close</i>
+                </div>
 
 
         <div ng-switch on="View">

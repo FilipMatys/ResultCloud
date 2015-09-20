@@ -330,11 +330,6 @@ ul.breadcrumbs li:last-child a {
     color: white;
 }
 
-ul.breadcrumbs li a:hover {
-    background: #80cbc4;
-    color: white;
-}
-
 ul.breadcrumbs > *:before   {
     content: ">";
     color: #e0f2f1;
