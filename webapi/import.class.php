@@ -71,7 +71,7 @@
 				return $validation->toJSON();
 
 			// Check if file was selected
-    	    if (!isset($_FILES['file'])) {
+    	    if (!isset($_FILES['file']) && !isset($_GET['sessionid'])) {
         	    $validation->AddError("No file selected");
             	return $validation->toJSON();
         	}
@@ -157,7 +157,7 @@
 
 			// Import and delete temp file
 			$result = $import_service->Import($validation->Data, $file_info, true)->toJSON();
-			unlink($file_info['tmp_name']);
+			//unlink($file_info['tmp_name']);
 
 			return $result;
 		}
