@@ -1,4 +1,4 @@
-# IBP2013
+# ResultCloud
 Web Tool for Management of Long-Term Testing Results
 
 <h3>Installation</h3>
