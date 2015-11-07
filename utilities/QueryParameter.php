@@ -19,6 +19,36 @@ class QueryParameter {
     }
     
     /**
+     * Condition WHERE with multiple column equations
+     * @param $properties
+     * @param $values
+     * @return \Parameter
+     */
+    public static function WhereAnd($properties, $values)   {
+        // Init param
+        $param = 'WHERE';
+        $itemsCount = count($values);
+
+        // Create param
+        for ($index = 0; $index < $itemsCount; $index++) {
+            $param .= ' '.$properties[$index].'=?';
+            
+            if ($index < ($itemsCount - 1))
+                $param .= ' AND';
+        }         
+        
+        // Return parameter
+        return new Parameter($param, $values);
+    }
+    
+    /**
+     * Custom query
+     */
+    public static function Query($query, $values)  {
+        return new Parameter($query, $values);
+    }
+    
+    /**
      * Condition WHERE column != value
      * 
      * @param type $property

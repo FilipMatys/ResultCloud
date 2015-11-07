@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+  <!-- Basic component info -->
+  <base>
+    <name>List of submissions</name>
+    <identifier>project-overview-list</identifier>
+    <author>Filip Matys</author>
+    <version>v1.0</version>
+    <view-type>2</view-type>
+    <folder>projectOverviewList</folder>
+    <js>projectOverviewList.js</js>
+    <description>List of all submissions imported to current project. Allows redirection to submission detail.</description>
+  </base>
+  <!-- Supported plugins -->
+  <supported-plugins>
+    <plugin identifier="*" />
+  </supported-plugins>
+</config>

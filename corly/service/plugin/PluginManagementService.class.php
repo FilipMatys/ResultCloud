@@ -56,11 +56,6 @@ class PluginManagementService
         // Save plugin
         $pluginValidation = FactoryService::PluginService()->Save($pluginTSE->GetDbObject());
         
-        // Check for components
-        if (isset($pluginConfiguration->components))    {
-            $components = $this->ParsePluginComponents($pluginConfiguration->components);
-            $this->SaveComponents($components, $pluginValidation->Data->Id);
-        }
         
         // Return validation
         return $validation;
@@ -80,47 +75,6 @@ class PluginManagementService
         $statement->execute();
     }
     
-    /**
-     * Save components
-     * @param mixed $components 
-     */
-    private function SaveComponents($components, $pluginId)    {
-        // Iterate through components
-        foreach ($components as $component) {
-            // and save all files
-            foreach ($component->GetDbObjects($pluginId) as $componentObject) {
-                FactoryDao::ComponentDao()->Save($componentObject);  
-            }
-            
-        }
-        
-    }
-    
-    /**
-     * Plarse plugin components
-     * @param mixed $xmlComponents 
-     * @return mixed
-     */
-    private function ParsePluginComponents($xmlComponents)  {
-        $components = array();
-        
-        // Iterate through components
-        foreach ($xmlComponents->component as $component) {
-            // Create component entity
-            $componentTse = new ComponentTSE((string)$component[PluginManagementService::FOLDER]);
-            
-            // Get all files for component
-            foreach ($component->file as $file) {
-                $componentTse->AddFilename((string)$file);  
-            }
-         
-            // Add component to array
-            $components[] = $componentTse;
-        }
-        
-        // Return result
-        return $components;
-    }
     
     /**
      * Parse plugin entity into database table
@@ -189,6 +143,7 @@ class PluginManagementService
             $plugin->SetVersion((string)$pluginConfiguration->base->version);
             $plugin->SetAuthor((string)$pluginConfiguration->base->author);
             $plugin->SetAbout((string)$pluginConfiguration->base->about);
+            $plugin->SetIdentifier((string)$pluginConfiguration->base->identifier);
             $plugin->SetRoot((string)$pluginConfiguration->base->root);
             
             // Add plugin to array
@@ -222,14 +177,5 @@ class PluginManagementService
     private function GetPluginConfiguration($basename)   {
         // Load XML configuration
         return simplexml_load_file(Library::path(Library::PLUGINS . DIRECTORY_SEPARATOR . $basename, self::CONFIG_FILE));
-    }
-
-    /**
-     * Get templates file for given plugin
-     * @param plugin
-     * @return xml file
-     */
-    public static function GetPluginTemplates($plugin)  {
-        return simplexml_load_file(Library::path(Library::PLUGINS . DIRECTORY_SEPARATOR . $plugin->Root, self::TEMPLATES_FILE));
     }
 }

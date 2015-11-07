@@ -49,15 +49,19 @@ class Library	{
     const CORLY_SERVICE_UTILITIES = "corly/service/utilities";
     const CORLY_SERVICE_SETTINGS = "corly/service/settings";
     const CORLY_SERVICE_FACTORY = "corly/service/factory";
-    const CORLY_SERVICE_VISUALIZATION = "corly/service/visualization";    const CORLY_SERVICE_UPDATE = "corly/service/update";    
+    const CORLY_SERVICE_VISUALIZATION = "corly/service/visualization";    
+    const CORLY_SERVICE_UPDATE = "corly/service/update";    
     // - visualization
     const VISUALIZATION = "visualization";
     const VISUALIZATION_DIFFERENCE = "visualization/difference";
     const VISUALIZATION_PROJECT = "visualization/project";
     const VISUALIZATION_SUBMISSION = "visualization/submission";
+    const VISUALIZATION_COMPONENTS = "visualization/components";
     
-    // - visualization components
-    const VISUALIZATION_COMPONENT_GOOGLECHART = "visualization/components/googleChart";
+    // - visualization tools
+    const VISUALIZATION_TOOLS = "visualization/tools";
+    const VISUALIZATION_TOOLS_GCHART = "visualization/tools/googleChart";
+    const VISUALIZATION_TOOLS_SUBLIST = "visualization/tools/submissionOverviewList";
 
     // - entities
     const CORLY_ENTITIES = "corly/entities";
@@ -110,12 +114,28 @@ class Library	{
     }
     
     /**
+     * Include component of given root
+     * @param $componentRoot
+     */
+    public static function usingComponent($componentRoot)   {
+        Library::usingAll(dirname(__FILE__).DIRECTORY_SEPARATOR . Library::VISUALIZATION_COMPONENTS . DIRECTORY_SEPARATOR . $componentRoot);
+    }
+    
+    /**
      * Include all vizualization components
      */
     public static function usingVisualization()    {
         Library::using(Library::VISUALIZATION);
         Library::usingAll(dirname(__FILE__).DIRECTORY_SEPARATOR . Library::VISUALIZATION);
     }
+    
+    /**
+     * Include all visualization tools
+     */
+    public static function usingTools() {
+        Library::usingAll(dirname(__FILE__).DIRECTORY_SEPARATOR . Library::VISUALIZATION_TOOLS);
+    }
+    
     
     /**
      * Get chosen path

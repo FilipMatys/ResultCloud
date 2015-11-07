@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+  <!-- Basic component info -->
+  <base>
+    <name>Difference overview chart</name>
+    <identifier>difference-overview-chart</identifier>
+    <author>Filip Matys</author>
+    <version>v1.0</version>
+    <view-type>1</view-type>
+    <folder>differenceOverviewChart</folder>
+    <js>differenceOverviewChart.js</js>
+    <description>Difference overview chart shows chart of each submission, that was chosen for difference.</description>
+  </base>
+  <!-- Supported plugins -->
+  <supported-plugins>
+    <plugin identifier="*" />
+  </supported-plugins>
+</config>

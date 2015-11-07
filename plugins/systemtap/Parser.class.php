@@ -122,7 +122,8 @@ class Parser
         $result->Strange = 0;
         
         $SubmissionList = SubmissionService::GetFilteredList(QueryParameter::Where('Project', $pValidation->Data->Project));
-        if (!$SubmissionList->IsEmpty())
+        // TODO
+        if (false/**!$SubmissionList->IsEmpty()*/)
         {
             $dbSubmission = $SubmissionList->Last();
             $submission2 = new SubmissionTSE();

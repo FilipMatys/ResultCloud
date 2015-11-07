@@ -18,6 +18,7 @@ class ProjectTSE extends PaginatedTSE
     private $Author;
     private $DateCreated;
     private $Submissions;
+    private $Plugin;
 
     
     /**
@@ -61,6 +62,20 @@ class ProjectTSE extends PaginatedTSE
     }
     
     /**
+     * Get project plugin
+     */
+    public function GetPlugin() {
+        return $this->Plugin;
+    }
+    
+    /**
+     * Set plugin
+     */
+    public function SetPlugin($plugin) {
+        $this->Plugin = $plugin;
+    }
+    
+    /**
      * Get project submissions
      * @return mixed
      */
@@ -93,5 +108,9 @@ class ProjectTSE extends PaginatedTSE
         $this->Name = $dbProject->Name;
         $this->Author = $dbProject->Author;
         $this->DateCreated = $dbProject->DateCreated;
+        
+        // Map plugin
+        $this->Plugin = new stdClass();
+        $this->Plugin->Id = $dbProject->Plugin;
     }
 }

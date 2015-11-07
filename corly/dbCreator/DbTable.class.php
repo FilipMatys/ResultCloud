@@ -76,4 +76,18 @@ class DbTable
         // Return table definition
         return "ALTER TABLE `" . $this->Name . "` {$sProperties};"; 
     }
+    
+    /**
+     * Delete table content
+     */
+    public function GetClearTableDefinition()   {
+        return "DELETE FROM `" . $this->Name . "`";
+    }
+    
+    /**
+     * Drop column from table
+     */
+    public function GetDropColumnDefinition()   {
+        return "ALTER TABLE `" . $this->Name . "` " . $this->Properties[0]->GetDropPropertyDefinition();
+    }
 }

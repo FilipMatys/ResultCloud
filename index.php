@@ -49,12 +49,11 @@ Library::using(Library::UTILITIES, ['DatabaseDriver.php']);
 
     <!-- Visualization directives -->
     <script src="visualization/loaders/DynamicComponentSettingsLoader.js" type="text/javascript"></script>
+    <script src="visualization/loaders/DynamicComponentLoaderTabbed.js" type="text/javascript"></script>
     <script src="visualization/loaders/DynamicComponentLoader.js" type="text/javascript"></script>
-    <script src="visualization/components/submissionList/js/SubmissionList.js" type="text/javascript"></script>
-    <script src="visualization/components/googleChart/js/GoogleChart.js" type="text/javascript"></script>
-    <script src="visualization/components/testCaseList/js/TestCaseList.js" type="text/javascript"></script>
-    <script src="visualization/components/difference/js/DifferenceList.js" type="text/javascript"></script>
-    <script src="visualization/components/multiTable/js/MultiTable.js" type="text/javascript"></script>
+    <script src="visualization/tools/googleChart/js/GoogleChart.js" type="text/javascript"></script>
+    <script src="visualization/tools/submissionOverviewList/js/submissionOverviewList.js" type="text/javascript"></script>
+    <script src="visualization/tools/differenceOverviewList/js/differenceOverviewList.js" type="text/javascript"></script>
     <!-- Load plugins components -->
     <?php IncludeService::JsComponents(); ?>
 

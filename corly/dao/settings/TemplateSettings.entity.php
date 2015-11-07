@@ -9,12 +9,5 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 Library::using(Library::CORLY_DAO_BASE);
 
 class TemplateSettings extends IndexedEntity	{
-	// Project
-	public $Project;
-	// Template type
-	public $Type;
-	// Identifier
-	public $Identifier;
-	// Name
-	public $Name;
+
 }

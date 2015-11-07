@@ -88,7 +88,7 @@ abstract class Database  {
             // Now bind parameters
             call_user_func_array(array($statement, 'bind_param'), $this->refValues($values));
         }
-
+        
         // Execute query
         $statement->execute();
 
@@ -171,7 +171,26 @@ abstract class Database  {
 
         // Get records
         $statement = $this->db->prepare($statementQuery);
-        $statement->bind_param($this->ObjectPropertyParser->getValueType($parameter->Value), $parameter->Value);
+        
+        // Process params
+        if (!is_array($parameter->Value))
+            $statement->bind_param($this->ObjectPropertyParser->getValueType($parameter->Value), $parameter->Value);
+        else {
+            // Get parameters
+            $params = $this->ObjectPropertyParser->getArrayValuesTypes($parameter->Value);
+            
+            // Get values
+            $values = $parameter->Value;
+            
+            array_unshift($values, $params);
+
+            // Now bind parameters
+            call_user_func_array(array($statement, 'bind_param'), $this->refValues($values));    
+        }
+        
+        print_r($this->db->error);
+        
+        // Execute statement
         $statement->execute();
         
         $lResult = new LINQ(ResultParser::parseMultipleResult($statement));
@@ -180,7 +199,22 @@ abstract class Database  {
         if (isset($pagination)) {
             // Create statement
             $statement = $this->db->prepare($this->statements->GetCountStatement()." ".$parameter->Condition);
-            $statement->bind_param($this->ObjectPropertyParser->getValueType($parameter->Value), $parameter->Value);
+            
+            // Process params
+            if (!is_array($parameter->Value))
+                $statement->bind_param($this->ObjectPropertyParser->getValueType($parameter->Value), $parameter->Value);
+            else {
+                // Get parameters
+                $params = $this->ObjectPropertyParser->getArrayValuesTypes($parameter->Value);
+                // Get values
+                $values = $parameter->Value;
+                
+                array_unshift($values, $params);
+    
+                // Now bind parameters
+                call_user_func_array(array($statement, 'bind_param'), $this->refValues($values));    
+            }
+            
             $statement->execute();
 
             // Set number of results without pagination and page

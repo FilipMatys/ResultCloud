@@ -1,0 +1,24 @@
+<div class="card">
+    <div class="card-content">
+        <span class="card-title black-text">Test Cases</span>
+        <div class="end" id="field-block" style="position:relative">
+            <!-- TODO -->
+            <input type="text" placeholder="Filter test cases" />
+        </div>
+
+        <div ng-switch on="View">
+            <div ng-switch-when="List">
+                <div ng-include="'visualization/tools/submissionOverviewList/list.html'"></div>
+            </div>
+            <div ng-switch-when="Grouped">
+                <div ng-include="'visualization/tools/submissionOverviewList/grouped.html'"></div>
+            </div>
+        </div>
+    </div>
+    <div class="card-action">
+        <select id="choose_list_template" class="browser-default" ng-model="View" ng-options="viewType for viewType in ListData.ViewTypes"></select>
+        <ul ng-show="Pages > 1" class="pagination">
+            <li ng-repeat="page in Range(1, Pages)" ng-class="{active: page==Page}"><a ng-click="ChangePage(page)">{{page}}</a></li>
+        </ul>
+    </div>
+</div>

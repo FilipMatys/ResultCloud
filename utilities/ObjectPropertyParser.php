@@ -101,6 +101,18 @@ class ObjectPropertyParser {
     }
     
     /**
+     * Get type of each array value 
+     */
+    public function getArrayValuesTypes($array) {
+        $result = '';
+        foreach ($array as $value)  {
+            $result .= $this->getValueType($value);
+        }
+        
+        return $result;
+    }
+    
+    /**
      * Get value type of given value
      * 
      * @param type $value

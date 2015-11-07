@@ -79,6 +79,22 @@ class PluginService
         // Return final plugin object
         return $plugin;
     }
+    
+    /**
+     * Load plugin as tse entity
+     * @param $plugin
+     * @return $pluginTSE
+     */
+    public function LoadTSE($plugin)   {
+        // Create new plugin tse object
+        $pluginTSE = new PluginTSE(); 
+        
+        // Load plugin from database and map it to tse object
+        $pluginTSE->MapObject(FactoryDao::PluginDao()->Load($plugin));
+        
+        // Return result
+        return $pluginTSE;
+    }
 
     /**
      * Get liveness for plugin

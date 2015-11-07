@@ -18,13 +18,4 @@
     <property name ="CPU_Cores" type="double"></property>
     <property name="RAM_Size" type="varchar" value="63"></property> 
   </entity>
-  <!-- Plugin GUI components -->
-  <components>
-    <component folder="configuration">
-      <file>CPAlien_Configuration.js</file>
-    </component>
-    <component folder="maximum">
-      <file>CPAlien_Maximum.js</file>
-    </component>
-  </components>
 </config>

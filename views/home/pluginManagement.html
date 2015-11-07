@@ -1,35 +1,76 @@
 ﻿<div class="row">
-    <div class="col s12">
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title black-text">Plugin installation</span>
-          <ul class="collection">
-            <li class="collection-item" ng-repeat="plugin in NotInstalled">
-              <span class="title">{{plugin.Name}} {{plugin.Version}}</span>
-              <p>
-                {{plugin.About}} <br />
-                Created by {{plugin.Author}}
-              </p>
-              <a ng-click="InstallPlugin(plugin, $index)" class="secondary-content">Install</a>
-            </li>
-          </ul>
+  <div class="col s12">
+    <div class="card">
+      <div class="tab-nav">
+        <div class="table tab">
+          <div ng-click="showPlugins()" class="cell" ng-class="{active: pluginTab}">
+            <i class="material-icons">settings</i> <span class="tab-title">Plugins</span>
+          </div>
+          <div ng-click="showComponents()" class="cell" ng-class="{active: componentTab}">
+            <i class="material-icons">receipt</i> <span class="tab-title">Components</span>
+          </div>
         </div>
-        <div class="card-action">
-          <a class="btn" ng-click="ScanForPlugins()">Scan for plugins</a>
+        <div class="tab-content card-content">
+          <div class="row">
+            <div class="col s12">
+              <div ng-show="pluginTab">
+                <!-- Plugin installation -->
+                <span class="card-title black-text">Plugin installation</span>
+                <p ng-show="!NotInstalled.length">
+                  All available plugins were already installed.
+                </p>
+                <ul class="collection">
+                  <li class="collection-item" ng-repeat="plugin in NotInstalled">
+                    <span class="title">{{plugin.Name}} {{plugin.Version}}</span>
+                    <p>
+                      {{plugin.About}} <br />
+                      Created by {{plugin.Author}}
+                    </p>
+                    <a ng-click="InstallPlugin(plugin, $index)" class="secondary-content">Install</a>
+                  </li>
+                </ul>
+                <!-- Plugins -->
+                <span class="card-title black-text">Plugins</span>
+                <ul class="collection">
+                  <li class="collection-item" ng-repeat="plugin in Plugins">
+                    <span class="title"><a ui-sref="home.plugin({pluginId: plugin.Id})">{{plugin.Name}} {{plugin.Version}}</a></span>
+                    <p>{{plugin.About}}</p>
+                  </li>
+                </ul>      
+              </div>
+              <div ng-show="componentTab">
+                <div class="row">
+                  <select class="browser-default" ng-options="viewType as viewType.Name for viewType in ViewTypes" ng-model="viewFilter">
+                    <option value="" disabled selected>Filter by view type</option>
+                  </select>
+                </div>
+                <ul class="collection">
+                  <li class="collection-item" ng-repeat="component in Components">
+                    <span class="card-title black-text">{{component.Name}}</span>
+                    <div class="right">
+                      <span ng-show="component.Installed" class="green-text">Installed</span>
+                      <a class="waves-effect waves-teal btn-flat" ng-click="InstallComponent(component)" ng-show="!component.Installed">Install</a>
+                    </div>
+                    <div class="row">
+                      <label>Description</label>
+                      <p>{{component.Description}}</p>
+                    </div>
+                    <div class="row">
+                      <label>Supported plugins:</label>
+                      <p>
+                        <span ng-repeat="plugin in component.SupportedPlugins">{{plugin}}
+                          <span ng-hide="$last">,</span>
+                        </span>
+                      </p>
+                    </div>
+                    <hr>
+                  </li>
+                </ul> 
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col s12">
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title black-text">Plugins</span>
-          <ul class="collection">
-            <li class="collection-item" ng-repeat="plugin in Plugins">
-              <span class="title"><a ui-sref="home.plugin({pluginId: plugin.Id})">{{plugin.Name}} {{plugin.Version}}</a></span>
-              <p>{{plugin.About}}</p>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    </div>  
+  </div>
 </div>

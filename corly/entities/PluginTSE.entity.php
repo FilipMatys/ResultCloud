@@ -49,6 +49,8 @@ class PluginTSE extends PaginatedTSE
      */
     private $Entity;
     
+    private $Identifier;
+    
     /**
      * Components
      * @var mixed
@@ -78,6 +80,10 @@ class PluginTSE extends PaginatedTSE
      */
     public function GetName()   {
         return $this->Name;
+    }
+    
+    public function SetIdentifier($identifier)  {
+        $this->Identifier = $identifier;
     }
     
     /**
@@ -189,6 +195,7 @@ class PluginTSE extends PaginatedTSE
         $plugin->Author = $this->Author;
         $plugin->About = $this->About;
         $plugin->Root = $this->Root;
+        $plugin->Identifier = $this->Identifier;
         
         // Return result
         return $plugin;
@@ -220,6 +227,7 @@ class PluginTSE extends PaginatedTSE
         $plugin->Author = $this->Author;
         $plugin->About = $this->About;
         $plugin->Root = $this->Root;
+        $plugin->Identifier = $this->Identifier;
         
         // Return result
         return $plugin;

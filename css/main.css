@@ -114,6 +114,72 @@ table th {
     text-align: left;
 }
 
+div.table {
+    display: table;
+    width: 100%;
+}
+
+div.table .cell {
+    display: table-cell;
+}
+
+.tab-nav {
+	background: white;
+}	
+
+.tab-nav .table.tab {
+	border-bottom: 1px solid #e6e6e6;
+}
+	
+.tab-nav .table.tab .cell {
+	text-align: center;
+	font-size: 12pt;
+	font-weight: 400;
+	color: #999999;
+	height: 50px;
+	vertical-align: middle;
+    cursor: pointer;
+    text-transform: uppercase;
+}	
+
+.tab-nav .table.tab .cell span.tab-title {
+    display: none;
+}
+
+@media only screen and (min-width: 40.063em)    {
+    .tab-nav .table.tab .cell span.tab-title {
+        display: inline;
+    }    
+}
+
+.tab-nav .card-content p {
+    margin-bottom: 1rem; 
+}
+
+.tab-nav .table.tab .cell .material-icons {
+    position: relative;
+    top: 0.35rem;
+}
+
+.tab-nav .table.tab .cell:last-child {
+    border-right: none;
+}
+
+.tab-nav .table.tab .cell:hover {
+    border-bottom: solid 3px #4db6ac;
+}
+
+.tab-nav .table.tab .cell.active {
+	color: #4db6ac;
+	border-bottom: solid 3px #4db6ac;
+}
+
+.tab-content.card-content hr {
+    border: solid #e6e6e6;
+    border-width: 1px 0 0;
+    height: 0;
+}
+
 /**
     LOADING WINDOW    
 */
@@ -283,9 +349,14 @@ a {
     border-bottom: none;
 }
 
+.card .card-action a.btn,
+.card .card-action a.btn:hover {
+    color: white;
+}
+
 .card .card-action a,
 .card .card-action a:hover {
-    color: white;
+    color: #26a69a;
 }
 
 .collapsible ul {
@@ -321,7 +392,7 @@ ul.breadcrumbs li {
 
 ul.breadcrumbs li a {
     color: #e0f2f1;
-    font-size: 1.2rem;
+    font-size: 1rem;
     padding: 0.75rem 0.37rem;
     display: inline-block;
 }

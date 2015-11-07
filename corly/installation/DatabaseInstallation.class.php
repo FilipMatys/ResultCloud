@@ -53,6 +53,8 @@ class DatabaseInstallation
         $this->CreateTb_Result();
         // Component
         $this->CreateTb_Component();
+        // Component supported plugin
+        $this->CreateTb_ComponentSupportedPlugin();
         // Token
         $this->CreateTb_Token();
         // ImportSession
@@ -84,12 +86,12 @@ class DatabaseInstallation
         // Add id to table
         $tComponent->AddProperty($pId);
         
-        // Set plugin property
-        $pPlugin = new DbProperty('Plugin');
-        $pPlugin->SetType(DbType::Double());
-        $pPlugin->NotNull();
-        // Add id to table
-        $tComponent->AddProperty($pPlugin);
+        // Set Description property
+        $pDescription = new DbProperty('Description');
+        $pDescription->SetType(DbType::LongText());
+        $pDescription->NotNull();
+        // Add Description to table
+        $tComponent->AddProperty($pDescription);
         
         // Set Folder property
         $pFolder = new DbProperty('Folder');
@@ -105,8 +107,59 @@ class DatabaseInstallation
         // Add Filename to table
         $tComponent->AddProperty($pFilename);
         
+        // Set Identifier property
+        $pIdentifier = new DbProperty('Identifier');
+        $pIdentifier->SetType(DbType::Varchar(128));
+        $pIdentifier->NotNull();
+        // Add Identifier to table
+        $tComponent->AddProperty($pIdentifier);
+        
+        // Set ViewType property
+        $pViewType = new DbProperty('ViewType');
+        $pViewType->SetType(DbType::Integer());
+        $pViewType->NotNull();
+        // Add ViewType to table
+        $tComponent->AddProperty($pViewType);
+        
         // Add component to table
         $this->Database->AddTable($tComponent);
+    }
+    
+    /**
+     * Create ComponentSupportedPlugin table
+     * - Id [integer]
+     * - Component [integer]
+     * - PluginIdentifier [double]
+     */
+    private function CreateTb_ComponentSupportedPlugin()    {
+        // Init table
+        $tComponentSupportedPlugin = new DbTable('ComponentSupportedPlugin');
+        
+        // Set id property
+        $pId = new DbProperty('Id');
+        $pId->SetType(DbType::Integer());
+        $pId->NotNull();
+        $pId->PrimaryKey();
+        $pId->AutoIncrement();
+        // Add id to table
+        $tComponentSupportedPlugin->AddProperty($pId);
+        
+        // Set Component property
+        $pComponent = new DbProperty('Component');
+        $pComponent->SetType(DbType::Integer());
+        $pComponent->NotNull();
+        // Add Component to table
+        $tComponentSupportedPlugin->AddProperty($pComponent);
+        
+        // Set PluginIdentifier property
+        $pPluginIdentifier = new DbProperty('PluginIdentifier');
+        $pPluginIdentifier->SetType(DbType::Varchar(256));
+        $pPluginIdentifier->NotNull();
+        // Add PluginIdentifier to table
+        $tComponentSupportedPlugin->AddProperty($pPluginIdentifier);
+        
+        // Add ComponentSupportedPlugin to database
+        $this->Database->AddTable($tComponentSupportedPlugin);
     }
 
     private function CreateTb_UpdateItem() {
@@ -137,6 +190,9 @@ class DatabaseInstallation
      * - Identifier [varchar(255)]
      * - Label [varchar(255)]
      * - Type [double]
+     * - UF [integer]
+     * - Component [double]
+     * - View [integer]
      */
     private function CreateTb_TemplateSettings()    {
         $tTemplateSettings = new DbTable('TemplateSettings');
@@ -157,13 +213,6 @@ class DatabaseInstallation
         // Add project to table
         $tTemplateSettings->AddProperty($pProject);
 
-        // Set Identifier property
-        $pIdentifier = new DbProperty('Identifier');
-        $pIdentifier->SetType(DbType::Varchar(255));
-        $pIdentifier->NotNull();
-        // Add Identifier to table
-        $tTemplateSettings->AddProperty($pIdentifier);
-
         // Set Name property
         $pName = new DbProperty('Name');
         $pName->SetType(DbType::Varchar(255));
@@ -177,6 +226,27 @@ class DatabaseInstallation
         $pType->NotNull();
         // Add type to table
         $tTemplateSettings->AddProperty($pType);
+
+        // Set Usage property
+        $pUF = new DbProperty('UF');
+        $pUF->SetType(DbType::Integer());
+        $pUF->NotNull();
+        // Add usage to table
+        $tTemplateSettings->AddProperty($pUF);
+        
+        // Set Component property
+        $pComponent = new DbProperty('Component');
+        $pComponent->SetType(DbType::Double());
+        $pComponent->NotNull();
+        // Add Component to table
+        $tTemplateSettings->AddProperty($pComponent);
+        
+        // Set View property
+        $pView = new DbProperty('View');
+        $pView->SetType(DbType::Integer());
+        $pView->NotNull();
+        // Add view to table
+        $tTemplateSettings->AddProperty($pView);
 
         // Add template settings to database
         $this->Database->AddTable($tTemplateSettings);
@@ -345,6 +415,8 @@ class DatabaseInstallation
      * - Author [varchar(127)]
      * - Version [varchar(127)]
      * - Root [varchar(127)]
+     * - About
+     * - Identifier 
      */
     private function CreateTb_Plugin()  {
         $tPlugin = new DbTable('Plugin');
@@ -392,6 +464,13 @@ class DatabaseInstallation
         $pAbout->NotNull();
         // Add About to database
         $tPlugin->AddProperty($pAbout);
+        
+        // Set Identifier property
+        $pIdentifier = new DbProperty('Identifier');
+        $pIdentifier->SetType(DbType::Varchar(256));
+        $pIdentifier->NotNull();
+        // Add Identifier to database
+        $tPlugin->AddProperty($pIdentifier);
         
         // Add table to database
         $this->Database->AddTable($tPlugin);

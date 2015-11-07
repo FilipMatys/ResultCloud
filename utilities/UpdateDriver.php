@@ -14,6 +14,8 @@ class UpdateDriver {
 	public $DB;
 	const INSERT_TABLE = 1;
 	const ADD_TO_TABLE = 2;
+	const CLEAR_TABLE = 3;
+	const DROP_FROM_TABLE = 4; 
 
 	function __construct() {
 		DatabaseDriver::connect();
@@ -38,9 +40,28 @@ class UpdateDriver {
 				    $statement->execute();
 				}
 				break;
+				
 			case self::ADD_TO_TABLE:
 				if (!($statement = $this->DB->prepare($Database->GetAdd2TableDefinition()))) {
-					$validation->AddError("Failed to create table: {$Database->GetName()}");
+					$validation->AddError("Failed to update table: {$Database->GetName()}");
+					// Return validation
+					return $validation;
+				}
+				$statement->execute();
+				break;
+			
+			case self::CLEAR_TABLE:
+				if (!($statement = $this->DB->prepare($Database->GetClearTableDefinition())))	{
+					$validation->AddError("Failed to delete table: {$Database->GetName()}");
+					// Return validation
+					return $validation;
+				}
+				$statement->execute();
+				break;
+				
+			case self::DROP_FROM_TABLE:
+				if (!($statement = $this->DB->prepare($Database->GetDropColumnDefinition())))	{
+					$validation->AddError("Failed to delete table: {$Database->GetName()}");
 					// Return validation
 					return $validation;
 				}

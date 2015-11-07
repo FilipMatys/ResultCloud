@@ -30,7 +30,9 @@ class TestCaseService
             
             // Save test case and results
             $testCaseId = FactoryDao::TestCaseDao()->Save($testCase->GetDbObject($categoryId));
+            $start = microtime(true);
             FactoryService::ResultService()->SaveResults($results, $testCaseId);
+            file_put_contents(filename, "TestCase: " . $testCaseId . " with " . count($results) . " results finished saving in " . (microtime(true)-$start) . " seconds\n", FILE_APPEND);   
         }
     }
     

@@ -97,93 +97,6 @@ class SubmissionService
     }
     
     /**
-     * Get view components for given submission
-     * @param mixed $submission 
-     * @return mixed
-     */
-    public function GetViews($submission)   {
-        // Load submission from database
-        $dbSubbmission = FactoryDao::SubmissionDao()->Load($submission);
-        
-        // Initialize validation
-        $validation = new ValidationResult($submission);
-        
-        // Get to the plugin, so the right one is used
-        // Initialize project object
-        $dbProject = new stdClass();
-        $dbProject->Id = $dbSubbmission->Project;
-        // Load project
-        $dbProject = FactoryDao::ProjectDao()->Load($dbProject);
-        
-        // Load plugin execution
-        FactoryService::PluginService()->LoadPlugin($dbProject->Plugin);
-        
-        // Check if visualizer was included
-        if (!class_exists('Visualization'))  {
-            $validation->AddError("Visualization for given plugin was not found");
-            return $validation;
-        }
-        
-        // Process data by plugin
-        $validation = Visualization::GetSubmissionViewComponents();
-        
-        // Return result
-        return $validation;
-    }
-        
-    /**
-     * Get submission detail for visualization
-     * @param mixed $submission 
-     * @return mixed
-     */
-    public function GetDetail($submission, $type,  $meta = null)    {
-        // Load submission from database
-        $dbSubbmission = FactoryDao::SubmissionDao()->Load($submission);
-        
-        // Map database object to TSE object
-        $submission = new SubmissionTSE();
-        $submission->MapDbObject($dbSubbmission);
-        
-        // Load user if set
-        if ($dbSubmission->User != 0)   {
-            $user = new stdClass();
-            $user->Id = $dbSubmission->User;
-            // Load from database
-            $user = FactoryService::UserService()->GetDetail($user);
-            // Assign to submission
-            $submission->SetUser($user);
-        }
-        
-        // Initialize validation
-        $validation = new ValidationResult($submission);
-        
-        // Get to the plugin, so the right one is used
-        // Initialize project object
-        $dbProject = new stdClass();
-        $dbProject->Id = $dbSubbmission->Project;
-        // Load project
-        $dbProject = FactoryDao::ProjectDao()->Load($dbProject);
-        
-        // Load plugin execution
-        FactoryService::PluginService()->LoadPlugin($dbProject->Plugin);
-        
-        // Check if visualizer was included
-        if (!class_exists('Visualization'))  {
-            $validation->AddError("Visualization for given plugin was not found");
-            return $validation;
-        }
-        
-        // Close session so other requests are allowed
-        SessionService::CloseSession();
-        
-        // Process data by plugin
-        $validation = Visualization::VisualizeSubmission($submission, $type, $meta);
-        
-        // Return result
-        return $validation;
-    }
-
-    /**
      * Get filtered list of submissions
      */
     public function GetFilteredList(Parameter $parameter)   {
@@ -319,6 +232,20 @@ class SubmissionService
             PluginServices::DeleteSubmission($dbSubmission);
         }
         FactoryDao::SubmissionDao()->DeleteFilteredList(QueryParameter::Where('Project', $projectId));
+    }
+
+    /**
+     * Load submission as TSE
+     */
+    public function LoadTSE($submission)   {
+        // Prepare entity
+        $submissionTSE = new SubmissionTSE();
+    
+        // Load submission
+        $submissionTSE->MapDbObject(FactoryDao::SubmissionDao()->Load($submission));
+    
+        // Return result
+        return $submissionTSE;
     }
 
     /**

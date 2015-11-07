@@ -1,0 +1,15 @@
+<!-- Dynamic component loader tabbled -->
+
+<!-- HTML -->
+<div class="dynamic-component-loader-tabbed tab-nav">
+	<div class="table tab">
+		<div ng-repeat="component in components" class="cell" ng-class="{active: component.active}">
+			{{component.Name}}
+		</div>
+	</div>
+	<div class="tab-content">
+		<div ng-repeat="component in components">
+			<rc-component-compiler component="component.Identifier"></rc-component-compiler>
+		</div>
+	</div>
+</div>

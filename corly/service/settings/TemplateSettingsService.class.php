@@ -60,9 +60,11 @@ class TemplateSettingsService
         if (!$validation->IsValid)
             return $validation;
 
+        // Get component
+        $component = FactoryService::ComponentService()->GetFilteredList(QueryParameter::Where('Identifier', $identifier))->Single();
+
         // Get template
-        $lTemplateProjectSettings = self::GetFilteredList(QueryParameter::Where('Project', $projectId));
-        $templateSettings = $lTemplateProjectSettings->Where('Identifier', '==', $identifier)->Single();
+        $templateSettings = self::GetFilteredList(QueryParameter::WhereAnd(array('Project', 'Component'), array($projectId, $component->Id)))->Single();
 
         // Init validation
         $validation = new ValidationResult($templateSettings);
@@ -82,40 +84,100 @@ class TemplateSettingsService
      * @param project to initialize setting for
      */
     public function InitProjectSettings($project)   {
-        // Get templates file
-        $templatesFile = PluginManagementService::GetPluginTemplates($project->Plugin);
+        // Init general settings
+        $this->InitGeneralSettings($project);
+        
+        // Init components settings
+        $this->InitProjectComponents($project);
+    }
+    
+    /**
+     * Create component settings
+     */
+    private function CreateComponentSettingsItems($templateSetting, $templates) {
 
-        // Create templates
-        foreach ($templatesFile as $template) {
-            // Create new template
-            $templateSettings = new TemplateSettings();
-
+        if (!$templates)
+            return;
+        
+        // Save each item
+        foreach ($templates->children() as $template) {
+            // Create new item
+            $templateSettingsItem = new TemplateSettingsItem();
             // Assign values
-            $templateSettings->Project = $project->Id;
-            $templateSettings->Type = (int)$template['type'];
-            $templateSettings->Name = (string)$template['name'];
-            $templateSettings->Identifier = (string)$template['identifier'];
-
-            // Save template
-            $templateSettings->Id = FactoryDao::TemplateSettingsDao()->Save($templateSettings);
-
-            // Save items
-            foreach ($template->items->item as $item) {
-                // Create new item
-                $templateSettingsItem = new TemplateSettingsItem();
-
-                // Assign values
-                $templateSettingsItem->Template = $templateSettings->Id;
-                $templateSettingsItem->Label = (string)$item['label'];
-                $templateSettingsItem->Identifier = (string)$item['identifier'];
-                $templateSettingsItem->Value = (string)$item['default'];
-                $templateSettingsItem->Type = (int)$item['type'];
-                $templateSettingsItem->Required = 1 ? (string)$item['required'] === 'true' : 0; 
-
-                // Save item
-                FactoryDao::TemplateSettingsItemDao()->Save($templateSettingsItem);
-            }
+            $templateSettingsItem->Template = $templateSetting->Id;
+            $templateSettingsItem->Label = (string)$template['label'];
+            $templateSettingsItem->Identifier = (string)$template['identifier'];
+            $templateSettingsItem->Value = (string)$template['default'];
+            $templateSettingsItem->Type = (int)$template['type'];
+            $templateSettingsItem->Required = 1 ? (string)$template['required'] === 'true' : 0; 
+            
+            // Save item
+            FactoryDao::TemplateSettingsItemDao()->Save($templateSettingsItem);
         }
+    }
+    
+    /**
+     * Create settings for given component
+     */
+    private function CreateComponentSettings($project, $component)  {
+        // Create new template
+        $templateSettings = new TemplateSettings();
+        
+        // get component meta
+        $meta = FactoryService::ComponentService()->GetComponentMetadata($component, array('base', 'setting-templates'));
+        
+        // Assign values
+        $templateSettings->Project = $project->Id;
+        $templateSettings->Name = (string)$meta[0]->name;
+        $templateSettings->UF = 1;
+        $templateSettings->Component = $component->Id;
+        $templateSettings->View = $component->ViewType;
+        $templateSettings->Type = TemplateSettingsType::COMPONENT;
+        
+        // Save template
+        $templateSettings->Id = FactoryDao::TemplateSettingsDao()->Save($templateSettings);
+        // Save template items
+        $this->CreateComponentSettingsItems($templateSettings, $meta[1]);
+       
+        // If view type is project, than save for public as well
+        if ($component->ViewType == ViewType::PROJECT)  {
+            // Set dashboard view
+            unset($templateSettings->Id);
+            $templateSettings->View = ViewType::DASHBOARD;
+            
+            // Save
+            $templateSettings->Id = FactoryDao::TemplateSettingsDao()->Save($templateSettings);
+            
+            // Save template items
+            $this->CreateComponentSettingsItems($templateSettings, $meta[1]);
+        }
+    }
+    
+    /**
+     * Update given project with new component
+     */
+    public function UpdateProjectSettings($project, $component) {
+        $this->CreateComponentSettings($project, $component);
+    }
+    
+    /**
+     * Initialize components, that support this project
+     */
+    private function InitProjectComponents($project)    {
+        // Get components, that suppport this project
+        $components = FactoryService::ComponentService()->GetSupportedByPlugin($project->Plugin);
+        
+        // Create template settings for each component
+        foreach ($components as $component) {
+            $this->CreateComponentSettings($project, $component);
+        }
+    }
+    
+    /**
+     * Initialize general settings
+     */
+    private function InitGeneralSettings($project)  {
+        
     }
 
     /**
@@ -137,6 +199,11 @@ class TemplateSettingsService
              for ($index = 0; $index < count($templateSetting->Items); $index++)    {
                 $templateSetting->Items[$index] = $this->ConvertToInputType($templateSetting->Items[$index]);
              }
+             
+             // Load component for each template
+             $component = new stdClass();
+             $component->Id = $templateSetting->Component; 
+             $templateSetting->Component = FactoryDao::ComponentDao()->Load($component);
          }
 
          // Return result
@@ -177,6 +244,11 @@ class TemplateSettingsService
             foreach ($templateSetting->Items as $templateSettingItem) {
                 FactoryDao::TemplateSettingsItemDao()->Save($templateSettingItem);
             }
+            
+            // Remove references
+            unset($templateSetting->Component);
+            unset($templateSetting->Items);
+            FactoryDao::TemplateSettingsDao()->Save($templateSetting);
         }
 
         // Return validation

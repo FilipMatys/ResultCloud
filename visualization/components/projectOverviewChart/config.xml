@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+  <!-- Basic component info -->
+  <base>
+    <name>Project overview chart</name>
+    <identifier>project-overview-chart</identifier>
+    <author>Filip Matys</author>
+    <version>v1.0</version>
+    <view-type>2</view-type>
+    <folder>projectOverviewChart</folder>
+    <js>projectOverviewChart.js</js>
+    <description>Overview chart that summarizes last submissions.</description>
+  </base>
+  <!-- Supported plugins -->
+  <supported-plugins>
+    <plugin identifier="*" />
+  </supported-plugins>
+  <!-- Template settings -->
+  <setting-templates>
+    <template identifier="submissions-number" label="Number of submissions showed" type="1" default="4" required="true"></template>
+  </setting-templates>
+</config>

@@ -6,6 +6,7 @@
     <author>Filip Matys</author>
     <version>v1.0</version>
     <root>systemtap</root>
+    <identifier>dejagnu-summary</identifier>
     <about>SystemTap test results parser</about>
   </base>
   <!-- Plugin entity -->
@@ -17,13 +18,4 @@
     <property name="Distro" type="varchar" value="255"></property>
     <property name="SElinux" type="varchar" value="31"></property>
   </entity>
-  <!-- Plugin GUI components -->
-  <components>
-    <component folder="configuration">
-      <file>SystemTAP_ConfigurationView.js</file>
-    </component>
-    <component folder="diffConfiguration">
-      <file>SystemTAP_DiffConfigurationView.js</file>
-    </component>
-  </components>
 </config>

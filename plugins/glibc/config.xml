@@ -8,10 +8,4 @@
     <root>glibc</root>
     <about>Parses errors appearing during make attempts.</about>
   </base>
-  <!-- Plugin GUI components -->
-  <components>
-    <component folder="diffSummary">
-      <file>GLIBC_DiffSummary.js</file>
-    </component>
-  </components>
 </config>

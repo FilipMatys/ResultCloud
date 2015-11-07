@@ -18,7 +18,9 @@ class PluginManagementController
 {
     // Method constants
     const UNINSTALLED = "UNINSTALLED";
-    const INSTALL = "INSTALL";
+    const INSTALLP = "INSTALLP";
+    const INSTALLC = "INSTALLC";
+    const COMPONENTS = "COMPONENTS";
     
     /**
      * Install plugin
@@ -35,6 +37,20 @@ class PluginManagementController
      */
     public function Uninstalled() {
         return FactoryService::PluginManagementService()->GetNotInstalledPlugins();
+    }
+    
+    /**
+     * Get list of all components
+     */
+    public function Components()    {
+        return FactoryService::ComponentService()->GetComponents();
+    }
+    
+    /**
+     * Install component
+     */
+    public function InstallComponent($component)    {
+        return FactoryService::ComponentService()->Install($component);
     }
 }
 
@@ -53,8 +69,16 @@ if (isset($_GET["method"]))	{
 			$result = $PluginManagementController->Uninstalled();
 			break;
 
-        case PluginManagementController::INSTALL:
+        case PluginManagementController::INSTALLP:
             $result = $PluginManagementController->Install($data);
+            break;
+            
+        case PluginManagementController::COMPONENTS:
+            $result = $PluginManagementController->Components();
+            break;
+            
+        case PluginManagementController::INSTALLC:
+            $result = $PluginManagementController->InstallComponent($data);
             break;
             
 		default:

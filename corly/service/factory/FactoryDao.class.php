@@ -104,6 +104,14 @@ class FactoryDao extends Factory	{
 	public static function &ComponentDao()	{
 		return self::GetFactory('ComponentDao');
 	}
+	
+	/**
+	 * Get ComponentSupportedPluginDao
+	 * @return ComponentSupportedPluginDao
+	 */
+	public static function &ComponentSupportedPluginDao()	{
+		return self::GetFactory('ComponentSupportedPluginDao');
+	}
 }
 
 // Initialize factory service

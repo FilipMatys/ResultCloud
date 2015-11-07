@@ -95,10 +95,23 @@ application.factory('PluginManagementService', function ($http) {
         install: function (plugin) {
             return $http({
                 method: 'POST',
-                url: 'api/PluginManagementController.class.php?method=INSTALL',
+                url: 'api/PluginManagementController.class.php?method=INSTALLP',
                 data: plugin
             })
-        }
+        },
+        components: function () {
+            return $http({
+                method: 'GET',
+                url: 'api/PluginManagementController.class.php?method=COMPONENTS'
+            })
+        },
+        installComponent: function (component) {
+            return $http({
+                method: 'POST',
+                url: 'api/PluginManagementController.class.php?method=INSTALLC',
+                data: component
+            })
+        },
     }
 });
 

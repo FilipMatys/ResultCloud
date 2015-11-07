@@ -11,6 +11,7 @@ application.run(function($rootScope, $timeout)	{
 			$(".button-collapse").sideNav();
 			$('.collapsible').collapsible();
 			$('.dropdown-button').dropdown();
+			$('.tooltipped').tooltip({delay: 50});
 			$('select').material_select();
 		}, 500);
 	})

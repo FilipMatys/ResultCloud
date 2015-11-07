@@ -1,80 +1,63 @@
 <div class="card">
-    <div class="card-content">
-<div ng-if="(templates | filter:{Type:2}).length > 0">
-    <div class="row">
-        <div class="col s12">
-            <h1><span>Project detail components</span></h1>
-        </div>
+  <div class="tab-nav">
+    <div class="table tab">
+      <div ng-click="setActiveTab(0, 9)" class="cell" ng-class="{active: settings.View==9}">
+        <i class="material-icons">settings</i> <span class="tab-title">General</span>
+      </div>
+      <div ng-click="setActiveTab(1, 2)" class="cell" ng-class="{active: settings.View==2}">
+        <i class="material-icons">receipt</i> <span class="tab-title">Project</span>
+      </div>
+      <div ng-click="setActiveTab(1, 0)" class="cell" ng-class="{active: settings.View==0}">
+        <i class="material-icons">view_list</i> <span class="tab-title">Submission</span>
+      </div>
+      <div ng-click="setActiveTab(1, 1)" class="cell" ng-class="{active: settings.View==1}">
+        <i class="material-icons">call_split</i> <span class="tab-title">Difference</span>
+      </div>
+      <div ng-click="setActiveTab(1, 3)" class="cell" ng-class="{active: settings.View==3}">
+        <i class="material-icons">pageview</i> <span class="tab-title">Public</span>
+      </div>
     </div>
-    <div class="row" ng-repeat="template in templates | filter:{Type:2}">
+    <div class="tab-content card-content">
+      <div class="row">
         <div class="col s12">
-            <h2>{{template.Name}}</h2>
-        </div>
-        <div class="col s12" ng-repeat="item in template.Items">
+          <div ng-repeat="template in templates | filter:{Type:settings.Type, View:settings.View}">
+            <span class="card-title black-text">{{template.Name}}</span>
+            <p>
+              <!-- Use flag -->
+              <input type="checkbox" class="filled-in" id="filled-in-box{{$index}}" ng-checked="template.UF" ng-model="template.UF" />
+              <label for="filled-in-box{{$index}}">Use this component</label>
+            </p>
+            <!-- Component description -->
             <div class="row">
-                <div class="col s12">
-                    <label>{{item.Label}}</label>
-                    <textarea ng-if="item.Type == 2" ng-model="item.Value"></textarea>
-                    <input ng-if="item.Type == 0" type="text" ng-model="item.Value" />
-                    <input ng-if="item.Type == 3" type="date" ng-model="item.Value" />
-                    <input ng-if="item.Type == 1" type="number" ng-model="item.Value" />
-                    <input ng-if="item.Type == 4" type="checkbox" ng-model="item.Value" />
-                </div>
+              <label>Description</label>
+              <p>{{template.Component.Description}}</p>
             </div>
-        </div>
-    </div>
-</div>
-<div ng-if="(templates | filter:{Type:0}).length > 0">
-    <div class="row">
-        <div class="col s12">
-            <h1><span>Submission detail components</span></h1>
-        </div>
-    </div>
-    <div class="row" ng-repeat="template in templates | filter:{Type:0}">
-        <div class="col s12">
-            <h2>{{template.Name}}</h2>
-        </div>
-        <div class="col s12" ng-repeat="item in template.Items">
-            <div class="row">
-                <div class="col s12">
-                    <label>{{item.Label}}</label>
-                    <textarea ng-if="item.Type == 2" ng-model="item.Value"></textarea>
-                    <input ng-if="item.Type == 0" type="text" ng-model="item.Value" />
-                    <input ng-if="item.Type == 3" type="date" ng-model="item.Value" />
-                    <input ng-if="item.Type == 1" type="number" ng-model="item.Value" />
-                    <input ng-if="item.Type == 4" type="checkbox" ng-model="item.Value" />
-                </div>
+            
+            <!-- Settings valid when component is active -->
+            <div ng-show="template.UF">
+              <!-- Component name -->
+              <div class="row">
+                <label for="component-name{{$index}}">Component name</label>
+                <input id="component-name{{$index}}" ng-model="template.Name" type="text">
+              </div>
+              <!-- Component items -->
+              <div ng-repeat="item in template.Items" class="row">
+                  <label>{{item.Label}}</label>
+                  <textarea ng-if="item.Type == 2" ng-model="item.Value"></textarea>
+                  <input ng-if="item.Type == 0" type="text" ng-model="item.Value" />
+                  <input ng-if="item.Type == 3" type="date" ng-model="item.Value" />
+                  <input ng-if="item.Type == 1" type="number" ng-model="item.Value" />
+                  <input ng-if="item.Type == 4" type="checkbox" ng-model="item.Value" />
+              </div>
             </div>
+            <hr ng-hide="$last">
+          </div>
         </div>
+      </div>
     </div>
-</div>
-
-<div ng-if="(templates | filter:{Type:1}).length > 0">
-    <div class="row">
-        <div class="col s12">
-            <h1><span>Difference components</span></h1>
-        </div>
+    <div class="card-action">
+      <a class="btn" ng-click="Save()">Save</a>
+      <a ng-click="Reset()">Reset changes</a>
     </div>
-    <div class="row" ng-repeat="template in templates | filter:{Type:1}">
-        <div class="col s12">
-            <h2>{{template.Name}}</h2>
-        </div>
-        <div class="col s12" ng-repeat="item in template.Items">
-            <div class="row">
-                <div class="col s12">
-                    <label>{{item.Label}}</label>
-                        <textarea ng-if="item.Type == 2" ng-model="item.Value"></textarea>
-                        <input ng-if="item.Type == 0" type="text" ng-model="item.Value" />
-                        <input ng-if="item.Type == 3" type="date" ng-model="item.Value" />
-                        <input ng-if="item.Type == 1" type="number" ng-model="item.Value" />
-                        <input ng-if="item.Type == 4" type="checkbox" ng-model="item.Value" />
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-<div class="card-action">
-  <a class="btn" ng-click="Save()" ui-sref="home.plugin-management">Save</a>
-</div>
+  </div>
 </div>

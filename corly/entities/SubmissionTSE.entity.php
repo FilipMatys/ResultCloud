@@ -86,6 +86,23 @@ class SubmissionTSE extends PaginatedTSE
     }
     
     /**
+     * Get project
+     * @return mixed project
+     */
+    public function GetProject()    {
+        return $this->Project;
+    }
+    
+    /**
+     * Set project
+     * @param mixed project
+     */
+    public function SetProject($project)    {
+        $this->Project = $project;
+    }
+    
+    
+    /**
      * Get categories
      */
     public function &GetCategories() {
@@ -164,6 +181,10 @@ class SubmissionTSE extends PaginatedTSE
         $this->Strange = $dbSubmission->Strange;
         $this->ProjectId = $dbSubmission->Project;
         $this->User = $dbSubmission->User;
+        
+        // Map project
+        $this->Project = new stdClass();
+        $this->Project->Id = $dbSubmission->Project;
 
     }
     

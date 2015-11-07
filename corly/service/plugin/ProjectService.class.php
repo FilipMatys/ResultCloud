@@ -8,7 +8,7 @@ Library::using(Library::CORLY_SERVICE_SETTINGS);
 Library::using(Library::CORLY_ENTITIES);
 Library::using(Library::UTILITIES);
 
-Library::using(Library::VISUALIZATION_COMPONENT_GOOGLECHART);
+Library::using(Library::VISUALIZATION_TOOLS_GCHART);
 
 Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryService.class.php']);
 Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryDao.class.php']);
@@ -72,95 +72,21 @@ class ProjectService
         }
 
         // Return validation
-        return$validation;
+        return $validation;
     }
     
     /**
-     * Get views supported by plugin
-     * JFI:Scalable for Project views selection
-     * @param mixed $project 
-     * @return mixed
+     * Load project as TSE
      */
-    public function GetViews($project)  {
-        // Load project from database
-        $dbProject = FactoryDao::ProjectDao()->Load($project);
-        
-        // Load plugin
-        FactoryService::PluginService()->LoadPlugin($dbProject->Plugin);
-        
-        // Initialize validation
-        $validation = new ValidationResult($project);
-        
-        // Check if visualization was included
-        if (!class_exists('Visualization'))  {
-            $validation->AddError("Visualization for given plugin was not found");
-            return $validation;
-        }
-        
-        // Load plugin views
-        return Visualization::GetProjectViewComponents();
-    }
+    public function LoadTSE($project)   {
+        // Prepare entity
+        $projectTSE = new ProjectTSE();
     
-    /**
-     * Get difference view components for given submission
-     * @param mixed $submission 
-     * @return mixed
-     */
-    public function GetDiffViews($project)   {
-        // Load project from database
-
-        $dbProject = FactoryDao::ProjectDao()->Load($project);
-        
-        // Load plugin
-
-        FactoryService::PluginService()->LoadPlugin($dbProject->Plugin);
-        
-        // Initialize validation
-        $validation = new ValidationResult($project);
-        
-        // Check if visualization was included
-        if (!class_exists('Visualization'))  {
-            $validation->AddError("Visualization for given plugin was not found");
-            return $validation;
-        }
-        
-        // Process data by plugin
-        return Visualization::GetDifferenceViewComponents();
-    }
+        // Load project
+        $projectTSE->MapDbObject(FactoryDao::ProjectDao()->Load($project));
     
-    /**
-     * Load project with all submissions
-     * @param mixed $project 
-     * @return mixed
-     */
-    public function GetDetail($project, $type) {
-        // Load project from database
-
-        $dbProject = FactoryDao::ProjectDao()->Load($project);
-        
-        // Map database object to TSE object
-        $project = new ProjectTSE();
-        $project->MapDbObject($dbProject);
-        
-        // Load plugin
-
-        FactoryService::PluginService()->LoadPlugin($dbProject->Plugin);
-        
-        // Initialize validation
-        $validation = new ValidationResult($project);
-        
-        // Check if visualization was included
-        if (!class_exists('Visualization'))  {
-            $validation->AddError("Visualization for given plugin was not found");
-            return $validation;
-        }
-        
-        // End session to allow other requests
-        SessionService::CloseSession();
-        
-
-        // Process data by plugin
-        return Visualization::VisualizeProject($project, $type);
+        // Return result
+        return $projectTSE;
     }
 
     /**

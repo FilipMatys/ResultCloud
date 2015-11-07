@@ -3,14 +3,31 @@ application.directive('corlyComponentSettingsLoader', function () {
         restrict: 'E',
         templateUrl: 'visualization/loaders/templates/settings.html',
         controller: function ($scope, $stateParams, TemplateSettingsService) {
-		// Load views for current submission
-            TemplateSettingsService.get({
-		Id: $stateParams.projectId
-            })
+		  // Init settings
+          $scope.settings = {
+              Type: 0,
+              View: 9
+          };
+          
+          $scope.setActiveTab = function(stype, sview) {
+              $scope.settings = {
+                  Type: stype,
+                  View: sview
+              }
+          }  
+    
+            // Load settings
+            var loadSettings = function()   {
+                TemplateSettingsService.get({
+                    Id: $stateParams.projectId
+                })
                 .success(function (data, status, headers, config) {
-                    $scope.templates = data;
+                    $scope.templates = angular.copy(data);
+                    $scope.backup = data;
                 });
-
+            }
+    
+            // Save settings
             $scope.Save =  function()   {
                     TemplateSettingsService.save($scope.templates)
                     .success(function (data, status, headers, config) {
@@ -18,6 +35,12 @@ application.directive('corlyComponentSettingsLoader', function () {
                         $scope.ShowStatus('Save settings', data.IsValid, data.Errors);
                     });
             }
+            
+            $scope.Reset = function() {
+                $scope.templates = angular.copy($scope.backup);
+            }
+            
+            loadSettings();
         }
     }
 });

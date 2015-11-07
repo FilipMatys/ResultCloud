@@ -97,6 +97,10 @@ class DbProperty
         
         return "ADD ".$this->GetBasicPropertyDefinition();
     }
+    
+    public function GetDropPropertyDefinition() {
+        return "DROP COLUMN " . $this->Name;
+    }
 
     private function GetBasicPropertyDefinition() {
         $definition = "";

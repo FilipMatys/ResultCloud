@@ -2,12 +2,52 @@
  * Plugin management controller
  */
 application.controller('PluginManagementController', ['$scope', 'PluginService', 'PluginManagementService', function ($scope, PluginService, PluginManagementService) {
-    // Controller variables
+    /**
+     * VARIABLES
+     */
     $scope.Plugins = [];
+    $scope.Components = [];
     $scope.NotInstalled = [];
     $scope.PendingChanges = false;
     $scope.PendingInstallation = [];
-
+    $scope.pluginTab = true;
+    $scope.componentTab = false;
+    
+    $scope.ViewTypes = [
+        {
+            ViewType: '0',
+            Name: 'Submission'
+        },
+        {
+            ViewType: '1',
+            Name: 'Difference'
+        },
+        {
+            ViewType: '2',
+            Name: 'Project'
+        },
+        {
+            ViewType: '',
+            Name: 'All'
+        }
+    ]
+    
+    /**
+     * GUI CONTROLS
+     */
+    $scope.showPlugins = function()    {
+        $scope.pluginTab = true;
+        $scope.componentTab = false;
+    }
+    
+    $scope.showComponents = function()  {
+        $scope.pluginTab = false;
+        $scope.componentTab = true;
+    }
+    
+    /**
+     * DATA LOAD
+     */
 
     // Load plugins
     $scope.FetchPlugins = function () {
@@ -16,23 +56,30 @@ application.controller('PluginManagementController', ['$scope', 'PluginService',
                 $scope.Plugins = data;
             });
     }
-
-    // Fetch plugins
-    $scope.FetchPlugins();
-
-    // Scan for not installed plugins
-    $scope.ScanForPlugins = function () {
-        // Set pending changes
-        $scope.PendingChanges = true;
-        // Scan
-        PluginManagementService.notinstalled()
+    
+    // Load components
+    $scope.FetchComponents = function () {
+        PluginManagementService.components()
             .success(function (data, status, headers, config) {
-                // Set data
-                $scope.NotInstalled = data;
-                $scope.PendingChanges = false;
+                $scope.Components = data;
             });
     }
 
+    // Fetch plugins and components
+    $scope.FetchPlugins();
+    $scope.FetchComponents();
+
+    // Scan
+    PluginManagementService.notinstalled()
+        .success(function (data, status, headers, config) {
+            // Set data
+            $scope.NotInstalled = data;
+        });
+        
+    /**
+     * ACTIONS
+     */
+    
     // Install given plugin
     $scope.InstallPlugin = function (plugin, index) {
         // Set pending changes for plugin
@@ -44,6 +91,16 @@ application.controller('PluginManagementController', ['$scope', 'PluginService',
                 $scope.PendingInstallation[index] = false;
                 $scope.FetchPlugins();
                 $scope.ScanForPlugins();
+            });
+    }
+    
+    // Install component
+    $scope.InstallComponent = function(component)   {
+        // Install
+        PluginManagementService.installComponent(component)
+            .success(function (data, status, headers, config) {
+                // Refresh component list
+                $scope.FetchComponents();
             });
     }
 }]);
