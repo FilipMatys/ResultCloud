@@ -23,7 +23,7 @@ class DatabaseDriver {
 				self::$dbConfig->Data["password"], self::$dbConfig->Data["database"]);
 
 			if (self::$db->connect_errno > 0)   {
-	            die ('Unable to connect to database[' . $this->db->connect_error . ']');
+	            die ('Unable to connect to database[' . self::$db->connect_error . ']');
 	        }
 		}
 	}

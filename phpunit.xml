@@ -1,0 +1,10 @@
+<phpunit bootstrap="./Bootstrap.php" colors="true" convertNoticesToExceptions="false"
+         convertWarningsToExceptions="false">
+  <testsuites>
+    <testsuite name="basic_tests">
+    	<file>/srv/www/corly/Tests/api/ProjectControllerTest.php</file>
+		<file>/srv/www/corly/Tests/api/ImportControllerTest.php</file>
+		<file>/srv/www/corly/Tests/api/SubmissionControllerTest.php</file>
+    </testsuite>
+  </testsuites>
+</phpunit>

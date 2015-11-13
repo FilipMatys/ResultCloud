@@ -1,0 +1,59 @@
+http://result-cloud.org/method/{method_name}.{function_name}?{options}
+[*Warning*] All parameters in this functions are recuired!
+Methods:
+
+- "auth":
+	Functions:
+	
+	- "login" - Sign in user.
+		Parameters: - username - password
+		Return type: JSON string with Token in Result if parameters is valid.
+		Example:
+			Query: /method/auth.login?username=user&password=pass123
+			Result: {"IsValid": true, "Result": {"Token": "31gjd123hfdd1j23d4fh"}}
+
+- "import":
+	Functions:
+
+	- "upload" - Upload full file, or part of file to the server.
+		Parameters: Without Session 	- project - plugin - token_key - file (POST)
+			    With Session	- sessionid - part (current part of file) - file (POST)
+		Return type: JSON string with status of upload.
+		Example: Without session	
+			Query: /method/import.upload?project=1&plugin=1&token_key=31gjd123hfdd1j23d4fh	POST: file
+			Result: {"IsValid": true}
+
+			 With session
+			Query: /method/import.upload?sessionid=hfks843hsi3829fs&part=1	POST: file
+			Result: {"IsValid": true}
+
+	- "start" - Start upload session.
+		Parameters: - projekt - plugin - token_key
+		Return type: JSON string with session id.
+		Example:
+			Query: /method/import.start?project=1&plugin=1&token_key=31gjd123hfdd1j23d4fh
+			Result: {"IsValid": true, "Result": {"SessionId": "hfks843hsi3829fs"}}
+
+	- "end" - End upload session, put together all parts of file and parse it.
+		Parameters: - sessionid
+		Return type: JSON string with status of compile.
+		Example:
+			Query: /method/import.end?sessionid=hfks843hsi3829fs
+			Result: {"IsValid": true}
+
+- "plugins":
+	Functions:
+
+	- "get" - Return all installed plugins.
+		Parameters: none
+		Return type: JSON string with all plugins.
+		Example:
+			Query: /method/plugins.get
+			Result: {"IsValid": true, [{"Id":1,"Name":"Plugin Name","Author":"Author Name","Version":"v1.0","Root":"some_plugin","About":"Plugin description"},{"Id":2,"Name":"Plugin name 2","Author":"Other author","Version":"v1.0","Root":"other_plugin","About":"Some description too."}]}
+
+	- "getProjects" - Return all projects for entered plugin.
+		Parameters: - plugin
+		Return type: JSON string with projects.
+		Example:
+			Query: /method/plugins.getProjects?plugin=1
+			Result: {"IsValid": true, "Result":[{"Id":1,"Name":"Project Name 1","Author":1,"DateCreated":"2015-09-30T19:07:09+02:00","Plugin":1},{"Id":2,"Name":"Project Name 2","Author":1,"DateCreated":"2015-09-30T19:07:19+02:00","Plugin":2}]}

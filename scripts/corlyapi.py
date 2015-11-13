@@ -5,7 +5,7 @@ import requests
 
 
 class CorlyAPI:
-    URL = "http://corly-verifit.rhcloud.com/method/"
+    URL = "http://corly.com/method/"
     token = ""
     isValid = False
     errors = list()
@@ -52,6 +52,15 @@ class CorlyAPI:
         resp = requests.post(request, files=files).json()
 
         return resp
+
+    def get_plugins(self):
+        resp = self.send_request("plugins", "get", {})
+        return self.check_valid(resp)
+
+    def get_projects(self, plugin):
+        resp = self.send_request("plugins", "getProjects", {"plugin": plugin})
+        return self.check_valid(resp)
+
 
     def check_valid(self, resp):
         self.last_response = resp
