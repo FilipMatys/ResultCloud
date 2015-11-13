@@ -1,4 +1,4 @@
-application.controller('HomeController', ['$scope', '$state', 'AuthentizationService', 'UserService', 'InstallationService', function ($scope, $state, AuthentizationService, UserService, InstallationService) {
+application.controller('HomeController', ['$scope', '$state', '$timeout', 'AuthentizationService', 'UserService', 'InstallationService', function ($scope, $state, $timeout, AuthentizationService, UserService, InstallationService) {
     // Init variables
     $scope.user = null;
     $scope.credentials = {};
@@ -27,6 +27,15 @@ application.controller('HomeController', ['$scope', '$state', 'AuthentizationSer
 					$scope.GetCurrentUser();
                     $scope.credentials = {};
                     $scope.CloseModal('login-modal');
+                    
+                    // Reconfigure materialize             
+                    $timeout(function()	{
+                        $(".button-collapse").sideNav();
+                        $('.collapsible').collapsible();
+                        $('.dropdown-button').dropdown();
+                        $('.tooltipped').tooltip({delay: 50});
+                        $('select').material_select();
+                    }, 500);
 				}
 				else	{
 				    $scope.errors = data.Errors;
