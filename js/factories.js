@@ -131,27 +131,6 @@ application.factory('PathService', function ($http) {
 // Submission service
 application.factory('SubmissionService', function ($http) {
     return {
-        get: function (submissionId) {
-            return $http({
-                method: 'POST',
-                url: 'api/SubmissionController.class.php?method=GET',
-                data: submissionId
-            })
-        },
-        difference: function (data) {
-            return $http({
-                method: 'POST',
-                url: 'api/SubmissionController.class.php?method=DIFFERENCE',
-                data: data
-            })
-        },
-        views: function (submissionId) {
-            return $http({
-                method: 'POST',
-                url: 'api/SubmissionController.class.php?method=VIEWS',
-                data: submissionId
-            })
-        },
         recent: function()  {
             return $http({
                 method: 'GET',
@@ -266,20 +245,6 @@ application.factory('ProjectService', ['$http', function ($http) {
             return $http({
                 method: 'POST',
                 url: 'api/ProjectController.class.php?method=GET',
-                data: projectId
-            })
-        },
-        views: function (projectId) {
-            return $http({
-                method: 'POST',
-                url: 'api/ProjectController.class.php?method=VIEWS',
-                data: projectId
-            })
-        },
-        diffviews: function (projectId) {
-            return $http({
-                method: 'POST',
-                url: 'api/ProjectController.class.php?method=DIFFVIEWS',
                 data: projectId
             })
         },

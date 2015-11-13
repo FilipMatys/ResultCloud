@@ -138,19 +138,6 @@ class TemplateSettingsService
         $templateSettings->Id = FactoryDao::TemplateSettingsDao()->Save($templateSettings);
         // Save template items
         $this->CreateComponentSettingsItems($templateSettings, $meta[1]);
-       
-        // If view type is project, than save for public as well
-        if ($component->ViewType == ViewType::PROJECT)  {
-            // Set dashboard view
-            unset($templateSettings->Id);
-            $templateSettings->View = ViewType::DASHBOARD;
-            
-            // Save
-            $templateSettings->Id = FactoryDao::TemplateSettingsDao()->Save($templateSettings);
-            
-            // Save template items
-            $this->CreateComponentSettingsItems($templateSettings, $meta[1]);
-        }
     }
     
     /**

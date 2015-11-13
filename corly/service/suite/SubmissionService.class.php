@@ -43,58 +43,6 @@ class SubmissionService
         return $validation;
     }
     
-    /**
-     * Get difference of given submissions 
-     * @param mixed $submissions 
-     * @return mixed
-     */
-    public function Difference($submissions, $project, $type, $meta)    {
-        // Initialize validation
-        $validation = new ValidationResult($submissions);
-        
-        // Load plugin execution
-        $dbProject = FactoryDao::ProjectDao()->Load($project);
-        FactoryService::PluginService()->LoadPlugin($dbProject->Plugin);
-        
-        // Check if visualizer was included
-        if (!class_exists('Visualization'))  {
-            $validation->AddError("Visualization for given plugin was not found");
-            return $validation;
-        }
-        
-        // Close session so other requests are allowed
-        SessionService::CloseSession();
-        
-        // Create array of submissions to pass to visualizer
-        $tseSubmissions = array();
-        foreach ($submissions as $submission)   {
-            // Load submission
-            $dbSubmission = FactoryDao::SubmissionDao()->Load($submission);
-            
-            // Create new TSE entity
-            $tseSubmission = new SubmissionTSE();
-            $tseSubmission->MapDbObject($dbSubmission);
-            
-            // Load user if set
-            if ($dbSubmission->User != 0)   {
-                $user = new stdClass();
-                $user->Id = $dbSubmission->User;
-                // Load from database
-                $user = FactoryService::UserService()->GetDetail($user);
-                // Assign to submission
-                $tseSubmission->SetUser($user);
-            }
-            
-            // Add submission to list
-            $tseSubmissions[] = $tseSubmission;
-        }
-        
-        // Visualize difference
-        $validation = Visualization::VisualizeDifference($tseSubmissions, $type, $meta);
-        
-        // Return validation result with data
-        return $validation;
-    }
     
     /**
      * Get filtered list of submissions

@@ -22,8 +22,6 @@ class ProjectController
     const PLUGIN = "PLUGIN";
     const GET = "GET";
     const SAVE = "SAVE";
-    const VIEWS = "VIEWS";
-    const DIFFVIEWS = "DIFFVIEWS";
     const CLEAR = "CLEAR";
     const DELETE = "DELETE";
     const DELETE_SUBMISSION = "DELETE_SUBMISSION";
@@ -54,34 +52,6 @@ class ProjectController
         return FactoryService::ProjectService()->GetList()->ToList();
     }
     
-    /**
-     * Load views for given project/plugin
-     * @param mixed $projectId 
-     * @return array $views
-     */
-    public function Views($projectId) {
-        // Initialize object
-        $project = new stdClass();
-        $project->Id = $projectId;
-        
-        // Load views
-        return FactoryService::ProjectService()->GetViews($project);
-    }
-    
-    /**
-     * Load difference views for given project
-     * @param mixed $projecId 
-     * @return mixed
-     */
-    public function DiffViews($projectId)    {
-        // Initialize object
-        $project = new stdClass();
-        $project->Id = $projectId;
-        
-        // Load views
-        return FactoryService::ProjectService()->GetDiffViews($project);
-    }
-
     /**
      * Clear given project
      * @param mixed $projecId 
@@ -166,13 +136,6 @@ if (isset($_GET["method"]))	{
             $result = $ProjectController->Get($data);
             break;
             
-        case ProjectController::VIEWS:
-            $result = $ProjectController->Views($data);
-            break;
-            
-        case ProjectController::DIFFVIEWS:
-            $result = $ProjectController->DiffViews($data);
-            break;
         case ProjectController::CLEAR:
             $result = $ProjectController->Clear($data);
             break;

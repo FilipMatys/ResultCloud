@@ -18,63 +18,7 @@ Library::using(Library::UTILITIES);
 class SubmissionController
 {
     // Method constants
-    const GET = "GET";
-    const DIFFERENCE = "DIFFERENCE";
-    const VIEWS = "VIEWS";
     const RECENT = "RECENT";
-    
-    /**
-     * Get project 
-     * @param mixed $projectId 
-     * @return mixed
-     */
-    public function Get($request) {
-        $submission = new stdClass();
-        $submission->Id = $request->ItemId;
-        // Get project detail
-        return FactoryService::SubmissionService()->GetDetail($submission, $request->Type, $request->Meta);
-    }
-    
-    /**
-     * Get difference
-     * @param mixed $data 
-     * @return mixed
-     */
-    public function Difference($request)   {
-        // Get submission ids
-        $submissionIds = explode("&", $request->Submissions);
-        
-        // Initialize array for submissions
-        $submissions = array();
-        foreach ($submissionIds as $submissionId) {
-            // Init object
-            $submission = new stdClass();
-            $submission->Id = $submissionId;
-            // Add object to array
-            $submissions[] = $submission;
-        }
-        
-        // Prepare project
-        $project = new stdClass();
-        $project->Id = $request->Project;
-        
-        // Get result
-        return FactoryService::SubmissionService()->Difference($submissions, $project, $request->Type, $request->Meta);
-    }
-    
-    /**
-     * Get views for submission
-     * @param mixed $submissionId 
-     * @return mixed
-     */
-    public function Views($submissionId) {
-        // Initialize object
-        $submission = new stdClass();
-        $submission->Id = $submissionId;
-        
-        // Load views
-        return FactoryService::SubmissionService()->GetViews($submission);
-    }
 
     /**
      * Get recent submissions
@@ -97,18 +41,6 @@ if (isset($_GET["method"]))	{
 	$SubmissionController = new SubmissionController();
 
 	switch ($_GET["method"]) {
-        case SubmissionController::GET:
-            $result = $SubmissionController->Get($data);
-            break;
-            
-        case SubmissionController::DIFFERENCE:
-            $result = $SubmissionController->Difference($data);
-            break;
-            
-        case SubmissionController::VIEWS:
-            $result = $SubmissionController->Views($data);
-            break;
-
         case SubmissionController::RECENT:
             $result = $SubmissionController->Recent();
             break;
