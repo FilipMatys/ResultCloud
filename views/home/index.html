@@ -6,20 +6,22 @@
                 <a data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a ui-sref="home.dashboard"><i class="material-icons">dashboard</i></a></li>
-                    <li><a ui-sref="home.import" ><i class="material-icons">play_for_work</i></a></li>
-                    <li><a ng-click="OpenSettings()"><i class="material-icons">settings</i></a></li>
-                    <li><a ui-sref="home.profile">{{user.Person.Name}}<i class="material-icons right">perm_identity</i></a></li>
-                    <li><a ng-click="Logout()"><i class="material-icons">input</i></a></li>
+                    <li ng-if="user"><a ui-sref="home.import" ><i class="material-icons">play_for_work</i></a></li>
+                    <li ng-if="user"><a ng-click="OpenSettings()"><i class="material-icons">settings</i></a></li>
+                    <li ng-if="user"><a ui-sref="home.profile">{{user.Person.Name}}<i class="material-icons right">perm_identity</i></a></li>
+                    <li ng-if="user"><a ng-click="Logout()"><i class="material-icons">input</i></a></li>
+                    <li ng-if="!user"><a ng-click="LogInModal()">Log In</a></li>
                 </ul>
             </div>
         </div>
     </div>
     <ul id="mobile-demo" class="side-nav">
       <li><a ui-sref="home.dashboard">Dashboard</a></li>
-      <li><a ui-sref="home.import" >Import</a></li>
-      <li><a ng-click="OpenSettings()">Settings</a></li>
-      <li><a ui-sref="home.profile">{{user.Person.Name}}</a></li>
-      <li><a ng-click="Logout()">Logout</a></li>
+      <li ng-if="user"><a ui-sref="home.import" >Import</a></li>
+      <li ng-if="user"><a ng-click="OpenSettings()">Settings</a></li>
+      <li ng-if="user"><a ui-sref="home.profile">{{user.Person.Name}}</a></li>
+      <li ng-if="user"><a ng-click="Logout()">Logout</a></li>
+      <li ng-if="!user"><a ng-click="LogInModal()">Log In</a></li>
     </ul>
 </nav>
 
@@ -35,7 +37,7 @@ $(".side-nav a").click(function() {
 <div ui-view class="content"></div>
 
 <!-- SETTINGS MODAL -->
-<div id="settings_modal" class="modal bottom-sheet">
+<div id="settings-modal" class="modal bottom-sheet">
     <div class="modal-content">
       <h4>Settings</h4>
       <div class="collection">
@@ -59,6 +61,58 @@ $(".side-nav a").click(function() {
         </a>
       </div>
     </div>
+</div>
+
+<!-- LOGIN AND REGISTER MODAL -->
+<div id="login-modal" class="modal">
+  <form ng-if="logInModalForm">
+    <div class="modal-content">
+      <header>
+        <img src="img/logo_card.png">
+        <p>Log in to import and manage results</p>
+      </header>
+      <div class="row">
+        <label for="username">Username</label>
+        <input id="username" ng-model="credentials.Username" type="text" class="validate">
+      </div>
+      <div class="row">
+        <label for="password">Password</label>
+        <input id="password" ng-model="credentials.Password" type="password" class="validate">
+      </div>
+      <p class="err red-text" ng-repeat="error in errors">{{error}}</p>
+      <p class="register-link">Don't have an account? <a ng-click="SwitchToRegistrationForm()">Register here</a></p>
+      <input class="btn modal-action" type="submit" ng-click="AuthorizeCredentials()" value="Log In" />
+      <a ng-click="CloseLogInModal()" class="modal-action waves-effect waves-green btn-flat">Close</a> 
+    </div>
+  </form>
+  <form ng-if="!logInModalForm">
+    <div class="modal-content">
+      <header>
+        <img src="img/logo_card.png">
+        <p>Register</p>
+      </header>
+      <div class="row">
+        <label for="reg_name">Name</label>
+        <input id="reg_name" type="text" ng-model="registration.Person.Name" class="validate" />
+      </div>
+      <div class="row">
+        <label for="reg_username">Username</label>
+        <input id="reg_username" type="text" ng-model="registration.Username" class="validate" />
+      </div>
+      <div class="row">
+        <label for="reg_pswd">Password</label>
+        <input id="reg_pswd" type="password" ng-model="registration.Password" class="validate" />
+      </div>
+      <div class="row">
+        <label for="reg_pswd_check">Password check</label>
+        <input id="reg_pswd_check" type="password" ng-model="registration.PasswordCheck" class="validate" />
+      </div>
+      <p class="err red-text" ng-repeat="error in errors">{{error}}</p>
+      <input class="btn modal-action" type="submit" ng-click="Register()" value="Register" />
+      <a ng-click="SwitchToLogInForm()" class="modal-action waves-effect waves-green btn-flat">Back</a>
+      <a ng-click="CloseLogInModal()" class="modal-action waves-effect waves-green btn-flat">Close</a> 
+    </div>
+  </form>
 </div>
 
 <!-- LOADING MODAL -->

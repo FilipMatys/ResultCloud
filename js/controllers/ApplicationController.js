@@ -19,19 +19,22 @@ application.run(function($rootScope, $timeout)	{
 
 // Keep track of routing and keep non authorized users away
 application.run(['$rootScope', '$location', 'SessionService', function ($rootScope, $location, SessionService) {
-    // Array of routes, that dont require login
-    var routesThatDontRequireAuth = ['/login'];
-    var publicRoutes = '/public';
+    // Array of routes, that do require login
+    var routesThatRequireAuth = ['/import', '/settings', '/project-settings', '/profile'];
 
     // Wait  for location to change
     $rootScope.$on('$stateChangeStart', function (event, next) {
-        // If not login page, check if user is logged
-        if (routesThatDontRequireAuth.indexOf($location.path()) < 0 && $location.path().indexOf(publicRoutes) != 0)   {
+        // Check route
+        if (routesThatRequireAuth.indexOf($location.path()) < 0)   {
+            return;
+        }
+        // If routes requires auth, than check current user
+        else {
             // Check session
             SessionService.check().success(function (data, status, headers, config) {
                 // Check result
                 if (data === "false")
-                    $location.path('/login');
+                    $location.path('/');
             });
         }
     });
@@ -48,15 +51,9 @@ application.config(function($stateProvider, $urlRouterProvider){
 	// Define states
 	$stateProvider
 
-	// Login page
-	.state('login', {
-	    url: '/',
-	    templateUrl: './views/login/index.html',
-	    controller: 'LoginController'
-	})
 	// Home page
 	.state('home', {
-	    url: '/home',
+	    url: '/',
 	    abstract: true,
 	    templateUrl: './views/home/index.html',
 	    controller: 'HomeController'
@@ -69,93 +66,68 @@ application.config(function($stateProvider, $urlRouterProvider){
 	})
     // Import
 	.state('home.import', {
-	    url: '/import',
+	    url: 'import',
 	    templateUrl: './views/home/import.html',
 	    controller: 'ImportController'
 	})
-    // Settings
-	.state('home.settings', {
-	    url: '/settings',
-	    templateUrl: './views/home/settings.html',
-	    controller: 'SettingsController'
-	})
     // Settings - users
 	.state('home.settings-users', {
-	    url: '/settings/users',
+	    url: 'settings/users',
 	    templateUrl: './views/home/settings/users.html',
 	    controller: 'UsersController'
 	})
 	// Settings - release notes
 	.state('home.settings-release-notes', {
-	    url: '/settings/release-notes',
+	    url: 'settings/release-notes',
 	    templateUrl: './views/home/settings/release.html',
 	    controller: 'ReleaseNotesController'
 	})
     // Plugin management
 	.state('home.plugin-management', {
-	    url: '/plugin-management',
+	    url: 'settings/plugin-management',
 	    templateUrl: './views/home/pluginManagement.html',
 	    controller: 'PluginManagementController'
 	})
     // Data overview
 	.state('home.data-overview', {
-	    url: '/data-overview',
+	    url: 'data-overview',
 	    templateUrl: './views/home/dataOverview.html',
 	    controller: 'DataOverviewController'
 	})
     // Plugin detail
     .state('home.plugin', {
-        url: '/plugin-overview/{pluginId}',
+        url: 'plugin-overview/{pluginId}',
         templateUrl: './views/home/plugin.html',
         controller: 'PluginController'
     })
     // Project overview detail
     .state('home.project-overview', {
-        url: '/project/{projectId}',
+        url: 'project/{projectId}',
         templateUrl: './views/home/overview/project.html',
         controller: 'ProjectOverviewController'
     })
     // Project overview detail
     .state('home.project-settings', {
-        url: '/project-settings/{projectId}',
+        url: 'project-settings/{projectId}',
         templateUrl: './views/home/projectSettings.html',
         controller: 'ProjectSettingsController'
     })
     // Submission overview detail
     .state('home.submission-overview', {
-        url: '/project/{projectId}/submission/{submissionId}',
+        url: 'project/{projectId}/submission/{submissionId}',
         templateUrl: './views/home/overview/submission.html',
         controller: 'SubmissionOverviewController'
     })
     // Difference overview detail
     .state('home.difference-overview', {
-        url: '/project/{projectId}/difference/{differenceArray}',
+        url: 'project/{projectId}/difference/{differenceArray}',
         templateUrl: './views/home/overview/difference.html',
         controller: 'DifferenceOverviewController'
     })
     // Profile
 	.state('home.profile', {
-	    url: '/profile',
+	    url: 'profile',
 	    templateUrl: './views/home/profile.html',
 	    controller: 'ProfileController'
 	})
-	// Public page
-	.state('public', {
-	    url: '/public',
-	    abstract: true,
-	    templateUrl: './views/public/index.html',
-	    controller: 'PublicController'
-	})
-	// List of projects
-	.state('public.projects', {
-	    url: '',
-	    templateUrl: './views/public/projects.html',
-	    controller: 'PublicProjectsController'
-	})
-    // Project dashboard
-	.state('public.dashboard', {
-	    url: '/dashboard/{projectId}',
-	    templateUrl: './views/public/dashboard.html',
-	    controller: 'PublicDashboardController'
-	});
 });

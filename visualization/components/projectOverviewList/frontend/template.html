@@ -6,7 +6,7 @@
          <div class="secondary-content">
           <input type="checkbox" class="filled-in" id="checkbox{{$index}}" ng-model="item.Submission.Differ"/>
           <label for="checkbox{{$index}}"></label>
-          <a title="Delete submission" ng-click="DeleteSubmission({submissionId:item.Submission.Id}, {projectId: Request.ItemId})"><i class="material-icons">delete</i></a>
+          <a ng-if="user" title="Delete submission" ng-click="DeleteSubmission({submissionId:item.Submission.Id}, {projectId: Request.ItemId})"><i class="material-icons">delete</i></a>
         </div>
         <span class="title"><a ui-sref="home.submission-overview({projectId: projectId, submissionId:item.Submission.Id})">{{item.Submission.DateTime}}</a></span>
         <p ng-show="item.Submission.User.Person">Imported by {{item.Submission.User.Person.Name}} on {{item.Submission.ImportDateTime | date:"longDate"}}

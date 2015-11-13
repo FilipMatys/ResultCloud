@@ -1,6 +1,9 @@
-application.controller('HomeController', ['$scope', '$state', 'AuthentizationService', 'UserService', function ($scope, $state, AuthentizationService, UserService) {
+application.controller('HomeController', ['$scope', '$state', 'AuthentizationService', 'UserService', 'InstallationService', function ($scope, $state, AuthentizationService, UserService, InstallationService) {
     // Init variables
-    $scope.user = {};
+    $scope.user = null;
+    $scope.credentials = {};
+    $scope.registration = {};
+    $scope.logInModalForm = true;
     $scope.status = {
         errors: [],
         content: "",
@@ -12,19 +15,65 @@ application.controller('HomeController', ['$scope', '$state', 'AuthentizationSer
         // Deauthorize user
         AuthentizationService.deauthorize()
             .success(function (data, status, headers, config) {
-                $scope.user = {};
-                $state.go('login');
+                $scope.user = null;
             });
+    }
+    
+    // Authorize credentials
+	$scope.AuthorizeCredentials = function()	{
+		AuthentizationService.authorize($scope.credentials)
+			.success(function(data, status, headers, config)	{
+				if (data.IsValid == true)	{
+					$scope.GetCurrentUser();
+                    $scope.credentials = {};
+                    $scope.CloseModal('login-modal');
+				}
+				else	{
+				    $scope.errors = data.Errors;
+				}
+			});		
+	}
+    
+    // Register user
+    $scope.Register = function () {
+        InstallationService.register($scope.registration)
+            .success(function (data, status, headers, config) {
+                // Assign errors
+                $scope.errors = data.Errors;
+                
+                // Check if registration was successful
+                if ($scope.errors.length == 0)
+                    $scope.logInModalForm = true;
+                
+            });
+    }
+    
+    $scope.SwitchToRegistrationForm = function()    {
+        $scope.logInModalForm = false;
+    }
+    
+    $scope.SwitchToLogInForm = function()   {
+        $scope.logInModalForm = true;
     }
 
     // Open settings
     $scope.OpenSettings = function()    {
-        $('#settings_modal').openModal();
+        $('#settings-modal').openModal();
+    }
+    
+    // Log in modal
+    $scope.LogInModal = function()  {
+        $scope.logInModalForm = true;
+        $('#login-modal').openModal();
+    }
+    
+    $scope.CloseLogInModal = function ()    {
+        $('#login-modal').closeModal();
     }
 
     // Go to state
     $scope.GoTo = function(dest)    {
-        $('#settings_modal').closeModal();
+        $('#settings-modal').closeModal();
         $state.go(dest);
     }
 
@@ -70,8 +119,15 @@ application.controller('HomeController', ['$scope', '$state', 'AuthentizationSer
     }
 
     // Get current user
-    UserService.current()
+    $scope.GetCurrentUser = function() {
+        UserService.current()
         .success(function (data, status, headers, config) {
-            $scope.user = data;
-        });
+            // Check if user found
+            if (data.Person)
+                $scope.user = data;
+        });       
+    }
+    
+    $scope.GetCurrentUser();
+ 
 }])

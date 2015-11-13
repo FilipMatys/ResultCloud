@@ -9,7 +9,7 @@ Library::using(Library::UTILITIES, ['DatabaseDriver.php']);
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Corly | Web Management Tool</title>
+    <title>ResultCloud | Web Management Tool</title>
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css" />
@@ -41,11 +41,6 @@ Library::using(Library::UTILITIES, ['DatabaseDriver.php']);
     <script src="js/controllers/ProjectSettingsController.js" type="text/javascript"></script>
     <script src="js/controllers/ProjectDashboardController.js" type="text/javascript"></script>
     <script src="js/controllers/ReleaseNotesController.js" type="text/javascript"></script>
-
-    <!-- Public controllers -->
-    <script src="js/controllers/public/PublicController.js" type="text/javascript"></script>
-    <script src="js/controllers/public/PublicProjectsController.js" type="text/javascript"></script>
-    <script src="js/controllers/public/PublicDashboardController.js" type="text/javascript"></script>
 
     <!-- Visualization directives -->
     <script src="visualization/loaders/DynamicComponentSettingsLoader.js" type="text/javascript"></script>

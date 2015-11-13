@@ -28,6 +28,32 @@ nav .brand-logo {
     line-height: 5.5rem;
 }
 
+#login-modal {
+    max-width: 30rem;
+}
+
+#login-modal .row {
+    margin-bottom: 0rem;
+}
+
+#login-modal header,
+#login-modal header * {
+    text-align: center !important;
+}
+
+#login-modal header p {
+    margin-bottom: 1rem;
+}
+
+#login-modal p.register-link {
+    margin-bottom: 2rem;
+}
+
+.modal {
+    overflow-y: visible;
+    max-height: 100%;
+}
+
 div.main-view,
 div.content   {
     min-height: 100%;

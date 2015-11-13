@@ -3,7 +3,7 @@
       <div class="card">
         <div class="card-content">
           <span class="card-title black-text">{{plugin.Name}} {{plugin.Version}}</span>
-            <a ng-click="OpenModal('newProject')" class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">add</i></a>
+            <a ng-if="user" ng-click="OpenModal('newProject')" class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">add</i></a>
             <p>{{plugin.About}}</p>
         </div>
       </div>
@@ -15,9 +15,8 @@
           <ul class="collection">
             <li class="collection-item" ng-repeat="project in plugin.Projects">
               <span class="title"><a ui-sref="home.project-overview({projectId:project.Id})">{{project.Name}}</a></span>
-              <a class='dropdown-button right' data-activates="dropmenu{{$index}}"><i class="material-icons right">more_vert</i></a>
+              <a ng-if="user" class='dropdown-button right' data-activates="dropmenu{{$index}}"><i class="material-icons right">more_vert</i></a>
               <ul id='dropmenu{{$index}}' class='dropdown-content'>
-                <li><a target="_blank" ui-sref="public.dashboard({projectId:project.Id})">Public</a></li>
                 <li><a ui-sref="home.project-settings({projectId:project.Id})">Settings</a></li>
                 <li><a ng-click="ClearProject({projectId:project.Id})">Clear</a></li>
                 <li><a ng-click="DeleteProject({projectId:project.Id})">Delete</a></li>

@@ -15,11 +15,13 @@ class UserService	{
     public function GetCurrent()    {
         // Init user object
         $user = new stdClass();
-        // Get current user id
-        $user->Id = SessionService::GetSession('id');
-        
-        // Load user detail
-        $user = $this->GetDetail($user);
+        // Get current user id if is set
+		if (SessionService::IsSessionSet('id'))	{
+        	$user->Id = SessionService::GetSession('id');
+			
+			// Load user detail
+        	$user = $this->GetDetail($user);
+		}
         
         // Return result
         return $user;
