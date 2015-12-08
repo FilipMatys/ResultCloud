@@ -4,7 +4,7 @@
 /**
  * Test case status
  */
-class SystemTAP_TestCaseStatus {
+class TestCaseStatus {
 	const FIX = 0;
 	const REGRESSION = 1;
 	const STAYS_POSITIVE = 2;

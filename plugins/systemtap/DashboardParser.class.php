@@ -52,7 +52,7 @@ class DashboardParser {
                 $testCase->SetStatus(self::GetTestCaseStatus($testCase));
 
                 // Check status, if neutral, keep going, if not, compare
-                if ($testCase->GetStatus() != SystemTAP_TestCaseStatus::NEUTRAL)
+                if ($testCase->GetStatus() != TestCaseStatus::NEUTRAL)
                     $testCase->SetStatus(self::CompareTwoTestCases($testCase, $prevCategory->GetTestCaseByName($testCase->GetName())));
             }
         }
@@ -73,15 +73,15 @@ class DashboardParser {
             return $new->GetStatus();
 
         // If fix was made
-        if ($new->GetStatus() == SystemTAP_TestCaseStatus::STAYS_POSITIVE) {
+        if ($new->GetStatus() == TestCaseStatus::STAYS_POSITIVE) {
             // Check old one
-            if ($old->GetStatus() == SystemTAP_TestCaseStatus::FIX || $new->GetStatus() == SystemTAP_TestCaseStatus::STAYS_POSITIVE)
-                return SystemTAP_TestCaseStatus::STAYS_POSITIVE;
+            if ($old->GetStatus() == TestCaseStatus::FIX || $new->GetStatus() == TestCaseStatus::STAYS_POSITIVE)
+                return TestCaseStatus::STAYS_POSITIVE;
             else
-                return SystemTAP_TestCaseStatus::FIX;
+                return TestCaseStatus::FIX;
         }
         // Regression
-        else if ($new->GetStatus() == SystemTAP_TestCaseStatus::REGRESSION) {
+        else if ($new->GetStatus() == TestCaseStatus::REGRESSION) {
             // First, get all bad results from each test case
             $oldBadResults = self::GetBadResults($old);
             $newBadResults = self::GetBadResults($new);
@@ -91,21 +91,21 @@ class DashboardParser {
 
             // New errors
             if (count($newDifference) > 0)
-                return SystemTAP_TestCaseStatus::REGRESSION;
+                return TestCaseStatus::REGRESSION;
 
             // Get difference to old one
             $oldDifference = array_diff($oldBadResults, $newBadResults);
 
             // There was more errors than there is now
             if (count($oldDifference) > 0)
-                return SystemTAP_TestCaseStatus::PARTIAL_FIXES;
+                return TestCaseStatus::PARTIAL_FIXES;
 
             // Return stays buggy
-            return SystemTAP_TestCaseStatus::STAYS_BUGGY;
+            return TestCaseStatus::STAYS_BUGGY;
         }
         // Wierd
         else {
-            return SystemTAP_TestCaseStatus::NEUTRAL;
+            return TestCaseStatus::NEUTRAL;
         }
     }
 
@@ -125,8 +125,8 @@ class DashboardParser {
             // Check value
 		switch ($result->GetValue())    {
                 // Catch errors
-                case SystemTAP_StatusValue::ERROR:
-                case SystemTAP_StatusValue::FAIL:
+                case StatusValue::ERROR:
+                case StatusValue::FAIL:
                     $badResults[] = $result->GetKey();
                     break;
 
@@ -170,7 +170,7 @@ class DashboardParser {
      */
     private static function GetTestCaseStatus(TestCaseTSE $testCase)   {
         // Init status to default value
-        $status = SystemTAP_TestCaseStatus::STAYS_POSITIVE;
+        $status = TestCaseStatus::STAYS_POSITIVE;
 
         // Check each result
         $results =$testCase->GetResults();
@@ -180,17 +180,17 @@ class DashboardParser {
 		switch ($result->GetValue())
             {
                 // Neutral result
-		case SystemTAP_StatusValue::UNSUPPORTED:
-                case SystemTAP_StatusValue::UNTESTED:
+		case StatusValue::UNSUPPORTED:
+                case StatusValue::UNTESTED:
                     // Set status to be neutral
-                    $status = SystemTAP_TestCaseStatus::NEUTRAL;
+                    $status = TestCaseStatus::NEUTRAL;
                     break;
 
                 // Fail or error
-                case SystemTAP_StatusValue::ERROR:
-                case SystemTAP_StatusValue::FAIL:
+                case StatusValue::ERROR:
+                case StatusValue::FAIL:
                     // Set status to be fail
-                    return SystemTAP_TestCaseStatus::STAYS_BUGGY;
+                    return TestCaseStatus::STAYS_BUGGY;
 
                 // Not wrong or neutral result
                 default:
