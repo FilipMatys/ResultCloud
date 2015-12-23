@@ -25,6 +25,7 @@ Library::using(Library::UTILITIES, ['DatabaseDriver.php']);
     <!-- Application controllers -->
     <script src="js/controllers/ApplicationController.js" type="text/javascript"></script>
     <script src="js/factories.js" type="text/javascript"></script>
+    <script src="js/controllers/InstallationController.js" type="text/javascript"></script>
     <script src="js/controllers/LoginController.js" type="text/javascript"></script>
     <script src="js/controllers/HomeController.js" type="text/javascript"></script>
     <script src="js/controllers/DashboardController.js" type="text/javascript"></script>

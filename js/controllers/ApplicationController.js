@@ -50,7 +50,12 @@ application.config(function($stateProvider, $urlRouterProvider){
 
 	// Define states
 	$stateProvider
-
+    // Installation page
+	.state('installation', {
+	    url: '/installation',
+	    templateUrl: './views/home/installation.html',
+	    controller: 'InstallationController'
+	})
 	// Home page
 	.state('home', {
 	    url: '/',

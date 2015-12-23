@@ -65,10 +65,13 @@ class InstallationService
         {
             $validation->AddError("Can't insert information into Table");
         }
+        
+        // Create user
+        $this->RegisterUser($data->User);
 
         // Return validation
         $validation->Data = InstallationState::DATABASE_CREATED;
-        $validation->IsValid = false;
+        $validation->IsValid = true;
         return $validation;
     }
     

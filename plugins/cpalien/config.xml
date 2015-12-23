@@ -7,6 +7,7 @@
     <version>v1.0</version>
     <root>cpalien</root>
     <about>CPAlien Forester results parser.</about>
+    <identifier>benchexec-xml</identifier>
   </base>
   <!-- Plugin entity -->
   <entity name="CPAlien_SystemInfo">

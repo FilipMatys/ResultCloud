@@ -9,6 +9,14 @@ application.controller('HomeController', ['$scope', '$state', '$timeout', 'Authe
         content: "",
         success: false
     };
+    
+    // Check if app is installed
+    InstallationService.check()
+        .success(function (data, status, headers, config) {
+                if (!data.Data) {
+                    $state.go('installation');
+                }
+            });
 
     // Logout
     $scope.Logout = function () {

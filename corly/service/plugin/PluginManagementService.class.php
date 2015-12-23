@@ -56,7 +56,6 @@ class PluginManagementService
         // Save plugin
         $pluginValidation = FactoryService::PluginService()->Save($pluginTSE->GetDbObject());
         
-        
         // Return validation
         return $validation;
     }

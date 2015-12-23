@@ -212,6 +212,7 @@ class PluginTSE extends PaginatedTSE
         $this->Author = $plugin->Author;
         $this->Version = $plugin->Version;
         $this->Root = $plugin->Root;
+        $this->Identifier = $plugin->Identifier;
     }
     
     /**

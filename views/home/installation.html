@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col s12">
+        <div class="card">
+        <div class="card-content black-text">
+            <span class="card-title black-text">Thank You for downloading ResultCloud!</span>
+            <p>There are few simple steps we need You to do to make it all work.</p>
+            <br>
+            <div class="row"> 
+                <p><b>MySqL credentials</b></p>
+                <form> 
+                    <input type="text" ng-model="installation.Hostname" placeholder="Hostname" /> 
+                    <input type="text" ng-model="installation.Username" placeholder="Username" /> 
+                    <input type="password" ng-model="installation.Password" placeholder="Password" /> 
+                </form> 
+            </div> 
+            
+            
+            <div class="row">
+                <p><b>Site administrator</b></p>
+                <form> 
+                    <input type="text" ng-model="installation.User.Person.Name" placeholder="Name" /> 
+                    <input type="text" ng-model="installation.User.Username" placeholder="Username" /> 
+                    <input type="password" ng-model="installation.User.Password" placeholder="Password" /> 
+                    <input type="password" ng-model="installation.User.PasswordCheck" placeholder="Password check" /> 
+                </form>
+            </div> 
+           
+            <p>Submit above data and if everything goes well, You will be redirected to ResultCloud home page.</p>
+        </div>
+        <div class="card-action">
+            <a ng-click="install()">Install</a>
+        </div>
+        </div>
+    </div>
+</div>

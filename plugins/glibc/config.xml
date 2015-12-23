@@ -7,5 +7,6 @@
     <version>v1.0</version>
     <root>glibc</root>
     <about>Parses errors appearing during make attempts.</about>
+    <identifier>glibc-make</identifier>
   </base>
 </config>
