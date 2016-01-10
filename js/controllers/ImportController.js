@@ -2,6 +2,8 @@
     // Init variables
     $scope.selectedFile = {};
     $scope.import = {};
+    $scope.import.Project = {};
+    $scope.showGitHash = false;
     $scope.valid = true;
     $scope.plugins = [];
     $scope.projects = [];
@@ -16,7 +18,7 @@
     // Get projects for chosen plugin
     $scope.LoadProjects = function () {
         // Reset project selection
-        $scope.import.Project = null;
+        $scope.import.Project = {};
 
         // Load projects for given plugin
         ProjectService.plugin($scope.import.Plugin)
@@ -24,6 +26,18 @@
                 $scope.projects = data;
             });
     }
+    
+    $scope.$watch('import.Project', function(project) {
+        if (!project)
+            return;
+       
+       angular.forEach($scope.projects, function(item)  {
+            if (item.Id == project) {
+                $scope.showGitHash = (item.GitRepository && item.GitRepository != "");
+                return;   
+            } 
+       });
+    });
 
     /**
      * Assign file 
@@ -55,8 +69,6 @@
         }).progress(function (evt) {
             $('#upload-progress').width(parseInt(100.0 * evt.loaded / evt.total) + '%');
         });
-        //.error(...)
-        //.then(success, error, progress); 
     }
 
 }]);

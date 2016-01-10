@@ -468,3 +468,9 @@ td {
     padding: 0.5rem;
     font-size: 2rem;
 }
+
+.git-hash {
+    font-size: 0.875rem;
+    color: #999999;
+    display: block;
+}

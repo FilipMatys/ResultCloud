@@ -121,7 +121,7 @@ class Parser
         $result->Bad = 0;
         $result->Strange = 0;
         
-        $SubmissionList = SubmissionService::GetFilteredList(QueryParameter::Where('Project', $pValidation->Data->Project));
+        //$SubmissionList = SubmissionService::GetFilteredList(QueryParameter::Where('Project', $pValidation->Data->Project));
         // TODO
         if (false/**!$SubmissionList->IsEmpty()*/)
         {

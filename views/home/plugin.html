@@ -23,7 +23,8 @@
               </ul>
               <p>
                 Created {{project.DateCreated | date:"longDate"}} by {{project.Author.Person.Name}}<br />
-                Number of submissions {{project.Submissions}}
+                Number of submissions {{project.Submissions}}<br />
+                <a ng-show="project.GitRepository" href="{{project.GitRepository}}" target="_blank" title="{{project.GitRepository}}">Git Repository</a>
               </p>
               <div class="google-chart liveness" google-chart chart="project.Liveness"></div>
             </li>
@@ -42,6 +43,10 @@
           <div class="input-field col s12">
             <input id="project_name" ng-model="projectName" type="text" class="validate">
             <label for="project_name">Project name</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="git_repository" ng-model="gitRepository" type="text" class="validate">
+            <label for="git_repository">Git repository URL (optional)</label>
           </div>
       </div>
     </div>

@@ -9,6 +9,7 @@
           <a ng-if="user" title="Delete submission" ng-click="DeleteSubmission({submissionId:item.Submission.Id}, {projectId: Request.ItemId})"><i class="material-icons">delete</i></a>
         </div>
         <span class="title"><a ui-sref="home.submission-overview({projectId: projectId, submissionId:item.Submission.Id})">{{item.Submission.DateTime}}</a></span>
+        <span class="git-hash" ng-show="item.Submission.GitHash">{{item.Submission.GitHash}}</span>
         <p ng-show="item.Submission.User.Person">Imported by {{item.Submission.User.Person.Name}} on {{item.Submission.ImportDateTime | date:"longDate"}}
         </br>
         Good {{item.Submission.Good}}, Bad {{item.Submission.Bad}}, Strange {{item.Submission.Strange}}

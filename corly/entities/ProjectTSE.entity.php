@@ -108,6 +108,7 @@ class ProjectTSE extends PaginatedTSE
         $this->Name = $dbProject->Name;
         $this->Author = $dbProject->Author;
         $this->DateCreated = $dbProject->DateCreated;
+        $this->GitRepository = $dbProject->GitRepository;
         
         // Map plugin
         $this->Plugin = new stdClass();

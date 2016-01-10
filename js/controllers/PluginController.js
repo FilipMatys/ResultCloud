@@ -22,11 +22,13 @@ application.controller('PluginController', ['$scope', '$stateParams', 'PluginSer
         // Initialize project
         var project = {
             Name: $scope.projectName,
+            GitRepository: $scope.gitRepository,
             Plugin: $scope.plugin.Id
         };
 
         // Reset project name
         $scope.projectName = "";
+        $scope.gitRepository = "";
 
         // Save project
         ProjectService.save(project)

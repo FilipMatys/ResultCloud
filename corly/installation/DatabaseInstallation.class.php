@@ -483,6 +483,7 @@ class DatabaseInstallation
      * - Author [varchar(127)]
      * - DateCreated [varchar(63)]
      * - Plugin [double]
+     * - GitRepository [varchar(512)]
      */
     private function CreateTb_Project() {
         $tProject = new DbTable('Project');
@@ -524,6 +525,12 @@ class DatabaseInstallation
         // Add plugin to table
         $tProject->AddProperty($pPlugin);
         
+        // Set GitRepository property
+        $pGitRepository = new DbProperty('GitRepository');
+        $pGitRepository->SetType(DbType::Varchar(512));
+        // Add GitRepository to table
+        $tProject->AddProperty($pGitRepository);
+        
         // Add table to database
         $this->Database->AddTable($tProject);
     }
@@ -535,6 +542,7 @@ class DatabaseInstallation
      * - ImportDateTime [varchar(63)]
      * - User [double]
      * - Project [double]
+     * - GitHash [varchar(512)]
      */
     private function CreateTb_Submission()  {
         $tSubmission = new DbTable('Submission');
@@ -593,6 +601,12 @@ class DatabaseInstallation
         $pStrange->NotNull();
         // Add Strange to table
         $tSubmission->AddProperty($pStrange);
+
+        // Set GitHash property
+        $pGitHash = new DbProperty('GitHash');
+        $pGitHash->SetType(DbType::Varchar(512));
+        // Add GitHash to table
+        $tSubmission->AddProperty($pGitHash);
 
         // Add table to database
         $this->Database->AddTable($tSubmission); 

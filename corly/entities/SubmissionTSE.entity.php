@@ -22,6 +22,7 @@ class SubmissionTSE extends PaginatedTSE
     private $Good;
     private $Bad;
     private $Strange;
+    private $GitHash;
 
     /**
      * Submission constructor
@@ -30,6 +31,23 @@ class SubmissionTSE extends PaginatedTSE
         $this->DateTime = $dateTime;
         $this->Categories = array();
         $this->Id = 0;
+        $this->GitHash = "";
+    }
+    
+    /**
+     * Get git hash
+     * @return GitHash 
+     */
+    public function GetGitHash()    {
+        return $this->GitHash;
+    }
+    
+    /**
+     * Set git hash
+     * @param gitHash
+     */
+    public function SetGitHash($gitHash)    {
+        $this->GitHash = $gitHash;
     }
     
     /**
@@ -162,7 +180,8 @@ class SubmissionTSE extends PaginatedTSE
         $submission->Good = $this->Good;
         $submission->Bad = $this->Bad;
         $submission->Strange = $this->Strange;
-        
+        $submission->GitHash = $this->GitHash;
+                
         // Return object
         return $submission;
     }
@@ -179,6 +198,7 @@ class SubmissionTSE extends PaginatedTSE
         $this->Good = $dbSubmission->Good;
         $this->Bad = $dbSubmission->Bad;
         $this->Strange = $dbSubmission->Strange;
+        $this->GitHash = $dbSubmission->GitHash;
         $this->ProjectId = $dbSubmission->Project;
         $this->User = $dbSubmission->User;
         
@@ -204,6 +224,7 @@ class SubmissionTSE extends PaginatedTSE
         $submission->Good = $this->Good;
         $submission->Bad = $this->Bad;
         $submission->Strange = $this->Strange;
+        $submission->GitHash = $this->GitHash;
         
         // Return result
         return $submission;
@@ -220,6 +241,7 @@ class SubmissionTSE extends PaginatedTSE
         // Set values
         $submission->Id = $this->Id;
         $submission->DateTime = $this->DateTime;
+        $submission->GitHash = $this->GitHash;
         $submission->Categories = array();
         
         // Export each category
