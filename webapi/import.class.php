@@ -14,7 +14,7 @@
 
 		// Constructor
 		public function __construct() {
-			$this->TEMP_FOLDER = dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'temp';
+			$this->TEMP_FOLDER = sys_get_temp_dir();
 		}
 
 		/**
