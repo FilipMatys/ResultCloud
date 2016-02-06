@@ -43,6 +43,10 @@ class DashboardParser {
         {
             // Get previous category
             $prevCategory = $submissions[1]->GetCategoryByName($category->GetName());
+            
+            // Check if submissions has the category
+            if (is_null($prevCategory))
+                continue;
 
             // Iterate through test cases
             $testcases = $category->GetTestCases();
