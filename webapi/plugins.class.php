@@ -19,20 +19,5 @@
 			//Start authorization
 			return $data->toJSON();
 		}
-
-		public function getProjects($params) {
-			// Init parametrs
-			$data = new stdClass();
-			$data->Plugin = $params['plugin'];
-			$project_service = new ProjectService();
-
-			error_log(json_encode($project_service->GetFilteredList(QueryParameter::Where('Plugin', $data->Plugin))->ToList()));
-
-			$out_data = new ValidationResult(new stdClass());
-			$out_data->Add("Result", $project_service->GetFilteredList(QueryParameter::Where('Plugin', $data->Plugin))->ToList());
-
-			//Start authorization
-			return $out_data->toJSON();
-		}
 	};
 ?>
