@@ -11,6 +11,11 @@ TEST_FOLDER="/srv/www/corly/*"
 PRODUCTION_FOLDER="/srv/www/corly-other" 
 TEST_CONFIG_FILE="./corly/dao/base/Config2.xml"
 CONFIG_FILE="./corly/dao/base/Config.xml"
+MAIL_ADDRESS="muller@redhat.com"
+if [ ! -z "$1" ]
+then
+	MAIL_ADDRESS=$1
+fi
 sed "s/database=\"[a-z0-9A-Z]*\"/database=\"$DATABASE\"/g" $CONFIG_FILE > $TEST_CONFIG_FILE 
 swap $TEST_CONFIG_FILE $CONFIG_FILE
 RESULT=`phpunit`
@@ -20,8 +25,10 @@ if [[ $RESULT =~ FAILURES ]]
 then
 	echo "There is errors in tests: "
 	echo "$RESULT"
+	echo "ResultCloud was updated" | mail -s "ResultCloud hele success" $MAIL_ADDRESS
 else
 	echo "Testing was finished with success."
 	cp -r $TEST_FOLDER $PRODUCTION_FOLDER
+        echo "ResultCloud has error in tests" | mail -s "ResultCloud hele failure" $MAIL_ADDRESS
 fi
 
