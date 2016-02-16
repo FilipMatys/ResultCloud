@@ -90,6 +90,15 @@ class ProjectService
     }
 
     /**
+     * Load project from database
+     * @param mixed $project 
+     * @return mixed
+     */
+    public function GetDetail($project)  {
+        return FactoryDao::ProjectDao()->Load($project);
+    }
+
+    /**
      * Clear project
      * @param project to be cleared
      * @return Validation result 

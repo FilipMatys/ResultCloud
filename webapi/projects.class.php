@@ -37,6 +37,26 @@
 			return $out_data->toJSON();
 		}
 
+        public function get($params)    {
+            $data = new stdClass();
+            $data->Id = $params['project'];
+
+            // Init services
+            $project_service = new ProjectService();
+            $submission_service = new SubmissionService();
+
+            // Load project
+            $project = $project_service->GetDetail($data);
+            // Get submissions
+            $project->Submissions = $submission_service->GetFilteredList(QueryParameter::Where('project', $project->Id))->ToList();
+
+            // Init validation result
+            $out_data = new ValidationResult(new stdClass());
+            $out_data->Add("Result", $project);
+            // Return data
+            return $out_data->toJSON();
+        }
+
         // Get projects with Git repository
 		public function getGitList() {
             // Init service
