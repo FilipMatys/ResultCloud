@@ -7,6 +7,7 @@
 	
 	// Include files
 	Library::using(Library::CORLY_SERVICE_PLUGIN);
+    Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryService.class.php']);
 	Library::using(Library::UTILITIES);
 
 
@@ -41,14 +42,10 @@
             $data = new stdClass();
             $data->Id = $params['project'];
 
-            // Init services
-            $project_service = new ProjectService();
-            $submission_service = new SubmissionService();
-
             // Load project
-            $project = $project_service->GetDetail($data);
+            $project = FactoryService::ProjectService()->GetDetail($data);
             // Get submissions
-            $project->Submissions = $submission_service->GetFilteredList(QueryParameter::Where('project', $project->Id))->ToList();
+            $project->Submissions = FactoryService::SubmissionService()->GetFilteredList(QueryParameter::Where('Project', $project->Id))->ToList();
 
             // Init validation result
             $out_data = new ValidationResult(new stdClass());
