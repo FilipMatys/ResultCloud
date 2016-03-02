@@ -818,6 +818,53 @@ class DatabaseInstallation
         // Add table to database
         $this->Database->AddTable($tResult);
     }
+
+    /**
+     * Create analyzer table
+     * - Id [double]
+     * - Submission [double]
+     * - Result [text]
+     * - Analyzer [varchar(255)]
+     */
+    private function CreateTb_Analyzer()  {
+        $tAnalyzer = new DbTable('Analyzer');
+        
+        $pId = new DbProperty('Id');
+        $pId->SetType(DbType::Double());
+        $pId->NotNull();
+        $pId->PrimaryKey();
+        $pId->AutoIncrement();
+        
+        // Set submission property
+        $pSubmission = new DbProperty('Submission');
+        $pSubmission->SetType(DbType::Double());
+        // Add key to table
+        $tAnalyzer->AddProperty($pSubmission);
+        
+        // Set token property
+        $pAnalyzer = new DbProperty('Analyzer');
+        $pAnalyzer->SetType(DbType::Varchar(255));
+        $pAnalyzer->NotNull();
+        // Add value to table
+        $tAnalyzer->AddProperty($pAnalyzer);
+
+        // Set plugin id property
+        $pResult = new DbProperty('Result');
+        $pResult->SetType(DbType::Text());
+        $pResult->NotNull();
+        // Add key to table
+        $tAnalyzer->AddProperty($pResult);
+
+        // Set project id property
+        $pProject = new DbProperty('Project');
+        $pProject->SetType(DbType::Double());
+        $pProject->NotNull();
+        // Add key to table
+        $tAnalyzer->AddProperty($pProject);
+        
+        // Add table to database
+        $this->Database->AddTable($tAnalyzer);
+    }
     
     /**
      * Create database
