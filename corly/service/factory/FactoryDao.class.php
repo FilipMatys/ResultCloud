@@ -6,6 +6,7 @@ Library::using(Library::CORLY_DAO_IMPLEMENTATION_SUITE);
 Library::using(Library::CORLY_DAO_IMPLEMENTATION_PLUGIN);
 Library::using(Library::CORLY_DAO_IMPLEMENTATION_SECURITY);
 Library::using(Library::CORLY_DAO_IMPLEMENTATION_SETTINGS);
+Library::using(Library::CORLY_DAO_IMPLEMENTATION_EXTENTION);
 
 class FactoryDao extends Factory	{
 
@@ -111,6 +112,14 @@ class FactoryDao extends Factory	{
 	 */
 	public static function &ComponentSupportedPluginDao()	{
 		return self::GetFactory('ComponentSupportedPluginDao');
+	}
+
+	/**
+	 * Get AnalyzerDao
+	 * @return AnalyzerDao
+	 */
+	public static function &AnalyzerDao()	{
+		return self::GetFactory('AnalyzerDao');
 	}
 }
 

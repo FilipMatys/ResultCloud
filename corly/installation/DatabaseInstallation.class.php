@@ -65,6 +65,8 @@ class DatabaseInstallation
         $this->CreateTb_TemplateSettingsItem();
         // Update
         $this->CreateTb_UpdateItem();
+        // Analyzer
+        $this->CreateTb_Analyzer();
     }
     
     /**

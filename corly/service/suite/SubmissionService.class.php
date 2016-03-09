@@ -96,6 +96,7 @@ class SubmissionService
         // Load submissions for given project
         $lSubmissions = FactoryDao::SubmissionDao()->GetFilteredList(QueryParameter::Where('Project', $projectTSE->GetId()), $queryPagination);
         
+        error_log("One: ".$lSubmissions->GetTotalCount());
         // Map submissions to TSE objects and load categories
         foreach ($lSubmissions->ToList() as $dbSubmission)
         {

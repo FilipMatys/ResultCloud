@@ -24,7 +24,7 @@ class AnalyzerService
     {
         foreach ($results as $result) {
             // Save analyze results
-            FactoryDao::AnalyzerDao()->Save($analyzer->GetDbObject());
+            FactoryDao::AnalyzerDao()->Save($result->GetDbObject());
         }
     }
     

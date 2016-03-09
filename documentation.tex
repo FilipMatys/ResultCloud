@@ -1,0 +1,69 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[english, czech]{babel}
+\usepackage[IL2]{fontenc} 
+\usepackage[utf8]{inputenc}
+\usepackage[left=2cm,text={17cm, 24cm},top=2.5cm]{geometry}
+\usepackage{lipsum}
+\usepackage{hyperref}
+\title{Bachelor work \\[1mm]}
+\author{Bohdan Iakymets \\ \email{xiakym00@stud.fit.vutbr.cz}}
+\date{}
+\begin{document}
+\maketitle
+\section{Abstraction}
+
+Main goal of a project is design and make mechanism for analyzing and notify users about interesting changes in new uploaded submissions. Mechanism must support a few types of notifications and have possibility to extend types. Also changes must have interface for results presentation. Interested people would be able to set notifications about interesting analyze results.
+It is important and useful, cause biggest part of test results are not interesting and useless information, like same testing results. So main goal of analyzing is find the interesting results and show it to user.
+
+But first of all, I must learn inner architecture of ResultCloud. How it works. It helps me better use all opportunities in design and programming that mechanism.
+
+\section{Introduction in ResultCloud}
+\subsection{What is ResultCloud}
+
+ResultCloud is a system for management of long-term testing results. It's means, ResultCloud collect testing results for some project and compare it, so developer can easy find difference between them. In now days doesn't exist new, modern instruments for collecting and showing in humans readable form testing results. How wrote Fillip Matys: “Nástroje, které tento problém řeší, jako například Dejazilla [3], jsou již zastaralé a zaostávají svou implementací za vývojem samotných aplikací. Nevýhodou těchto nástrojů je nemožnost rozšíření o další formáty testovacích sad a s narůstajícím podílem mobilních zařízení s přístupem na internet i neschopnost prezentovat data v responzivní podobě.” So all instruments which we have now is too old, and doesn't extendable. But in ResultCloud prasing and management do modules. Each module is written for one type of testing results. For example module “DejaGnu summary v1.0” can parse and show only SystemTap results. 
+
+Data organization in ResultCloud is represent in Plugins(Modules) which contains Projects, Projects  contains Submissions is a results of a single series of tests, which also divide to Categories, TestCases and Results.
+In this bachelor work I will work only with Submissions.
+
+\subsection{What is Submission}
+
+How I wrote on the top, submissions is a single testing result, the smallest part of every submission is Result, this part contain result of a single test from series of tests. All other part like Categories, TestCases are only organization unit. 
+
+There are two way to import  new Submission, first is from web page, second is with the help of API. Then will include plugin for parse submission file. Every plugin has class Parser, for parsing files and put them to Database. Every plugin also has class Vizualization, for getting from DB submission data and return it in needed presentation. Vizualization can for graph, list or dashboard.  
+
+\section{Mechanism design}
+
+Before start describing all possible kinds of analyzing, need think about how it possible easy add to whole system. So there must be some mechanism which would be like bridge between system and all kinds of analyzing.
+
+That mechanism would get all existing kinds of analyzing and enable to use it. Mechanism also would provide entity for saving analyze data. Analyzer can't work with DB cause it's a good practice to divide work between separated modules, like “Divide and Conquer”, so analyzer should only analyze input data and visualize it, that all. Centralized method good for that case because user don't need to load needed analyzer and work with DB, all this stuff do Analyze Controller.
+
+Analyze controller in the beginning get all needed submissions (it can be all submissions of project or only some of them), plugin name and new uploaded submission. Then put all this parameters to analyzer classes, which after processing return results back to analyze controller, which is save it to database(DB). Analyzer can include a few methods of analyze for different plugins. If analyzer doesn't support current plugin it return empty result. Also in ResultCloud exist simple method of analyzing (compare new submission with previous one), after making analyzing controller it can be rewriting to individual analyze class.
+
+Analyze controller would provide methods for setup available analyzers. Field “Results” in Analyze entity will contain text data which depend only on analyzer. 
+
+Analyzer also contain methods for processing saved results and return human readable result, in JSON. Analyze controller will collect all that results and it to client. 
+
+With ResultCloud it will connect in a few point, after uploading new submission plugin Parser will call Analyze Controller method for analyzing. And like in case with Dashboard, for analyze page it would have own service, which call visualization method and return data to client.
+
+\section{Analyzer design}
+
+For right connecting with analyze controller, analyzer must have first of all static constant attribute with unique ID (under it ID, analyzer would be identified in Analyze entity), method for getting and processing data (name of the method must be the same in all Analyzer classes) and one function for visualizing data.  
+
+Method for processing data get in parameters: array of submission, new submission and plugin name. It must return ValidationResult object, with string in Data attribute, or array of string if it has a few resuls, or it can return empty result, with null in Data attribute.
+
+Method for visualizing data get array of rows from Analyze table, and return JSON object.
+
+\section{Kinds of Analyzer}
+
+Here's some kinds of analyzer which results would be interesting for programmers.
+- Find strange changes like if result has a long time the same value and than it change
+- Check a changes in tests, like if some test which is contained in all previous submissions just dissapear
+- Check if some test had a long sequence of some bad value like FAIL or ERROR and then take a PASS, but after take FAIL or ERROR again
+- Check changes from UNTESTED to some result
+- Check if presented a new tests
+- Check strange changes like FAIL → ERROR
+- Check if count of bad results is get maximum
+
+\section{Notification design}
+
+Like in case with Analyze Controller, I would divide notifications methods to the separated classes and Notification Controller will controller them. 

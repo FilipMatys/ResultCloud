@@ -13,6 +13,9 @@ class Analyzer1
             $bad = 0;
             $strange = 0;
 
+            if ($submissionList->IsEmpty()) {
+                return new ValidationResult(array());
+            }
             $submission1 = $submissionList->Last();
             $submission2 = $submission;
             

@@ -19,8 +19,8 @@ class DatabaseDriver {
 		if (empty(self::$connected) || self::$connected === false) {
 			//If it is not exist connect
 			self::$dbConfig = ConfigurationService::Database();
-			self::$db = new mysqli(self::$dbConfig->Data["hostname"], self::$dbConfig->Data["username"], 
-				self::$dbConfig->Data["password"], self::$dbConfig->Data["database"]);
+			self::$db = new mysqli(self::$dbConfig->Data->hostname, self::$dbConfig->Data->username, 
+				self::$dbConfig->Data->password, self::$dbConfig->Data->database);
 
 			if (self::$db->connect_errno > 0)   {
 	            die ('Unable to connect to database[' . self::$db->connect_error . ']');

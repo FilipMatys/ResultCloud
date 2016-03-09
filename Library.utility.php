@@ -71,6 +71,8 @@ class Library	{
     
     // Plugins
     const PLUGINS = "plugins";
+
+    const EXTENTIONS_ANALYZERS = "extentions/analyzing";
   
 	/**
 	 * Include files of given folder

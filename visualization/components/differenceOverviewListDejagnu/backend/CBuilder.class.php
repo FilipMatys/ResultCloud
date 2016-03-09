@@ -19,7 +19,7 @@ class CBuilder
         $page = $data->Metadata->Pagination;
         $pageSize = SettingsService::GetTemplateByIdentifier(
                 'difference-overview-list-dejagnu', 
-                $data->SubmissionTSE->GetProject()->GetId())->Data['page-size'];
+                $data->Submissions[0]->GetProject()->Id)->Data['page-size'];
         
         // Load data  
         foreach ($data->Submissions as $submission) {

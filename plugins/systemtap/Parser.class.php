@@ -6,6 +6,7 @@ Library::using(Library::UTILITIES);
 Library::using(Library::CORLY_ENTITIES);
 Library::using(Library::CORLY_SERVICE_SUITE);
 Library::using(Library::CORLY_SERVICE_UTILITIES);
+Library::using(Library::EXTENTIONS_ANALYZERS);
 Library::usingProject(dirname(__FILE__));
 
 /**
@@ -121,21 +122,12 @@ class Parser
         $result->Bad = 0;
         $result->Strange = 0;
         
-        //$SubmissionList = SubmissionService::GetFilteredList(QueryParameter::Where('Project', $pValidation->Data->Project));
-        // TODO
-        if (false/**!$SubmissionList->IsEmpty()*/)
-        {
-            $dbSubmission = $SubmissionList->Last();
-            $submission2 = new SubmissionTSE();
-            $submission2->MapDbObject($dbSubmission);
-            TestSuiteDataService::LoadCategories($submission2, Visualization::GetDifferenceDataDepth(DifferenceOverviewType::VIEWLIST));
+        $project = new stdClass();
+        $project->Id = $pValidation->Data->Project;
+        $tse_project = new ProjectTSE($project);
+        SubmissionService::LoadSubmissions($tse_project, 5);
 
-            $submissions = array();
-            $submissions[] = $submission2;
-            $submissions[] = $Submission;
-
-            $result = Parser::GetDifferenceCount($submissions);
-        }
+        AnalyzeController::analyze($Submission, new LINQ($tse_project->GetSubmissions()), "systemtap");
 
         $Submission->SetDiff($result->Good, $result->Bad, $result->Strange);
 
