@@ -23,6 +23,8 @@ class Library	{
     const CORLY_DAO_APPLICATION = "corly/dao/application";
     const CORLY_DAO_SETTINGS = "corly/dao/settings";
     const CORLY_DAO_UPDATE = "corly/dao/update";
+
+    const EXTENTIONS_SUMMARIZERS = "extentions/summarization";
 	
 	// - dao implementation
 	const CORLY_DAO_IMPLEMENTATION_BASE = "corly/daoImplementation/base";

@@ -57,6 +57,10 @@ class SubmissionTSE extends PaginatedTSE
     public function GetId() {
         return $this->Id;
     }
+
+    public function SetId($id) {
+        $this->Id = $id;
+    }
     
     /**
      * Get submission date time

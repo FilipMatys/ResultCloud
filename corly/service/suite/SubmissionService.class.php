@@ -4,6 +4,7 @@ include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'
 // Get libraries
 Library::using(Library::UTILITIES);
 Library::using(Library::CORLY_SERVICE_SESSION);
+Library::using(Library::EXTENTIONS_SUMMARIZERS); 
 Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryService.class.php']);
 Library::using(Library::CORLY_SERVICE_FACTORY, ['FactoryDao.class.php']);
 
@@ -38,6 +39,11 @@ class SubmissionService
         
         // Save categories with test cases
         FactoryService::CategoryService()->SaveCategories($submission->GetCategories(), $submissionId);
+
+        // Do the summarization
+        $dbSubmission = new stdClass();
+        $dbSubmission->Id = $submissionId;
+        SummaryController::Summarize($this->LoadTSE($dbSubmission));
         
         // Return validation
         return $validation;

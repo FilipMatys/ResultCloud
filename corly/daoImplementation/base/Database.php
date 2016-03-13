@@ -188,8 +188,6 @@ abstract class Database  {
             call_user_func_array(array($statement, 'bind_param'), $this->refValues($values));    
         }
         
-        print_r($this->db->error);
-        
         // Execute statement
         $statement->execute();
         
