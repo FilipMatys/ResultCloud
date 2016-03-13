@@ -57,7 +57,7 @@ class Parser
         foreach ($fileRows as $row) {
             
             // Check for date and time
-            if (!isset($Submission) && preg_match("/Test Run By (.*) on (.*)/", $row, $headerMatch))    {
+            if (!isset($Submission) && preg_match("/Test Run By (.*) on (.*)/i", $row, $headerMatch))    {
                 $Submission = new SubmissionTSE($headerMatch[2]);
                 $configuration->DateTime = $headerMatch[2];
             }
