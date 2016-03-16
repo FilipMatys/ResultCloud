@@ -543,6 +543,7 @@ class DatabaseInstallation
      * - User [double]
      * - Project [double]
      * - GitHash [varchar(512)]
+     * - SequenceNumber [int(11)]
      */
     private function CreateTb_Submission()  {
         $tSubmission = new DbTable('Submission');
@@ -607,6 +608,13 @@ class DatabaseInstallation
         $pGitHash->SetType(DbType::Varchar(512));
         // Add GitHash to table
         $tSubmission->AddProperty($pGitHash);
+
+        // Set sequence number property
+        $pSequenceNumber = new DbProperty('SequenceNumber');
+        $pSequenceNumber->SetType(DbType::Integer());
+        $pSequenceNumber->NotNull();
+        // Add key to table
+        $tSubmission->AddProperty($pSequenceNumber);
 
         // Add table to database
         $this->Database->AddTable($tSubmission); 

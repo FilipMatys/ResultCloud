@@ -280,7 +280,7 @@ class GitRepo {
 	 * @param   string  command to run
 	 * @return  string
 	 */
-	protected function run_command($command) {
+	protected function run_command($command, $return_exit_code = false) {
 		$descriptorspec = array(
 			1 => array('pipe', 'w'),
 			2 => array('pipe', 'w'),
@@ -314,9 +314,14 @@ class GitRepo {
 		}
 
 		$status = trim(proc_close($resource));
-		if ($status) throw new Exception($stderr);
-
-		return $stdout;
+		if ($status)    {
+            if ($return_exit_code)
+                return 1;
+            else 
+                throw new Exception($stderr);
+        }
+           
+        return $return_exit_code ? 0 : $stdout;
 	}
 
 	/**
@@ -328,8 +333,8 @@ class GitRepo {
 	 * @param   string  command to run
 	 * @return  string
 	 */
-	public function run($command) {
-		return $this->run_command(Git::get_bin()." ".$command);
+	public function run($command, $return_exit_code = false) {
+		return $this->run_command(Git::get_bin()." ".$command, $return_exit_code);
 	}
 
 	/**
@@ -492,7 +497,7 @@ class GitRepo {
      * @return string
      */
     public function is_ancestor($commit1, $commit2) {
-        return $this->run("merge-base --is-ancestor" . " $commit1" . " $commit2");
+        return $this->run("merge-base --is-ancestor" . " $commit1" . " $commit2", true);
     }
 
 	/**
@@ -590,6 +595,16 @@ class GitRepo {
 	public function fetch() {
 		return $this->run("fetch");
 	}
+
+    /**
+	 * Runs a git remote update on the current branch
+	 *
+	 * @access  public
+	 * @return  string
+	 */
+    public function remote_update() {
+        return $this->run("remote update");
+    }
 
 	/**
 	 * Add a new tag on the current position

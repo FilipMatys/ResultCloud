@@ -34,22 +34,90 @@ class SubmissionService
         if (!$validation->IsValid)
             return $validation;
         
+        // Get git repo sequence number if it has git hash
+        if ($submission->GetGitHash() != "")    
+            $submission->SetSequenceNumber($this->GetGitRepoSequenceNumber($submission, $projectId));
+
         // Save submission
         $submissionId = FactoryDao::SubmissionDao()->Save($submission->GetDbObject($projectId));
         
         // Save categories with test cases
         FactoryService::CategoryService()->SaveCategories($submission->GetCategories(), $submissionId);
 
-        // Do the summarization
-        $dbSubmission = new stdClass();
-        $dbSubmission->Id = $submissionId;
-        SummaryController::Summarize($this->LoadTSE($dbSubmission));
+        // Do all possible extensions
+        $dbSubmission = new Submission($submissionId);
+        $submissionTSE = $this->LoadTSE($dbSubmission);
+
+        // Summary extension
+        SummaryController::Summarize($submissionTSE);
         
         // Return validation
         return $validation;
     }
+
     
-    
+    /**
+     * Get filtered list of submissions
+     */
+    public function GetGitRepoSequenceNumber(SubmissionTSE $submissionTSE, $projectId)
+    {
+        // Load project, so we get to know the repo path and other submissions
+        $project = new Project($projectId);
+        $dbProject = FactoryDao::ProjectDao()->Load($project);
+
+        // Get all submissions for project
+        $lSubmissions = $this->GetFilteredList(QueryParameter::Where('Project', $project->Id));
+
+        // If list has no submission, set the number to one and save it
+        if ($lSubmissions->IsEmpty())   {
+            // There is no need to handle anything else
+            return 1;
+        }
+
+        // Load repository to find the right sequence number
+        $repository = GitService::Open(basename($dbProject->GitRepository));
+        // Update the repository to the latest version
+        $repository->remote_update();
+
+        // Iterate through submissions to find the right sequence number
+        $incrementSequenceNumber = false;
+        $sequenceNumber = 0;
+        foreach ($lSubmissions->OrderByNumber('SequenceNumber')->ToList() as $submission)
+        {
+            // We are in state of updating all other submissions sequence numbers
+            if ($incrementSequenceNumber)   {
+                $submission->SequenceNumber = $submission->SequenceNumber + 1;
+
+                // Save the updated submission
+                FactoryDao::SubmissionDao()->Save($submission);
+
+                // Get to another submission
+                continue;
+            }
+
+            // We found the first commit, that is not an ancestor
+        	if (($repository->is_ancestor($submission->GitHash, $submissionTSE->GetGitHash())) != 0)  {
+                $sequenceNumber = $submission->SequenceNumber;
+
+                // Update sequence number of the submission we found is not an ancestor
+                $submission->SequenceNumber = $submission->SequenceNumber + 1;
+                // Save the updated submission
+                FactoryDao::SubmissionDao()->Save($submission);
+
+                // Set state to just update sequence numbers
+                $incrementSequenceNumber = true;
+            }
+        }
+
+        // Check if we found any commits, that are not ancestors, if not, set it to be the last
+        if ($sequenceNumber == 0)   {
+            $sequenceNumber = $lSubmissions->Count() + 1;
+        }
+
+        // Return sequence number for new submission
+        return $sequenceNumber;
+    }
+
     /**
      * Get filtered list of submissions
      */

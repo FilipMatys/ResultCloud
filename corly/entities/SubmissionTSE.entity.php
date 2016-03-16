@@ -23,6 +23,7 @@ class SubmissionTSE extends PaginatedTSE
     private $Bad;
     private $Strange;
     private $GitHash;
+    private $SequenceNumber;
 
     /**
      * Submission constructor
@@ -32,6 +33,7 @@ class SubmissionTSE extends PaginatedTSE
         $this->Categories = array();
         $this->Id = 0;
         $this->GitHash = "";
+        $this->SequenceNumber = 0;
     }
     
     /**
@@ -166,6 +168,20 @@ class SubmissionTSE extends PaginatedTSE
     public function AddCategories($categories)  {
         $this->Categories = $categories;
     }
+
+    /**
+    * Set sequence number
+    */
+    public function SetSequenceNumber($sequenceNumber) {
+        $this->SequenceNumber = $sequenceNumber;
+    }
+
+    /**
+    * Get sequence number
+    */
+    public function GetSequenceNumber() {
+        return $this->SequenceNumber;
+    }
     
     /**
      * Get submission as object to save to database
@@ -185,6 +201,7 @@ class SubmissionTSE extends PaginatedTSE
         $submission->Bad = $this->Bad;
         $submission->Strange = $this->Strange;
         $submission->GitHash = $this->GitHash;
+        $submission->SequenceNumber = $this->SequenceNumber;
                 
         // Return object
         return $submission;
@@ -205,6 +222,7 @@ class SubmissionTSE extends PaginatedTSE
         $this->GitHash = $dbSubmission->GitHash;
         $this->ProjectId = $dbSubmission->Project;
         $this->User = $dbSubmission->User;
+        $this->SequenceNumber = $dbSubmission->SequenceNumber;
         
         // Map project
         $this->Project = new stdClass();
@@ -229,6 +247,7 @@ class SubmissionTSE extends PaginatedTSE
         $submission->Bad = $this->Bad;
         $submission->Strange = $this->Strange;
         $submission->GitHash = $this->GitHash;
+        $submission->SequenceNumber = $this->SequenceNumber;
         
         // Return result
         return $submission;

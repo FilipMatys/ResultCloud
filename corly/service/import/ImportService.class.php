@@ -74,13 +74,7 @@ class ImportService
 
         $validation->Append(FactoryService::SubmissionService()->Save($importValidation->Data, $validation->Data->Project));
 
-        // Create dashboard data
-        if (class_exists("DashboardParser"))    {
-            FactoryService::DashboardService()->CalculateLastTwo($validation->Data->Project);
-        }
-
         // Return validation
         return $validation;
     }
-   
 }
