@@ -4,9 +4,6 @@
 class CBuilder {
 	// Get data for frontend
 	public static function Get($data)	{
-		// Load data
-        TestSuiteDataService::LoadCategories($data->SubmissionTSE, DataDepth::RESULT);
-
         // Initialize Google chart object
         $submissionOverviewChart = new OverviewChart();
         $googleChart = new GoogleChart();
@@ -35,19 +32,7 @@ class CBuilder {
         // Initialize data
         $gcData = new GCData();
         
-        // Initialize results list
-        $subResults = array();
-        
-        // First, we need to get all results of given submission
-        foreach ($submission->GetCategories() as $category) {
-            // Iterate through each test case
-            foreach ($category->GetTestCases() as $testCase)    {
-                // Iterate through each result and get "status" value
-                foreach ($testCase->GetResults() as $result) {
-                    $subResults[] = $result->GetValue();
-                }
-            }
-        }
+        $listOfValues = SummaryController::Load('ResultsSummary', $submission);
         
         // Create STATUS column
         $gcStatusCol = new GCCol();
@@ -65,24 +50,19 @@ class CBuilder {
         // Add column to data set
         $gcData->AddColumn($gcValueCol);
         
-        // Then, get unique array of column values
-        $columns = array_unique($subResults);
-        
-        // Create rows with cells
-        $lSubResults = new LINQ($subResults);
-        foreach ($columns as $column) {
+        foreach ($listOfValues as $value) {
             // Create new row
             $gcRow = new GCRow();
             
             // Create label cell
             $gcLabelCell = new GCCell();
-            $gcLabelCell->setValue($column);
+            $gcLabelCell->setValue($value->Name);
             // Add cell to row
             $gcRow->AddCell($gcLabelCell);
             
             // Create value cell
             $gcValueCell = new GCCell();
-            $gcValueCell->setValue($lSubResults->Where(null, LINQ::IS_EQUAL, $column)->Count());
+            $gcValueCell->setValue($value->Value);
             // Add cell to row
             $gcRow->AddCell($gcValueCell);
             

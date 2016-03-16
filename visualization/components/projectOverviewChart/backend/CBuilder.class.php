@@ -5,7 +5,7 @@ class CBuilder {
 	// Get data for frontend
 	public static function Get($data)	{
 		// Load data for project
-        TestSuiteDataService::LoadSubmissions($data->ProjectTSE, DataDepth::RESULT,
+        TestSuiteDataService::LoadSubmissions($data->ProjectTSE, DataDepth::SUBMISSION,
             new QueryPagination(1, SettingsService::GetTemplateByIdentifier(
                 'project-overview-chart', 
                 $data->ProjectTSE->GetId())->Data['submissions-number'], 
@@ -56,27 +56,10 @@ class CBuilder {
         // needed information
         foreach ($project->GetSubmissions() as $submission)
         {
-            // Initalize array to hold results
-            $subResults = array();
-            
-            // Go through each category
-            foreach ($submission->GetCategories() as $category)
-            {
-                // And each test case
-                foreach ($category->GetTestCases() as $testCase)
-                {
-                    // Go through each result
-                    foreach ($testCase->GetResults() as $result)
-                    {
-                        // Save value to array
-                        $subResults[] = $result->GetValue();
-                    }
-                }
-            }
             // Save results to array, this array has to be 
             // dictionary so we are sure where each result
             // set belongs
-            $submissions[$submission->GetDateTime()] = $subResults;
+            $submissions[$submission->GetDateTime()] = SummaryController::Load('ResultsSummary', $submission);    
         }
         
         // Now merge all results into one, to get all possible columns
@@ -84,7 +67,8 @@ class CBuilder {
         foreach ($submissions as $submissionResultSet)
         {
             // Merge arrays
-            $columns = array_merge($columns, $submissionResultSet);
+            $lSet = new LINQ($submissionResultSet);
+            $columns = array_merge($columns, $lSet->Select('Name')->ToList());
             // And make it unique, because we only need to know the columns
             $columns = array_unique($columns);
         }
@@ -131,8 +115,12 @@ class CBuilder {
                 // Create new cell
                 $gcCell = new GCCell();
                 
-                // Set value
-                $gcCell->setValue($lResults->Where(null, LINQ::IS_EQUAL, $column)->Count());
+                // Get value for given name
+                $lValue = $lResults->Where('Name', LINQ::IS_EQUAL, $column);
+                if ($lValue->IsEmpty())
+                    $gcCell->setValue(0);
+                else
+                    $gcCell->setValue($lValue->Select('Value')->Single());
                 
                 // Add cell to row
                 $gcRow->AddCell($gcCell);
