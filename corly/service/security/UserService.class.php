@@ -98,10 +98,13 @@ class UserService	{
 
 		// Save user
 		$insertedUserId = FactoryDao::UserDao()->Save($user);
-		if ($insertedUserId != 0)
+		if ($insertedUserId != 0) {
 			$person->User = $insertedUserId;
+			$user->Id = $insertedUserId;
+		}
 		else
 			$person->User = $user->Id;
+		FactoryService::TemplateSettingsService()->InitUserSettings($user);
 
 		// Save person
 		FactoryDao::PersonDao()->Save($person);

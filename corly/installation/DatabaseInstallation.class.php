@@ -211,9 +211,14 @@ class DatabaseInstallation
         // Set project property
         $pProject = new DbProperty('Project');
         $pProject->SetType(DbType::Double());
-        $pProject->NotNull();
         // Add project to table
         $tTemplateSettings->AddProperty($pProject);
+
+        // Set project property
+        $pUser = new DbProperty('User');
+        $pUser->SetType(DbType::Double());
+        // Add User to table
+        $tTemplateSettings->AddProperty($pUser);
 
         // Set Name property
         $pName = new DbProperty('Name');
@@ -239,9 +244,14 @@ class DatabaseInstallation
         // Set Component property
         $pComponent = new DbProperty('Component');
         $pComponent->SetType(DbType::Double());
-        $pComponent->NotNull();
         // Add Component to table
         $tTemplateSettings->AddProperty($pComponent);
+
+        // Set Extention property
+        $pExtention = new DbProperty('Extention');
+        $pExtention->SetType(DbType::Varchar(255));
+        // Add Extention to table
+        $tTemplateSettings->AddProperty($pExtention);
         
         // Set View property
         $pView = new DbProperty('View');

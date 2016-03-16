@@ -6,7 +6,7 @@
 
 class Library	{
     //Database version
-    const DB_VERSION = 6;
+    const DB_VERSION = 7;
 	// Folder constants
 	// - utilities
 	const UTILITIES = "utilities";
@@ -73,6 +73,7 @@ class Library	{
     const PLUGINS = "plugins";
 
     const EXTENTIONS_ANALYZERS = "extentions/analyzing";
+    const EXTENTIONS_NOTIFICATION = "extentions/notification";
   
 	/**
 	 * Include files of given folder

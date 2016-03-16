@@ -6,7 +6,10 @@ Library::using(Library::UTILITIES);
 Library::using(Library::CORLY_ENTITIES);
 Library::using(Library::CORLY_SERVICE_SUITE);
 Library::using(Library::CORLY_SERVICE_UTILITIES);
+Library::using(Library::CORLY_SERVICE_SETTINGS);
+Library::using(Library::CORLY_SERVICE_SESSION);
 Library::using(Library::EXTENTIONS_ANALYZERS);
+Library::using(Library::EXTENTIONS_NOTIFICATION);
 Library::usingProject(dirname(__FILE__));
 
 /**
@@ -128,6 +131,21 @@ class Parser
         SubmissionService::LoadSubmissions($tse_project, 5);
 
         AnalyzeController::analyze($Submission, new LINQ($tse_project->GetSubmissions()), "systemtap");
+        $settingsService = new TemplateSettingsService();
+        $privateNotifiers = NotificationController::getPrivateNotifiers();
+
+        $to = array();
+        if (SessionService::IsSessionSet('id')) {
+            foreach ($privateNotifiers as $value) {
+                $settings = $settingsService->GetByIdentifier($value, null, SessionService::GetSession('id'));
+                if ($settings->IsValid) {
+                    if ($settings->Data['get-notify'] == "1") {
+                        $to[$value] = array();
+                    }
+                }
+            }
+        }
+        NotificationController::notify("smth", "smth", "smth", $to);
 
         $Submission->SetDiff($result->Good, $result->Bad, $result->Strange);
 
