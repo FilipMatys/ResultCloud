@@ -15,6 +15,7 @@ class DatabaseManager
     const VALUE = "value";
     const VARCHAR = "varchar";
     const DOUBLE = "double";
+    const INTEGER = "int";
     const LONGTEXT = "longtext";
 
     function __construct()   {
@@ -58,6 +59,11 @@ class DatabaseManager
                 // Varchar
                 case DatabaseManager::VARCHAR:
                     $dbProperty->SetType(DbType::Varchar((string)$property[DatabaseManager::VALUE]));
+                    break;
+
+                // Integer
+                case DatabaseManager::INTEGER:
+                    $dbProperty->SetType(DbType::Integer());
                     break;
             }
             

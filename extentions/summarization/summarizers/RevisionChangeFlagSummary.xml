@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<config>
+  <!-- Summarization entity -->
+  <entity name="RevisionChangeFlagSummary">
+    <property name="Changed" type="int"></property>
+    <property name="TestCase" type="double"></property>
+    <property name="Submission" type="double"></property>
+  </entity>
+</config>
