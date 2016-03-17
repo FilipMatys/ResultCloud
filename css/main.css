@@ -25,7 +25,11 @@ h3  {
 }
 
 nav .brand-logo {
-    line-height: 5.5rem;
+    line-height: 4.75rem;
+}
+
+nav .brand-logo img {
+    height: 2rem;
 }
 
 #login-modal {
