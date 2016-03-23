@@ -10,6 +10,9 @@ class Notify1 extends BaseNotifier
     const NOTIFIER_PUBLIC = false;
     public function notify($title, $body, $bodyShort, $to)
     {
+    	foreach ($to as $value) {
+	    	mail($value, $title, $body);
+    	}
     	error_log("//----------------------------------------\nwork notify1");
         
     }

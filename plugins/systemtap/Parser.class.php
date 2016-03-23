@@ -125,27 +125,27 @@ class Parser
         $result->Bad = 0;
         $result->Strange = 0;
         
-        $project = new stdClass();
-        $project->Id = $pValidation->Data->Project;
-        $tse_project = new ProjectTSE($project);
-        SubmissionService::LoadSubmissions($tse_project, 5);
+        // $project = new stdClass();
+        // $project->Id = $pValidation->Data->Project;
+        // $tse_project = new ProjectTSE($project);
+        // SubmissionService::LoadSubmissions($tse_project, 5);
 
-        AnalyzeController::analyze($Submission, new LINQ($tse_project->GetSubmissions()), "systemtap");
-        $settingsService = new TemplateSettingsService();
-        $privateNotifiers = NotificationController::getPrivateNotifiers();
+        // AnalyzeController::analyze($Submission, new LINQ($tse_project->GetSubmissions()), "systemtap");
+        // $settingsService = new TemplateSettingsService();
+        // $privateNotifiers = NotificationController::getPrivateNotifiers();
 
-        $to = array();
-        if (SessionService::IsSessionSet('id')) {
-            foreach ($privateNotifiers as $value) {
-                $settings = $settingsService->GetByIdentifier($value, null, SessionService::GetSession('id'));
-                if ($settings->IsValid) {
-                    if ($settings->Data['get-notify'] == "1") {
-                        $to[$value] = array();
-                    }
-                }
-            }
-        }
-        NotificationController::notify("smth", "smth", "smth", $to);
+        // $to = array();
+        // if (SessionService::IsSessionSet('id')) {
+        //     foreach ($privateNotifiers as $value) {
+        //         $settings = $settingsService->GetByIdentifier($value, null, SessionService::GetSession('id'));
+        //         if ($settings->IsValid) {
+        //             if ($settings->Data['get-notify'] == "1") {
+        //                 $to[$value] = array();
+        //             }
+        //         }
+        //     }
+        // }
+        // NotificationController::notify("smth", "smth", "smth", $to);
 
         $Submission->SetDiff($result->Good, $result->Bad, $result->Strange);
 

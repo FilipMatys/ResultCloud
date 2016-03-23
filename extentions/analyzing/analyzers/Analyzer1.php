@@ -57,4 +57,13 @@ class Analyzer1
             return $validation;
         }
     }
+
+    public function Visualize(LINQ $data)
+    {
+        $visualize = array();
+        foreach ($data->ToList() as $value) {
+            $visualize[$value->GetSubmission()] = json_decode($value->GetResult());
+        }
+        return $visualize;
+    } 
 }

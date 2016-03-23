@@ -57,4 +57,12 @@ class AnalyzerService
     {
         FactoryDao::AnalyzerDao()->DeleteFilteredList(QueryParameter::Where('Analyzer', $analyzer));
     }
+    /**
+     * Clear analyzer results
+     * @param string $analyzer
+     */
+    public function ClearBySubmission($Submission)
+    {
+        FactoryDao::AnalyzerDao()->DeleteFilteredList(QueryParameter::Where('Submission', $Submission));
+    }
 }

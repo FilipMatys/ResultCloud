@@ -3,7 +3,6 @@
 \usepackage[IL2]{fontenc} 
 \usepackage[utf8]{inputenc}
 \usepackage[left=2cm,text={17cm, 24cm},top=2.5cm]{geometry}
-\usepackage{lipsum}
 \usepackage{hyperref}
 \title{Bachelor work \\[1mm]}
 \author{Bohdan Iakymets \\ \email{xiakym00@stud.fit.vutbr.cz}}
@@ -15,6 +14,8 @@
 Main goal of a project is design and make mechanism for analyzing and notify users about interesting changes in new uploaded submissions. Mechanism must support a few types of notifications and have possibility to extend types. Also changes must have interface for results presentation. Interested people would be able to set notifications about interesting analyze results.
 It is important and useful, cause biggest part of test results are not interesting and useless information, like same testing results. So main goal of analyzing is find the interesting results and show it to user.
 
+Analyzing of submissions is very important, because a lot of results a useless, in most cases are the same data, so it don't any important information. Analyzing help save developer's time, it finds useful information and notify developer or other interested people about it, so anyone in any time can easyly find needed information, or see statistics of project.
+
 But first of all, I must learn inner architecture of ResultCloud. How it works. It helps me better use all opportunities in design and programming that mechanism.
 
 \section{Introduction in ResultCloud}
@@ -22,8 +23,9 @@ But first of all, I must learn inner architecture of ResultCloud. How it works. 
 
 ResultCloud is a system for management of long-term testing results. It's means, ResultCloud collect testing results for some project and compare it, so developer can easy find difference between them. In now days doesn't exist new, modern instruments for collecting and showing in humans readable form testing results. How wrote Fillip Matys: “Nástroje, které tento problém řeší, jako například Dejazilla [3], jsou již zastaralé a zaostávají svou implementací za vývojem samotných aplikací. Nevýhodou těchto nástrojů je nemožnost rozšíření o další formáty testovacích sad a s narůstajícím podílem mobilních zařízení s přístupem na internet i neschopnost prezentovat data v responzivní podobě.” So all instruments which we have now is too old, and doesn't extendable. But in ResultCloud prasing and management do modules. Each module is written for one type of testing results. For example module “DejaGnu summary v1.0” can parse and show only SystemTap results. 
 
-Data organization in ResultCloud is represent in Plugins(Modules) which contains Projects, Projects  contains Submissions is a results of a single series of tests, which also divide to Categories, TestCases and Results.
-In this bachelor work I will work only with Submissions.
+Data organization in ResultCloud is represent in Plugins. Plugins are modules, every plugin have own implementation of Parser, which parse input data, but save it in shared Project, Submission and etc entities. Hierarchy of shared entities is Projects  contains Submissions, Submissions is a results of a single series of tests, which also divide to Categories, Categories are divided to TestCases, and TestCases to Results.
+
+In this bachelor work I will analyzing Submissions, like their Results, and other stuff that may be interesting for people.
 
 \subsection{What is Submission}
 

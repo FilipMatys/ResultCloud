@@ -58,7 +58,6 @@ class AnalyzerTSE
     public function MapDbObject($dbAnalyzer)
     {
         // Map Results
-        $this->Id = $dbAnalyzer->Id;
         $this->Submission = $dbAnalyzer->Submission;
         $this->Result = $dbAnalyzer->Result;
         $this->Analyzer = $dbAnalyzer->Analyzer;
