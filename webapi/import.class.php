@@ -63,6 +63,11 @@
 			$data->Project = $_GET['project'];
 			$data->Plugin = $_GET['plugin'];
 			$data->Token = $_GET['token_key'];
+            
+            // Set hash if was sent
+            if (isset($_GET['hash'])) {
+                $data->GitHash = $_GET['hash'];
+            } 
 
 			//Check token
 			$validation = $this->CheckToken($data);
@@ -105,6 +110,12 @@
 			$sessionData = new stdClass();
 			$sessionData->Project = $_GET['project'];
 			$sessionData->Plugin = $_GET['plugin'];
+            // Set hash if was sent
+            if (isset($_GET['hash'])) {
+                $sessionData->GitHash = $_GET['hash'];
+            } else {
+                $sessionData->GitHash = "";
+            }  
 			$sessionData->User = $validation->Data->Id;
 			$sessionData->CreationTime = time();
 			$sessionData->SessionId = uniqid('', true);
@@ -230,6 +241,7 @@
         	$validation->Data->Plugin = $sessions->Single()->Plugin;
         	$validation->Data->Project = $sessions->Single()->Project;
         	$validation->Data->Id = $sessions->Single()->User;
+            $validation->Data->GitHash = $sessions->Single()->GitHash;
 
         	// Return results
         	return $validation;

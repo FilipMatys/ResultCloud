@@ -53,7 +53,7 @@ class ImportService
         // Import file by given plugin
         $importValidation = Importer::Import($validation, $fileParser);
         // Set Git hash if is set
-        if (isset($validation->Data->GitHash))
+        if (isset($validation->Data->GitHash) && !empty($validation->Data->GitHash))
             $importValidation->Data->SetGitHash($validation->Data->GitHash);
 
         // Check import validation
