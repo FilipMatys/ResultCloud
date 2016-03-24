@@ -27,7 +27,7 @@
 	            //Load all information about submission
 	            $submission_tse = new SubmissionTSE();
 	            $submission_tse->MapDbObject($sub_query->Single());
-	            TestSuiteDataService::LoadCategories($submission_tse, Visualization::GetDifferenceDataDepth(DifferenceOverviewType::VIEWLIST));
+	            TestSuiteDataService::LoadCategories($submission_tse, 10);
 
 	            $submissions = array(2);
 	            $submissions[1] = $submission_tse;
@@ -38,7 +38,7 @@
 	                //Load all information about submission
 	                $submission_tse2 = new SubmissionTSE();
 	                $submission_tse2->MapDbObject($sub_query->Single());
-	                TestSuiteDataService::LoadCategories($submission_tse2, Visualization::GetDifferenceDataDepth(DifferenceOverviewType::VIEWLIST));
+	                TestSuiteDataService::LoadCategories($submission_tse2, 10);
 	                $submissions[0] = $submission_tse2;
 
 	                //Compute difference

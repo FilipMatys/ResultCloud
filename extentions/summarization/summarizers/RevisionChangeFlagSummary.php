@@ -16,12 +16,17 @@ class RevisionChangeFlagSummary
         if ($submissionTSE->GetSequenceNumber() == 0)
             return $validation;
 
-        // Try to get submission before and after
+        // Try to get submission before
         $previousTSE = TestSuiteDataService::GetPreviousRevision($submissionTSE, DataDepth::RESULT);
+
+        // Compute for previous
+        $validation->Data = array_merge($this->Compute($previousTSE, $submissionTSE), $validation->Data);
+
+        // Try to get submission after and free memory
+        $previousTSE = null;
         $nextTSE = TestSuiteDataService::GetNextRevision($submissionTSE, DataDepth::RESULT);
 
-        // Compute for previous and next
-        $validation->Data = array_merge($this->Compute($previousTSE, $submissionTSE), $validation->Data);
+        // Compute for next
         $validation->Data = array_merge($this->Compute($submissionTSE, $nextTSE), $validation->Data);
 
         // Return validation
