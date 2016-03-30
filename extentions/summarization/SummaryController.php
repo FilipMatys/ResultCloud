@@ -60,7 +60,7 @@ class SummaryController
         $lData = $summarizationEntityHandler->GetFilteredList(QueryParameter::Where('Submission', $submission->GetId()));
 
         // Check, if there are any data for given submission
-        if (!$lData->IsEmpty)
+        if (!$lData->IsEmpty())   {
             return $lData->ToList();
 
         // Data is empty, so we have to create them
