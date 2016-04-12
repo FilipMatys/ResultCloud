@@ -14,21 +14,47 @@ class UpdatePatch_6
 {
     public $Database;
 
-	public function Update() {
-        // update SUBMISSION
-        $tSubmission = new DbTable('Submission');
+    public function Update()
+    {
 
-        // Set sequence number property
-        $pSequenceNumber = new DbProperty('SequenceNumber');
-        $pSequenceNumber->SetType(DbType::Integer());
-        $pSequenceNumber->NotNull();
+        $tAnalyzer = new DbTable('Analyzer');
+        
+        $pId = new DbProperty('Id');
+        $pId->SetType(DbType::Double());
+        $pId->NotNull();
+        $pId->PrimaryKey();
+        $pId->AutoIncrement();
+        
+        // Set submission property
+        $pSubmission = new DbProperty('Submission');
+        $pSubmission->SetType(DbType::Double());
         // Add key to table
-        $tSubmission->AddProperty($pSequenceNumber);
+        $tAnalyzer->AddProperty($pSubmission);
+        
+        // Set token property
+        $pAnalyzer = new DbProperty('Analyzer');
+        $pAnalyzer->SetType(DbType::Varchar(255));
+        $pAnalyzer->NotNull();
+        // Add value to table
+        $tAnalyzer->AddProperty($pAnalyzer);
 
-		$driver = new UpdateDriver();
-        $validation = $driver->Update(UpdateDriver::ADD_TO_TABLE, $tSubmission);
+        // Set plugin id property
+        $pResult = new DbProperty('Result');
+        $pResult->SetType(DbType::Text());
+        $pResult->NotNull();
+        // Add key to table
+        $tAnalyzer->AddProperty($pResult);
+
+        // Set project id property
+        $pProject = new DbProperty('Project');
+        $pProject->SetType(DbType::Double());
+        $pProject->NotNull();
+        // Add key to table
+        $tAnalyzer->AddProperty($pProject);
         
-        
-		return $validation;
+        $driver = new UpdateDriver();
+        $validation = $driver->Update(UpdateDriver::INSERT_TABLE, $tAnalyzer);
+
+        return $validation;
     }
 }

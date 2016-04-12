@@ -65,6 +65,8 @@ class DatabaseInstallation
         $this->CreateTb_TemplateSettingsItem();
         // Update
         $this->CreateTb_UpdateItem();
+        // Analyzer
+        $this->CreateTb_Analyzer();
     }
     
     /**
@@ -209,9 +211,14 @@ class DatabaseInstallation
         // Set project property
         $pProject = new DbProperty('Project');
         $pProject->SetType(DbType::Double());
-        $pProject->NotNull();
         // Add project to table
         $tTemplateSettings->AddProperty($pProject);
+
+        // Set project property
+        $pUser = new DbProperty('User');
+        $pUser->SetType(DbType::Double());
+        // Add User to table
+        $tTemplateSettings->AddProperty($pUser);
 
         // Set Name property
         $pName = new DbProperty('Name');
@@ -237,9 +244,14 @@ class DatabaseInstallation
         // Set Component property
         $pComponent = new DbProperty('Component');
         $pComponent->SetType(DbType::Double());
-        $pComponent->NotNull();
         // Add Component to table
         $tTemplateSettings->AddProperty($pComponent);
+
+        // Set Extention property
+        $pExtention = new DbProperty('Extention');
+        $pExtention->SetType(DbType::Varchar(255));
+        // Add Extention to table
+        $tTemplateSettings->AddProperty($pExtention);
         
         // Set View property
         $pView = new DbProperty('View');
@@ -825,6 +837,53 @@ class DatabaseInstallation
         
         // Add table to database
         $this->Database->AddTable($tResult);
+    }
+
+    /**
+     * Create analyzer table
+     * - Id [double]
+     * - Submission [double]
+     * - Result [text]
+     * - Analyzer [varchar(255)]
+     */
+    private function CreateTb_Analyzer()  {
+        $tAnalyzer = new DbTable('Analyzer');
+        
+        $pId = new DbProperty('Id');
+        $pId->SetType(DbType::Double());
+        $pId->NotNull();
+        $pId->PrimaryKey();
+        $pId->AutoIncrement();
+        
+        // Set submission property
+        $pSubmission = new DbProperty('Submission');
+        $pSubmission->SetType(DbType::Double());
+        // Add key to table
+        $tAnalyzer->AddProperty($pSubmission);
+        
+        // Set token property
+        $pAnalyzer = new DbProperty('Analyzer');
+        $pAnalyzer->SetType(DbType::Varchar(255));
+        $pAnalyzer->NotNull();
+        // Add value to table
+        $tAnalyzer->AddProperty($pAnalyzer);
+
+        // Set plugin id property
+        $pResult = new DbProperty('Result');
+        $pResult->SetType(DbType::Text());
+        $pResult->NotNull();
+        // Add key to table
+        $tAnalyzer->AddProperty($pResult);
+
+        // Set project id property
+        $pProject = new DbProperty('Project');
+        $pProject->SetType(DbType::Double());
+        $pProject->NotNull();
+        // Add key to table
+        $tAnalyzer->AddProperty($pProject);
+        
+        // Add table to database
+        $this->Database->AddTable($tAnalyzer);
     }
     
     /**

@@ -6,7 +6,7 @@
 
 class Library	{
     //Database version
-    const DB_VERSION = 3;
+    const DB_VERSION = 7;
 	// Folder constants
 	// - utilities
 	const UTILITIES = "utilities";
@@ -23,6 +23,7 @@ class Library	{
     const CORLY_DAO_APPLICATION = "corly/dao/application";
     const CORLY_DAO_SETTINGS = "corly/dao/settings";
     const CORLY_DAO_UPDATE = "corly/dao/update";
+    const CORLY_DAO_EXTENTION = "corly/dao/extention";
 
     const EXTENTIONS_SUMMARIZERS = "extentions/summarization";
 	
@@ -33,6 +34,7 @@ class Library	{
     const CORLY_DAO_IMPLEMENTATION_SUITE = "corly/daoImplementation/suite";
     const CORLY_DAO_IMPLEMENTATION_SETTINGS = "corly/daoImplementation/settings";
     const CORLY_DAO_IMPLEMENTATION_UPDATE = "corly/daoImplementation/update";
+    const CORLY_DAO_IMPLEMENTATION_EXTENTION = "corly/daoImplementation/extention";
 
     // db create
     const CORLY_DBCREATE = "corly/dbCreator";
@@ -54,8 +56,9 @@ class Library	{
     const CORLY_SERVICE_UTILITIES = "corly/service/utilities";
     const CORLY_SERVICE_SETTINGS = "corly/service/settings";
     const CORLY_SERVICE_FACTORY = "corly/service/factory";
-    const CORLY_SERVICE_VISUALIZATION = "corly/service/visualization";    
-    const CORLY_SERVICE_UPDATE = "corly/service/update";    
+    const CORLY_SERVICE_VISUALIZATION = "corly/service/visualization";
+    const CORLY_SERVICE_UPDATE = "corly/service/update";
+    const CORLY_SERVICE_EXTENTION = "corly/service/extention";
     // - visualization
     const VISUALIZATION = "visualization";
     const VISUALIZATION_DIFFERENCE = "visualization/difference";
@@ -73,6 +76,9 @@ class Library	{
     
     // Plugins
     const PLUGINS = "plugins";
+
+    const EXTENTIONS_ANALYZERS = "extentions/analyzing";
+    const EXTENTIONS_NOTIFICATION = "extentions/notification";
   
 	/**
 	 * Include files of given folder

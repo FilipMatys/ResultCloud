@@ -26,7 +26,7 @@ class SubmissionService
      * @param mixed $projectId 
      * @return validation
      */
-    public function Save($submission, $projectId)    {
+    public function Save(&$submission, $projectId)    {
         // Init validation
         $validation = $this->ValidateSubmission($submission, $projectId);
         
@@ -40,6 +40,7 @@ class SubmissionService
 
         // Save submission
         $submissionId = FactoryDao::SubmissionDao()->Save($submission->GetDbObject($projectId));
+        $submission->setId($submissionId);
         
         // Save categories with test cases
         FactoryService::CategoryService()->SaveCategories($submission->GetCategories(), $submissionId);
@@ -166,10 +167,11 @@ class SubmissionService
      * @param mixed $depth
      * @return mixed
      */
-    public function LoadSubmissions($projectTSE, $depth, $queryPagination = null)   {
+    public function LoadSubmissions(&$projectTSE, $depth, $queryPagination = null)   {
         // Load submissions for given project
         $lSubmissions = FactoryDao::SubmissionDao()->GetFilteredList(QueryParameter::Where('Project', $projectTSE->GetId()), $queryPagination);
         
+        error_log("One: ".$lSubmissions->GetTotalCount());
         // Map submissions to TSE objects and load categories
         foreach ($lSubmissions->ToList() as $dbSubmission)
         {
@@ -251,6 +253,7 @@ class SubmissionService
                 return $validation;
             }
         
+            FactoryService::AnalyzerService()->ClearBySubmission($dbSubmission->Id);
             PluginServices::DeleteSubmission($dbSubmission);
         }
         FactoryDao::SubmissionDao()->DeleteFilteredList(QueryParameter::Where('Project', $projectId));

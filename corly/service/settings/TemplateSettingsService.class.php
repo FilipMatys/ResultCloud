@@ -8,6 +8,7 @@ Library::using(Library::CORLY_SERVICE_PLUGIN, ["PluginManagementService.class.ph
 Library::using(Library::CORLY_DAO_STAT, ['ViewType.enum.php']);
 Library::using(Library::CORLY_DAO_STAT, ['TemplateSettingsItemType.enum.php']);
 Library::using(Library::UTILITIES);
+Library::using(Library::EXTENTIONS_NOTIFICATION);
 
 /**
  * Template settings service
@@ -51,29 +52,37 @@ class TemplateSettingsService
      * @param identifier
      * @return template settings
      */
-    public function GetByIdentifier($identifier, $projectId)    {
+    public function GetByIdentifier($identifier, $projectId, $user=null)    {
         // Init validation
         $validation = new ValidationResult($identifier);
         $validation->IsTrue(!empty($identifier), "Identifier not set");
-
         // Check validation
         if (!$validation->IsValid)
             return $validation;
+        
+        $templateSettings = null;
 
-        // Get component
-        $component = FactoryService::ComponentService()->GetFilteredList(QueryParameter::Where('Identifier', $identifier))->Single();
+        if (is_null($user)) {
+            // Get component
+            $component = FactoryService::ComponentService()->GetFilteredList(QueryParameter::Where('Identifier', $identifier))->Single();
 
-        // Get template
-        $templateSettings = self::GetFilteredList(QueryParameter::WhereAnd(array('Project', 'Component'), array($projectId, $component->Id)))->Single();
+            // Get template
+            $templateSettings = self::GetFilteredList(QueryParameter::WhereAnd(array('Project', 'Component'), array($projectId, $component->Id)))->Single();
 
-        // Init validation
-        $validation = new ValidationResult($templateSettings);
-
+            // Init validation
+            $validation = new ValidationResult($templateSettings);
+        }
+        else {
+            // Get template
+            $templateSettings = self::GetFilteredList(QueryParameter::WhereAnd(array('User', 'Extention'), array($user, $identifier)))->Single();
+            $validation = new ValidationResult($templateSettings);
+        }
         // Get template items and map them to their identifier
         $items = array();
         foreach (FactoryDao::TemplateSettingsItemDao()->GetFilteredList(QueryParameter::Where('Template', $templateSettings->Id))->ToList() as $item) {
             $items[$item->Identifier] = $item->Value;
         }
+
 
         // Return validation
         return new ValidationResult($items);
@@ -89,6 +98,10 @@ class TemplateSettingsService
         
         // Init components settings
         $this->InitProjectComponents($project);
+    }
+
+    public function InitUserSettings($user) {
+        $this->InitNotificationSettings($user);
     }
     
     /**
@@ -139,6 +152,53 @@ class TemplateSettingsService
         // Save template items
         $this->CreateComponentSettingsItems($templateSettings, $meta[1]);
     }
+
+    /**
+     * Create settings for given notifier
+     */
+    private function CreateNotifierSettings($user, $notifier)  {
+        // Create new template
+        $templateSettings = new TemplateSettings();
+        
+        // Assign values
+        $templateSettings->User = $user->Id;
+        $templateSettings->Name = $notifier . " settings";
+        $templateSettings->UF = 1;
+        $templateSettings->Extention = $notifier;
+        $templateSettings->View = 0;
+        $templateSettings->Type = TemplateSettingsType::NOTIFIER;
+        
+        // Save template
+        $templateSettings->Id = FactoryDao::TemplateSettingsDao()->Save($templateSettings);
+        error_log("work1");
+        // Save template items
+        $this->CreateNotifierSettingsItems($templateSettings, $notifier);
+    }
+
+    /**
+     * Create notifier settings
+     */
+    private function CreateNotifierSettingsItems($templateSetting, $n) {
+
+        $notifier = NotificationController::getNotifierById($n);
+        if (!$notifier)
+            return;
+        // Save each item
+        foreach ($notifier->getSettings() as $template) {
+            // Create new item
+            $templateSettingsItem = new TemplateSettingsItem();
+            // Assign values
+            $templateSettingsItem->Template = $templateSetting->Id;
+            $templateSettingsItem->Label = (string)$template['label'];
+            $templateSettingsItem->Identifier = (string)$template['identifier'];
+            $templateSettingsItem->Value = (string)$template['default'];
+            $templateSettingsItem->Type = (int)$template['type'];
+            $templateSettingsItem->Required = 1 ? (string)$template['required'] === 'true' : 0; 
+            error_log("work2");
+            // Save item
+            FactoryDao::TemplateSettingsItemDao()->Save($templateSettingsItem);
+        }
+    }
     
     /**
      * Update given project with new component
@@ -157,6 +217,15 @@ class TemplateSettingsService
         // Create template settings for each component
         foreach ($components as $component) {
             $this->CreateComponentSettings($project, $component);
+        }
+    }
+
+    private function InitNotificationSettings($user) {
+        $notifiers = NotificationController::getPrivateNotifiers();
+
+         // Create template settings for each notify
+        foreach ($notifiers as $notifier) {
+            $this->CreateNotifierSettings($user, $notifier);
         }
     }
     

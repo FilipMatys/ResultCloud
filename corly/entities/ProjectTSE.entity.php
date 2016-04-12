@@ -24,9 +24,12 @@ class ProjectTSE extends PaginatedTSE
     /**
      * Project test suite entity constructor
      */
-    public function __construct()   {
+    public function __construct($projectEntity = null)   {
         $this->Submissions = array();
         $this->Id = 0;
+        if ($projectEntity !== null) {
+            $this->MapDbObject($projectEntity);
+        }
     }
 
     /**

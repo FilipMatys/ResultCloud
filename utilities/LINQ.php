@@ -367,6 +367,14 @@ class LINQ
         }
 
     }
+    
+    /**
+     * Pop last element from array
+     */
+    public function Pop()
+    {
+        array_pop($this->Array);
+    }
 
     /**
      * Comparation function
