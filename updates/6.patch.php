@@ -16,7 +16,7 @@ class UpdatePatch_6
 
     public function Update()
     {
-
+        $this->Database = new DbDatabase("");
         $tAnalyzer = new DbTable('Analyzer');
         
         $pId = new DbProperty('Id');
@@ -53,7 +53,8 @@ class UpdatePatch_6
         $tAnalyzer->AddProperty($pProject);
         
         $driver = new UpdateDriver();
-        $validation = $driver->Update(UpdateDriver::INSERT_TABLE, $tAnalyzer);
+        $this->Database->AddTable($tAnalyzer);
+        $validation = $driver->Update(UpdateDriver::INSERT_TABLE, $this->Database);
 
         return $validation;
     }

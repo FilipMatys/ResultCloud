@@ -88,7 +88,11 @@ abstract class Database  {
             // Now bind parameters
             call_user_func_array(array($statement, 'bind_param'), $this->refValues($values));
         }
-        
+              
+        // Log if there is an error
+        if (!$statement)
+          error_log($this->db->error);
+              
         // Execute query
         $statement->execute();
 
@@ -172,6 +176,9 @@ abstract class Database  {
         // Get records
         $statement = $this->db->prepare($statementQuery);
         
+        if (!$statement)
+          error_log($this->db->error);
+        
         // Process params
         if (!is_array($parameter->Value))
             $statement->bind_param($this->ObjectPropertyParser->getValueType($parameter->Value), $parameter->Value);
@@ -187,6 +194,10 @@ abstract class Database  {
             // Now bind parameters
             call_user_func_array(array($statement, 'bind_param'), $this->refValues($values));    
         }
+        
+        // Log if there is an error
+        if (!$statement)
+          error_log($this->db->error);
         
         // Execute statement
         $statement->execute();

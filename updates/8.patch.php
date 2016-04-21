@@ -10,7 +10,7 @@ Library::using(Library::UTILITIES);
  * @version 1.0
  * @author Bohdan Iakymets
  */
-class UpdatePatch_7
+class UpdatePatch_8
 {
     public $Database;
 

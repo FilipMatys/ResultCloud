@@ -18,16 +18,6 @@ class UpdatePatch_7
     {
         $driver = new UpdateDriver();
         $tTemplateSettings = new DbTable('TemplateSettings');
-
-        // Set project property
-        $pProject = new DbProperty('Project');
-        $pProject->SetType(DbType::Double());
-        // Add project to table
-        $tTemplateSettings->AddProperty($pProject);
-
-        $driver->Update(UpdateDriver::DROP_FROM_TABLE, $tTemplateSettings); 
-
-        $tTemplateSettings = new DbTable('TemplateSettings');
         
         // Set project property
         $pUser = new DbProperty('User');
